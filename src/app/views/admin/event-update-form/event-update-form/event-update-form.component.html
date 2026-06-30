@@ -1,0 +1,134 @@
+<main id="main">
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/admin/events">Events</a></li>
+                <li class="breadcrumb-item active">Update</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow-sm h-100 col-md-6">
+                <div class="card-body">
+                    <h1 class="text-center fw-bold mb-3" style="color: #AF3065;">Update Event</h1>
+
+                    <form [formGroup]="eventForm">
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Name</label>
+                            <input formControlName="name" type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Name...">
+                        </div>
+                        <div *ngIf="eventForm?.get('name')?.invalid && (eventForm?.get('name')?.dirty || eventForm?.get('name')?.touched)">
+                            <div *ngIf="eventForm?.get('name')?.hasError('required')" class="alert alert-danger mt-3">Name is required.</div>
+                          </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Price</label>
+                            <input formControlName="price" type="number" class="form-control"
+                                id="exampleFormControlInput2" placeholder="" min="0">
+                        </div>
+                        <div *ngIf="eventForm?.get('price')?.invalid && (eventForm?.get('price')?.dirty || eventForm?.get('price')?.touched)">
+                            <div *ngIf="eventForm?.get('price')?.hasError('required')" class="alert alert-danger mt-3">Price is required.</div>
+                            <div *ngIf="eventForm?.get('price')?.hasError('min')" class="alert alert-danger mt-3">Wrong input.</div>
+                          </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Facebook Link</label>
+                            <input formControlName="facebook" type="text" class="form-control" id="exampleFormControlInput1"
+                                >
+                        </div>
+                        <div *ngIf="eventForm?.get('facebook')?.invalid && (eventForm?.get('facebook')?.dirty || eventForm?.get('facebook')?.touched)">
+                            <div *ngIf="eventForm?.get('facebook')?.hasError('required')" class="alert alert-danger mt-3">Facebook link is required.</div>
+                            <div *ngIf="eventForm?.get('facebook')?.hasError('pattern')" class="alert alert-danger mt-3">Invalid Facebook link format.</div>
+                          </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Google meet Link</label>
+                            <input formControlName="ggmeet" type="text" class="form-control" id="exampleFormControlInput1"
+                                >
+                        </div>
+                        <div *ngIf="eventForm?.get('ggmeet')?.invalid && (eventForm?.get('ggmeet')?.dirty || eventForm?.get('ggmeet')?.touched)">
+                            <div *ngIf="eventForm?.get('ggmeet')?.hasError('required') " class="alert alert-danger mt-3">Google meet link is required.</div>
+                            <div *ngIf="eventForm?.get('ggmeet')?.hasError('pattern')" class="alert alert-danger mt-3">Invalid Google meet link format.</div>
+                          </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Date</label>
+                            <input formControlName="date" type="date" class="form-control"
+                                id="exampleFormControlInput3" placeholder="">
+                        </div>
+                        <div *ngIf="eventForm?.get('date')?.invalid && (eventForm?.get('date')?.dirty || eventForm?.get('date')?.touched)">
+                            <div *ngIf="eventForm?.get('date')?.hasError('required')" class="alert alert-danger mt-3">Date is required.</div>
+                          </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Description</label>
+                            <textarea formControlName="description" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div *ngIf="eventForm?.get('description')?.invalid && (eventForm?.get('description')?.dirty || eventForm?.get('description')?.touched)">
+                            <div *ngIf="eventForm?.get('description')?.hasError('required')" class="alert alert-danger mt-3">Description is required.</div>
+                          </div>
+
+                        <div class="Neon Neon-theme-dragdropbox mt-4">
+                            <input (change)="onFileSelected($event)"
+                                style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;"
+                                id="filer_input2" type="file">
+
+                            <div class="Neon-input-dragDrop">
+                                <div class="Neon-input-inner">
+                                    <div class="Neon-input-icon">
+                                        <i class="fa fa-file-image-o"></i>
+                                    </div>
+                                    <div class="Neon-input-text">
+                                        <h3>Drag&amp;Drop files here</h3>
+                                    </div>
+                                    <div *ngIf="eventForm.get('Image')!.value">
+                                        <img [src]="getImage()" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+
+
+
+
+
+                            <!-- <div class="modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Success</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">OK</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="alert alert-danger mt-3"></div> -->
+                            <button type="button" id="submitButton" name="submitButton" class="btn" (click)="updateEvent()"
+                                style="background-color: #AF3065; color: white; border-radius: 5px;">Update</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

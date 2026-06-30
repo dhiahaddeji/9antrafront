@@ -1,0 +1,92 @@
+<main>
+  <!-- Add this in the <head> section of your HTML file -->
+   <!-- Add these lines to the head section of your HTML -->
+
+
+
+  <div class="d-lg-none d-md-block"><br><br><br></div>
+  <div class="row">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-center justify-content-end">
+      <button
+        type="button"
+        class="btn p-2 border pe-3 me-3 register"
+        routerLink="/admin/categorieForm"
+      >
+        <i class="bi bi-plus fa-2xl me-3"></i>Add New
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <br />
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let o of tabCategorie">
+        <div class="card shadow-sm mb-4">
+          <div class="row mt-4 mx-2 mb-3">
+            <p
+              class="nav-profile d-flex align-items-center"
+              href="view profile.html"
+            >
+              <span class="fw-bold ps-4">{{ o.nomCate }}</span>
+              <span>
+                <div class="filter">
+                  <button
+                    class="icon"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    style="border: none; background-color: #ffffff00"
+                  >
+                    <i
+                      class="bi bi-three-dots-vertical"
+                      style="margin-left: 150px"
+                    ></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                  >
+                    <li class="dropdown-header text-start"></li>
+                    <li><button class="dropdown-item" href="#" (click)="showUpdateForm(o)">
+                      <span><i class="bi bi-pencil-square me-3"></i> </span>Update
+                    </button></li>
+                    <button class="dropdown-item text-danger" href="#" (click)="deleteCategrie(o.id)">
+                      <span><i class="bi bi-trash3 corbeille-icon"><i class="fa-regular fa-trash-can me-2"></i> </i> Delete</span>
+                    </button>
+                  </ul>
+                </div>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add the update form under the category cards -->
+    <div *ngIf="updateFormVisible" class="row mt-4">
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <form (ngSubmit)="updateCategory()">
+              <div class="form-group">
+                <label for="nomCate">Category Name:</label>
+                <input type="text" class="form-control" id="nomCate" name="nomCate" [(ngModel)]="selectedCategory.nomCate" required>
+              </div>
+              <!-- Add more form fields here for other category properties as needed -->
+              <button type="submit" class="btn btn-primary">Update Category</button>
+              <button type="button" class="btn btn-danger" (click)="updateFormVisible = false">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

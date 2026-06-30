@@ -1,0 +1,461 @@
+<main class="gx-5">
+  <div style="margin-bottom: 50px" class="d-block d-lg-none"></div>
+  <div class="row justify-content-between">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Groups</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Groups List</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-center justify-content-end">
+      <button
+        type="button"
+        class="btn filter p-2 border pe-3 me-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        <i class="bi bi-filter-square fa-2xl me-3"></i> Filter
+      </button>
+
+      <button
+        type="button"
+        class="btn register p-2 border pe-3"
+        (click)="openCreateGroupModal()"
+      >
+        <i class="bi bi-plus fa-2xl me-3"></i> Create Group
+      </button>
+
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="staticBackdropLabel"
+                style="color: #af3065; font-weight: bold"
+              >
+                Filter
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-8 form__group field mt-3">
+                    <label class="mb-3 form__label">Status</label>
+                    <select
+                      name="status"
+                      id="id_select"
+                      autofocus="true"
+                      class="form__field"
+                    >
+                      <option value="Status" disabled selected>Status</option>
+                      <option value="1">Paid</option>
+                      <option value="0">Unpaid</option>
+                      <option value="2">Panding</option>
+                      <option value="3">Canceled</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                  <div class="col-8 form__group field mt-5 mb-3">
+                    <label class="mb-3 form__label">Training</label>
+                    <select
+                      name="Formation"
+                      id="id_select"
+                      autofocus="true"
+                      class="form__field"
+                    >
+                      <option value="1" disabled selected>Training</option>
+                      <option>Formation</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                class="btn register"
+              >
+                filter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="staticBackdrop1"
+        [class.show]="showCreateModal"
+        [style.display]="showCreateModal ? 'block' : 'none'"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="staticBackdropLabel"
+                style="color: #af3065; font-weight: bold"
+              >
+                New Groupe
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                (click)="closeCreateGroupModal()"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="createGroup()" [formGroup]="myForm" novalidate>
+                <div class="row">
+                  <div
+                    class="col-6 d-flex justify-content-center align-items-center"
+                  >
+                    <img
+                      src="assets/img/3d-casual-life-robot-smile.png"
+                      class="w-75"
+                      alt=""
+                    />
+                  </div>
+                  <div class="col-6">
+                    <div class="row text-center">
+                      <div class="form__group field mt-4">
+                        <label class="mb-3 form__label">Training *</label>
+                        <select
+                          formControlName="formationId"
+                          autofocus="true"
+                          class="form__field"
+                          [ngClass]="{'is-invalid': myForm.get('formationId')?.invalid && myForm.get('formationId')?.touched}"
+                        >
+                          <option value="" disabled selected>Select a training</option>
+                          <option
+                            *ngFor="let formation of formations"
+                            [value]="formation.id"
+                          >
+                            {{ formation.nomFormation }}
+                          </option>
+                        </select>
+                        <div class="text-danger mt-1" *ngIf="myForm.get('formationId')?.invalid && myForm.get('formationId')?.touched">
+                          Training is required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="form__group field mt-4">
+                        <input
+                          type="text"
+                          formControlName="groupName"
+                          class="form__field"
+                          [ngClass]="{'is-invalid': myForm.get('groupName')?.invalid && myForm.get('groupName')?.touched}"
+                          placeholder="Group name"
+                          id="groupName"
+                        />
+                        <label for="groupName" class="form__label"
+                          >Group Name *</label
+                        >
+                        <div class="text-danger mt-1" *ngIf="myForm.get('groupName')?.invalid && myForm.get('groupName')?.touched">
+                          Group name is required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="form__group field mt-4 mb-5">
+                        <label class="mb-3 form__label">Coach *</label>
+                        <select
+                          formControlName="formateurId"
+                          id="id_select"
+                          autofocus="true"
+                          class="form__field"
+                          [ngClass]="{'is-invalid': myForm.get('formateurId')?.invalid && myForm.get('formateurId')?.touched}"
+                        >
+                          <option value="" disabled selected>Select a coach</option>
+                          <option
+                            *ngFor="let coach of tabCoach"
+                            [value]="coach.id"
+                          >
+                            {{ coach.firstName }} {{ coach.lastName }}
+                          </option>
+                        </select>
+                        <div class="text-danger mt-1" *ngIf="myForm.get('formateurId')?.invalid && myForm.get('formateurId')?.touched">
+                          Coach is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <div *ngIf="myForm.invalid" class="text-danger mt-2">
+                    Please fill in all required fields.
+                  </div>
+
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="closeCreateGroupModal()"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn register"
+                    [disabled]="myForm.invalid"
+                  >
+                    Create
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-backdrop fade" [class.show]="showCreateModal" [style.display]="showCreateModal ? 'block' : 'none'"></div>
+    </div>
+  </div>
+  <!-- End Page Title -->
+
+  <!-- Groups section -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6" *ngFor="let group of allGroups">
+        <div class="card shadow-sm mb-4">
+          <div class="row mt-4 mx-2">
+            <div class="nav-profile d-flex align-items-center justify-content-between">
+              <span class="fw-bold ps-4">#{{ group.groupName }}</span>
+              <span class="position-relative">
+                <div class="filter">
+                  <button
+                    class="icon"
+                    (click)="toggleMenu(group.id); $event.stopPropagation()"
+                    style="border: none; background-color: #ffffff00; cursor: pointer;"
+                  >
+                    <i
+                      class="bi bi-three-dots-vertical"
+                      style="margin-right: 10px"
+                    ></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    [ngClass]="{'show': openMenuId === group.id}"
+                    [style.display]="openMenuId === group.id ? 'block' : 'none'"
+                  >
+                    <li class="dropdown-header text-start"></li>
+
+                    <li>
+                      <button
+                        class="dropdown-item mb-2"
+                        (click)="addStudentsToGroup(group.id); closeMenu()"
+                      >
+                        <span><i class="fa-solid fa-user-plus me-3"></i> </span>
+                        Add Students
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item mb-2"
+                        (click)="openGroupMembersDialog(group.id); closeMenu()"
+                      >
+                        <span><i class="fa-regular fa-eye me-3"></i> </span>
+                        Insight
+                      </button>
+                    </li>
+                    <li>
+                      <button class="dropdown-item mb-2" [routerLink]="['/admin/groups/records']"
+                      [queryParams]="{ id: group.id }"
+                      (click)="closeMenu()">
+                        <span
+                          ><i class="fa-regular fa-circle-play me-4"></i> </span
+                        >Records
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item mb-2"
+                        [routerLink]="['/admin/groups/calendar']"
+                        [queryParams]="{ groupId: group.id }"
+                        (click)="closeMenu()"
+                      >
+                        <span><i class="fa-regular fa-calendar me-4"></i> </span
+                        >Calendar
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item mb-2 text-danger"
+                        (click)="confirmDeleteGroup(group.id); closeMenu()"
+                      >
+                        <span
+                          ><i class="fa-regular fa-trash-can me-4"></i> </span
+                        >Delete
+                      </button>
+                    </li>
+                  </ul>
+                </div></span>
+            </div>
+          </div>
+
+          <div class="card-body my-3 mx-5">
+            <div class="mb-3 align-items-center d-flex">
+              <span class="pe-5 fw-bold">Coach:</span>
+              <img
+                src="assets/Documents/{{ group.formateur.image }}"
+                width="40px"
+                height="40px"
+                class="rounded-circle"
+              />
+              <span class="ps-3 text-secondary"
+                >{{ group.formateur.firstName }}
+                {{ group.formateur.lastName }}</span
+              >
+            </div>
+            <div class="mb-3 align-items-center d-flex">
+              <span class="pe-4 fw-bold">Training:</span>
+              <span class="badge bg-danger">{{
+                group.formation.nomFormation
+              }}</span>
+            </div>
+            <div class="trainer-profile d-flex align-items-center mb-3">
+              <span class="pe-4 fw-bold">Members:</span>
+              <ng-container *ngIf="allGroups.length > 0; else noMembers">
+                <ng-container
+                  *ngFor="
+                    let studentImage of getStudentImages(group.id);
+                    let i = index
+                  "
+                >
+                  <img
+                    *ngIf="i < 3"
+                    [src]="'assets/Documents/' + studentImage"
+                    width="40px"
+                    height="40px"
+                    class="rounded-circle"
+                  />
+                </ng-container>
+              </ng-container>
+              <ng-template #noMembers>
+                <div class="trainer-profile d-flex align-items-center mb-3">
+                  <span class="pe-4 fw-bold">No members in this group.</span>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Selection Modal -->
+  <div
+    class="modal fade"
+    id="studentSelectionModal"
+    [class.show]="showStudentSelectionModal"
+    [style.display]="showStudentSelectionModal ? 'block' : 'none'"
+    tabindex="-1"
+    aria-labelledby="studentSelectionLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5
+            class="modal-title"
+            id="studentSelectionLabel"
+            style="color: #af3065; font-weight: bold"
+          >
+            Select Students to Add
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeStudentSelectionModal()"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <p class="text-muted">
+                Available Students: {{ availableStudents.length }}
+              </p>
+              <div class="list-group">
+                <div
+                  *ngFor="let student of availableStudents"
+                  class="list-group-item d-flex align-items-center cursor-pointer"
+                  (click)="toggleStudentSelection(student)"
+                  style="cursor: pointer"
+                >
+                  <input
+                    type="checkbox"
+                    class="form-check-input me-3"
+                    [checked]="isStudentSelected(student)"
+                  />
+                  <img
+                    [src]="'assets/Documents/' + student.image"
+                    width="40px"
+                    height="40px"
+                    class="rounded-circle me-3"
+                  />
+                  <div>
+                    <strong>{{ student.firstName }} {{ student.lastName }}</strong>
+                    <br />
+                    <small class="text-muted">{{ student.username }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeStudentSelectionModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="btn register"
+            (click)="confirmAddStudents()"
+            [disabled]="selectedStudents.length === 0"
+          >
+            Add {{ selectedStudents.length }} Student(s)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal-backdrop fade"
+    [class.show]="showStudentSelectionModal"
+    [style.display]="showStudentSelectionModal ? 'block' : 'none'"
+  ></div>

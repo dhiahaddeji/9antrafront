@@ -1,0 +1,113 @@
+ <!-- ======= Hero Section ======= -->
+<style>
+  .card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-right: 20px; /* Ajoute une marge à droite de chaque carte */
+
+}
+.my-custom-card {
+  height: 400px; /* Définissez la hauteur souhaitée pour la carte */
+  /* Autres styles personnalisés pour la carte */
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  position: relative;
+}
+
+.text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limite à 2 lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.5em;
+}
+
+.see-more-link {
+  display: none;
+  margin-top: 0.5em;
+  font-style: italic;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.expanded .text {
+  -webkit-line-clamp: initial; /* Affiche toutes les lignes */
+}
+
+.expanded .see-more-link {
+  display: inline-block;
+}
+
+</style>
+ <section id="hero" class="d-flex align-items-center" data-aos="fade-up">
+    <img src="assets/img/hackerspaces.png" class="img-fluid" alt="">
+      </section><!-- End Hero -->
+
+
+        <!-- ======= Hackerspace Section ======= -->
+        <section id="Hackerspace" class="Hackerspace mt-5">
+          <div class="container" data-aos="fade-up">
+            <div class="section-title mb-5 text-center">
+              <!-- <h2>{{region}} Hackerspace</h2> -->
+              <h2>Nos Projets</h2>
+
+              <h5>Venez jetez un coup d'oeil sur nos projets!</h5>
+              <hr>
+              <button type="button" class="btn p-2 border pe-3 me-3 register" routerLink="/specificProject">
+                <i class="bi bi-plus fa-2xl me-3"></i>Order A Specific Project
+              </button>
+             
+          
+            </div>
+
+            <div class="row" >
+
+              <div class="card my-custom-card" *ngFor="let project of adminProjects">
+                <div *ngIf="project.image">
+                    <div>
+                      <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + project.image.split(',')[0].trim()"   />
+
+                    </div>
+                  </div>
+                                    <div class="card-details">
+              <h3>{{ project.titre }}</h3>
+                    <p>Technologies : {{ project.technologies }}</p>
+                    <div class="text" *ngIf="project.description.length > 40">
+                      {{ project.description.substring(0, 40) }}...
+                    </div>
+                    <div class="text" *ngIf="project.description.length <= 40">
+                      {{ project.description }}
+                    </div>
+                                      </div>
+                  <br>
+<button (click)="showEventDetails(project.id)" >See More Details</button>
+                </div>
+               
+                </div>
+          
+</div>
+
+              <div class="col-lg-7  mt-lg-0 d-flex align-items-stretch">
+                <!-- <iframe class="shadow" src="{{location}} | safe" width="700" height="400"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe> -->
+
+              </div>
+
+        </section>
+        <!-- <app-form-section></app-form-section> -->
+

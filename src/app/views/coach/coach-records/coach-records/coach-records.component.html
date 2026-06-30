@@ -1,0 +1,56 @@
+<main id="main" class="main">
+  <div class="d-lg-none d-md-block"><br><br><br></div>
+  <div class="pagetitle">
+    <h1>Records</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/student">Home</a></li>
+        <li class="breadcrumb-item active">Records</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+
+  <!-- records section -->
+  <div class="container">
+
+    <div class="row">
+
+      <div *ngFor="let i of ListViedo" class="col-lg-4 col-md-6 mb-3">
+        <div class="card shadow-sm">
+
+          <video width="100%" height="225" id="videoPlayer" controls>
+            <source src="assets/Records/{{i.videoLink}}" type="video/webm">
+          </video>
+          <div class="card-body">
+            <div class=" mt-2   d-flex justify-content-between align-items-start">
+              <img src="assets/Documents/{{imagepath}}" alt="Profile" width="50px" height="50px" class="rounded-circle">
+              <div class="ms-4 me-auto">
+                <div class="fw-bold">{{fullName}}</div>
+                {{i.title}}
+
+                <button style="border: none; background-color: #FF4744; border-radius: 2px; " (click)="deleteRecord(i.id)">
+                  <i class="fa-solid fa-xmark my-2 mx-2  fa-lg" style="color: #ffffff;"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="ListViedo?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+        <div class="nodata">
+          <img src="../../../../../assets/img/nodata.png" width="250px"><br>
+          <p style="overflow: hidden;">There are no records available.</p>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <!-- End records section -->
+
+
+</main>

@@ -1,0 +1,126 @@
+<main>
+  <div style="margin-bottom: 50px;" class="d-block d-lg-none"> </div>
+  <div class="row justify-content-between" style="padding: 20px 0 20px 20px;">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Quiz</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Quiz List</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-center justify-content-end">
+      <button
+        type="button"
+        class="btn register p-2 border pe-3"
+        data-bs-toggle="modal"
+        style="margin-right: 70px;"
+        data-bs-target="#staticBackdrop"
+      >
+        <i class="bi bi-filter-square fa-2xl me-3"></i> Filter
+      </button>
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="staticBackdropLabel"
+                style="color: #af3065; font-weight: bold"
+              >
+                Filter
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-8 form__group field mt-5 mb-3">
+                    <label class="mb-3 form__label">Training</label>
+                    <select
+                      name="Formation"
+                      id="id_select"
+                      autofocus="true"
+                      class="form__field mt-2"
+                      [(ngModel)]="formationId"
+                    >
+                      <option [value]="0" disabled selected>Training</option>
+                      <option   *ngFor="let i of formations"  [value]="i.id">{{i.nomFormation}}</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                class="btn register"
+                (click)="getAllQuiz()"
+              >
+                filter
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="info mt-2" style="position: relative;margin: 20px;">
+    <h1 style="color: black;">Welcomde to " <strong>QUIZ</strong> "</h1>
+    <p style="font-size: 17px;">This quiz will contains many questions. Each Question holds 10 Points</p>
+    <h4>Rules:</h4>
+    <ol>
+        <li> Correct Question gives you 10 points</li>
+        <li> Incorrect question gives to -10 points</li>
+        <li> You will have 10 sec to answer each question</li>
+        <li> Refreshing the page will the timer</li>
+    </ol>
+  </div>
+  <div class="container mt-4">
+    <div class="row" *ngIf="quiz?.length!=0">
+      <div class="col-lg-4 col-md-6" *ngFor="let i of quiz" routerLink="/student/student-quiz-play/{{i.id}}">
+        <div class="card shadow-sm mb-4" (click)="setQuizItemsStorage()">
+          <div class="row mt-4 mx-2">
+            <div class="nav d-flex justify-content-center">
+              <p class="text-center"><span style="font-size: 20px;color: black;font-weight: normal;">{{i.name}}</span></p>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #b9b0b0;"></div>
+          <div class="card-body"style="cursor: pointer;">
+            <div class="mb-3 align-items-center d-flex" style="font-size: 20px;">
+             <span style="font-weight: bold;margin-right: 20px;color: black;">Training  : </span> {{i.formationId.nomFormation}}
+            </div>
+            <div class="trainer-profile d-flex align-items-center mb-3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="quiz?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+      <div class="row nodata">
+        <img src="../../../../../assets/img/nodata.png" width="250px" height="250px"><br>
+        <p style="overflow: hidden;">There are no quiz available.</p>
+      </div>
+    </div>
+  </div>
+</main>

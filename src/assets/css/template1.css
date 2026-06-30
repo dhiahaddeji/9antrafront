@@ -1,0 +1,175 @@
+
+@import url('https://fonts.cdnfonts.com/css/inter');
+                
+.logo {
+    width: 170px;
+    height: 33px;
+    
+  }
+
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+    border: 1px solid #DFDFDF;
+    position: relative;
+    width: 698px;
+    height: 820px;
+}
+.line{
+    width: 420px;
+height: 0px;
+
+border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.title{
+    width: 570px;
+height: 45px;
+
+font-family: 'inter';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+line-height: 45px;
+text-align: center;
+
+color: #000000;
+
+}
+.text{
+/* Paragraph 1 */
+
+
+width: 570px;
+height: 22px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 22px;
+margin: 30px;
+/* identical to box height, or 157% */
+
+text-align: center;
+
+color: #333333;
+}
+.image{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+width: 623px;
+height: 256px;
+
+border-radius: 20px;
+}
+.title1{
+    width: 570px;
+    height: 45px;
+    
+    font-family: 'inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 45px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #000000;
+}
+.text1{
+    width: 570px;
+    height: 198px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 157% */
+    
+    text-align: center;
+    
+    color: #333333;
+}
+
+/* common styles !!! YOU DON'T NEED THEM */
+.effect .buttons {
+
+    display: flex;
+    justify-content: center;
+  }
+  /* styles for a common effect !!!YOU NEED THEM */
+  .effect a {
+    text-decoration: none !important;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 20px;
+    overflow: hidden;
+   
+    color: #212121;
+   
+  }
+  /* amiens effect */
+  .effect.amiens a {
+    transition: all 0.2s linear 0.2s;
+  }
+  .effect.amiens a i {
+    transition: all 0.2s linear 0s;
+  }
+  .effect.amiens a:hover {
+    transition: all 0.2s linear 0s;
+    border-color: rgba(33, 33, 33, 0);
+  }
+  .effect.amiens a:hover i {
+    transform: scale(1.15);
+    text-shadow: 4px 0px 3px rgba(33, 33, 33, 0.3);
+    transition: all 0.2s linear 0.2s;
+  }
+  .copyright{
+    
+width: 570px;
+height: 16px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+/* identical to box height, or 133% */
+
+text-align: center;
+
+color: #999999;
+  }
+  .button{
+   border: none;
+width: 263px;
+height:160px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+text-align: center;
+border-radius: 8px;
+color: #FFFFFF;
+
+
+background: #AF3065;
+
+  }
+  .button:hover{
+    box-shadow: 4px 3px 6px 1px rgba(0, 0, 0, 0.25);
+    background: #c3145d;
+  } 

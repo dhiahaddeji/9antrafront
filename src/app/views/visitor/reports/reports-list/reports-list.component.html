@@ -1,0 +1,36 @@
+
+<section id="hero" class="d-flex align-items-center" data-aos="fade-up">
+    <div class="image-container">
+      <img src="assets/img/nosformation.png" class="img-fluid" alt="">
+      <h1 class="image-heading fw-bolder" style="font-size: 32px;">Reports</h1>
+    </div>
+  </section>
+  
+  <div data-aos="fade-up" class="mt-2">
+    <div *ngIf="showLoader">
+      <app-loader></app-loader>
+  </div>
+    <div class="container">
+      <div class="row justify-content-start">
+        <ng-container *ngIf="reports && !showLoader">
+          <div class="col-md-4 mb-4 mt-4 custom-card-width " *ngFor="let r of reports">
+            <div class="card">
+              <img class="card-img-top" [src]="getImage(r)" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ r.title }}</h5>
+                <p class="card-text">{{ r.description }}</p>
+                <div class="d-flex justify-content-center">
+                  <a *ngIf="userLoggedIn" class="btn register mt-3" (click)="download(r)">Download</a>
+                  <a *ngIf="!userLoggedIn" class="btn register mt-3" (click)="login()">Login</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <app-help></app-help>
+  
+

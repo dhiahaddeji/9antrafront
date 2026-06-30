@@ -1,0 +1,37 @@
+<div class="container-fluid " style="height: 110vh;display: flex;justify-content: center;margin-top: 100px;">
+  <div class="list" style="height: 90vh;width: auto;">
+    <div class="title d-flex justify-content-between mt-3 mb-3">
+
+      <h1 style="font-weight: bold;color: rgb(63, 63, 63);margin: 10px 0px 15px 20px;">Notifications</h1>
+      <h2  style="margin: 10px 30px 0px 0px;cursor: pointer;" routerLink="notifications">All</h2>
+    </div>
+    <!-- <div class="divider"></div> -->
+    <ng-container *ngIf="notifications?.length!=0">
+        <li  style="margin: 20px 20px;" class="position-relative li" style="list-style: none;" *ngFor="let i of notifications" (click)="changeStatusToSeenDetails(i.id)">
+          <div  *ngIf="i.status !=-1 && i.status!=2" class="circle" style="position: absolute;border-radius: 50%;background-color: #d23e7b;width:15px;right: 0;top: 40%;height: 15px;"></div>
+          <div  *ngIf="i.status!=2" class="circle" style="position: absolute;border-radius: 50%;background-color: #3d3c3c;width:15px;right: 0;top: 40%;height: 15px;"></div>
+          <i  class="bi bi-x position-absolute" style="color: grey;top: 0;right: -15px;font-size: 30px;" (click)="deleteById(i.id)"></i>
+          <div class="notif row" style="padding: 10px;border-radius: 10px;cursor: pointer;" routerLink="{{i.link}}">
+              <div class="col-3 d-flex align-items-center">
+                  <img src="../../../../assets/img/9ant.png" width="80%" height="90px" style="border-radius: 50%;">
+              </div>
+              <div class="col-9 mt-2" style="font-weight: bold;position: relative;">
+                <h2 style="margin-bottom: 0px;font-weight: bold;">{{i.title}}</h2>
+                  <span class="message">{{i.message}}</span><br>
+                  <span style="font-size: 12px;color: grey;margin-top: 5px;"> {{( i.created_at).substring(0,10) }} : {{( i.created_at).substring(11,16)}}
+                  </span>
+              </div>
+          </div>
+        </li>
+    </ng-container>
+    <div class="" *ngIf="notifications?.length==0">
+      <h3 style="text-align: center;margin:30px 0px 30px 0px;">No notifications are currently available</h3>
+    </div>
+    <div class="pagination d-flex justify-content-end mt-5 py-5">
+      <button class="prev-button" [disabled]="page==0"
+      (click)="previousPage()">Previous</button>
+      <button class="next-button"  [disabled]="page==count_page-1 || page==count_page "
+      (click)="nextPage()">Next</button>
+    </div>
+  </div>
+</div>

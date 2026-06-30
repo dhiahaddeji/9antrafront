@@ -1,0 +1,121 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+}
+
+a {
+  color: #47b2e4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #73c5eb;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Jost", sans-serif;
+}
+
+.register {
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 28px 11px 28px;
+
+  transition: 0.5s;
+  margin: 10px 0 0 0;
+  color: #fff;
+  background: #af3065;
+}
+
+.register:hover {
+  color: #fff;
+  background: #d8208e;
+}
+
+/*--------------------------------------------------------------
+# Sections inscription
+--------------------------------------------------------------*/
+#inscription {
+  background-color: #f8f8f8;
+}
+
+.form__group {
+  position: relative;
+  padding: 15px 30px 0;
+  margin-top: 10px;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #383838;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #595959;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 1.2rem;
+  cursor: text;
+  top: 20px;
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1.3rem;
+  color: #505050;
+}
+
+.form__field:focus ~ .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 700;
+}
+.trainers .social {
+  margin-top: 15px;
+}
+
+.trainers .social a {
+  color: #98a2b3;
+  transition: 0.3s;
+}
+
+.trainers .social a:hover {
+  color: #fab555;
+}
+
+.trainers .social i {
+  font-size: 18px;
+  margin: 0 2px;
+}
+
+a {
+  color: grey;
+}
+a:hover {
+  color: #af3065;
+  text-decoration: none;
+}

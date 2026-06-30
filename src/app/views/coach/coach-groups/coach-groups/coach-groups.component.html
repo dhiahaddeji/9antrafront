@@ -1,0 +1,168 @@
+<main>
+  <div class="d-lg-none d-block mobile-spacer"></div>
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div>
+        <h5 class="page-title">My Groups</h5>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a routerLink="/coach">Home</a></li>
+            <li class="breadcrumb-item active">Groups</li>
+          </ol>
+        </nav>
+      </div>
+      <button type="button" class="btn-create" (click)="openCreateModal()">
+        <i class="bi bi-plus-lg"></i> New Group
+      </button>
+    </div>
+
+    <!-- Groups grid -->
+    <div class="groups-grid" *ngIf="groups.length > 0; else empty">
+      <div class="group-card" *ngFor="let group of groups">
+
+        <!-- Card top bar -->
+        <div class="gc-top">
+          <div class="gc-avatar">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <div class="gc-actions">
+            <!-- Upload record -->
+            <button type="button" class="gc-btn" title="Upload record"
+              (click)="getIdGroupe(group.id)"
+              data-bs-toggle="modal" [attr.data-bs-target]="'#uploadModal'">
+              <i class="bi bi-upload"></i>
+            </button>
+            <!-- Records -->
+            <button type="button" class="gc-btn" title="Records"
+              [routerLink]="['/coach/groups', group.id, 'records']">
+              <i class="bi bi-play-circle"></i>
+            </button>
+            <!-- Delete -->
+            <button type="button" class="gc-btn gc-btn-danger" title="Delete group"
+              (click)="deleteGroup(group.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card body -->
+        <div class="gc-body">
+          <div class="gc-name"># {{ group.groupName }}</div>
+          <div class="gc-meta" *ngIf="group.formation?.nomFormation">
+            <i class="bi bi-mortarboard me-1"></i>{{ group.formation.nomFormation }}
+          </div>
+          <div class="gc-meta text-muted" *ngIf="!group.formation?.nomFormation">
+            <i class="bi bi-mortarboard me-1"></i>No formation linked
+          </div>
+        </div>
+
+        <!-- Members row -->
+        <div class="gc-footer">
+          <div class="gc-members">
+            <ng-container *ngIf="group.etudiants?.length > 0; else noMembers">
+              <img *ngFor="let img of getStudentImages(group.id)"
+                [src]="'assets/Documents/' + img"
+                class="member-avatar"
+                onerror="this.src='assets/img/profile-img.jpg'" alt="">
+              <span class="member-count" *ngIf="group.etudiants.length > 3">
+                +{{ group.etudiants.length - 3 }}
+              </span>
+            </ng-container>
+            <ng-template #noMembers>
+              <span class="no-members-text">No members yet</span>
+            </ng-template>
+          </div>
+          <span class="member-total">
+            {{ group.etudiants?.length || 0 }} member{{ group.etudiants?.length !== 1 ? 's' : '' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <ng-template #empty>
+      <div class="empty-state">
+        <img src="../../../../../assets/img/nodata.png" alt="No groups" width="180">
+        <p>No groups yet. Create your first group!</p>
+        <button type="button" class="btn-create" (click)="openCreateModal()">
+          <i class="bi bi-plus-lg"></i> New Group
+        </button>
+      </div>
+    </ng-template>
+
+  </div>
+</main>
+
+<!-- ── Backdrop ────────────────────────────────────────────────────────── -->
+<div class="modal-backdrop-custom" *ngIf="showCreateModal" (click)="showCreateModal = false"></div>
+
+<!-- ── Create Group Modal ──────────────────────────────────────────────── -->
+<div class="modal-custom" *ngIf="showCreateModal">
+  <div class="modal-card">
+    <div class="mc-header">
+      <span class="mc-title"><i class="bi bi-people-fill me-2"></i>New Group</span>
+      <button type="button" class="mc-close" (click)="showCreateModal = false">&#x2715;</button>
+    </div>
+    <div class="mc-body">
+      <form [formGroup]="groupForm">
+
+        <div class="field-group">
+          <label class="field-label">Group Name <span class="req">*</span></label>
+          <input type="text" class="field-input" formControlName="groupName"
+            placeholder="e.g. React Bootcamp – G1">
+          <span class="field-error"
+            *ngIf="groupForm.get('groupName')?.invalid && groupForm.get('groupName')?.touched">
+            Name is required (min 2 characters).
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Link to Formation <span class="optional">(optional)</span></label>
+          <select class="field-input" formControlName="formationId" title="Select a formation">
+            <option value="">— No formation —</option>
+            <option *ngFor="let f of formations" [value]="f.id">{{ f.nomFormation }}</option>
+          </select>
+        </div>
+
+      </form>
+    </div>
+    <div class="mc-footer">
+      <button type="button" class="btn-cancel" (click)="showCreateModal = false">Cancel</button>
+      <button type="button" class="btn-save" (click)="createGroup()" [disabled]="isCreating">
+        <span *ngIf="isCreating" class="spinner"></span>
+        <i *ngIf="!isCreating" class="bi bi-check-lg"></i>
+        {{ isCreating ? 'Creating…' : 'Create Group' }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Upload Record Modal (uses MDB data-bs-toggle) ──────────────────── -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow">
+      <div class="modal-header border-0 upload-modal-header">
+        <h5 class="modal-title text-white fw-bold"><i class="bi bi-upload me-2"></i>Upload Record</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body px-4 py-3">
+        <form [formGroup]="RecordForm">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Title</label>
+            <input type="text" class="form-control" formControlName="title" placeholder="Enter title">
+          </div>
+          <div class="mb-2">
+            <label class="form-label fw-semibold">Video file</label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" accept="video/*">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-light rounded-3" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-upload rounded-3" (click)="AddRecordsForm()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

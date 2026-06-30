@@ -1,0 +1,323 @@
+<!-- ======= inscription Section ======= -->
+
+<section id="inscription" class="inscription pt-5 pb-5">
+  <div class="container" data-aos="fade-up">
+    <h1 style="text-align: center;font-size: 40px;margin-bottom: 50px;">Register in our trainings</h1>
+    <div class="row justify-content-between">
+      <div class="col-lg-5 photo">
+        <img src="assets/img/form.png" class="img-fluid w-75" alt="" />
+      </div>
+      <div class="col-lg-6 d-flex align-items-stretch">
+
+        <form
+          method="post"
+          [formGroup]="AddStudent"
+          role="form"
+          class="php-email-form"
+        >
+          <div class="row">
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                name="FirstName"
+                formControlName="fFirstName"
+                type="input"
+                class="form__field"
+                placeholder="firstname"
+                name="firstname"
+                id="firstname"
+                required
+              />
+              <label for="firstname" class="form__label">First Name</label>
+              <!-- Email required-->
+              <div
+                *ngIf="
+                  AddStudent.controls['fFirstName'].invalid &&
+                  (AddStudent.controls['fFirstName'].dirty ||
+                    AddStudent.controls['fFirstName'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    AddStudent.controls['fFirstName'].errors &&
+                    AddStudent.controls['fFirstName'].errors['required']
+                  "
+                >
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-triangle-exclamation me-3"></i> First
+                    Name is required</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="form__group field col-md-6 mt-5">
+              <input
+                name="FirstName"
+                formControlName="fFirstName"
+                type="input"
+                class="form__field"
+                placeholder="firstname"
+                name="firstname"
+                id="name"
+                required
+              />
+              <label for="firstname" class="form__label">First Name</label>
+              <div
+                *ngIf="
+                  AddStudent.controls['fFirstName'].invalid &&
+                  (AddStudent.controls['fFirstName'].dirty ||
+                    AddStudent.controls['fFirstName'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    AddStudent.controls['fFirstName'].errors &&
+                    AddStudent.controls['fFirstName'].errors['required']
+                  "
+                >
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-triangle-exclamation me-3"></i> First
+                    Name is required</span
+                  >
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                name="LastName"
+                formControlName="fLastName"
+                type="input"
+                class="form__field"
+                placeholder="lastname"
+                name="lastname"
+                id="lastname"
+                required
+              />
+              <label for="lastname" class="form__label">Last Name</label>
+              <!-- Email required-->
+              <div
+                *ngIf="
+                  AddStudent.controls['fLastName'].invalid &&
+                  (AddStudent.controls['fLastName'].dirty ||
+                    AddStudent.controls['fLastName'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    AddStudent.controls['fLastName'].errors &&
+                    AddStudent.controls['fLastName'].errors['required']
+                  "
+                >
+                  <span class="text-danger">
+                    <i class="fa-solid fa-triangle-exclamation me-3"></i> Last
+                    Name is required</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="form__group field col-md-6 mt-5">
+              <input
+                name="LastName"
+                formControlName="fLastName"
+                type="input"
+                class="form__field"
+                placeholder="lastname"
+                name="lastname"
+                id="name"
+                required
+              />
+              <label for="lastname" class="form__label"> Last Name</label>
+
+              <div
+                *ngIf="
+                  AddStudent.controls['fLastName'].invalid &&
+                  (AddStudent.controls['fLastName'].dirty ||
+                    AddStudent.controls['fLastName'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    AddStudent.controls['fLastName'].errors &&
+                    AddStudent.controls['fLastName'].errors['required']
+                  "
+                >
+                  <span class="text-danger">
+                    <i class="fa-solid fa-triangle-exclamation me-3"></i> Last
+                    Name is required</span
+                  >
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="form__group field col-md-6 mt-5">
+              <select
+                name="Country"
+                formControlName="fCountry"
+                id="id_select"
+                autofocus="true"
+                class="form__field with-flag"
+              >
+                <option disabled selected>Select Country</option>
+                <option value="Tunisia" class="flag-tunisia">Tunisia</option>
+                <option value="Algeria" class="flag-algeria">Algeria</option>
+              </select>
+
+              <div
+                *ngIf="
+                  AddStudent.controls['fCountry'].invalid &&
+                  (AddStudent.controls['fCountry'].dirty ||
+                    AddStudent.controls['fCountry'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    AddStudent.controls['fCountry'].errors &&
+                    AddStudent.controls['fCountry'].errors['required']
+                  "
+                >
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-triangle-exclamation me-3"></i>
+                    Country is required</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                name="PhoneNumber"
+                formControlName="fPhoneNumber"
+                type="text"
+                class="form__field"
+                placeholder="Subject"
+                name="Phone"
+                id="Phone"
+              />
+              <label for="Phone" class="form__label">Phone Number</label>
+
+              <div
+                *ngIf="
+                  AddStudent.get('fPhoneNumber')?.dirty &&
+                  !isValidNumber(AddStudent.get('fPhoneNumber')?.value)
+                "
+                class="text-danger"
+              >
+                <span class="text-danger"
+                  ><i class="fa-solid fa-triangle-exclamation me-3"></i> Please
+                  enter a valid number</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form__group field mt-5">
+              <input
+                name="username"
+                formControlName="fusername"
+                type="input"
+                class="form__field"
+                placeholder="email"
+                name="email"
+                id="email"
+                required
+
+              />
+              <label for="email" class="form__label">E-mail</label>
+              <!-- Email required-->
+              <div
+                *ngIf="
+                  AddStudent.controls['fusername'].invalid &&
+                  (AddStudent.controls['fusername'].dirty ||
+                    AddStudent.controls['fusername'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    AddStudent.controls['fusername'].errors &&
+                    AddStudent.controls['fusername'].errors['required']
+                  "
+                >
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-triangle-exclamation me-3"></i>Email
+                    is required</span
+                  >
+                </div>
+
+                <div
+                  *ngIf="
+                    AddStudent.controls['fusername'].errors &&
+                    AddStudent.controls['fusername'].errors['email']
+
+                  "
+                >
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-triangle-exclamation me-3"></i
+                    >Invalid email address</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form__group field mt-5">
+              <select
+                name="Formation"
+                formControlName="fFormation"
+                id="id_select"
+                autofocus="true"
+                class="form__field"
+              >
+                <option disabled selected>Select Training</option>
+                <option
+                  *ngFor="let x of Allformation"
+                  [value]="x.id"
+                >
+                  {{ x.nomFormation }}
+                </option>
+                <div
+                  *ngIf="
+                    AddStudent.controls['fFormation'].invalid &&
+                    (AddStudent.controls['fFormation'].dirty ||
+                      AddStudent.controls['fFormation'].touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      AddStudent.controls['fFormation'].errors &&
+                      AddStudent.controls['fFormation'].errors['required']
+                    "
+                  ></div>
+                  <span class="text-danger"
+                    ><i class="fa-solid fa-triangle-exclamation me-3"></i>
+                    Formation is required</span
+                  >
+                </div>
+              </select>
+            </div>
+          </div>
+
+          <div class="text-end mt-5 m-3">
+            <button
+              type="submit"
+              (click)="AddStudentForm()"
+              class="btn get-started"
+              [disabled]="isLoading"
+            >
+              <span
+                *ngIf="isLoading"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span>Register</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End inscription Section -->

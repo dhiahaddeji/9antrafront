@@ -1,0 +1,161 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+
+  
+/*--------------------------------------------------------------
+# Cource Details
+--------------------------------------------------------------*/
+.register {
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 28px 11px 28px;
+
+  transition: 0.5s;
+  margin: 10px 0 0 0;
+  color: #fff;
+  background: #AF3065;
+  
+}
+
+.register:hover {
+  color: #fff;
+  background: #d8208e;
+}
+.shadow1{
+    background-color: #ffffff;
+    width: 700px;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    }
+  .shadow{
+      box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      
+    }
+  
+  .course-details h3 {
+      font-size: 24px;
+      margin: 30px 0 15px 0;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .course-details h3:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: #eef0ef;
+      bottom: 0;
+      left: 0;
+    }
+    
+  
+    
+    .course-details .course-info {
+      background: #f6f7f6;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+    }
+    
+    .course-details .course-info h5 {
+      font-weight: 400;
+      font-size: 16px;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+    }
+    
+    .course-details .course-info p {
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .course-details .course-info a {
+      color: #657a6d;
+    }
+    
+  
+    .course-details button[type=submit] {
+      background: #AF3065;
+      border: 0;
+      padding: 12px 100px;
+      color: #fff;
+      transition: 0.4s;
+      border-radius: 15px;  
+    }
+    
+    .course-details  button[type=submit]:hover {
+      background: #d8208e;
+    }
+    
+  /*--------------------------------------------------------------
+  # Cource Details Tabs
+  --------------------------------------------------------------*/
+  .cource-details-tabs {
+      overflow: hidden;
+      padding-top: 0;
+    }
+    
+    .cource-details-tabs .nav-tabs {
+      border: 0px;
+    
+    }
+    
+    .cource-details-tabs .nav-link {
+      padding: 15px 25px;
+   margin: 15px;
+      border-radius: 15px;
+      color: #787878;
+      font-size: 14px;
+  
+      font-weight: 600;
+      background: #d1d1d1;
+    }
+    
+    .cource-details-tabs .nav-link:hover {
+      background-color: #AF3065;
+      color: #ffffff;
+    }
+    
+    .cource-details-tabs .nav-link.active {
+      color: #ffffff;
+      background-color: #AF3065;
+    }
+    
+    .cource-details-tabs .tab-pane.active {
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .cource-details-tabs .details h3 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #37423b;
+    }
+    
+    .cource-details-tabs .details p {
+      color: #777777;
+    }
+    
+    .cource-details-tabs .details p:last-child {
+      margin-bottom: 0;
+    }
+    
+  
+    
+    
+    
+    

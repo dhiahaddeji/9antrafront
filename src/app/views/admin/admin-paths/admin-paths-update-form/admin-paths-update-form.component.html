@@ -1,0 +1,138 @@
+<main id="main">
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/admin/paths">Paths</a></li>
+                <li class="breadcrumb-item active">Update</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow-sm h-100 col-md-6">
+                <div class="card-body">
+                    <h1 class="text-center fw-bold mb-3" style="color: #AF3065;">Update Path</h1>
+
+                    <form [formGroup]="pathsForm">
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <input formControlName="title" type="text" class="form-control" id="exampleFormControlInput1"
+                                >
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('title')?.invalid && (pathsForm?.get('title')?.dirty || pathsForm?.get('title')?.touched)">
+                            <div *ngIf="pathsForm?.get('title')?.hasError('required')" class="alert alert-danger mt-3">
+                                Title is required.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Description</label>
+                            <textarea formControlName="description" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('description')?.invalid && (pathsForm?.get('description')?.dirty || pathsForm?.get('description')?.touched)">
+                            <div *ngIf="pathsForm?.get('description')?.hasError('required')"
+                                class="alert alert-danger mt-3">Description is required.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Duration</label>
+                            <input formControlName="duration" type="number" class="form-control"
+                                id="exampleFormControlInput2" placeholder="" step="1" min="0">
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('duration')?.invalid && (pathsForm?.get('duration')?.dirty || pathsForm?.get('duration')?.touched)">
+                            <div *ngIf="pathsForm?.get('duration')?.hasError('required')" class="alert alert-danger mt-3">
+                                duration is required.</div>
+                            <div *ngIf="pathsForm?.get('duration')?.hasError('min')" class="alert alert-danger mt-3">Wrong
+                                input.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Language</label>
+                                <select formControlName="language" id="inputGroupSelect01" class="custom-select form-control">
+                                    <option value="TUNISIAN"> TUNISIAN </option>
+                                    <option value="FRENCH"> FRENCH</option>
+                                    <option value="ENGLISH"> ENGLISH</option>
+                                </select>
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('language')?.invalid && (pathsForm?.get('language')?.dirty || pathsForm?.get('language')?.touched)">
+                            <div *ngIf="pathsForm?.get('language')?.hasError('required')"
+                                class="alert alert-danger mt-3">Description is required.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Price</label>
+                            <input formControlName="price" type="number" class="form-control"
+                                id="exampleFormControlInput2" placeholder="" min="0">
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('price')?.invalid && (pathsForm?.get('price')?.dirty || pathsForm?.get('price')?.touched)">
+                            <div *ngIf="pathsForm?.get('price')?.hasError('required')" class="alert alert-danger mt-3">
+                                Price is required.</div>
+                            <div *ngIf="pathsForm?.get('price')?.hasError('min')" class="alert alert-danger mt-3">Wrong
+                                input.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Learning Goals</label>
+                            <textarea formControlName="learningGoals" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3" placeholder="Separate goals with comma"></textarea>
+                        </div>
+
+
+                        <!-- <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Learning Modules</label>
+                            <textarea formControlName="learningModules" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3" placeholder="Title:Description,"></textarea>
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('learningModules')?.invalid && (pathsForm?.get('learningModules')?.dirty || pathsForm?.get('learningModules')?.touched)">
+                            <div *ngIf="pathsForm?.get('learningModules')?.hasError('required')"
+                                class="alert alert-danger mt-3">Learning modules are required.</div>
+                        </div> -->
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Career development</label>
+                            <textarea formControlName="careerDevelopment" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div
+                            *ngIf="pathsForm?.get('careerDevelopment')?.invalid && (pathsForm?.get('careerDevelopment')?.dirty || pathsForm?.get('careerDevelopment')?.touched)">
+                            <div *ngIf="pathsForm?.get('careerDevelopment')?.hasError('required')"
+                                class="alert alert-danger mt-3">Career Development is required.</div>
+                        </div>
+                        
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Image</label>
+                            <input (change)="onImageSelected($event)" class="form-control" id="filer_input2" type="file">
+                          </div>
+
+                        <div class="d-flex justify-content-end">
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+                                </div>
+                                <div class="col"> <button type="button" id="submitButton" name="submitButton"
+                                        class="btn" (click)="updatePath()"
+                                        style="background-color: #AF3065; color: white; border-radius: 5px;">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

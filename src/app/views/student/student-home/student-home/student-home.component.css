@@ -1,0 +1,96 @@
+:root {
+    scroll-behavior: smooth;
+  }
+
+.hover{
+  -moz-transform: scale(1);
+  -webkit-transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+.hover:hover{
+  -moz-transform: scale(1.04);
+  -webkit-transform: scale(1.04);
+  -o-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  transform: scale(1.04);
+}
+
+
+  @media (min-width: 991.98px) {
+    main {
+      padding-left: 300px;
+    }
+  }
+  /*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+  .pagetitle {
+    margin-bottom: 10px;
+  }
+
+  .pagetitle h1 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #000000;
+  }
+  .card {
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 16px;
+    border: 0;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+
+  .stat {
+    background: linear-gradient(90.21deg, #F2A89D 0.19%, #E585A5 41.65%, #E071A9 79.12%, #BC78C1 99.92%);
+    box-shadow: 6px 7px 25px rgba(130, 130, 130, 0.25);
+    padding: 50px;
+    border-radius: 16px;
+    border: 0;
+    margin-bottom: 1rem;
+  }
+ main {
+    font-family: "Open Sans", sans-serif;
+    background: #f5f7f9;
+    color: #444444;
+    height: 100%;
+  }
+  .session-btn {
+    background-color: #AF3065;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .session-btn:hover {
+    background-color: #8d1f4f;
+  }
+    /* Breadcrumbs */
+    .breadcrumb {
+      font-size: 14px;
+      font-family: "Nunito", sans-serif;
+      color: #899bbd;
+      font-weight: 600;
+    }
+
+    .breadcrumb a {
+      color: #899bbd;
+      transition: 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      color: #51678f;
+    }
+
+    .breadcrumb .breadcrumb-item::before {
+      color: #899bbd;
+    }
+
+    .breadcrumb .active {
+      color: #51678f;
+      font-weight: 600;
+    }

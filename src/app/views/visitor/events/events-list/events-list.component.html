@@ -1,0 +1,65 @@
+<div *ngIf="showLoader">
+    <app-loader></app-loader>
+</div>
+<div *ngIf="events && !showLoader">
+    <div *ngFor="let event of events">
+        <div class="card margin-sm">
+            <div class="card-body">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <a [routerLink]="['/events/eventDetails', event.id]">
+                            <img [src]="getImage(event.image)" class="card-img img-fluid rounded event-image" alt="...">
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a [routerLink]="['/events/eventDetails', event.id]">
+                            <h5 class="card-title fw-bolder text-center">{{ event.name }}</h5>
+                            <p class="card-text mt-4">
+                                {{ event.description }}
+                            </p>
+                        </a>
+                        <div class="col">
+                            <a [routerLink]="['/events/eventDetails', event.id]">
+                                <div class="row no-gutters mt-2">
+                                    <p class="fw-bolder">Date : {{ event.date | date:'dd-MM-yy' }}</p>
+                                </div>
+                                <div class="row no-gutters">
+                                    <p *ngIf="event.price == 0" class="fw-bolder">Price : Free</p>
+                                    <p *ngIf="event.price != 0" class="fw-bolder">Price : {{ event.price | currency:'TND' }}
+                                    </p>
+                                </div>
+                            </a>
+                            <div class="row mt-4">
+                                <button *ngIf="!userLoggedIn" (click)="login()" type="button" class="btn register mb-3"><i class="fa-solid fa-plus"></i>
+                                    Register
+                                </button>
+
+                                <div *ngIf="userLoggedIn">
+                                    <button *ngIf="!checkRegistered(event.id!)" (click)="scheduleEvent(event.id!)" type="button" class="btn register mb-3"><i class="fa-solid fa-plus"></i>
+                                        Schedule</button>
+                                    <button *ngIf="checkRegistered(event.id!)" (click)="unregisterFromEvent(event.id!)" type="button" class="btn register mb-3"><i class="fa-solid fa-minus"></i> Cancel</button>
+                                    <div class="row" *ngIf="checkRegistered(event.id!)">
+                                        <div class="col" *ngIf="event.facebookLink">
+                                            <button type="button" class="btn register mb-3" (click)="redirectToExternalURL(event.facebookLink)"><i class="fa-brands fa-facebook-f"></i></button>
+                                        </div>
+                                        <div class="col" *ngIf="event.googleMeetLink">
+                                            <button type="button" class="btn register mb-3" (click)="redirectToExternalURL(event.googleMeetLink)"><i class="fa-brands fa-google"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="events?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+      <div class="nodata">
+        <img src="../../../../../assets/img/nodata.png" width="250px"><br>
+        <p style="overflow: hidden;">There are no events available.</p>
+      </div>
+    </div>
+</div>

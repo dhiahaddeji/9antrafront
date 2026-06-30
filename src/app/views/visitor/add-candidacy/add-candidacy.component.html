@@ -1,0 +1,150 @@
+
+<section id="login" class="login" style="margin-top: 130px; margin-bottom: 100px;">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+        data-aos-delay="200">
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" #foodForm="ngForm" role="form"
+class="php-email-form" *ngIf="!formSubmitted">
+<h1 class="text-center">Add your candidacy</h1>
+<h6 class="text-center" style="color: red;">NB: The asterisk (*) denotes a mandatory field</h6>
+<div class=" text-center">
+  <div class="trainers">
+    
+  </div>
+</div>
+<div class="form__group field">
+  <input class="form__field" type="text" id="titre" name="titre" [(ngModel)]="project.nom" required #t="ngModel">
+  <label for="titre" class="form__label"> First Name  <span class="required">*</span>
+  </label>
+  <div class="alert alert-danger" *ngIf="t.touched && t.invalid">
+    <div *ngIf="t?.errors?.['required']"> First Name is required!</div>
+  </div>
+  </div>
+  <div class="form__group field">
+    <input class="form__field" type="text" id="prenom" name="prenom" [(ngModel)]="project.prenom" required #prenom="ngModel">
+    <label for="titre" class="form__label"> Last Name  <span class="required">*</span>
+    </label>
+    <div class="alert alert-danger" *ngIf="prenom.touched && prenom.invalid">
+      <div *ngIf="prenom?.errors?.['required']"> Last Name is required!</div>
+    </div>
+  </div>
+    <div class="form__group field">
+      <label for="nbExercices" class="form__label">Phone Number <span class="required">*</span></label>
+      <input [(ngModel)]="project.numtel" type="number" name="NumTel" id="NumTel" class="form__field" placeholder="Phone Number" required pattern="[0-9]{8}" #thisDessc="ngModel" />
+        <div class="alert alert-danger" *ngIf="thisDessc.touched && thisDessc.invalid && !formSubmitted">
+          <div *ngIf="thisDessc?.errors?.['required']">Phone Number is required!</div>
+          <div *ngIf="thisDessc?.errors?.['pattern']">Phone Number must contain exactly 8 digits!</div>
+        </div>                           
+    </div>  
+     <div class="form__group field">
+  
+                        <label for="nbExercices" class="form__label">Email <span class="required">*</span></label>
+                         <input [(ngModel)]="project.email" type="email" name="Email" id="Email" class="form__field"placeholder="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #thisPriwce="ngModel" />
+                         <div class="alert alert-danger" *ngIf="thisPriwce.touched && thisPriwce.invalid && !formSubmitted">
+                           <div *ngIf="thisPriwce?.errors?.['required']">Email is required!</div>
+                           <div *ngIf="thisPriwce?.errors?.['pattern']">Invalid email format! The email must contain '@' and '.'.</div>
+                         </div>   
+                         </div>
+  
+                         <div class="form__group field" >
+                          <label for="cv" class="form__label">CV (PDF or DOC) <span class="required">*</span></label>
+                          <hr>
+                          <br>
+      <input type="file" id="cv" class="form__field" (change)="onCvSelected($event)" accept=".pdf,.doc,.docx" required name="cvInput">
+    </div>
+  
+    <div class="form__group field">
+      <label for="lettre" class="form__label">Cover Letter Text</label>
+      <textarea class="form__field" id="lettre" [(ngModel)]="project.lettre" name="description"></textarea>
+    </div>
+    
+    <div class="form__group field">
+      <label for="lettreM" class="form__label">Cover Letter File (PDF or DOC) <span class="required">*</span></label>
+      <hr>
+      <br>
+      <input type="file" id="lettreM" class="form__field" (change)="onLettreMSelected($event)" accept=".pdf,.doc,.docx" required name="lettreMInput">
+    </div>
+    
+    
+    
+    
+  
+    <div class="form__group field">
+      <label for="nbProjects" class="form__label">Experience level <span class="required">*</span></label>
+     <hr> <select id="domaine" class="form__field" [(ngModel)]="project.experience" name="domaine" required #domaine="ngModel">
+      <option value="" >Select Experience Level</option>
+      <option value="Mid Level">Mid Level</option>
+      <option value="Senior Level">Senior Level</option>
+      <option value="Entry Level">Entry Level</option>
+      <option value="No Experience Required">No Experience Required</option>
+    </select>
+    
+        <div *ngIf="domaine.invalid && (domaine.dirty || domaine.touched)" class="text-danger">
+          <div *ngIf="domaine?.errors?.['required']">Experience level is required.</div>
+        </div>
+        
+          </div>
+  
+          <div class="form__group field">
+            <label for="nbProjects" class="form__label">Job Type <span class="required">*</span></label>
+           <hr> <select class="form__field" id="type" [(ngModel)]="project.type" name="type" required #type="ngModel">
+            <option value="">Select Job Type</option>
+
+            <option value="Full-time" >Full-time </option>
+            <option value="Contract" >Contract</option>
+             <option value="Part-time" >Part-time</option>
+             <option value="Temporary" >Temporary</option>
+             <option value="Internship" >Internship</option>
+             <option value="Freelance" >Freelance </option>
+           <option value="On-site" >On-site</option>  
+             
+              </select>
+              <div *ngIf="type.invalid && (type.dirty || type.touched)" class="text-danger">
+                <div *ngIf="type?.errors?.['required']">Type is required.</div>
+              </div>
+              
+                </div>
+  
+                <div class="form__group field">
+                  <label for="nbProjects" class="form__label">Education <span class="required">*</span></label>
+                 <hr> <select class="form__field" id="ed" [(ngModel)]="project.education" name="ed" required #ed="ngModel">
+                  <option value="">Select Education</option>
+                  <option value="High School Degree">High School Degree </option>
+                  <option value="Associate's Degree">Associate's Degree </option>
+                  <option value="Bachelor's Degree">Bachelor's Degree</option>
+                  <option value="Master's Degree">Master's Degree</option>
+                  <option value="Doctoral Degree">Doctoral Degree</option> 
+                   
+                    </select>
+                    <div *ngIf="ed.invalid && (ed.dirty || ed.touched)" class="text-danger">
+                      <div *ngIf="ed?.errors?.['required']">Education is required.</div>
+                    </div>
+                    
+                      </div>
+  <div class="row">
+       
+     
+    <br><br>
+     <div class="row d-flex justify-content-center">
+         <button type="submit" class=" register btn col-lg-5 mt-2" [disabled]="!foodForm.form.valid || isLoading">
+           <span *ngIf="!isLoading">Submit</span>
+           <span *ngIf="isLoading">Loading...</span>
+         </button>
+
+       <div></div>
+       <br>
+     </div>
+ </div>
+</form>
+<div *ngIf="formSubmitted">
+<h2>Thank you, your candidacy has been successfully submitted. Our team will contact you as soon as possible.</h2>
+</div>  
+</div>
+<div class="col-lg-5 order-1 order-lg-2 photo d-flex align-items-center" data-aos="zoom-in" data-aos-delay="200">
+<img src="assets/img/login.png" class="img-fluid animated mb-5" alt="">
+</div>
+
+</div>
+</div>
+</section><!-- End Login -->

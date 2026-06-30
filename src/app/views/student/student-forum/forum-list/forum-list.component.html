@@ -1,0 +1,83 @@
+<main class="content">
+  <div class="p-0">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-12 col-lg-12 col-xl-12">
+          <div class="header d-flex" style="padding: 40px 40px 0px 20px;">
+            <div class="arrow" style="cursor: pointer;">
+              <i class="bi bi-arrow-left"  routerLink="/student/forum" style="font-size: 25px;margin: 0px 25px 0px 0px;"></i>
+            </div>
+            <p style="font-size: 20px;color: black;font-weight: bold;margin-right: 20px;">{{actualForum.subject}}</p>
+          </div>
+          <div class="divider"></div>
+          </div>
+          <ng-container>
+            <div class="post mt-4" style="padding: 10px; width: 95%; overflow-x: hidden;cursor: pointer;margin-bottom: 30px;margin-left: 20px;">
+              <div class="row">
+                <div class="col-12 col-md-2 col-lg-2 mb-2 d-flex align-items-center">
+                  <img src="assets/Documents/{{actualForum.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33">
+                  <p style="margin: 0px 0px 0px 10px; color: #202124; font-weight: bold;">
+                    {{ actualForum.userEnvoi['firstName'] }} {{ actualForum.userEnvoi['lastName'] }}
+                  </p>
+                </div>
+
+                <!-- Post Content -->
+                <div class="col-12 col-md-10 col-lg-10 mb-2 d-flex justify-content-between text-wrap">
+                  <p style="margin: 7px 0px 0px 0px; color: black; font-weight: bold;text-wrap: wrap;">
+                    {{ actualForum.post }}
+                  </p>
+                  <p style="margin: 7px 0px 0px 0px; color: #808080;">{{ actualForum.created_at | date: 'HH:mm' }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="container-response" style="height: 53vh;overflow-y: scroll;">
+              <div class="responses" style="margin: 5px 20px 5px 40px;width: 90%;cursor: pointer;" *ngFor="let response of actualForum.responses">
+                <div class="row">
+                  <div class="col-12 col-md-2 col-lg-2 mb-2 d-flex align-items-center">
+                    <img src="assets/Documents/{{response.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33">
+                    <p style="margin: 0px 0px 0px 10px; color: #202124; font-weight: bold;">
+                      {{ response.userEnvoi['firstName'] }} {{ response.userEnvoi['lastName'] }}
+                    </p>
+                  </div>
+
+                  <!-- Post Content -->
+                  <div class="col-12 col-md-10 col-lg-10 mb-2 d-flex justify-content-between text-wrap">
+                    <p style="margin: 7px 0px 0px 0px; color: black; font-weight: bold;text-wrap: wrap;">
+                      {{ response.content }}
+                    </p>
+                    <p style="margin: 7px 0px 0px 0px; color: #808080;">{{ response.created_at | date: 'HH:mm' }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+      </div>
+      <div class="d-flex justify-content-center mt-5">
+        <button class="btn btn-light" style="width:150px;" data-bs-toggle="modal" data-bs-target="#modalAnswer">
+          <i class="bi bi-arrow-90deg-left" style="font-size: 17px;margin-right: 10px;"></i>
+          <span style="font-size: 15px;">Answer</span>
+        </button>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="modalAnswer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Answer</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <textarea [(ngModel)]="forum.post" class="form-control mt-2"   style="background-color: #F5F5F5;outline: none;border: none;" placeholder="ANSWER..."></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="sendAnswer()" data-bs-dismiss="modal">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>

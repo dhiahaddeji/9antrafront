@@ -1,0 +1,120 @@
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>View Specific Projects</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+
+
+    <br>
+    <br>
+    <div class="select-container">
+      <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+        <option value="" selected>All</option>
+        <option value="true">Traitees</option>
+        <option value="false">Non Traitees</option>
+      </select>
+
+      <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" [(ngModel)]="selectedSortOrder" (change)="onSortOrderChange()">
+        <option value="asc">Sort by Date (Ascending)</option>
+        <option value="desc">Sort by Date (Descending)</option>
+      </select>
+
+
+
+    </div>
+    <div class="data_table card1 mt-4 " style="overflow-y: scroll; height:600px;">
+
+
+      <table class="table align-middle mb-0 bg-white  ">
+          <thead class="bg-light ">
+            <tr >
+              <th>ImageP</th>
+              <th>Date</th>
+              <th>Nom</th>
+
+              <th>Prenom</th>
+
+              <th>Email</th>
+              <th>Phone</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr  *ngFor="let project of adminProjects"
+            >
+            <td>
+
+              <div class="d-flex align-items-center">
+                <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" style="width: 45px; height: 45px" class="rounded-circle" />
+
+                <a routerLink="profile">
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1"></p>
+                    <p class="text-muted mb-0"></p>
+
+                  </div>
+                </a>
+              </div>
+            </td>
+            <td> <p class="fw-normal mb-1">{{ project.date | date: 'dd/MM/yy HH:mm' }}</p>
+            </td>
+
+
+              <td>
+                <p  class="fw-normal mb-1">{{ project.nom  ? project.nom : '_'  }}</p>
+              </td>
+              <td>
+                <p class="fw-normal mb-1">{{ project.prenom ? project.prenom : '_'   }}</p>
+              </td>
+
+
+                              <td>
+                                <p class="fw-normal mb-1" *ngIf="project.email">
+                                  <a href="mailto:{{ project.email }}" (click)="copyEmail(project.email)" style="color: blue;">{{ project.email }}</a>
+                                </p>
+                                <p class="fw-normal mb-1" *ngIf="!project.email">_</p>
+                              </td>
+                               <td>
+                <p class="fw-normal mb-1">{{ project.numtel ? project.numtel : '_'   }}</p>
+              </td>
+
+
+
+            <td><div class="form-check form-switch">
+              <input *ngIf="!project.status" [disabled]="isUpdating" (click)="updateComplaintAndSendEmail(project)"   (click)="onCheckboxClick($event)"class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+            </div></td>
+
+
+
+    <td>
+      <button class="btn btn-success btn-circle" (click)="clientProject(project.id)">
+        <span class="bi bi-eye"></span>
+      </button>
+    </td>
+
+
+
+
+
+
+            </tr>
+            <tr *ngIf="adminProjects?.length == 0">
+              <td colspan="7" class="text-center">No specific projects found</td>
+            </tr>
+          </tbody>
+
+      </table>
+      </div>
+
+
+  </main><!-- End #main -->

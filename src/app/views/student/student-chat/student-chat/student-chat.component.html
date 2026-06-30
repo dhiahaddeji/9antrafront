@@ -1,0 +1,69 @@
+<main class="content">
+  <div class="container p-0">
+  <div class="card shadow-sm" style="border-radius:16px; overflow:hidden;">
+    <div class="row g-0">
+      <div class="col-12">
+        <div class="py-2 px-4 border-bottom d-none d-lg-block">
+          <div class="d-flex align-items-center py-1">
+            <div class="position-relative">
+              <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Group" width="40" height="40">
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <strong>{{group?.groupName}}</strong>
+              <div class="text-muted small"><em>Group chat</em></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="position-relative" style="height:80vh; overflow-y:scroll;" #scrollRef>
+          <div class="chat-messages p-4" *ngFor="let message of chatMessages">
+
+            <!-- Sent by me -->
+            <div class="chat-message-right pb-4" id="parent" *ngIf="message.userEnvoi['id'] == userId">
+              <div>
+                <img src="assets/Documents/{{message.userEnvoi['image']}}" class="rounded-circle mr-1" width="40" height="40" onerror="this.src='assets/img/profile-img.jpg'">
+                <div class="text-muted small text-nowrap mt-2">{{ message.created_at | date:'HH:mm' }}</div>
+              </div>
+              <div *ngIf="message.status==0" class="me-2">
+                <div class="msg-bubble-sent">
+                  <div class="fw-bold mb-1" style="font-size:12px; opacity:0.8;">You</div>
+                  {{message.message}}
+                </div>
+              </div>
+              <i class="bi bi-trash-fill" *ngIf="message.status==0" (click)="deleteMessage(message.id)" id="menu" style="font-size:18px; margin-top:20px; margin-right:8px; color:#bbb;"></i>
+              <div *ngIf="message.status==1" class="me-2">
+                <div class="msg-deleted"><i class="bi bi-slash-circle me-1"></i>You removed this message</div>
+              </div>
+            </div>
+
+            <!-- Received -->
+            <div class="chat-message-left pb-4" id="parent" *ngIf="message.userEnvoi['id'] != userId">
+              <div>
+                <img src="assets/Documents/{{message.userEnvoi['image']}}" class="rounded-circle mr-1" width="40" height="40" onerror="this.src='assets/img/profile-img.jpg'">
+                <div class="text-muted small text-nowrap mt-2">{{ message.created_at | date:'HH:mm' }}</div>
+              </div>
+              <div class="ms-2">
+                <div class="msg-bubble-recv">
+                  <div class="fw-bold mb-1" style="font-size:12px; color:#AF3065;">{{message.userEnvoi['firstName']}} {{message.userEnvoi['lastName']}}</div>
+                  {{message.message}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input bar -->
+        <div class="chat-input-bar">
+          <div class="input-group">
+            <input type="text" class="form-control" style="border-radius:10px 0 0 10px;" placeholder="Type your message…" [(ngModel)]="this.chat.post" (keyup.enter)="send()">
+            <button class="btn" style="background:#AF3065; color:#fff; border-radius:0 10px 10px 0; font-weight:600;" (click)="send()">
+              <i class="bi bi-send-fill me-1"></i>Send
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</main>

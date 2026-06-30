@@ -1,0 +1,36 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-heading {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .bg-custom-color,
+   .btn-register {
+    background-color: #af2f64;
+    color: #fff;
+  }
+
+  .btn-register:hover {
+    background-color: #d8208e;
+    color: #fff;
+  }
+
+  .register {
+    background-color: #AF3065;
+    color: #ffffff;
+    border-radius: 5px;
+  }
+  
+  .register:hover {
+    background-color: #d8208e;
+    color: #ffffff;
+  }

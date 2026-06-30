@@ -1,0 +1,89 @@
+<main>
+  <div style="margin-bottom: 50px;" class="d-block d-lg-none"> </div>
+  <div class="row justify-content-between" style="padding: 20px 0 20px 20px;">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Quiz</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" (click)="clearQuizStorage()"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Quiz Play</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card">
+        <div class="d-flex justify-content-between p-3">
+            <div class="image">
+                <img src="../../../../assets/img/qui.jpg" width="100" alt="logo">
+            </div>
+            <div class="quiz-header mt-4">
+                <h4 style="font-family: cursive;font-size: 30px;">{{this.questionList[0].quizId.name}}</h4>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!getIsCompleted()">
+            <div class="d-flex justify-content-around py-3">
+                <div class="score">
+                    <h5>{{ getPoints()}} Points</h5>
+                </div>
+                <div class="question-remain">
+                    <span style="font-style: italic;">Question {{getCurrentQuestion()+1}} of {{questionList.length}}</span>
+                </div>
+                <div class="timer">
+                    <h5>{{counter}} sec ⏱</h5>
+                </div>
+            </div>
+            <div class="progress mb-3">
+              <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [ngStyle]="{'width':getProgress()+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="question">
+                <div class="card">
+                    <h3> {{questionList[getCurrentQuestion()]?.question}} ?</h3>
+                </div>
+            </div>
+            <div class="options">
+              <ol>
+                <li (click)="toggleCorrect()" (click)="answer(options[0])">
+                  <div class="card" #opt>
+                    a) {{ options[0]?.opt }}
+                  </div>
+                </li>
+                <li (click)="toggleCorrect()" (click)="answer(options[1])">
+                  <div class="card" #opt1>
+                    b) {{ options[1]?.opt }}
+                  </div>
+                </li>
+                <li (click)="toggleCorrect()" (click)="answer(options[2])">
+                  <div class="card" #opt2>
+                    c) {{ options[2]?.opt }}
+                  </div>
+                </li>
+              </ol>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button  class="btn quiz-nav-btn" [disabled]="getCurrentQuestion()==0" (click)="previousQuestion()"><i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i></button>
+                <button class="btn quiz-nav-btn" (click)="resetQuiz()"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></button>
+                <button class="btn quiz-nav-btn" (click)="nextQuestion()"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="getIsCompleted()">
+            <div class="row d-flex justify-content-between">
+                <img style="width: 50%;" class="img-fluid col-sm-12 mx-auto" src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
+                <div class="result text-center col-md-6 col-sm-12">
+                    <h3>Congratulations!! <br>You have completed the quiz. <br>Below is your result:</h3>
+                    <p>Total Question Attempted : {{this.questionList?.length}}  </p>
+                    <p>Total Correct Answered :{{getCorrect()}}  </p>
+                    <p>Total Wrong Answered : {{getIncorrect()}} </p>
+                    <p>Your Score :  {{getPoints()}} </p>
+                    <button class="btn" style="background:#AF3065; color:#fff; border-radius:10px; font-weight:600; padding:10px 28px;" routerLink="/student/student-quiz" (click)="clearQuizStorage()">Finish</button>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+</div>
+</main>

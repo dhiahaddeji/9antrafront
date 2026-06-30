@@ -1,0 +1,67 @@
+
+<main id="main"  >
+    <div style="margin-bottom: 50px; " class="d-block d-lg-none"> </div>
+
+    <div class="pagetitle">
+        <h1>Feedback</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body mt-3 fw-bold">Students registration</div>
+                <div class="card-footer  bg-white d-flex align-items-center justify-content-between">
+                    <a class="small ms-2 stretched-link" routerLink="studentlist">{{ nbrOfStudents}} people(s)</a>
+                 
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body mt-3 fw-bold">Activated accounts</div>
+                <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+                    <a class="small ms-2 stretched-link" routerLink="studentlist">{{activatedStudents}} people(s)</a>
+                    <div class="small me-2">{{ percentageStudents }}%</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body mt-3 fw-bold">Total coach</div>
+                <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+                    <a class="small ms-2 stretched-link" routerLink="coachlist">{{nbrOfCoaches}} people(s)</a>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body mt-3 fw-bold">Validated coach</div>
+                <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+                    <a class="small ms-2 stretched-link" routerLink="coachlist">{{activatedCoaches}} people(s)</a>
+                    <div class="small me-2">{{ percentageCoaches }}%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+  
+        <div class="col">
+            <div class="card mt-2">
+                <div class="fw-bold ms-4 mt-3"> Top Training Courses</div>
+
+                <div id="divChart" class="mx-5">
+                    <canvas id="myChart"></canvas>
+                  </div>
+            </div>
+        </div>
+    </div>
+  
+
+   
+  </main>

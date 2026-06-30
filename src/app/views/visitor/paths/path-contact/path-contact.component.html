@@ -1,0 +1,80 @@
+<div style="background: #AF2F64;" [ngStyle]="getTopStyle()">
+    <div class="container">
+        <!-- Start: 1 Row 2 Columns -->
+        <div class="row">
+            <div class="col-sm-4 col-md-4 d-flex justify-content-center align-items-center">
+                <img [src]="'assets/img/paymentBanner.png'" class="img-fluid" style="height: 60%;" alt="Photo">
+            </div>
+            <div class="col-sm-6 col-md-6 mb-sm-2 d-flex align-items-center">
+                <div>
+                    <h1 class="fw-semibold text-light " style="font-family: Segoe UI;color: #F9F9F5;">You won't pay until we get in touch
+                    </h1>
+                    <p class="mt-2 text-light">If you are ready to choose a path, leave your information and we will get in touch with you to further explain what you will be getting from this pack</p>
+                </div>
+            </div>
+        </div><!-- End: 1 Row 2 Columns -->
+    </div>
+</div>
+
+<section class="mt-5">
+    <div class="container">
+        <div class="d-flex align-items-center my-4 justify-content-between">
+            <h3 style="font-family: Segoe UI;color: #AF2F64;">Payment Methods</h3>
+        </div>
+        <div class="row">
+            <div class="d-flex align-items-center flex-row justify-content-center">
+                <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 RepeaterPayment">
+                                <a href="">
+                                    <div class="TitlePayMethode">D17</div>
+                                    <div class="ImgPayMethode">
+                                        <img class="img-fluid" src="assets/img/PaymentD17.png" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12 RepeaterPayment">
+                                <a href="">
+                                    <div class="TitlePayMethode">Mandat Minute</div>
+                                    <div class="ImgPayMethode">
+                                        <img class="img-fluid" src="assets/img/PaymentPost.png" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12 RepeaterPayment">
+                                <a href="">
+                                    <div class="TitlePayMethode">Flouci</div>
+                                    <div class="ImgPayMethode">
+                                        <img class="img-fluid" src="assets/img/PaymentFlouci.png" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12 RepeaterPayment">
+                                <a href="">
+                                    <div class="TitlePayMethode">Bank Transfer</div>
+                                    <div class="ImgPayMethode">
+                                        <img class="img-fluid" src="assets/img/PaymentBank.png" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                        </div> 
+                </div>
+                <div class="col-md-6 ml-4 pl-3">
+                    <img class="img-fluid PaymentContactImage" src="assets/img/PaymentContact.png" alt="PaymentContact">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="my-4">
+    <div class="container">
+        <div class="d-flex align-items-center my-4 justify-content-between">
+            <h3 style="font-family: Segoe UI;color: #AF2F64;">But first, Let's get in touch!</h3>
+        </div>
+        <app-contact-forum [contactCategory]="'Path'"></app-contact-forum>
+    </div>
+</section>

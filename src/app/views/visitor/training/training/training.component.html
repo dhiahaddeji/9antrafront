@@ -1,0 +1,234 @@
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center" data-aos="fade-up">
+  <img src="assets/img/nosformation.png" class="img-fluid" alt="" />
+</section>
+<!-- End Hero -->
+<section id="course-details" class="course-details">
+  <div
+    class="container cource-details-tabs"
+    id="cource-details-tabs"
+    data-aos="fade-up"
+  >
+    <div class="row d-flex justify-content-between">
+      <ul class="nav nav-tabs mb-3 d-flex justify-content-center" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link active"
+            id="ex1-tab-1"
+            data-mdb-toggle="tab"
+            href="#ex1-tabs-1"
+            role="tab"
+            aria-controls="ex1-tabs-1"
+            aria-selected="true"
+            >Overview</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="ex1-tab-2"
+            data-mdb-toggle="tab"
+            href="#ex1-tabs-2"
+            role="tab"
+            aria-controls="ex1-tabs-2"
+            aria-selected="false"
+            >FeedBack</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="ex1-tab-3"
+            data-mdb-toggle="tab"
+            href="#ex1-tabs-3"
+            role="tab"
+            aria-controls="ex1-tabs-3"
+            aria-selected="false"
+            >Program</a
+          >
+        </li>
+      </ul>
+      <div class="col-lg-7 col-11 m-3 mb-5 shadow1">
+        <div data-aos="fade-up">
+          <div class="row mt-5 mb-5">
+            <!-- Tabs content -->
+            <div class="tab-content" id="ex1-content">
+              <div
+                class="tab-pane fade show active"
+                id="ex1-tabs-1"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-1"
+              >
+                {{ descriptionFormation }}
+                <div class="row justify-content-between mt-5">
+                  <div class="col">
+                    <div class="card shadow" style="border: none">
+                      {{ chapitres }} chapters
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card shadow" style="border: none">
+                      {{ exercices }} exercice
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card shadow" style="border: none">
+                      {{ projects }} project
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card shadow" style="border: none">
+                      {{ workspaces }} workspace
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-between mt-5">
+                  <div class="col-6">
+                    <div>
+                      <i
+                        class="fa-solid fa-certificate fa-2xl"
+                        style="color: #af3065"
+                      ></i
+                      ><br /><br />
+                      Certification of completion
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div>
+                      <i
+                        class="fa-solid fa-bookmark fa-2xl"
+                        style="color: #af3065"
+                      ></i
+                      ><br /><br />
+                      {{ projects }} project
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-5">
+                  <div class="col-6">
+                    <div>
+                      <i
+                        class="fa-solid fa-calendar-check fa-2xl"
+                        style="color: #af3065"
+                      ></i
+                      ><br /><br />
+                      Easy scheduling & attendance
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div>
+                      <i
+                        class="fa-solid fa-tv fa-2xl"
+                        style="color: #af3065"
+                      ></i
+                      ><br /><br />
+                      {{ posibility }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="tab-pane fade"
+                id="ex1-tabs-2"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-2"
+              >
+                <ul class="list-group list-group-flush">
+                  <ng-container *ngIf="tabFeedback.length === 0">
+                    <li class="list-group-item">No feedback until now</li>
+                  </ng-container>
+                  <li *ngFor="let i of tabFeedback" class="list-group-item">
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-md-12">
+                        <div class="card" style="border: none">
+                          <div class="card-body m-3">
+                            <div class="row">
+                              <div
+                                class="col-lg-4 d-flex justify-content-center align-items-center mb-4 mb-lg-0"
+                              >
+                                <img
+                                  src="assets/Documents/{{ i.user.image }}"
+                                  class="rounded-circle img-fluid shadow-1"
+                                  alt="woman avatar"
+                                  width="150"
+                                  height="150"
+                                />
+                              </div>
+                              <div class="col-lg-8">
+                                <p class="text-muted fw-light mb-4">
+                                  {{ i.comment }}
+                                </p>
+                                <p class="fw-bold lead mb-2">
+                                  <strong
+                                    >{{ i.user.firstName }}
+                                    {{ i.user.lastName }}</strong
+                                  >
+                                </p>
+                                <i class="bi bi-star-fill mt-2" style="margin-left: 10px;color: rgb(237, 237, 22);"  *ngFor="let star of getStarArray(i.rating)"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                class="tab-pane fade"
+                id="ex1-tabs-3"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-3"
+              >
+                <ol class="list-group list-group-flush list-group-numbered">
+                  <ng-container *ngIf="ListChapters.length === 0">
+                    <li class="list-group-item">No chapters until now</li>
+                  </ng-container>
+                  <li
+                    *ngFor="let i of ListChapters"
+                    class="list-group-item d-flex justify-content-between align-items-start"
+                  >
+                    <div class="ms-2 me-auto">
+                      <div class="fw-bold">{{ i.title }}</div>
+                      {{ i.description }}
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+            <!-- End Tabs content -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 mx-3 shadow" style="max-height: 627px">
+        <div>
+          <h5 class="mb-3"></h5>
+          <h5 class="mb-3"></h5>
+          <h5 class="mb-3">This Course included</h5>
+          <p><i class="bx bxl-twitter"></i>Certification of completion</p>
+          <p><i class="bx bxl-twitter"></i>{{ chapitres }} chapter</p>
+          <p><i class="bx bxl-twitter"></i>{{ exercices }} exercise</p>
+          <p><i class="bx bxl-twitter"></i>{{ workspaces }} workspace</p>
+          <p><i class="bx bxl-twitter"></i>{{ projects }} project</p>
+        </div>
+        <hr class="mt-4" />
+        <div class="text-center">
+          <a class="btn register scrollto" (click)="scrollTo('inscription')"
+            >Join Now</a
+          >
+        </div>
+      </div>
+
+      <hr class="mt-4" />
+    </div>
+  </div>
+</section>
+<!-- End Course Details Section -->
+<div id="inscription">
+  <app-form-section></app-form-section>
+</div>

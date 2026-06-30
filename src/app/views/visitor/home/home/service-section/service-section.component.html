@@ -1,0 +1,56 @@
+<!-- ======= Services Section ======= -->
+<section id="services" class="services section-bg">
+  <div class="" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Our Services</h2>
+      <h1>Fostering a playful & engaging learning environment</h1>
+    </div>
+
+    <div   *ngIf="Allformation?.length != 0" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+      <!-- Controls -->
+      <div class="d-flex justify-content-center mb-4">
+        <button class="carousel-control-prev" type="button"
+        [disabled]="page==0"
+        (click)="previousPage()"
+          >
+          <span  style="margin-right:100px" class="carousel-control-prev-icon"  aria-hidden="true" ></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-mdb-target="#carouselMultiItemExample1"
+        [disabled]="page==count_page-1"
+        (click)="nextPage()"
+          >
+          <span  style="margin-left:100px" class="carousel-control-next-icon"   aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Inner -->
+      <div class="carousel-inner py-4">
+        <!-- Single item -->
+        <div >
+          <div class="container">
+            <div class="row d-flex justify-content-lg-between justify-content-center">
+              <div class="card col-lg-4 d-flex mb-3 align-items-center justify-content-center" *ngFor="let formation of Allformation;" data-aos="zoom-in" data-aos-delay="100" routerLink="/training/{{formation.nomFormation}}" style="cursor: pointer;">
+                <div class="icon-box">
+                  <div class=" icon"><i class="bi bi-code-slash"></i></div>
+                  <h4><a href="">{{ formation.nomFormation }}</a></h4>
+                  <p>{{formation.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-4">
+      </div>
+    </div>
+    <div *ngIf="Allformation?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+      <div class="nodata">
+        <p style="overflow: hidden;">There are no trainings available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Services Section -->
+

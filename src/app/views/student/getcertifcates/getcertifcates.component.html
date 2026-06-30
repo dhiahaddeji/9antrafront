@@ -1,0 +1,121 @@
+<main id="main" class="main">
+  <div class="d-lg-none" style="height:70px;"></div>
+
+  <div class="pagetitle">
+    <h1>My Certificates</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/student">Home</a></li>
+        <li class="breadcrumb-item active">Certificates</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your certificates...</p>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && certificates.length === 0" class="empty-state">
+    <div class="empty-icon">
+      <i class="bi bi-award"></i>
+    </div>
+    <h4>No Certificates Yet</h4>
+    <p>Complete your training programs to earn certificates that will appear here.</p>
+    <a routerLink="/student" class="back-home-btn">
+      <i class="bi bi-house me-2"></i>Go to Dashboard
+    </a>
+  </div>
+
+  <!-- Certificates content -->
+  <div *ngIf="!loading && certificates.length > 0">
+
+    <!-- Student info banner -->
+    <div class="student-banner" *ngIf="user">
+      <div class="student-avatar">
+        <img
+          src="assets/Documents/{{user.image}}"
+          onerror="this.src='assets/img/profile-img.jpg'"
+          alt="Profile"
+        />
+      </div>
+      <div class="student-info">
+        <h5>{{ user.firstName }} {{ user.lastName }}</h5>
+        <p>{{ user.username }}</p>
+      </div>
+      <div class="cert-count">
+        <span class="count-number">{{ certificates.length }}</span>
+        <span class="count-label">Certificate{{ certificates.length !== 1 ? 's' : '' }} Earned</span>
+      </div>
+    </div>
+
+    <!-- Formation names badges -->
+    <div class="formations-row" *ngIf="formationNames.length > 0">
+      <span class="formation-tag" *ngFor="let name of formationNames">
+        <i class="bi bi-check-circle-fill me-1"></i>{{ name }}
+      </span>
+    </div>
+
+    <!-- Certificate list + viewer -->
+    <div class="row g-4 mt-1">
+
+      <!-- Sidebar: certificate list -->
+      <div class="col-lg-4">
+        <div class="cert-list-card">
+          <div class="cert-list-header">
+            <i class="bi bi-collection me-2"></i>All Certificates
+          </div>
+          <div class="cert-list-body">
+            <div
+              *ngFor="let cert of certificates; let i = index"
+              class="cert-list-item"
+              [class.active]="selectedCertificate === cert"
+              (click)="selectCertificate(cert)"
+            >
+              <div class="cert-list-icon">
+                <i class="bi bi-file-earmark-pdf-fill"></i>
+              </div>
+              <div class="cert-list-info">
+                <span class="cert-list-title">Certificate #{{ i + 1 }}</span>
+                <span class="cert-list-sub">Click to preview</span>
+              </div>
+              <i class="bi bi-chevron-right cert-list-arrow"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main: certificate viewer -->
+      <div class="col-lg-8">
+        <div class="cert-viewer-card">
+          <div class="cert-viewer-header">
+            <i class="bi bi-eye me-2"></i>Certificate Preview
+            <a
+              *ngIf="selectedCertificate"
+              [href]="getSafeUrl(selectedCertificate.path)"
+              download
+              class="download-btn ms-auto"
+            >
+              <i class="bi bi-download me-1"></i>Download
+            </a>
+          </div>
+          <div class="cert-viewer-body">
+            <iframe
+              *ngIf="selectedCertificate"
+              [src]="getSafeUrl(selectedCertificate.path)"
+              frameborder="0"
+              class="cert-iframe"
+            ></iframe>
+            <div *ngIf="!selectedCertificate" class="no-selection">
+              <i class="bi bi-arrow-left-circle"></i>
+              <p>Select a certificate to preview</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

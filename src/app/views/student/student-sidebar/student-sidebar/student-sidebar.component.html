@@ -1,0 +1,178 @@
+<!--  SIDEBAR  -->
+<header>
+
+  <!-- ── Desktop / tablet sidebar ─────────────────────────────────────── -->
+  <nav id="sidebarMenu" class="d-lg-block sidebar collapse" id="navbarCollapse">
+
+    <!-- Fixed header: logo + profile -->
+    <div class="sidebar-header">
+      <div class="sidebar-logo d-none d-lg-flex">
+        <a routerLink="/student"><img src="assets/img/logo1.png" alt="Logo"></a>
+        <app-notification class="ms-auto sidebar-notif"></app-notification>
+      </div>
+
+      <a [routerLink]="['/student/profile']" class="nav-profile" *ngIf="data">
+        <img
+          src="assets/Documents/{{photo}}"
+          onerror="this.src='assets/img/profile-img.jpg'"
+          alt="Profile"
+        />
+        <div class="profile-info">
+          <span class="welcome-text">Welcome back</span>
+          <span class="profile-name d-block">{{username}}</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Scrollable nav links -->
+    <div class="sidebar-nav">
+
+      <p class="nav-section-label">Main Menu</p>
+
+      <a
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLink="/student"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="calendar"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="fa-solid fa-calendar"></i>
+        <span>Calendar</span>
+      </a>
+
+      <!-- Messages dropdown -->
+      <button
+        class="nav-item-link"
+        (click)="toggleMenu('messages')"
+        type="button"
+      >
+        <i class="fa-solid fa-comments"></i>
+        <span>Messages</span>
+        <i class="fa-solid fa-chevron-down nav-chevron" [class.open]="openMenu==='messages'"></i>
+      </button>
+      <div class="submenu" [class.open]="openMenu==='messages'">
+        <a routerLink="chatAll" [routerLinkActive]="'active'" class="sub-link">All Messages</a>
+        <a *ngFor="let group of groups"
+           routerLink="chat/{{group.id}}"
+           [routerLinkActive]="'active'"
+           class="sub-link">
+          {{group.groupName}}
+        </a>
+      </div>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="records"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="fa-solid fa-play"></i>
+        <span>Records</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="projects"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="fa-solid fa-folder"></i>
+        <span>Projects</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="FeedBack"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="fa-solid fa-star"></i>
+        <span>Feedback</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="forum"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="fa-solid fa-message"></i>
+        <span>Forum</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="student-quiz"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="bi bi-joystick"></i>
+        <span>Quiz</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="getcertificats"
+        class="nav-item-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <i class="bi bi-award"></i>
+        <span>Certificates</span>
+      </a>
+
+      <p class="nav-section-label" style="margin-top:8px;">Account</p>
+
+      <button class="nav-item-link nav-logout" (click)="logout()" type="button">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Log Out</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ── Mobile top navbar ─────────────────────────────────────────────── -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top d-block d-lg-none">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <img src="assets/img/menu.png" class="w-10" alt="menu">
+      </button>
+
+      <a class="navbar-brand ms-3" routerLink="/student">
+        <img src="assets/img/logo1.png" height="28" alt="Logo">
+      </a>
+
+      <div class="d-flex align-items-center ms-auto gap-2 pe-1">
+        <span class="fw-semibold text-muted small d-none d-sm-inline">{{username}}</span>
+        <app-notification></app-notification>
+        <button type="button" class="btn btn-sm d-flex align-items-center gap-1 mobile-logout-btn" (click)="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="d-none d-sm-inline">Logout</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+</header>

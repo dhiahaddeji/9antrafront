@@ -1,0 +1,383 @@
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+
+#hero {
+  width: 95%;
+  height: 75vh;
+  background: #F8F8F8;
+  border-radius: 26px 26px 0 0;
+
+  margin: auto;
+
+
+
+
+}
+
+
+#hero h1 {
+  margin: 0 0 10px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #000000;
+}
+
+#hero h2 {
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+#hero .btn-get-started {
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 28px 11px 28px;
+  border-radius: 0px;
+  transition: 0.5s;
+  margin: 10px 0 0 0;
+  color: #fff;
+  background: #AF3065;
+  border-radius: 5px;
+}
+
+.btn-get-started:hover {
+  background: #d8208e;
+}
+
+.card {
+  background-color: #ffffffbd;
+  padding: 20px;
+}
+
+.animated {
+  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+
+@media (max-width: 991px) {
+  #hero {
+    height: 100vh;
+    text-align: center;
+  }
+
+  .animated {
+    -webkit-animation: none;
+    animation: none;
+  }
+
+  .hero-img {
+    text-align: center;
+  }
+
+  .hero-img img {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+
+  #hero .hero-img img {
+    width: 70%;
+  }
+}
+
+@media (max-width: 575px) {
+  #hero .hero-img img {
+    width: 80%;
+  }
+
+  #hero .btn-get-started {
+    font-size: 16px;
+    padding: 10px 24px 11px 24px;
+  }
+}
+
+@-webkit-keyframes up-down {
+  0% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes up-down {
+  0% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.register, .later {
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 28px 11px 28px;
+  transition: 0.5s;
+  margin: 10px 0 0 0;
+}
+
+.register {
+  color: #fff;
+  background: #AF3065;
+  border: none;
+}
+
+.later {
+  color: #AF3065;
+  background: #fff;
+  border: 2px solid #AF3065;
+}
+
+/* Add this rule for both classes */
+.register, .later {
+  box-sizing: border-box;
+}
+
+.register:hover {
+  color: #fff;
+  background: #d8208e;
+}
+
+.later:hover {
+  color: #fff;
+  background: #fab555;
+  border: 2px solid #AF3065;
+}
+
+section {
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+.section-header {
+  text-align: center;
+  padding: 30px 0;
+  position: relative;
+  margin-bottom: 0;
+  /* Add this line to remove the bottom margin */
+}
+
+.section-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  color: #af3065;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -23px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.section-header h2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--color-primary);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.section-header span {
+  position: absolute;
+  top: 46px;
+  color: rgba(14, 29, 52, 0.06);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 56px;
+  text-transform: uppercase;
+  line-height: 0;
+}
+
+.section-header p {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 640px) {
+  .section-header h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .section-header span {
+    font-size: 38px;
+  }
+}
+
+.faq {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.faq .accordion-item {
+  border: 0;
+  margin-bottom: 10px;
+}
+
+.faq .accordion-collapse {
+  border: 0;
+}
+
+.faq .accordion-button {
+  padding: 15px 30px 20px 60px;
+  font-weight: 600;
+  border: 0;
+  font-size: 18px;
+  color: var(--color-default);
+  text-align: left;
+  background: rgba(14, 29, 52, 0.03);
+  border-radius: 5px;
+}
+
+.faq .accordion-button:focus {
+  box-shadow: none;
+}
+
+.faq .accordion-button:not(.collapsed) {
+  color: var(--color-primary);
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.faq .question-icon {
+  position: absolute;
+  top: 14px;
+  left: 25px;
+  font-size: 20px;
+  color: var(--color-primary);
+}
+
+.faq .accordion-button:after {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.faq .accordion-body {
+  padding: 0 30px 25px 60px;
+  border: 0;
+  background: rgba(14, 29, 52, 0.03);
+  border-radius: 5px;
+}
+
+.faq .accordion-body .lesson-title {
+  margin-left: 5%;
+}
+
+.lesson-title {
+  padding-top: 20px;
+}
+
+.course-title {
+  /* Adjust font size and line height for different screen sizes */
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.course-duration {
+  /* Adjust font size for different screen sizes */
+  font-size: 18px;
+}
+
+.course-description {
+  /* Adjust font size for different screen sizes */
+  font-size: 16px;
+}
+
+.section-header-title {
+  /* Adjust font size and line height for different screen sizes */
+  font-size: 28px;
+  line-height: 1.2;
+  color: #af3065;
+  /* Set the color for the section header title */
+}
+
+.goal-icon {
+  /* Adjust font size for different screen sizes */
+  font-size: 20px;
+  color: #af3065;
+  /* Set the color for the goal icon */
+  margin-right: 10px;
+  /* Add some right margin for spacing */
+}
+
+.goal-description {
+  /* Adjust font size for different screen sizes */
+  font-size: 16px;
+}
+
+.video-fluid {
+  width: 100%;
+  height: 400px; /* Change this value to set the desired video height */
+  object-fit: cover; /* Adjust as needed to control video scaling within the container */
+}
+
+.course-container {
+  max-width: 60%;
+}
+
+@media (max-width: 768px) {
+  .course-title {
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .course-duration {
+    font-size: 16px;
+  }
+
+  .course-description {
+    font-size: 14px;
+  }
+
+  .section-header-title {
+    font-size: 24px;
+    line-height: 1.1;
+    color: #af3065;
+  }
+
+  .goal-icon {
+    font-size: 18px;
+    /* color: #af3065;
+    margin-right: 10px; */
+  }
+
+  .goal-description {
+    font-size: 14px;
+  }
+
+  .course-container {
+    max-width: 100%;
+  }
+}

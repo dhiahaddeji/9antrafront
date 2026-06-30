@@ -1,0 +1,117 @@
+<div *ngIf="contactCategory != 'Path'" class="row shadow">
+
+  <div class="col-md-5 d-flex align-items-center">
+    <img src="assets/img/contact.png" alt="" class="img-fluid">
+  </div>
+
+  <div class="col-md-7 pt-4 mt-md-0 d-flex align-items-stretch">
+    <form [formGroup]="contactForm">
+      <div class="row">
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="firstname" placeholder="email" name="First Name"
+            id='First Name' required />
+          <label for="First Name" class="form__label">First Name</label>
+
+          <div
+            *ngIf="contactForm?.get('name')?.invalid && (contactForm?.get('name')?.dirty || contactForm?.get('name')?.touched)">
+            <div *ngIf="contactForm?.get('name')?.hasError('required')" class="alert alert-danger mt-3">
+              This is required.</div>
+          </div>
+        </div>
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="lastName" placeholder="Subject" name="Last Name"
+            id="Last Name" required>
+          <label for="Last Name" class="form__label">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="email" placeholder="email" name="email" id='email'
+            required />
+          <label for="email" class="form__label">Email</label>
+        </div>
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="subject" placeholder="Subject" name="subject"
+            id="subject" required>
+          <label for="subject" class="form__label">Subject</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" (input)="onInput($event)" formControlName="phoneNumber"
+            placeholder="phone" name="phone" id='phone' required />
+          <label for="phone" class="form__label">Phone number</label>
+        </div>
+      </div>
+      <div class="form__group field mt-5 row">
+        <textarea class="form__field" formControlName="message" name="message" rows="0" required></textarea>
+        <label for="message" class="form__label">Message</label>
+
+      </div>
+      <div class="text-end mt-5 m-3">
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3 d-flex justify-content-center">{{ errorMessage }}</div>
+        <button type="submit" (click)="addDemand()" class="btn register">Send Message</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div *ngIf="contactCategory == 'Path'" class="row no-shadow">
+
+  <div class="col-md-5 d-flex align-items-center">
+    <img src="assets/img/PaymentContact2.png" alt="" class="img-fluid">
+  </div>
+
+  <div class="col-md-7 pt-4 mt-md-0 d-flex align-items-stretch">
+    <form [formGroup]="contactForm">
+      <div class="row">
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="firstname" placeholder="email" name="First Name"
+            id='First Name' required />
+          <label for="First Name" class="form__label">First Name</label>
+
+          <div
+            *ngIf="contactForm?.get('name')?.invalid && (contactForm?.get('name')?.dirty || contactForm?.get('name')?.touched)">
+            <div *ngIf="contactForm?.get('name')?.hasError('required')" class="alert alert-danger mt-3">
+              This is required.</div>
+          </div>
+        </div>
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="lastName" placeholder="Subject" name="Last Name"
+            id="Last Name" required>
+          <label for="Last Name" class="form__label">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="email" placeholder="email" name="email" id='email'
+            required />
+          <label for="email" class="form__label">Email</label>
+        </div>
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" formControlName="subject" placeholder="Subject" name="subject"
+            id="subject" required>
+          <label for="subject" class="form__label">Subject</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form__group field col-md-6 mt-5">
+          <input type="input" class="form__field" (input)="onInput($event)" formControlName="phoneNumber"
+            placeholder="phone" name="phone" id='phone' required />
+          <label for="phone" class="form__label">Phone number</label>
+        </div>
+      </div>
+      <div class="form__group field mt-5 row">
+        <textarea class="form__field" formControlName="message" name="message" rows="0" required></textarea>
+        <label for="message" class="form__label">Message</label>
+
+      </div>
+      <div class="text-end mt-5 m-3">
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3 d-flex justify-content-center">{{ errorMessage }}</div>
+        <button type="submit" (click)="addDemand()" class="btn register">Send Message</button>
+      </div>
+    </form>
+  </div>
+
+</div>

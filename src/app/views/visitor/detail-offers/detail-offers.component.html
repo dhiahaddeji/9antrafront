@@ -1,0 +1,167 @@
+
+  <style>.bg-gray {
+      background-color: #f2f2f2;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .text-center {
+    text-align: center;
+  }
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    text-align: center;
+  }
+
+
+    </style>
+  <section id="Hackerspace" class="Hackerspace mt-5">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title mb-5 text-center">
+        <h2>{{project.poste}}</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-12 d-flex align-items-start">
+          <div class="info">
+            <img [src]="'assets/' + project.image"
+              alt="Image du ProjectOwner" class="img-fluid" width="100%">
+          </div>
+        </div>
+
+        <div class="col-lg-9 col-md-12">
+          <div class="description">
+              <div class="container">
+                  <h2 class="text-center">{{ project.nom }}</h2>
+                  <br>
+                </div>
+                          <div class="name bg-gray" >
+
+            <b class="m-0">Who are we ? </b>
+            <br>
+            {{project.description2}}
+          </div>
+          <div class="technologies" class="name bg-gray" >
+            <b class="m-0">Adresse: </b>
+            {{project.adresse}}
+          </div>
+          <div class="name bg-gray" > 
+            <b class="m-0">Email: </b>
+            {{project.email}}
+          </div>
+      
+          <div class="name bg-gray" >
+            <b class="m-0">Phone Number:</b> {{project.numtel}}
+          </div>
+          </div>
+          <br>
+
+          <div class="name bg-gray">
+              <b class="m-0">Job Description:</b> 
+              <br>{{project.description}}
+            </div>  <div class="name bg-gray" >
+              <b class="m-0">Skills:</b> 
+            <p >  {{ project.skills }} </p>
+            </div>
+            <div class="name bg-gray" >
+              <b class="m-0">Education:</b> 
+            <p >  {{ project.education }} </p>
+            </div><div class="name bg-gray" >
+              <b class="m-0">Experience Level:</b> 
+            <p >  {{ project.experience }} </p>
+            </div>
+            <div class="name bg-gray" >
+              <b class="m-0">Job Type:</b> 
+            <p >  {{ project.type }} </p>
+            </div>
+            
+
+          <!-- Modal -->
+        </div>
+      </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button href="#sectionID" (click)="showLoginSection = true" class="register btn"
+          style="border-radius: 5px;">Order Now</button>
+      </div>
+
+      <!-- Login Section -->
+      <section id="sectionID" class="login" [hidden]="!showLoginSection" style="margin-top: 130px; margin-bottom: 100px;">
+      <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+          data-aos-delay="200">
+          <h5 class="text-center">Order Your Project Today!</h5>
+          <div class=" text-center">
+            <div class="trainers">
+              
+            </div>
+          </div>
+          <!-- <div  class="text-center" *ngIf="showThankYouPopup" class="popup">
+            <h2>Thank you!</h2>
+            <p>Your form has been submitted successfully.</p>
+          </div> -->
+          <ng-container *ngIf="!showThankYouPopup; else thankYouSection">
+
+          <form (submit)="onSubmit()" method="post" role="form" class="php-email-form" #foodForm="ngForm">
+            <div class="form__group field">
+              <input [(ngModel)]="projectClient.nom" type="input" name="username" id="name" class="form__field" placeholder="email" required #thisdescription="ngModel"/>
+              <div class="alert alert-danger" *ngIf="thisdescription.touched && thisdescription.invalid && !formSubmitted">
+                <div *ngIf="thisdescription?.errors?.['required']">FullName is required!</div>
+              </div>
+              <label for="name" class="form__label">FullName</label>
+            </div>
+            <div class="form__group field">
+              <input [(ngModel)]="projectClient.numtel" type="number" name="numtel" id="numtel" class="form__field" placeholder="Phone Number" required pattern="[0-9]{8}" #thisDesc="ngModel" />
+              <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid && !formSubmitted">
+                <div *ngIf="thisDesc?.errors?.['required']">Phone Number is required!</div>
+                <div *ngIf="thisDesc?.errors?.['pattern']">Phone Number must contain exactly 8 digits!</div>
+              </div>
+              <label class="form__label">Phone</label>
+              
+            </div>
+            <div class="form__group field">
+              <input [(ngModel)]="projectClient.email" type="email" name="Email" id="Email" class="form__field" placeholder="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #thisPrice="ngModel" />
+              <div class="alert alert-danger" *ngIf="thisPrice.touched && thisPrice.invalid && !formSubmitted">
+                <div *ngIf="thisPrice?.errors?.['required']">Email is required!</div>
+                <div *ngIf="thisPrice?.errors?.['pattern']">Invalid email format! The email must contain '@' and '.'.</div>
+              </div>
+              <label for="name" class="form__label">Email</label>
+            </div>
+
+              <div class="form__group field">
+                <label for="lettre" class="form__label">Lettre de motivation  </label>
+                <textarea class="form__field" id="lettre" [(ngModel)]="projectClient.lettre" name="description" required  >
+                </textarea>
+                
+              </div>
+              <div class="form__group field" >
+                <label for="cv" class="form__label">CV (PDF)</label>
+                <hr>
+                <br>
+  <input type="file" id="cv" class="form__field" (change)="onCvSelected($event)" accept="application/pdf" required>
+  </div>
+            <div class="mt-5 text-center">
+              <button class="register btn col-lg-5 mt-2" type="submit" [disabled]="!foodForm.form.valid">Submit</button>
+            </div>
+          </form>
+        </ng-container>
+        <ng-template #thankYouSection>
+          <div class="text-center popup">
+            <h2>Thank you!</h2>
+            <p>Your form has been submitted successfully.</p>
+          </div>
+        </ng-template>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 photo d-flex align-items-center" data-aos="zoom-in" data-aos-delay="200">
+          <img src="assets/img/login.png" class="img-fluid animated mb-5" alt="">
+        </div>
+        
+      </div>
+    </div>
+  </section><!-- End Login -->

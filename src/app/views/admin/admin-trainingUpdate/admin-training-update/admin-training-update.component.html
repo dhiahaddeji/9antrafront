@@ -1,0 +1,160 @@
+<main class="gx-5 pt-3">
+  <div class="d-lg-none d-md-block"><br /><br /><br /></div>
+  <div class="pagetitle">
+    <h1>Trainings</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">trainings</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <div class="container d-flex justify-content-center">
+    <div class="card shadow-sm h-100 col-md-6">
+      <div class="card-body">
+        <h1 class="text-center fw-bold mb-3" style="color: #af3065">
+          Update Training Program
+        </h1>
+
+        <form [formGroup]="trainingForm"
+        (ngSubmit)="updateTraining()">
+          <div class="form-group mb-3">
+            <label for="name">Name of the training</label>
+            <input
+              name="name"
+              type="text"
+              [formControl]="NomForm"
+              class="form-control"
+              id="name"
+              placeholder="Web..."
+            />
+            <mat-error *ngIf="NomForm.invalid">{{getNomFormError()}}</mat-error>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="description">Description</label>
+            <textarea
+              [formControl]="DescriptionForm"
+              name="description"
+              class="form-control"
+              id="description"
+              rows="3"
+            ></textarea>
+            <mat-error *ngIf="DescriptionForm.invalid">{{getDescriptionFormError()}}</mat-error>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="nbExercices">Number of exercises</label>
+            <input
+              name="nbExercices"
+              type="text"
+              [formControl]="ExerciseForm"
+              class="form-control"
+              id="nbExercices"
+              placeholder=""
+            />
+            <mat-error *ngIf="ExerciseForm.invalid">{{getExerciseFormError()}}</mat-error>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="nbProjects">Number of projects</label>
+            <input
+              name="nbProjects"
+              type="text"
+              [formControl]="ProjectsForm"
+              class="form-control"
+              id="nbProjects"
+              placeholder=""
+            />
+            <mat-error *ngIf="ProjectsForm.invalid">{{getProjectsFormError()}}</mat-error>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="nbMeetings">Number of meetings</label>
+            <input
+              name="nbMeetings"
+              type="text"
+              [formControl]="MeetingsForm"
+              class="form-control"
+              id="nbMeetings"
+              placeholder=""
+            />
+            <mat-error *ngIf="MeetingsForm.invalid">{{getMeetingsFormError()}}</mat-error>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="nbChapters">Number of chapters</label>
+            <input
+              name="nbChapters"
+              type="text"
+              [formControl]="ChaptersForm"
+              class="form-control"
+              id="nbChapters"
+              placeholder=""
+            />
+            <mat-error *ngIf="ChaptersForm.invalid">{{getChaptersFormError()}}</mat-error>
+          </div>
+          <div class="form-group mb-3">
+            <label for="workspaces">Number of workspaces</label>
+            <input
+              name="workspaces"
+              type="text"
+              [formControl]="WorkspacesForm"
+              class="form-control"
+              id="workspaces"
+              placeholder=""
+            />
+            <mat-error *ngIf="WorkspacesForm.invalid">{{getWorkspacesFormError()}}</mat-error>
+          </div>
+          <div class="form-group mb-3">
+            <label for="posibility">Possibility</label>
+            <select
+              name="posibility"
+              [formControl]="PossibilityForm"
+              id="posibility"
+              class="form-select"
+            >
+              <option disabled selected>Select Possibility</option>
+              <option value="Possibility of online education" [ngClass]="{'selected': 'Possibility of online education' == PossibilityForm.value}">
+                Possibility of online education
+              </option>
+              <option value="No Possibility of online education" [ngClass]="{'selected': 'No Possibility of online education' == PossibilityForm.value}">
+                No Possibility of online education
+              </option>
+            </select>
+            <mat-error *ngIf="PossibilityForm.invalid">{{getPossibilityFormError()}}</mat-error>
+          </div>
+
+          <div class="text-end">
+            <button
+              type="button"
+              id="cancel"
+              name="cancel"
+              class="btn btn-light"
+              style="border-radius: 5px"
+              routerLink="/admin/trainings"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              id="submit"
+              name="submit"
+              class="btn"
+              style="
+                background-color: #af3065;
+                color: white;
+                border-radius: 5px;
+              "
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- End #main -->

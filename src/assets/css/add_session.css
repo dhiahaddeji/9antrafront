@@ -1,0 +1,283 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.calendar {
+  margin: 2.5%;
+  margin-top: 5px;
+  background: #ffffff;
+  width: 60%;
+  height: 642px;
+  margin-left: 1.5%;
+  border: 1px solid #ffffff;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 25px 10px rgba(136, 136, 136, 0.15);
+  backdrop-filter: blur(7.5px);
+  border-radius: 20px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.prev-btn,
+.next-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 30px;
+  padding: 5px;
+}
+.prev-btn {
+  margin-right: auto;
+  width: 50px;
+  margin-left: 25px;
+}
+.next-btn {
+  margin-left: auto;
+  margin-right: 25px;
+}
+.days-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 35px;
+  overflow: hidden;
+}
+.day-name {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: #666;
+}
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 35px;
+  overflow: hidden;
+}
+.day {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.day-number {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+.day.selected .day-number {
+  background-color: #af3065;
+  color: #fff;
+}
+.day.past-day .day-number {
+  background-color: #ccc;
+  color: #666;
+}
+.details {
+  margin: 2.5%;
+  width: 30%;
+  height: 642px;
+  background: #ffffff;
+  box-shadow: 0px 4px 25px 10px rgba(136, 136, 136, 0.25);
+  border-radius: 20px;
+  margin-top: 5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 35px;
+  padding: 50px;
+}
+.session-container {
+  max-height: 445px;
+  overflow-y: auto;
+}
+.date-selected {
+  overflow: auto;
+}
+.add-button {
+  background: #fab555;
+  box-shadow: 1px 3px 9px 1px #fab555;
+  border-radius: 62px;
+  width: 186px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px;
+  color: #fff;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.session-dialog,
+.groups-dialog {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 25px 10px rgba(136, 136, 136, 0.15);
+  padding: 20px;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+input[type="time"],
+input[type="number"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 0px;
+}
+h3 {
+  font-size: 18px;
+  margin: 5px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  margin-bottom: 5px;
+}
+.confirmation-dialog {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 25px 10px rgba(136, 136, 136, 0.15);
+  padding: 20px;
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+.confirmation-dialog h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.confirmation-dialog p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.confirmation-dialog button,
+.session-dialog button,
+.groups-dialog button {
+  background-color: #fab555;
+  box-shadow: 1px 3px 9px 1px #fab555;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-top: 15px;
+  color: #fff;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.confirmation-dialog button:last-child {
+  margin-right: 0;
+}
+.session-item {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: large;
+}
+-dialog button {
+  background-color: #fab555;
+  box-shadow: 1px 3px 9px 1px #fab555;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-top: 15px;
+  color: #fff;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.confirmation-dialog button:last-child {
+  margin-right: 0;
+}
+@media (max-width: 991.98px) {
+  .container {
+    flex-direction: column;
+  }
+  .details {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    height: auto;
+  }
+  .calendar {
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    margin-top: 10px;
+  }
+  .header {
+    font-size: 18px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  .prev-btn,
+  .next-btn {
+    font-size: 24px;
+    padding: 0 10px;
+  }
+  .days-names {
+    margin-bottom: 20px;
+  }
+  .day-name {
+    font-size: 6px;
+  }
+  .days {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .day {
+    font-size: 18px;
+  }
+  .day-number {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+}

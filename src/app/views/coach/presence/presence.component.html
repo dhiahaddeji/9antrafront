@@ -1,0 +1,37 @@
+<main *ngIf="session">
+  <!-- Your existing HTML code here -->
+
+  <div class="select-container">
+    <div class="data_table card1 mt-4 " style="overflow-y: scroll; height:600px;">
+      <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+          <tr>
+            <th>Students</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let group of groups">
+            <ng-container *ngIf="group.etudiants">
+              <tr *ngFor="let student of group.etudiants">
+                <td>
+                  <p class="text-muted mb-0">{{ student.username }}</p>
+                </td>
+                <td>
+                  <!-- Use ngModel to bind the checkbox value to the presence status -->
+                  <input
+  type="checkbox"
+  [ngModel]="getUserPresenceStatuse(student.id)"
+  (ngModelChange)="togglePresenceStatuss( group.id, student.id, $event)"
+/>
+
+                  <p class="text-muted mb-0">{{ getUserPresenceStatuse(student.id) ? 'Present' : 'Absent' }}</p>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

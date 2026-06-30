@@ -1,0 +1,109 @@
+.cface > .face2 {
+    display: none;
+  }
+  
+  .cface:hover > .face1 {
+    display: none;
+  }
+  
+  .cface:hover > .face2 {
+    display: block;
+  }
+  
+  .cface {
+    cursor: pointer;
+  }
+
+  .register, .later, .touch {
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 28px 11px 28px;
+    transition: 0.5s;
+    margin: 10px 0 0 0;
+  }
+  
+  .register {
+    color: #fff;
+    background: #AF3065;
+    border: none;
+  }
+  
+  .later {
+    color: #AF3065;
+    background: #fff;
+    border: 2px solid #AF3065;
+  }
+
+  .touch {
+    color: #fff;
+    background: #fab555;
+    border: 2px solid #fff;
+  }
+  
+  /* Add this rule for both classes */
+  .register, .later, .touch {
+    box-sizing: border-box;
+  }
+  
+  .register:hover {
+    color: #fff;
+    background: #d8208e;
+  }
+  
+  .later:hover {
+    color: #fff;
+    background: #fab555;
+    border: 2px solid #AF3065;
+  }
+
+  .touch:hover {
+    color: #fff;
+    background: #AF3065;
+  }
+
+  .pay-image {
+    width: 90%;
+  }
+
+  .breadcumbs {
+    margin-left: 15em;
+  }
+
+  .breadcumbs a {
+    font-size: 1.2em;
+    color: #af2f64;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+  /* .breadcrumbs {
+    min-height: 40px;
+    color: #af2f64;
+    font-size: 25px;
+    margin-left: 50px;
+  } */
+
+  /* .breadcrumbs a {
+    color: #af2f64 !important;
+  } */
+
+  @media (max-width: 768px) {
+    .card-padding {
+      padding: 25px;
+    }
+
+    .image-margin {
+      margin-top: 1.5em;
+    }
+
+    .breadcumbs {
+      margin-top: 2em;;
+      margin-left: 1em;
+    }
+  }
+
+  

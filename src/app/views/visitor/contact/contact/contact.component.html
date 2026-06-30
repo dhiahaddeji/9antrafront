@@ -1,0 +1,111 @@
+<!-- ======= Contact Section ======= -->
+<section
+  id="contact"
+  class="contact"
+  style="margin-top: 100px; margin-bottom: 100px"
+>
+  <div class="container" data-aos="fade-up">
+    <div class="section-title mt-5">
+      <h2>Contact</h2>
+    </div>
+
+    <div class="row shadow">
+      <div class="col-lg-5 d-flex align-items-stretch">
+        <img src="assets/img/contact.png" alt="" class="img-fluid" />
+      </div>
+
+      <!-- <app-contact-forum [contactCategory]="category"></app-contact-forum> -->
+
+       <div class="col-lg-7 pt-4 mt-lg-0 d-flex align-items-stretch">
+        <form
+          [formGroup]="contactForm"
+          (submit)="onSubmit()"
+          class="php-email-form"
+        >
+          <div class="row">
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                type="input"
+                class="form__field"
+                placeholder="email"
+                formControlName="firstName"
+                id="First Name"
+                required
+              />
+              <label for="First Name" class="form__label">First Name</label>
+            </div>
+
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                type="input"
+                class="form__field"
+                placeholder="Subject"
+                formControlName="lastName"
+                id="Last Name"
+                required
+              />
+              <label for="Last Name" class="form__label">Last Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                type="input"
+                class="form__field"
+                placeholder="email"
+                formControlName="email"
+                id="email"
+                required
+              />
+              <label for="email" class="form__label">Email</label>
+              <div
+                *ngIf="contactForm.get('email')?.dirty && contactForm.get('email')?.errors?.['email']"
+                class="text-danger"
+              >
+                <i class="fa-solid fa-triangle-exclamation me-3"></i>
+                Invalid email address
+              </div>
+            </div>
+            <div class="form__group field col-md-6 mt-5">
+              <input
+                type="input"
+                class="form__field"
+                placeholder="Subject"
+                formControlName="subject"
+                id="subject"
+                required
+              />
+              <label for="subject" class="form__label">Subject</label>
+            </div>
+          </div>
+          <div class="form__group field mt-5 row">
+            <textarea
+              class="form__field"
+              formControlName="message"
+              rows="0"
+              required
+            ></textarea>
+            <label for="message" class="form__label">Message</label>
+          </div>
+          <div class="text-end mt-5 m-3">
+            <button
+              type="submit"
+              [disabled]="isLoading || uploadInProgress"
+              class="register"
+              style="border-radius: 5px"
+            >
+              <span
+                *ngIf="uploadInProgress"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span *ngIf="!uploadInProgress">Send Message</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Contact Section -->

@@ -1,0 +1,105 @@
+<main id="main">
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/admin/courses">Courses</a></li>
+                <li class="breadcrumb-item active">Update</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow-sm h-100 col-md-6">
+                <div class="card-body">
+                    <h1 class="text-center fw-bold mb-3" style="color: #AF3065;">Update Course</h1>
+
+                    <form [formGroup]="courseForm">
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <input formControlName="title" type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Name...">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Description</label>
+                            <textarea formControlName="description" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Duration</label>
+                            <input formControlName="duration" type="number" class="form-control"
+                                id="exampleFormControlInput2" placeholder="" step="1">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Language</label>
+                                <select formControlName="language" id="inputGroupSelect01" class="custom-select form-control">
+                                    <option value="TUNISIAN"> TUNISIAN </option>
+                                    <option value="FRENCH"> FRENCH</option>
+                                    <option value="ENGLISH"> ENGLISH</option>
+                                </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Goals</label>
+                            <textarea formControlName="goal" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3" placeholder="Separate goals with comma"></textarea>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Image</label>
+                            <input (change)="onImageSelected($event)"
+                                class="form-control"
+                                id="filer_input2" type="file" >
+
+                            <label for="exampleFormControlInput1">Video</label>
+                            <input (change)="onVideoSelected($event)"
+                                    class="form-control"
+                                    id="filer_input2" type="file" >
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+
+
+
+
+
+                            
+                            <!-- <div class="alert alert-danger mt-3"></div> -->
+                            <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showSuccessModal}">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Success</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showSuccessModal = false">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>{{ successMessage }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-primary" >OK</button>
+                  
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+                            <button type="button" id="submitButton" name="submitButton" class="btn"
+                                style="background-color: #AF3065; color: white; border-radius: 5px;" (click)="updateCourse()">update</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,103 @@
+
+<main>
+  <div class="d-lg-none d-md-block"><br><br><br></div>
+  <div class="pagetitle">
+    <h1>View Specific Projects Details</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <div id="carouselMultiItemExample1" class="carousel slide carousel-dark text-center" *ngIf="project.image"
+  data-bs-ride="carousel" data-bs-interval="3000">
+  <div class="carousel-inner py-4">
+    <div class="carousel-item" *ngFor="let image of project.image.split(','); let i = index"
+      [class.active]="i === 0">
+      <img [src]="'assets/SpecificProject/' + project.titre + '_' + project.id + '/' + image.trim()"
+        class="d-block w-100 img-thumbnail" alt="Slide Image" style="width: 100%; height: auto;">
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="d-flex justify-content-center mb-4">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselMultiItemExample1"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselMultiItemExample1"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+
+<section id="Hackerspace" class="Hackerspace mt-5">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title mb-5 text-center">
+      <h1 class="project-title">{{ project.titre }}</h1>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-12 d-flex align-items-start">
+        <!-- <div class="info">
+          <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" class="img-fluid" width="100%" />
+
+        </div> -->
+      </div>
+      
+
+      <div class=" align-items-start">
+        <div class="description">
+          <b class="m-0">Description: </b>
+          {{project.description}}
+        </div>
+        <div class="technologies">
+          <b class="m-0">Technologies: </b>
+          {{project.technologies}}
+        </div>
+        <div class="price">
+          <b class="m-0">Budget: </b> {{ project.price  ? project.price : '_'  }}
+        </div>
+        <div class="col-lg-9 col-md-12">
+
+        <div class="name">
+          <b class="m-0">Nom: </b> {{project.nom}}
+        </div>
+        <div class="name">
+          <b class="m-0">Prenom: </b> {{ project.prenom ? project.prenom : '_'   }}
+        </div> <div class="name">
+          <b class="m-0">Email: </b>    
+          <a *ngIf="project.email" [href]="'mailto:' + project.email" (click)="copyEmail(project.email)" style="color: blue;">{{ project.email }}</a>
+          <span *ngIf="!project.email">_</span>          
+        </div> <div class="name">
+          <b class="m-0">Phone Number: </b> {{ project.numtel ? project.numtel : '_'   }}
+        </div>  
+       <div class="name">
+          <b class="m-0">Remark: </b> {{ project.remark ? (project.remark === 'undefined' ? '_' : project.remark) : '_' }}
+        </div>
+</div>
+        <!-- Modal -->
+      </div>
+    </div>
+<br> <br>
+    <!-- Video -->
+    <div *ngIf="project.video" class="d-flex justify-content-center">
+      <video controls class="img-fluid" style="max-width: 100%;">
+        <source [src]="'assets/SpecificProject/' + project.titre + '_' + project.id + '/' + project.video.replace('%20', ' ')"
+          type="video/mp4">
+        Your browser does not support video playback.
+      </video>
+    </div>
+    </div>
+    </section>
+    </main>
+
+    <!-- Order Now Button -->
+
+
+    <!-- Login Section -->
+   

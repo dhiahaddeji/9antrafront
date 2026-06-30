@@ -1,0 +1,104 @@
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>Update Project Owner</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+    <!-- ======= Profile Section ======= -->
+    <div class="container">
+      <div class="main-body">
+        <form (ngSubmit)=" onSubmitr() "  #foodForm="ngForm">
+          <div class="row gutters-sm mt-5">
+          <div class="col-md-4">
+            
+            <div class="card mb-3">
+              <!-- <div class="card-body text-center p-2 my-2">
+                <img src="assets/img/profile-img.jpg" alt="Admin" style="border-radius: 20px;" width="200">
+                <div class="mt-2 mx-5">
+                  <div class="file btn-lg fs-6 fw-bold" style="position: relative; overflow: hidden; background-color: #AF3065; color: #ffffff;">
+                    <span><i class="bi bi-camera me-3"></i></span> Add New
+                    <input type="file" (change)="onFileChange($event)" name="file" style="position: absolute; opacity: 0; right: 0; top: 0;">
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-md-8 container">
+            <div class="card">
+              <div class="card-body">
+               <div class="form-group mb-3">
+                <label for="title">Last Name:</label>
+                <input class="form-control" type="text" id="title" [(ngModel)]="project.nom" name="title" required #thisTitle="ngModel">
+                <div class="alert alert-danger" *ngIf="thisTitle.touched && thisTitle.invalid">
+                  <div *ngIf="thisTitle?.errors?.['required']">Last Name is required!</div>
+                </div>
+                </div>  
+                <div class="form-group mb-3">
+                  <label for="prenom">First Name</label>
+                  <input class="form-control" type="text" id="prenom" [(ngModel)]="project.prenom" name="prenom" required #prenom="ngModel">
+                <div class="alert alert-danger" *ngIf="prenom.touched && prenom.invalid">
+                  <div *ngIf="prenom?.errors?.['required']">First Name is required!</div>
+                </div>
+                </div> 
+      
+                <div class="form-group mb-3">
+                  <label for="numtel">Phone</label>
+                  <input class="form-control" type="number" id="prenom" [(ngModel)]="project.numtel" name="numtel" required #numtel="ngModel">
+                  <div class="alert alert-danger" *ngIf="numtel.touched && numtel.invalid">
+                    <div *ngIf="numtel?.errors?.['required']">Phone is required!</div>
+                  </div>                  </div>
+      
+                <div class="form-group mb-3">
+                  <label for="nbProjects">Email</label>
+                  <input class="form-control" type="text" id="email" [(ngModel)]="project.email" name="email" required #email="ngModel">
+                  <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+                    <div *ngIf="numtel?.errors?.['required']">Email is required!</div>
+                  </div>                  </div>
+                  <div class="form-group mb-3">
+                    <label for="nbMeetings">Image</label>
+                    <input type="file" (change)="onFileSelectedz($event)" class="form-control-file" id="file" name="file" accept="image/*" required>
+                    <br> <img [src]="imagePreview" alt="Aperçu de l'image" width="200px">
+
+                    </div>   
+        
+               
+                </div>
+                <div class="row d-flex justify-content-end">
+                  <div class="col-2">
+                    <button type="submit" [disabled]="!foodForm.form.valid" class="btn" style="background-color: #AF3065; color: white; border-radius: 5px;">
+                  Update
+                    </button>
+                  </div>
+                  <div></div>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        <div class="row mt-5">
+        </div>
+      </form>
+      </div>
+  
+      <div class="row bg-white shadow d-flex justify-content-center">
+        <div class="col-6">
+          <!-- Place additional content here -->
+        </div>
+      </div>
+    </div>
+  
+    
+
+
+   
+    
+
+  </main><!-- End #main -->
+  

@@ -1,0 +1,90 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.image-heading {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+
+@media (max-width: 767px) {
+    .image-heading {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-heading {
+        font-size: 20px;
+    }
+}
+
+/* Adjust the image size for different screen sizes */
+@media (max-width: 767px) {
+    .image-container img {
+        width: 80%;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-container img {
+        width: 60%;
+    }
+}
+
+.register {
+    background-color: #AF3065;
+    color: #ffffff;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+
+.register:hover {
+    background-color: #d8208e;
+    color: #ffffff;
+}
+
+.custom-card-width {
+    width: 100%;
+}
+
+.custom-card-width {
+    width: 100%;
+}
+
+.card {
+    height: 100%;
+}
+
+.card-title {
+    /* Limit the maximum height of the title and add ellipsis for text truncation */
+    max-height: 60px;
+}
+
+.card-text {
+    /* Limit the maximum height of the description and add ellipsis for text truncation */
+    max-height: 80px;
+}
+
+/* Media query for small screens (e.g., smartphones) */
+@media (min-width: 576px) {
+    .custom-card-width {
+        width: 50%;
+        /* Cards occupy 50% of container width on small screens and larger */
+    }
+
+    .card-title {
+        font-size: 24px;
+    }
+
+    .card-text {
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,236 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+
+
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 320px;
+  }
+}
+a {
+  color: #01130b;
+  text-decoration: none;
+
+}
+
+a:hover {
+  color: #AF3065;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Main
+--------------------------------------------------------------*/
+#main {
+
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+  #main {
+    padding: 20px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Page Title
+--------------------------------------------------------------*/
+.pagetitle {
+  margin-bottom: 10px;
+}
+
+.pagetitle h1 {
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #000000;
+}
+.card {
+  background: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  background: linear-gradient(90.21deg, #F2A89D 0.19%, #E585A5 41.65%, #E071A9 79.12%, #BC78C1 99.92%);
+  box-shadow: 6px 7px 25px rgba(130, 130, 130, 0.25);
+  padding: 50px;
+  border-radius: 5px;
+  border: 0;
+  margin-bottom: 1rem;
+}
+main {
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444444;
+  height: 100vh;
+}
+
+  /* Breadcrumbs */
+  .breadcrumb {
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+    color: #899bbd;
+    font-weight: 600;
+  }
+
+  .breadcrumb a {
+    color: #899bbd;
+    transition: 0.3s;
+  }
+
+  .breadcrumb a:hover {
+    color: #51678f;
+  }
+
+  .breadcrumb .breadcrumb-item::before {
+    color: #899bbd;
+  }
+
+  .breadcrumb .active {
+    color: #51678f;
+    font-weight: 600;
+  }
+  .comment{
+      overflow-y: scroll; height:100px;
+  }
+  :root {
+    scroll-behavior: smooth;
+  }
+
+  main {
+
+    padding: 20px 30px;
+    transition: all 0.3s;
+  }
+
+
+  @media (min-width: 991.98px) {
+    main {
+      padding-left: 340px;
+
+    }
+  }
+  a {
+    color: #01130b;
+    text-decoration: none;
+
+  }
+
+  a:hover {
+    color: #AF3065;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Nunito", sans-serif;
+  }
+
+  /*--------------------------------------------------------------
+  # Main
+  --------------------------------------------------------------*/
+
+
+
+  /*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+  .pagetitle {
+    margin-bottom: 10px;
+  }
+
+  .pagetitle h1 {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #000000;
+  }
+
+
+  .register{
+    background-color: #AF3065;
+    color: #ffffff;
+    border-radius: 5px;
+  }
+  .register:hover{
+    background-color:#d8208e ;
+    color: #ffffff;
+  }
+
+
+
+  .form__group {
+    position: relative;
+    padding: 15px 30px 0;
+    margin-top: 10px;
+
+  }
+
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #383838;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #595959;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  .form__field::placeholder {
+    color: transparent;
+  }
+
+
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.2rem;
+    cursor: text;
+    top: 20px;
+  }
+
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1.3rem;
+    color: #505050;
+  }
+
+
+  .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: 700;
+  }
+
+  .filter{
+    background-color: #ffffff;
+    color: #444444;
+    border-radius: 5px;
+
+  }

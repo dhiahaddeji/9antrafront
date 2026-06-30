@@ -1,0 +1,72 @@
+@import url('https://fonts.cdnfonts.com/css/inter');
+.object1 {
+    position: absolute;
+    width: 360px;
+    height: 174px;
+    left: 50px;
+    top: 67px;
+  }
+  .object2 {
+    position: absolute;
+    width: 249px;
+    height: 146px;
+    left: 250px;
+    top: 267px;
+  }
+  .object3 {
+    position: absolute;
+    width: 360px;
+    height: 174px;
+    left: 80px;
+    top: 482px;
+    
+  }
+  .object4 {
+    position: absolute;
+    width: 274px;
+    height: 128px;
+    left: 1131px;
+    top: 98px;
+  }
+  .object5 {
+    position: absolute;
+    width: 295px;
+    height: 158px;
+    left: 1100px;
+    top: 542px;
+  }
+  .object6 {
+    position: absolute;
+    width: 250px;
+    height: 275px;
+    left: 90px;
+    top: 250px;
+  }
+  .object7 {
+position: absolute;
+width: 330px;
+height: 373px;
+left: 1100px;
+top: 226px;
+
+  }
+  .title{
+    position: absolute;
+width: 258px;
+height: 57px;
+left: 650px;
+top: 97px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 44px;
+/* or 122% */
+
+letter-spacing: -0.02em;
+
+color: #000000;
+  }
+
+  

@@ -1,0 +1,61 @@
+<main class="gx-5">
+  <div class="d-lg-none d-md-block my-3"></div>
+  <div class="pagetitle ms-3 pt-3">
+    <h1>View Student Projects</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <div class="data_table card mt-4" style="max-height: 600px; overflow-y: scroll;">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>First Name</th>
+          <th>Phone Number</th>
+          <th>Date</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="studentDetails.length > 0; else noMembers">
+          <tr *ngFor="let student of studentDetails">
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                  src="assets/Documents/{{student.image}}"
+                  alt=""
+                  style="width: 45px; height: 45px"
+                  class="rounded-circle"
+                />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{ student.firstName }}</p>
+                  <p class="text-muted mb-0">{{ student.lastName }}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="text-muted mb-0">{{ student.numeroTel }}</p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">20/02/2023</p>
+            </td>
+            <td>
+              <button class="btn btn-success btn-circle" (click)="showDetails(student.id)">
+                <span class="bi bi-eye"></span>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <ng-template #noMembers>
+      <div class="text-center mt-4">
+        <p class="text-muted">No Member found.</p>
+      </div>
+    </ng-template>
+  </div>
+</main><!-- End #main -->

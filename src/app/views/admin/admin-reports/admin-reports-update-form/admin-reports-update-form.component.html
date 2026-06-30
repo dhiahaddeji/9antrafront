@@ -1,0 +1,71 @@
+<main id="main">
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+
+    <div class="pagetitle">
+        <h1>Reports</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/admin/reports">Reports</a></li>
+                <li class="breadcrumb-item active">Update</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow-sm h-100 col-md-6">
+                <div class="card-body">
+                    <h1 class="text-center fw-bold mb-3" style="color: #AF3065;">Update Report</h1>
+
+                    <form [formGroup]="reportForm">
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <input formControlName="title" type="text" class="form-control"
+                                id="exampleFormControlInput1" >
+                        </div>
+
+                        <div
+                            *ngIf="reportForm?.get('title')?.invalid && (reportForm?.get('title')?.dirty || reportForm?.get('title')?.touched)">
+                            <div *ngIf="reportForm?.get('title')?.hasError('required')" class="alert alert-danger mt-3">
+                                Title is required.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1">Description</label>
+                            <textarea formControlName="description" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3" maxlength="150"></textarea>
+                        </div>
+
+                        <div
+                            *ngIf="reportForm?.get('description')?.invalid && (reportForm?.get('description')?.dirty || reportForm?.get('description')?.touched)">
+                            <div *ngIf="reportForm?.get('description')?.hasError('required')" class="alert alert-danger mt-3">
+                                Description is required.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">File</label>
+                            <input (change)="onFileSelected($event)" class="form-control" id="filer_input2"
+                                type="file">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlInput1">Image</label>
+                            <input (change)="onImageSelected($event)" class="form-control" id="filer_input2"
+                                type="file">
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <!-- <div class="alert alert-danger mt-3"></div> -->
+                            <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+                            <button type="button" id="submitButton" name="submitButton" class="btn"
+                                style="background-color: #AF3065; color: white; border-radius: 5px;"
+                                (click)="updateReport()">Update</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

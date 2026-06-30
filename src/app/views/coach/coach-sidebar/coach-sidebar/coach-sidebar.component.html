@@ -1,0 +1,143 @@
+<header>
+  <!-- Sidebar -->
+  <nav id="sidebarMenu" class="collapse navbar-collapse d-lg-block sidebar collapse bg-white" id="navbarCollapse">
+    <div class="position-sticky">
+      <a class="navbar-brand ms-5 d-lg-block d-none" href="#">
+        <img src="assets/img/logo1.png" height="30" alt="" loading="lazy" />
+      </a>
+      <div class="mt-4 border-bottom border-top py-3">
+        <div class="nav-profile d-flex align-items-center ms-4 pe-0">
+          <img src="assets/Documents/{{photo}}" alt="Profile" width="50px" height="50px" class="rounded-circle" onerror="this.src='assets/img/profile-img.jpg'">
+          <a [routerLink]="['/coach/profile']" class="ps-2 fw-bold black-text linkable-text">Welcome Back <br>{{username}}</a>
+          <a class="ps-3" routerLink="profile/Edit"><i class="btn bi bi-gear"></i></a>
+          <a class="ps-1 logout-icon" (click)="logout()" title="Logout">
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </div>
+
+
+        <!-- End Profile Iamge Icon -->
+      </div>
+      <div class="list-group list-group-flush mx-3 mt-5">
+        <a
+          [routerLinkActive]="'active'"
+          [routerLinkActiveOptions]="{ exact: true }"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          routerLink="/coach"
+          class="list-group-item list-group-item-action py-3"
+          aria-current="true"
+        >
+          <i class="fa-solid fa-house fa-fw me-3"></i><span>Home</span>
+        </a>
+        <a
+          [routerLinkActive]="'active'"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          routerLink="/coach/calendar"
+          class="list-group-item list-group-item-action py-3"
+        >
+          <i class="fa-solid fa-calendar fa-fw me-3"></i><span>Calendar</span>
+        </a>
+        <!-- Messages dropdown -->
+        <a class="list-group-item list-group-item-action py-2 d-flex align-items-center"
+           href="javascript:void(0)"
+           (click)="toggleMenu('messages')">
+          <i class="fa-solid fa-comments me-3"></i>
+          <span class="flex-grow-1">Messages</span>
+          <i class="fa-solid fa-chevron-down menu-arrow" [class.rotated]="openMenu==='messages'"></i>
+        </a>
+        <ul class="submenu list-group list-group-flush" [class.open]="openMenu==='messages'">
+          <li class="list-group-item">
+            <a routerLink="chatAll" [routerLinkActive]="'active'" class="list-group-item list-group-item-action">All</a>
+          </li>
+          <li class="list-group-item" *ngFor="let group of groups">
+            <a routerLink="chat/{{group.id}}" [routerLinkActive]="'active'" class="list-group-item list-group-item-action">{{group.groupName}}</a>
+          </li>
+        </ul>
+        <a
+        [routerLinkActive]="'active'"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+        routerLink="/coach/projectgroup"
+        class="list-group-item list-group-item-action py-3"
+        ><i class="fa-solid fa-message fa-fw me-3"></i
+        ><span>Projects</span></a
+      >
+        <a
+          [routerLinkActive]="'active'"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          routerLink="/coach/groups"
+          class="list-group-item list-group-item-action py-3"
+          ><i class="fa-solid fa-play fa-fw me-3"></i><span>Groups</span></a
+        >
+
+        <a
+          [routerLinkActive]="'active'"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          routerLink="forum"
+          class="list-group-item list-group-item-action py-3"
+          ><i class="fa-solid fa-message fa-fw me-3"></i><span>Forum</span></a
+        >
+
+        <a
+          [routerLinkActive]="'active'"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+          routerLink="coach-quiz"
+          class="list-group-item list-group-item-action py-3"
+          ><i class="bi bi-joystick fa-fw me-3"></i><span>Quiz</span></a
+        >
+
+        <a
+        (click)="logout()"
+
+           class="list-group-item list-group-item-action border-top " style="margin-top: 100px;cursor: pointer;"
+           ><i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180 fa-fw me-3"></i><span>LogOut</span></a
+          >
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav
+    id="main-navbar"
+    class="navbar navbar-expand-lg navbar-light bg-white fixed-top d-block d-lg-none"
+  >
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <img src="assets/img/menu.png" class="w-10" alt="" />
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand ms-5 mt-2" href="#">
+        <img src="assets/img/logo1.png" height="30" alt="" loading="lazy"   style="padding-right: 40px;"/>
+      </a>
+
+      <!-- Right links -->
+      <div class="d-flex align-items-center ms-auto gap-2">
+        <span class="fw-bold text-muted small d-none d-sm-inline">{{username}}</span>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket me-1"></i>Logout
+        </button>
+      </div>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+
+<!--Main layout-->

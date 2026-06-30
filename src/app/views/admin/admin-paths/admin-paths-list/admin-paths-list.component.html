@@ -1,0 +1,59 @@
+<main id="main">
+    <div style="margin-bottom: 50px;" class="d-block d-lg-none"></div>
+    <div class="container"> <!-- Add a container to wrap the content -->
+      <div class="row justify-content-between">
+        <div class="col-lg-8 col-12"> <!-- Use different column sizes for large and small screens -->
+          <div class="pagetitle">
+            <h1>Paths</h1>
+            <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Paths</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-12 d-flex align-items-center justify-content-center"> <!-- Use different column sizes for large and small screens -->
+          <button type="button" class="btn register mb-3" routerLink="add">
+            <i class="fa-solid fa-plus"></i> Add new
+          </button>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div *ngFor="let p of paths" class="col-lg-4 col-md-6 col-12 mb-3"> <!-- Adjust the column sizes for different screens -->
+          <div class="card h-100">
+            <div class="card-title">
+              <div class="card-text">
+                <div class="d-flex justify-content-center mt-2">{{ p.title }}</div>
+
+              </div>
+            </div>
+            <div class="card-body d-flex flex-column align-items-center">
+              <div>
+                <img [src]="getImage(p)" alt="Path's image">
+              </div>
+              <div class="card-text">
+                <p>{{ p.description }}</p>
+              </div>
+              <a class="btn register mt-3" type="button" [routerLink]="['details', p.id]">Details</a>
+              <div class="actions d-flex mt-3">
+                <a [routerLink]="['update', p.id]"><i class="fa-regular fa-pen-to-square ml-2" style="font-size: 25px;margin-right: 10px;"></i></a>
+                <a class="d-flex justify-content-end" (click)="delete(p.id!)"><i class="bi bi-trash" style="color: red;font-size: 25px; margin-right: 10px;cursor: pointer;"></i></a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div *ngIf="paths?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+          <div class="nodata">
+            <img src="../../../../../assets/img/nodata.png" width="250px"><br>
+            <p style="overflow: hidden;">There are no paths available.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>

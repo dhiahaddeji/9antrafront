@@ -1,0 +1,216 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+main {
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444444;
+}
+
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 320px;
+    padding-top: 20px;
+
+  }
+}
+a {
+  color: #01130b;
+  text-decoration: none;
+
+}
+
+a:hover {
+  color: #AF3065;
+  text-decoration: none;
+}
+a:active{
+  color: #AF3065;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Main
+--------------------------------------------------------------*/
+#main {
+
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+  #main {
+    padding: 20px;
+  }
+}
+@media (max-width: 991px) {
+  .card{
+    margin-top: 100px;
+  }
+  .row-card{
+    width: 100%;
+  }
+}
+.post:hover{
+  background-color: #E8EAED;
+}
+
+/* ── Post button ─────────────────────────────────────────────── */
+.forum-post-btn {
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.forum-post-btn:hover { background: #8d1f4f; }
+
+/* ── Angular post modal overlay ──────────────────────────────── */
+.post-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-dialog {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  margin: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+.post-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.post-dialog-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+.post-close-btn {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #555;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+.post-close-btn:hover { background: #ffe0e8; color: #AF3065; }
+
+.post-dialog-body {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.post-input {
+  width: 100%;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.post-input:focus { border-color: #AF3065; }
+.post-textarea {
+  width: 100%;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.post-textarea:focus { border-color: #AF3065; }
+
+.post-dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 22px 18px;
+  border-top: 1px solid #f0f0f0;
+}
+.post-btn-cancel {
+  background: #f5f5f5;
+  color: #666;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.post-btn-cancel:hover { background: #e8e8e8; }
+.post-btn-submit {
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.post-btn-submit:hover { background: #8d1f4f; }
+
+body{margin-top:20px;}
+
+#menu {
+  visibility: hidden;
+  cursor: pointer;
+}
+
+#parent:hover #menu {
+    visibility: visible;
+}
+.py-3 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.px-4 {
+    padding-right: 1.5rem!important;
+    padding-left: 1.5rem!important;
+}
+.flex-grow-0 {
+    flex-grow: 0!important;
+}
+.border-top {
+    border-top: 1px solid #dee2e6!important;
+}

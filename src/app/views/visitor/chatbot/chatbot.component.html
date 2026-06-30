@@ -1,0 +1,91 @@
+<button class="chat-button" (click)="toggleChat()" *ngIf="!chatVisible"><i class="fa fa-commenting" aria-hidden="true" style="font-size: 40px;color: #0044E9;"></i></button>
+<div *ngIf="chatVisible" class="chat-container">
+  <div class="header">
+
+    <div class="x pt-3 pr-3" style="position: absolute; top: 0; right: 0;">
+      <i class="bi bi-x-lg" style="font-size: 20px; cursor: pointer;" (click)="toggleChat()"></i>
+    </div>
+    <div class="row mt-4">
+      <div class="col-4" >
+        <span style="position: relative; display: inline-block;">
+          <img src="../../../../../assets/img/9ant.png" width="100px" style="border-radius: 50%; margin-left: 15px;">
+          <span class="position-absolute bottom-0 start-100 translate-middle p-2 bg-success  border border-light rounded-circle"></span>
+        </span>
+      </div>
+
+      <div class="col-8">
+        <h1 class="mt-1" style="color: black;font-weight: bold;">Bot <br><span style="font-size: 17px;color: rgb(96, 95, 95);font-weight: normal;">Online</span> </h1>
+      </div>
+    </div>
+  </div>
+  <div class="body" #scrollRef>
+    <div class="row pt-4">
+
+      <div class="col d-flex" style="margin-left: 10px;">
+        <img src="../../../../../assets/img/9ant.png" width="50px" height="40px" style="border-radius: 50%;margin-right: 5px;">
+        <h3 class="mt-2">Bot</h3>
+      </div>
+      <div class="bot" style="display: flex;">
+        <div class="msg" style="margin-left: 20px; margin-right: 20px; display: flex; justify-content: flex-end; font-size: 17px; font-family: Verdana, Geneva, sans-serif;">
+          <span style="background-color: #ffffff; border-radius: 35px 15px 15px 5px; padding: 17px;">
+            👋 Hello there! I’m ChatBot. If you need help navigating our website, I’m here to make it a piece of cake!
+          </span>
+        </div>
+      </div>
+
+      <div class="section" *ngFor="let qa of questionsAndAnswers; let i=index;">
+        <div class="user" style="display: flex; justify-content: flex-end;flex-direction: column;">
+          <div class="pt-4" style="margin-right: 10px;">
+            <h3 style="margin-right: 20px; margin-top: 2px;float: inline-end;">You</h3>
+          </div>
+          <div class="msg" style="margin-left: 50px; margin-right: 20px; display: flex; justify-content: flex-end; font-size: 17px; font-family: Verdana, Geneva, sans-serif;">
+            <span style="background-color: #0044E9; border-radius: 15px 35px 5px 15px; padding: 17px;color: #ffffff;">
+              {{ qa.question }}
+            </span>
+          </div>
+        </div>
+
+        <div class="col d-flex" style="margin-left: 10px;margin-top: 50px;">
+          <img src="../../../../../assets/img/9ant.png" width="50px" height="40px" style="border-radius: 50%;margin-right: 5px;">
+          <h3 class="mt-3">Bot</h3>
+        </div>
+        <div class="bot" style="display: flex;margin-bottom: 20px;">
+          <div class="msg" style="margin-left: 20px; margin-right: 20px; display: flex; justify-content: flex-end; font-size: 17px; font-family: Verdana, Geneva, sans-serif;">
+            <span style="background-color: #ffffff; border-radius: 35px 15px 15px 5px; padding: 17px;" *ngIf="!loader || questionsAndAnswers.length - 1 !== i">
+              {{ qa.answer }}
+            </span>
+            <div class="three-body" *ngIf="loader && questionsAndAnswers.length - 1 === i">
+              <div class="three-body__dot"></div>
+              <div class="three-body__dot"></div>
+              <div class="three-body__dot"></div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input">
+    <div class="row" style="width: 100%;margin-top: 5px;">
+      <div class="col-10">
+        <input
+          type="text"
+          placeholder="Send a message ..."
+          style="height: 100%;"
+          [(ngModel)]="question"
+          (keyup.enter)="send()"
+          [disabled]="loader"
+        >
+      </div>
+      <div class="col-2">
+        <i
+          class="fa fa-paper-plane"
+          style="font-size: 30px;cursor: pointer;"
+          [style.color]="loader ? '#aaa' : '#0044E9'"
+          [style.pointerEvents]="loader ? 'none' : 'auto'"
+          (click)="send()"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>

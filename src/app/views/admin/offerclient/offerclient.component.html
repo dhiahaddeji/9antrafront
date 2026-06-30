@@ -1,0 +1,52 @@
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>View Project Client</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+    <div class="data_table card1 mt-4 " style="overflow-y: scroll; height:600px;">
+      <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+          <tr>
+            <th>FullName</th>
+            <th>Phone Number</th>
+            <th>Mail</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let projectClient of adminProjectId">
+            <td>
+              <p class="text-muted mb-0">{{ projectClient.nom }}</p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">{{ projectClient.numtel }}</p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">{{ projectClient.email }}</p>
+            </td>
+           
+            <td>
+                <button class="btn btn-success btn-circle" (click)="clientProject(projectClient.id)">
+                  <span class="bi bi-eye"></span>
+                </button>
+              </td>
+          </tr>
+          <tr *ngIf="adminProjectId.length === 0">
+            <td colspan="5" class="text-center">No client projects found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>  <br>
+   
+    
+  
+  </main><!-- End #main -->
+  

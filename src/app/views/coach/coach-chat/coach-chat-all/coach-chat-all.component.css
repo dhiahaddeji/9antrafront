@@ -1,0 +1,107 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+main {
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444444;
+}
+
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 320px;
+    padding-top: 20px;
+
+  }
+}
+a {
+  color: #01130b;
+  text-decoration: none;
+
+}
+
+a:hover {
+  color: #AF3065;
+  text-decoration: none;
+}
+a:active{
+  color: #AF3065;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Main
+--------------------------------------------------------------*/
+#main {
+
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+  #main {
+    padding: 20px;
+  }
+}
+esult that you can see in the preview selection
+
+body{margin-top:20px;}
+
+.chat-online {
+    color: #34ce57
+}
+
+.chat-offline {
+    color: #e4606d
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    max-height: 800px;
+}
+#menu {
+  visibility: hidden;
+  cursor: pointer;
+}
+
+#parent:hover #menu {
+    visibility: visible;
+}
+.chat-message-left,
+.chat-message-right {
+    display: flex;
+    flex-shrink: 0
+}
+
+.chat-message-left {
+    margin-right: auto
+}
+
+.chat-message-right {
+    flex-direction: row-reverse;
+    margin-left: auto
+}
+.py-3 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.px-4 {
+    padding-right: 1.5rem!important;
+    padding-left: 1.5rem!important;
+}
+.flex-grow-0 {
+    flex-grow: 0!important;
+}
+.border-top {
+    border-top: 1px solid #dee2e6!important;
+}

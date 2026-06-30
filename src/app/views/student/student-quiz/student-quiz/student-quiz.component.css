@@ -1,0 +1,83 @@
+/* ── Layout ────────────────────────────────────────────────────── */
+main {
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444;
+  min-height: 100vh;
+}
+
+@media (min-width: 991.98px) {
+  main { padding-left: 310px; }
+}
+
+/* ── Page title ────────────────────────────────────────────────── */
+.pagetitle { margin-bottom: 10px; }
+.pagetitle h1 { font-size: 24px; font-weight: 600; color: #1a1a1a; margin-bottom: 0; }
+
+.breadcrumb {
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  color: #899bbd;
+  font-weight: 600;
+}
+.breadcrumb a { color: #899bbd; transition: 0.3s; }
+.breadcrumb a:hover { color: #51678f; }
+.breadcrumb .breadcrumb-item::before { color: #899bbd; }
+.breadcrumb .active { color: #51678f; font-weight: 600; }
+
+/* ── Info / detail panel ───────────────────────────────────────── */
+.info {
+  background: #f7e6ee;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+/* ── Filter ────────────────────────────────────────────────────── */
+.filter {
+  background: #fff;
+  color: #444;
+  border-radius: 10px;
+}
+
+/* ── Primary action button ─────────────────────────────────────── */
+.register {
+  background: #AF3065;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.register:hover { background: #8d1f4f; color: #fff; }
+
+/* ── Floating label form ───────────────────────────────────────── */
+.form__group { position: relative; padding: 15px 30px 0; margin-top: 10px; }
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #e0e0e0;
+  outline: 0;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.form__field::placeholder { color: transparent; }
+.form__field:placeholder-shown ~ .form__label { font-size: 1.2rem; cursor: text; top: 20px; }
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #666;
+}
+.form__field:focus { border-bottom-color: #AF3065; }
+.form__field:focus ~ .form__label { top: 0; font-size: 1rem; font-weight: 700; color: #AF3065; }
+
+/* ── Chart ─────────────────────────────────────────────────────── */
+#divChart { display: block; width: 200px; height: 190px; }

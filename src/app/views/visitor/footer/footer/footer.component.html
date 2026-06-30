@@ -1,0 +1,920 @@
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 footer-contact">
+          <h3>The-Bridge</h3>
+          <p>
+            Top learning experiences that create <br />
+            more talent in the world.
+          </p>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li>
+              <a (click)="openCoachModal(); $event.preventDefault()" style="cursor: pointer;"
+                >Are you coach?</a
+              >
+            </li>
+
+            <!-- Modal -->
+            <div
+              *ngIf="showCoachModal"
+              class="modal fade show"
+              id="staticBackdrop"
+              style="display: block; background-color: rgba(0, 0, 0, 0.5);"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5
+                      class="modal-title ms-5"
+                      id="staticBackdropLabel"
+                      style="color: #af3065; font-weight: bold"
+                    >
+                      Register to join us
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      (click)="closeCoachModal()"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="AddCoach">
+                      <div class="row">
+                        <div class="form__group field col-md-6">
+                          <input
+                            name="FirstName"
+                            formControlName="fFirstName"
+                            type="input"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          />
+                          <label for="name" class="form__label mb-4"
+                            >First Name</label
+                          >
+                          <div
+                            *ngIf="
+                              AddCoach.controls['fFirstName'].invalid &&
+                              (AddCoach.controls['fFirstName'].dirty ||
+                                AddCoach.controls['fFirstName'].touched)
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                AddCoach.controls['fFirstName'].errors &&
+                                AddCoach.controls['fFirstName'].errors[
+                                  'required'
+                                ]
+                              "
+                            >
+                              <span class="text-danger"
+                                ><i
+                                  class="fa-solid fa-triangle-exclamation me-3"
+                                ></i>
+                                First Name is required</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-6">
+                          <input
+                            name="LastName"
+                            formControlName="fLastName"
+                            type="input"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          />
+                          <label for="name" class="form__label mb-4"
+                            >Last Name</label
+                          >
+                          <div
+                            *ngIf="
+                              AddCoach.controls['fLastName'].invalid &&
+                              (AddCoach.controls['fLastName'].dirty ||
+                                AddCoach.controls['fLastName'].touched)
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                AddCoach.controls['fLastName'].errors &&
+                                AddCoach.controls['fLastName'].errors[
+                                  'required'
+                                ]
+                              "
+                            >
+                              <span class="text-danger"
+                                ><i
+                                  class="fa-solid fa-triangle-exclamation me-3"
+                                ></i>
+                                Last Name is required</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form__group field col-md-6">
+                          <select
+                            name="Country"
+                            formControlName="fCountry"
+                            id="id_select"
+                            autofocus="true"
+                            class="form__field"
+                          >
+                            <option disabled selected>Select Country</option>
+                            <option value="Tunisia">Tunisia</option>
+                            <option value="Algeria">Algeria</option>
+                          </select>
+                        </div>
+                        <div class="form__group field col-md-6">
+                          <input
+                            name="PhoneNumber"
+                            formControlName="fPhoneNumber"
+                            type="input"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          />
+                          <label for="name" class="form__label mb-4"
+                            >Phone number</label
+                          >
+
+                          <div
+                            *ngIf="
+                              AddCoach.get('fPhoneNumber')?.dirty &&
+                              !isValidNumber(
+                                AddCoach.get('fPhoneNumber')?.value
+                              )
+                            "
+                            class="text-danger"
+                          >
+                            <span class="text-danger"
+                              ><i
+                                class="fa-solid fa-triangle-exclamation me-3"
+                              ></i>
+                              Please enter a valid number</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form__group field col-md-12">
+                          <input
+                            name="username"
+                            formControlName="fusername"
+                            type="input"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          />
+                          <label for="name" class="form__label mb-4"
+                            >E-mail</label
+                          >
+                          <div
+                            *ngIf="
+                              AddCoach.controls['fusername'].invalid &&
+                              (AddCoach.controls['fusername'].dirty ||
+                                AddCoach.controls['fusername'].touched)
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                AddCoach.controls['fusername'].errors &&
+                                AddCoach.controls['fusername'].errors[
+                                  'required'
+                                ]
+                              "
+                            ></div>
+                            <span class="text-danger"
+                              ><i
+                                class="fa-solid fa-triangle-exclamation me-3"
+                              ></i>
+                              Email is required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form__group field col-md-12">
+                          <input
+                            name="linkedin"
+                            formControlName="fLinkedin"
+                            type="input"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          />
+                          <label for="name" class="form__label mb-4"
+                            >Lien linkedin</label
+                          >
+                          <div
+                            *ngIf="
+                              AddCoach.controls['fLinkedin'].invalid &&
+                              (AddCoach.controls['fLinkedin'].dirty ||
+                                AddCoach.controls['fusername'].touched)
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                AddCoach.controls['fLinkedin'].errors &&
+                                AddCoach.controls['fLinkedin'].errors[
+                                  'required'
+                                ]
+                              "
+                            >
+                              <span class="text-danger"
+                                ><i
+                                  class="fa-solid fa-triangle-exclamation me-3"
+                                ></i>
+                                Linkedin is required</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form__group field col-md-12">
+                          <input
+                            name="Github"
+                            formControlName="fGithub"
+                            type="input"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          />
+                          <label for="name" class="form__label mb-4"
+                            >Lien GitHub</label
+                          >
+                          <div
+                            *ngIf="
+                              AddCoach.controls['fGithub'].invalid &&
+                              (AddCoach.controls['fGithub'].dirty ||
+                                AddCoach.controls['fusername'].touched)
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                AddCoach.controls['fGithub'].errors &&
+                                AddCoach.controls['fGithub'].errors['required']
+                              "
+                            >
+                              <span class="text-danger"
+                                ><i
+                                  class="fa-solid fa-triangle-exclamation me-3"
+                                ></i>
+                                Github is required</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form__group field col-md-12 mb-4">
+                          <textarea
+                            name="Skills"
+                            formControlName="fSkills"
+                            class="form__field"
+                            placeholder="Subject"
+                            name="name"
+                            id="name"
+                            required
+                          ></textarea>
+                          <label for="name" class="form__label mb-4"
+                            >Skills</label
+                          >
+                          <div
+                            *ngIf="
+                              AddCoach.controls['fSkills'].invalid &&
+                              (AddCoach.controls['fSkills'].dirty ||
+                                AddCoach.controls['fSkills'].touched ||
+                                AddCoach.controls['fSkills'].touched)
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                AddCoach.controls['fSkills'].errors &&
+                                AddCoach.controls['fSkills'].errors['required']
+                              "
+                            >
+                              <span class="text-danger"
+                                ><i
+                                  class="fa-solid fa-triangle-exclamation me-3"
+                                ></i>
+                                Skills is required</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="flex items-center justify-center mt-4">
+                          <label
+                            class="w-100 flex flex-col items-center px-4 py-6 bg-white text-black rounded-lg shadow-lg tracking-wide uppercase border border-black cursor-pointer hover:bg-black hover:text-grey"
+                          >
+                            <svg
+                              class="w-8 h-8"
+                              fill="currentColor"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+                              />
+                            </svg>
+                            <span class="mt-2 mx-4 text-base leading-normal"
+                              >Drop your resume</span
+                            >
+                            <input
+                              (change)="onFileSelected($event)"
+                              formControlName="CV"
+                              type="file"
+                              class="hidden"
+                            />
+                          </label>
+                        </div>
+
+                        <ng-container *ngIf="uploadInProgress">
+                          <!-- Show upload in progress indicator -->
+                        </ng-container>
+                        <ng-container *ngIf="showSuccessMessage">
+                          <!-- Show success message -->
+                          <div class="alert alert-success mt">
+                            File uploaded successfully!
+                          </div>
+                        </ng-container>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      (click)="closeCoachModal()"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="submit"
+                      (click)="AddCoachForm()"
+                      class="register btn"
+                      style="border-radius: 5px"
+                    >
+                      Register
+                    </button>
+                    <div *ngIf="isLoading" class="loader"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <li *ngIf="!isLoggedIn2()"><a routerLink="/login">Login</a></li>
+            <li *ngIf="!isLoggedIn2()"><a routerLink="/signup">Signup</a></li>
+            <li>
+              <a (click)="openContributorModal(); $event.preventDefault()" style="cursor: pointer;"
+                >Are you a Contributor?</a
+              >
+            </li>
+
+            <!-- Modal -->
+            <div
+              *ngIf="showContributorModal"
+              class="modal fade show"
+              id="staticBackops"
+              style="display: block; background-color: rgba(0, 0, 0, 0.5);"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5
+                      class="modal-title ms-5"
+                      id="staticBackdropLabel"
+                      style="color: #af3065; font-weight: bold"
+                    >
+                      Register to Become a Contributor
+                    </h5>
+
+                    <button
+                      type="button"
+                      class="btn-close"
+                      (click)="closeContributorModal()"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <h6
+                      *ngIf="!formSubmitted"
+                      class="text-center"
+                      style="color: red"
+                    >
+                      NB: The asterisk (*) denotes a mandatory field
+                    </h6>
+
+                    <form
+                      (ngSubmit)="save()"
+                      #foodForm="ngForm"
+                      *ngIf="!formSubmitted"
+                    >
+                      <div class="row gutters-sm mt-5">
+                        <div class="col-md-4">
+                          <!-- Card content -->
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nom" class="form__label"
+                            >Last Name<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="nom"
+                            [(ngModel)]="project.nom"
+                            name="nom"
+                            required
+                            #thisTitle="ngModel"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="thisTitle.touched && thisTitle.invalid"
+                          >
+                            <div *ngIf="thisTitle?.errors?.['required']">
+                              LastName is required!
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="prenom" class="form__label"
+                            >First Name<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="prenom"
+                            [(ngModel)]="project.prenom"
+                            name="prenom"
+                            required
+                            #prenom="ngModel"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="prenom.touched && prenom.invalid"
+                          >
+                            <div *ngIf="prenom?.errors?.['required']">
+                              First Name is required!
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="numtel" class="form__label"
+                            >Phone Number<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="number"
+                            id="prenom"
+                            [(ngModel)]="project.numtel"
+                            name="numtel"
+                            required
+                            pattern="[0-9]{8}"
+                            #thisDessc="ngModel"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="
+                              thisDessc.touched &&
+                              thisDessc.invalid &&
+                              !formSubmitted
+                            "
+                          >
+                            <div *ngIf="thisDessc?.errors?.['required']">
+                              Phone Number is required!
+                            </div>
+                            <div *ngIf="thisDessc?.errors?.['pattern']">
+                              Phone Number must contain exactly 8 digits!
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbProjects" class="form__label"
+                            >Email<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="email"
+                            [(ngModel)]="project.email"
+                            name="email"
+                            required
+                            #thisPriwce="ngModel"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="
+                              thisPriwce.touched &&
+                              thisPriwce.invalid &&
+                              !formSubmitted
+                            "
+                          >
+                            <div *ngIf="thisPriwce?.errors?.['required']">
+                              Email is required!
+                            </div>
+                            <div *ngIf="thisPriwce?.errors?.['pattern']">
+                              Invalid email format! The email must contain '@'
+                              and '.'.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbProjects" class="form__label"
+                            >Github</label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="email"
+                            [(ngModel)]="project.github"
+                            name="email"
+                          />
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbProjects" class="form__label"
+                            >Linkedin</label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="email"
+                            [(ngModel)]="project.linkedin"
+                            name="email"
+                          />
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbMeetings" class="form__label"
+                            >Image<span class="required">*</span></label
+                          >
+                          <br />
+                          <input
+                            type="file"
+                            (change)="onFileChange($event)"
+                            class="form-control"
+                            id="file"
+                            name="file"
+                            accept="image/*"
+                            required
+                          />
+                        </div>
+                        <div
+                          *ngIf="imagePreview"
+                          class="d-flex justify-content-center align-items-center"
+                        >
+                          <img
+                            [src]="imagePreview"
+                            alt="Preview"
+                            style="max-width: 200px; max-height: 200px"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          (click)="closeContributorModal()"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="submit"
+                          [disabled]="!foodForm.form.valid || !imagePreview"
+                          class="btn"
+                          style="
+                            background-color: #af3065;
+                            color: white;
+                            border-radius: 5px;
+                          "
+                        >
+                          Register
+                        </button>
+                      </div>
+
+                      <div class="row mt-5"></div>
+                    </form>
+                    <div *ngIf="formSubmitted">
+                      <h2>Thank you for registering!</h2>
+                    </div>
+                  </div>
+
+                  <!-- ======= <div *ngIf="Addetat && msjEtat !== ''" class="alert alert-success" role="alert" style="color: green;">   {{ msjEtat }}
+                            </div> ======= -->
+                </div>
+              </div>
+            </div>
+            <li>
+              <a (click)="openCompanyModal(); $event.preventDefault()" style="cursor: pointer;"
+                >Are you a Company?</a
+              >
+            </li>
+
+            <!-- Modal -->
+            <div
+              *ngIf="showCompanyModal"
+              class="modal fade show"
+              id="staticBackopse"
+              style="display: block; background-color: rgba(0, 0, 0, 0.5);"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="false"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5
+                      class="modal-title ms-5"
+                      id="staticBackdropLabel"
+                      style="color: #af3065; font-weight: bold"
+                    >
+                      Register to Become a Company
+                    </h5>
+
+                    <button
+                      type="button"
+                      class="btn-close"
+                      (click)="closeCompanyModal()"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <h6
+                      *ngIf="!formSubmitteds"
+                      class="text-center"
+                      style="color: red"
+                    >
+                      NB: The asterisk (*) denotes a mandatory field
+                    </h6>
+
+                    <form
+                      (ngSubmit)="saveCompany()"
+                      #foodForm="ngForm"
+                      *ngIf="!formSubmitteds"
+                    >
+                      <div class="row gutters-sm mt-5">
+                        <div class="col-md-4">
+                          <!-- Card content -->
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nom" class="form__label">
+                            Name<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="nom"
+                            [(ngModel)]="projects.nom"
+                            name="nom"
+                            required
+                            #thisTitle="ngModel"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="thisTitle.touched && thisTitle.invalid"
+                          >
+                            <div *ngIf="thisTitle?.errors?.['required']">
+                              Name is required!
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="prenom" class="form__label"
+                            >Adresse<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="prenom"
+                            [(ngModel)]="projects.adresse"
+                            name="prenom"
+                            required
+                            #prenom="ngModel"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="prenom.touched && prenom.invalid"
+                          >
+                            <div *ngIf="prenom?.errors?.['required']">
+                              Adresse is required!
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="numtel" class="form__label"
+                            >Phone Number<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="number"
+                            id="prenom"
+                            [(ngModel)]="projects.numtel"
+                            name="numtel"
+                            required
+                            pattern="[0-9]{8}"
+                            #thisDessc="ngModel"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="
+                              thisDessc.touched &&
+                              thisDessc.invalid &&
+                              !formSubmitted
+                            "
+                          >
+                            <div *ngIf="thisDessc?.errors?.['required']">
+                              Phone Number is required!
+                            </div>
+                            <div *ngIf="thisDessc?.errors?.['pattern']">
+                              Phone Number must contain exactly 8 digits!
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbProjects" class="form__label"
+                            >Email<span class="required">*</span></label
+                          >
+                          <input
+                            class="form__field"
+                            type="text"
+                            id="email"
+                            [(ngModel)]="projects.email"
+                            name="email"
+                            required
+                            #thisPriwce="ngModel"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                          />
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="
+                              thisPriwce.touched &&
+                              thisPriwce.invalid &&
+                              !formSubmitted
+                            "
+                          >
+                            <div *ngIf="thisPriwce?.errors?.['required']">
+                              Email is required!
+                            </div>
+                            <div *ngIf="thisPriwce?.errors?.['pattern']">
+                              Invalid email format! The email must contain '@'
+                              and '.'.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbProjects" class="form__label"
+                            >Description<span class="required">*</span></label
+                          >
+                          <textarea
+                            class="form__field"
+                            type="text"
+                            id="email"
+                            [(ngModel)]="projects.description"
+                            name="description"
+                            required
+                            #description="ngModel"
+                          ></textarea>
+                          <div
+                            class="alert alert-danger"
+                            *ngIf="description.touched && description.invalid"
+                          >
+                            <div *ngIf="description?.errors?.['required']">
+                              Description is required!
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form__group field col-md-12 mb-4">
+                          <label for="nbMeetings" class="form__label"
+                            >Image<span class="required">*</span></label
+                          >
+                          <br />
+                          <input
+                            type="file"
+                            (change)="onFileChange($event)"
+                            class="form-control"
+                            id="file"
+                            name="file"
+                            accept="image/*"
+                            required
+                          />
+                        </div>
+                        <div
+                          *ngIf="imagePreview"
+                          class="d-flex justify-content-center align-items-center"
+                        >
+                          <img
+                            [src]="imagePreview"
+                            alt="Preview"
+                            style="max-width: 200px; max-height: 200px"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          (click)="closeCompanyModal()"
+                        >
+                          Close
+                        </button>
+                        <button
+                          type="submit"
+                          [disabled]="!foodForm.form.valid"
+                          class="btn"
+                          style="
+                            background-color: #af3065;
+                            color: white;
+                            border-radius: 5px;
+                          "
+                        >
+                          Register
+                        </button>
+                      </div>
+
+                      <div class="row mt-5"></div>
+                    </form>
+                    <div *ngIf="formSubmitteds">
+                      <h2>Thank you for registering!</h2>
+                    </div>
+                  </div>
+
+                  <!-- ======= <div *ngIf="Addetat && msjEtat !== ''" class="alert alert-success" role="alert" style="color: green;">   {{ msjEtat }}
+                            </div> ======= -->
+                </div>
+              </div>
+            </div>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
+            <li><a routerLink="reports">Reports</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-bottom clearfix row">
+    <div class="copyright col-6">
+      &copy; 2023 The Bridge. All rights reserved.
+    </div>
+    <div class="trainers col-6 d-flex justify-content-center mb-4">
+      <div class="social">
+        <a href="https://www.facebook.com/9antra.tn" target="_blank" class="ms-2"
+          ><i class="bi bi-facebook"></i
+        ></a>
+
+        <a href="https://www.instagram.com/9antra.tn_the_bridge/"  target="_blank" class="ms-2"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/9antra-tn-the-bridge/" target="_blank" class="ms-2"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+</footer>

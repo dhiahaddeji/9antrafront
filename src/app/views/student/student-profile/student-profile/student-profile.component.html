@@ -1,0 +1,119 @@
+<main id="main" class="main">
+  <div class="d-lg-none d-md-block" style="height:70px;"></div>
+
+  <div class="pagetitle">
+    <h1>My Profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/student">Home</a></li>
+        <li class="breadcrumb-item active">Profile</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div *ngIf="data" class="row g-4">
+
+    <!-- ── Left: Avatar card ──────────────────────────────────────────── -->
+    <div class="col-lg-4">
+      <div class="profile-card text-center">
+
+        <!-- Avatar + camera overlay -->
+        <div class="avatar-zone">
+          <img
+            [src]="previewUrl || 'assets/img/profile-img.jpg'"
+            onerror="this.src='assets/img/profile-img.jpg'"
+            alt="Profile Photo"
+            class="profile-avatar"
+            id="profileAvatarImg"
+          />
+          <!-- Camera label triggers hidden file input -->
+          <label for="profilePhotoInput" class="camera-overlay" title="Change photo">
+            <i class="bi bi-camera-fill"></i>
+          </label>
+          <input
+            type="file"
+            id="profilePhotoInput"
+            accept="image/*"
+            class="d-none"
+            (change)="onFileSelected($event); previewPhoto($event)"
+          />
+        </div>
+
+        <h5 class="profile-name">{{ data.firstName }} {{ data.lastName }}</h5>
+        <p class="profile-email">{{ data.username }}</p>
+        <span class="role-pill">Student</span>
+
+        <!-- Upload button — appears only after a file is chosen -->
+        <div *ngIf="photoSelected" class="mt-3">
+          <button class="upload-confirm-btn" (click)="AddCoachForm()">
+            <i class="bi bi-cloud-upload me-2"></i>Save Photo
+          </button>
+          <p class="upload-hint">Photo ready to upload</p>
+        </div>
+
+        <div *ngIf="data.about" class="about-box mt-3">
+          <p class="about-label">About</p>
+          <p class="about-text">{{ data.about }}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Right: Details card ────────────────────────────────────────── -->
+    <div class="col-lg-8">
+      <div class="details-card">
+
+        <div class="details-header">
+          <h5 class="details-title">Personal Information</h5>
+          <a routerLink="Edit" class="edit-btn">
+            <i class="bi bi-pencil-square me-1"></i>Edit Profile
+          </a>
+        </div>
+
+        <div class="row g-4 mt-1">
+          <div class="col-sm-6">
+            <div class="info-field">
+              <span class="field-label">Full Name</span>
+              <span class="field-value">{{ data.firstName }} {{ data.lastName }}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-field">
+              <span class="field-label">Email</span>
+              <span class="field-value">{{ data.username }}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-field">
+              <span class="field-label">Phone</span>
+              <span class="field-value">{{ data.numeroTel || '—' }}</span>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="info-field">
+              <span class="field-label">Country</span>
+              <span class="field-value">{{ data.country || '—' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Groups -->
+        <div>
+          <h6 class="groups-title">My Groups</h6>
+          <div *ngIf="groups && groups.length > 0; else noGroups" class="groups-wrap">
+            <span *ngFor="let g of groups" class="group-chip">
+              <i class="bi bi-people-fill me-1"></i>{{ g.groupName }}
+            </span>
+          </div>
+          <ng-template #noGroups>
+            <p class="no-groups">No groups assigned yet.</p>
+          </ng-template>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>

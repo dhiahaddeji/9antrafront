@@ -1,0 +1,149 @@
+<div id="carouselMultiItemExample1" class="carousel slide carousel-dark text-center" data-bs-ride="carousel"
+  data-bs-interval="3000">
+  <div class="carousel-inner py-4">
+    <ng-container *ngIf="project.image">
+      <div class="carousel-item" *ngFor="let image of project.image.split(','); let i = index"
+        [class.active]="i === 0">
+        <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + image.trim()"
+          class="d-block w-100 img-thumbnail" alt="Slide Image" style="width: 100%; height: auto;">
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Controls -->
+  <div class="d-flex justify-content-center mb-4">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselMultiItemExample1"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselMultiItemExample1"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<section id="Hackerspace" class="Hackerspace mt-5">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title mb-5 text-center">
+      <h2>{{project.titre}}</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-12 d-flex align-items-start">
+        <div class="info">
+          <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + project.ownerImage"
+            alt="Image du ProjectOwner" class="img-fluid" width="100%">
+        </div>
+      </div>
+
+      <div class="col-lg-9 col-md-12">
+        <div class="description">
+          <b class="m-0">Description: </b>
+          {{project.description}}
+        </div>
+        <div class="technologies">
+          <b class="m-0">Technologies: </b>
+          {{project.technologies}}
+        </div>
+        <div class="price">
+          <b class="m-0">Price: </b>
+          {{project.price}}
+        </div>
+        <div class="name">
+          <b class="m-0">Name:</b> {{project.name}}
+        </div>
+
+        <!-- Modal -->
+      </div>
+    </div>
+<br> <br>
+    <!-- Video -->
+    <div *ngIf="project.video" class="d-flex justify-content-center">
+      <video controls class="img-fluid" style="max-width: 100%;">
+        <source [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + project.video.replace('%20', ' ')"
+          type="video/mp4">
+        Your browser does not support video playback.
+      </video>
+    </div>
+
+    <!-- Order Now Button -->
+    <div class="d-flex justify-content-center mt-3">
+      <button href="#sectionID" (click)="showLoginSection = true" class="register btn"
+        style="border-radius: 5px;">Order Now</button>
+    </div>
+
+    <!-- Login Section -->
+    <section id="sectionID" class="login" [hidden]="!showLoginSection" style="margin-top: 130px; margin-bottom: 100px;">
+    <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+        data-aos-delay="200">
+        <h1 class="text-center">Transform Your Vision into Reality</h1>
+        <h5 class="text-center">Order Your Project Today!</h5>
+        <h6 class="text-center" style="color: red;">NB: The asterisk (*) denotes a mandatory field</h6>
+
+        <div class=" text-center">
+          <div class="trainers">
+            
+          </div>
+        </div>
+
+        <form (submit)="addProjectClient()" method="post" role="form" class="php-email-form" #foodForm="ngForm">
+          <div class="form__group field">
+            <input [(ngModel)]="projectClient.nom" type="input" name="username" id="name" class="form__field" placeholder="email" required #thisdescription="ngModel"/>
+            <div class="alert alert-danger" *ngIf="thisdescription.touched && thisdescription.invalid && !formSubmitted">
+              <div *ngIf="thisdescription?.errors?.['required']">FullName is required!</div>
+            </div>
+            <label for="name" class="form__label">FullName <span class="required">*</span></label>
+          </div>
+          <div class="form__group field">
+            <input [(ngModel)]="projectClient.numtel" type="number" name="NumTel" id="NumTel" class="form__field" placeholder="Phone Number" required pattern="[0-9]{8}" #thisDesc="ngModel" />
+            <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid && !formSubmitted">
+              <div *ngIf="thisDesc?.errors?.['required']">Phone Number is required!</div>
+              <div *ngIf="thisDesc?.errors?.['pattern']">Phone Number must contain exactly 8 digits!</div>
+            </div>
+            <label for="name" class="form__label">Phone <span class="required">*</span></label>
+          </div>
+          <div class="form__group field">
+            <input [(ngModel)]="projectClient.email" type="email" name="Email" id="Email" class="form__field" placeholder="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #thisPrice="ngModel" />
+            <div class="alert alert-danger" *ngIf="thisPrice.touched && thisPrice.invalid && !formSubmitted">
+              <div *ngIf="thisPrice?.errors?.['required']">Email is required!</div>
+              <div *ngIf="thisPrice?.errors?.['pattern']">Invalid email format! The email must contain '@' and '.'.</div>
+            </div>
+            <label for="name" class="form__label">Email <span class="required">*</span></label>
+          </div>
+          <div class="form__group field">
+            <textarea [(ngModel)]="projectClient.remark" type="input" name="remark" id="remark" class="form__field" placeholder="email" required #thisTitle="ngModel" ></textarea>
+            <div class="alert alert-danger" *ngIf="thisTitle.touched && thisTitle.invalid && !formSubmitted">
+              <div *ngIf="thisTitle?.errors?.['required']">Remark is required!</div>
+            </div>
+            <label for="name" class="form__label">Remark <span class="required">*</span></label>
+          </div>
+          <div class="mt-5 text-center">
+            <button class="register btn col-lg-5 mt-2" type="submit" [disabled]="!foodForm.form.valid">Submit</button>
+          </div>
+        </form>
+        
+       
+      </div>
+      
+        <div *ngIf="!isSubmitted" class="col-lg-5 order-1 order-lg-2 photo" data-aos="zoom-in" data-aos-delay="200">
+          <img src="assets/img/about.png" class="img-fluid animated" alt="">
+        </div>
+        <div *ngIf="isSubmitted" class="text-center col-lg-5 order-1 order-lg-2 photo" data-aos="zoom-in" data-aos-delay="200" style="margin-top: 80px;">
+          <h2>Thank you,</h2>
+          <h2>Your project</h2>
+          <h2>has been submitted!</h2>
+        </div>
+        
+        <table class="table align-middle mb-0 bg-white">
+          <!-- Rest of the table code -->
+        </table>
+      </div>
+    </div>
+
+</section><!-- End Login -->
+
+<!-- End Services Section -->

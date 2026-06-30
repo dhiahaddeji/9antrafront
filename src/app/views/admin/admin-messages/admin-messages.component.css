@@ -1,0 +1,98 @@
+main.messages-main {
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+@media (min-width: 991.98px) {
+  main.messages-main { padding-left: 340px; }
+}
+
+.mobile-spacer { margin-bottom: 50px; }
+
+.pagetitle h1 { font-size: 24px; font-weight: 600; color: #000; }
+.breadcrumb { font-size: 14px; font-family: "Nunito", sans-serif; color: #899bbd; font-weight: 600; }
+.breadcrumb a { color: #899bbd; }
+
+.chat-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+}
+.chat-wrapper .row { flex: 1; height: 100%; }
+
+/* Sidebar */
+.chat-sidebar {
+  background: #fafafa;
+  overflow-y: auto;
+  height: 100%;
+}
+.conv-item {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.conv-item:hover { background: #f0e4ec; }
+.conv-item.active { background: #f5d5e6; }
+
+.avatar-circle {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #af3065, #ef3e8a);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 1rem;
+}
+
+/* Chat area */
+.chat-header {
+  background: #fff;
+  min-height: 60px;
+}
+
+.chat-body {
+  overflow-y: auto;
+  background: #f5f7f9;
+}
+
+/* Bubbles */
+.msg-bubble-right {
+  background: linear-gradient(135deg, #af3065, #ef3e8a);
+  color: #fff;
+  border-radius: 18px 18px 4px 18px;
+  padding: 10px 14px;
+  max-width: 420px;
+}
+.msg-bubble-left {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 14px;
+  max-width: 420px;
+}
+.msg-deleted {
+  font-size: .85rem;
+  color: #999;
+  font-style: italic;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-radius: 12px;
+}
+
+.msg-delete {
+  cursor: pointer;
+  font-size: .8rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: rgba(255,255,255,0.7);
+}
+.msg-bubble-right:hover .msg-delete { opacity: 1; }
+
+/* Input */
+.chat-input { background: #fff; }
+.btn-send {
+  background: linear-gradient(135deg, #af3065, #ef3e8a);
+  color: #fff;
+  border: none;
+}
+.btn-send:hover { background: #d8208e; color: #fff; }
+.btn-send:disabled { opacity: .5; }

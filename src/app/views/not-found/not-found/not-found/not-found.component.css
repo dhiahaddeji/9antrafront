@@ -1,0 +1,73 @@
+#trainers {
+    background: #F8F8F8;
+    padding: 50px;
+    
+  }
+  
+  .trainers .member {
+    text-align: center;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #eef0ef;
+  }
+  
+  .trainers .member img {
+    margin: -1px -1px 30px -1px;
+    border-radius: 100%;
+    width: 50%;
+  }
+  
+  .trainers .member .member-content {
+    padding: 0 20px 30px 20px;
+  }
+  
+  .trainers .member h4 {
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-size: 18px;
+  }
+  
+  .trainers .member span {
+    font-style: italic;
+    display: block;
+    font-size: 13px;
+  }
+  
+  .trainers .member p {
+    padding-top: 10px;
+    font-size: 14px;
+    font-style: italic;
+    color: #aaaaaa;
+  }
+  
+  .trainers .social {
+    margin-top: 15px;
+  }
+  
+  .trainers .social a {
+    color: #98A2B3;
+    transition: 0.3s;
+  }
+  
+  .trainers .social a:hover {
+    color: #FAB555;
+  }
+  
+  .trainers .social i {
+    font-size: 18px;
+    margin: 0 2px;
+  }
+  div {
+    -webkit-animation: action 2.5s infinite  alternate;
+    animation: action 2.5s infinite  alternate;
+}
+
+@-webkit-keyframes action {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+@keyframes action {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+} 

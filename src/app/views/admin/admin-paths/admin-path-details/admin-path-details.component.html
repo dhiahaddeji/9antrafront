@@ -1,0 +1,73 @@
+<main id="main" *ngIf="path">
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+  
+    <div class="container">
+      <div class="pagetitle">
+        <h1>Paths</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/admin/paths">Paths</a></li>
+            <li class="breadcrumb-item active">Details</li>
+          </ol>
+        </nav>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="display-md-4 display-lg-3">
+                <span class="d-inline-block d-md-none">{{ path.title }}</span>
+                <span class="d-none d-md-inline">{{ path.title }}</span>
+                <span *ngIf="path.language == 'TUNISIAN'" class="fi fi-tn ml-2"></span>
+                <span *ngIf="path.language == 'FRENCH'" class="fi fi-fr ml-2"></span>
+                <span *ngIf="path.language == 'ENGLISH'" class="fi fi-gb ml-2"></span>
+              </h4>
+              <p class="font-italic text-smaller-md text-smallest-lg">{{ path.duration }} Weeks <i class="bi bi-slash"></i> {{ path.price | currency: 'TND' }}</p>
+              <p class="text-wrap text-smaller-md text-smallest-lg"> {{ path.description }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3 mt-md-0">
+          <img [src]="getImage()" alt="paths's image" class="img-fluid rounded">
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 mt-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="font-weight-bold">Goals :</div>
+              <div *ngFor="let goal of path.learningGoals" class="text-smaller-md text-smallest-lg"><i class="bi bi-arrow-right-short"></i>{{ goal.description }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3">
+          <div class="card">
+            <div class="card-body d-flex flex-column">
+              <div class="font-weight-bold">Career Development</div>
+              <p class="text-smaller-md text-smallest-lg"><i class="bi bi-arrow-right-short"></i>{{ path.careerDevelopment }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- <div class="row">
+        <div class="col-md">
+          <div class="row">
+            <div class="col-md" *ngFor="let module of path.learningModules">
+              <div class="card">
+                <div class="card-body">
+                  <div class="module-title font-weight-bold text-smaller-md text-smallest-lg">{{ module.title }} :</div>
+                  <div class="text-smaller-md text-smallest-lg">{{ module.description }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+  
+    </div>
+  </main>
+  

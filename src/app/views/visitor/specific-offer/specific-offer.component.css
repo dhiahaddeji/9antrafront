@@ -1,0 +1,558 @@
+
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/**
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Jost", sans-serif;
+}
+section {
+    padding: 60px 0;
+    overflow: hidden;
+  }
+  
+  .section-bg {
+    background-color: #f3f5fa;
+  }
+  
+  
+  
+  .section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #000000;
+  }
+  
+  
+  
+  /*--------------------------------------------------------------
+  # Hackerspace
+  --------------------------------------------------------------*/
+  
+  .shadow{
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.226);
+   
+    background: #fff;
+    border-radius: 20px;
+  }
+  
+  
+  .Hackerspace .info .social-links {
+    padding-left: 60px;
+  }
+  
+  .Hackerspace .info .social-links a {
+    font-size: 18px;
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    line-height: 1;
+    padding: 8px 0;
+    border-radius: 50%;
+    text-align: center;
+    width: 36px;
+    height: 36px;
+    transition: 0.3s;
+    margin-right: 10px;
+  }
+  
+  .Hackerspace .info .social-links a:hover {
+    background: #bae447;
+    color: #fff;
+  }
+  
+  .Hackerspace .info i {
+    font-size: 20px;
+    color: #333333;
+    float: left;
+    width: 44px;
+    height: 44px;
+    background: #e7f5fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .Hackerspace .info .email:hover i,
+  .Hackerspace .info .address:hover i,
+  .Hackerspace .info .phone:hover i {
+    background: #AF3065;
+    color: #fff;
+  }
+  
+  .Hackerspace  .info h4 {
+    padding: 0 0 0 60px;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #0a0a0a;
+  }
+  
+  .Hackerspace  .info p {
+    padding: 0 0 10px 60px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #070707;
+  }
+  
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
+  }
+
+  a {
+    color: #47b2e4;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #73c5eb;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Jost", sans-serif;
+  }
+
+
+
+  .section-title {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+
+  .section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #000000;
+  }
+
+  .section-title h2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+  }
+
+  .section-title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #FAB555;
+    bottom: 0;
+    left: calc(50% - 20px);
+  }
+
+  .section-title p {
+    margin-bottom: 0;
+  }
+
+
+
+
+
+  /*--------------------------------------------------------------
+  # Services
+  --------------------------------------------------------------*/
+  #services {
+    background: #F8F8F8;
+    padding: 50px;
+
+  }
+
+
+  .services .icon-box {
+
+    padding: 50px 30px;
+    transition: all ease-in-out 0.4s;
+
+    border-radius: 5px;
+  }
+
+  .services .icon-box .icon {
+    margin-bottom: 10px;
+  }
+
+  .services .icon-box .icon i {
+    color: #FAB555;
+    font-size: 36px;
+    transition: 0.3s;
+  }
+
+  .services .icon-box h4 {
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+
+  .services .icon-box h4 a {
+    color: #000000;
+    transition: ease-in-out 0.3s;
+  }
+
+  .services .icon-box p {
+    line-height: 24px;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  .services .icon-box:hover {
+    transform: translateY(-10px);
+  }
+
+  .services .icon-box:hover h4 a {
+    color: #f7be6e;
+  }
+
+
+  .card
+  {
+    width:380px;
+    height: 335px;
+
+  }
+
+  
+  
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
+  }
+
+  a {
+    color: #47b2e4;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #73c5eb;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Jost", sans-serif;
+  }
+
+
+
+  .section-title {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+
+  .section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: #000000;
+  }
+
+  .section-title h2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+  }
+
+  .section-title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #FAB555;
+    bottom: 0;
+    left: calc(50% - 20px);
+  }
+
+  .section-title p {
+    margin-bottom: 0;
+  }
+
+
+
+
+
+  /*--------------------------------------------------------------
+  # Services
+  --------------------------------------------------------------*/
+  #services {
+    background: #F8F8F8;
+    padding: 50px;
+
+  }
+
+
+  .services .icon-box {
+
+    padding: 50px 30px;
+    transition: all ease-in-out 0.4s;
+
+    border-radius: 5px;
+  }
+
+  .services .icon-box .icon {
+    margin-bottom: 10px;
+  }
+
+  .services .icon-box .icon i {
+    color: #FAB555;
+    font-size: 36px;
+    transition: 0.3s;
+  }
+
+  .services .icon-box h4 {
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+
+  .services .icon-box h4 a {
+    color: #000000;
+    transition: ease-in-out 0.3s;
+  }
+
+  .services .icon-box p {
+    line-height: 24px;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  .services .icon-box:hover {
+    transform: translateY(-10px);
+  }
+
+  .services .icon-box:hover h4 a {
+    color: #f7be6e;
+  }
+
+
+  .card
+  {
+    width:380px;
+    height: 335px;
+
+  }
+  #inscription {
+    background-color: #F8F8F8;
+  }
+
+  .form__group {
+    position: relative;
+    padding: 15px 30px 0;
+    margin-top: 10px;
+
+  }
+
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #383838;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #595959;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  .form__field::placeholder {
+    color: transparent;
+  }
+
+
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.2rem;
+    cursor: text;
+    top: 20px;
+  }
+
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1.3rem;
+    color: #505050;
+  }
+  .error-message {
+    color: red;
+  }
+
+
+  .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: 700;
+  }
+
+  .register {
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 28px 11px 28px;
+
+    transition: 0.5s;
+    margin: 10px 0 0 0;
+    color: #fff;
+    background: #AF3065;
+
+  }
+
+  .register:hover {
+    color: #fff;
+    background: #d8208e;
+  }
+  #inscription {
+    background-color: #F8F8F8;
+  }
+
+  .form__group {
+    position: relative;
+    padding: 15px 30px 0;
+    margin-top: 10px;
+
+  }
+
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #383838;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #595959;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+  .form__field::placeholder {
+    color: transparent;
+  }
+
+
+  .form__field:placeholder-shown ~ .form__label {
+    font-size: 1.2rem;
+    cursor: text;
+    top: 20px;
+  }
+
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1.3rem;
+    color: #505050;
+  }
+
+
+  .form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: 700;
+  }
+  .trainers .social {
+    margin-top: 15px;
+  }
+
+  .trainers .social a {
+    color: #98A2B3;
+    transition: 0.3s;
+  }
+
+  .trainers .social a:hover {
+    color: #FAB555;
+  }
+
+  .trainers .social i {
+    font-size: 18px;
+    margin: 0 2px;
+  }
+
+a
+{
+    color: grey
+
+
+}
+a:hover
+{
+    color: #AF3065;
+    text-decoration: none;
+}
+
+  
+  .popup-form-container.open {
+    display: block;
+  }
+  .required {
+    color: red;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Ajustez la hauteur moyenne souhaitée */
+    margin-top: 20px; /* Espace au-dessus de l'image */
+  }
+  
+  .centered-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  

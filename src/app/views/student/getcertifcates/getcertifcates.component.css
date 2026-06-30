@@ -1,0 +1,248 @@
+main {
+  padding: 20px 30px;
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444;
+  min-height: 100vh;
+}
+
+@media (min-width: 991.98px) {
+  main { padding-left: 310px; }
+}
+
+a { color: #333; text-decoration: none; }
+a:hover { color: #AF3065; }
+h1,h2,h3,h4,h5,h6 { font-family: "Nunito", sans-serif; }
+
+/* Page title */
+.pagetitle { margin-bottom: 20px; }
+.pagetitle h1 { font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0; }
+.breadcrumb { font-size: 13px; font-family: "Nunito", sans-serif; color: #899bbd; font-weight: 600; }
+.breadcrumb a { color: #899bbd; }
+.breadcrumb a:hover { color: #51678f; }
+.breadcrumb .breadcrumb-item::before { color: #899bbd; }
+.breadcrumb .active { color: #51678f; font-weight: 600; }
+
+/* ── Loading ─────────────────────────────────────────────── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #888;
+}
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #f7e6ee;
+  border-top-color: #AF3065;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Empty state ─────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+.empty-icon {
+  width: 90px;
+  height: 90px;
+  background: #f7e6ee;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  color: #AF3065;
+  margin-bottom: 20px;
+}
+.empty-state h4 { font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+.empty-state p { color: #888; font-size: 14px; margin-bottom: 20px; }
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #AF3065;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.back-home-btn:hover { background: #8d1f4f; color: #fff; }
+
+/* ── Student banner ──────────────────────────────────────── */
+.student-banner {
+  background: linear-gradient(135deg, #AF3065 0%, #d45090 100%);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(175,48,101,0.25);
+}
+.student-avatar img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.4);
+}
+.student-info { flex: 1; }
+.student-info h5 { color: #fff; font-weight: 700; margin: 0 0 2px; font-size: 16px; }
+.student-info p { color: rgba(255,255,255,0.75); font-size: 13px; margin: 0; }
+.cert-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 10px 20px;
+}
+.count-number { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+.count-label { font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* ── Formation tags ──────────────────────────────────────── */
+.formations-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.formation-tag {
+  display: inline-flex;
+  align-items: center;
+  background: #f7e6ee;
+  color: #AF3065;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+.formation-tag .bi { font-size: 11px; }
+
+/* ── Certificate list card ───────────────────────────────── */
+.cert-list-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  overflow: hidden;
+  height: 100%;
+}
+.cert-list-header {
+  background: #AF3065;
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+.cert-list-body { padding: 8px; }
+
+.cert-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+.cert-list-item:hover { background: #fdf5f8; }
+.cert-list-item.active { background: #f7e6ee; }
+
+.cert-list-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f7e6ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #AF3065;
+  flex-shrink: 0;
+}
+.cert-list-item.active .cert-list-icon { background: #AF3065; color: #fff; }
+
+.cert-list-info { flex: 1; min-width: 0; }
+.cert-list-title { display: block; font-size: 14px; font-weight: 600; color: #333; }
+.cert-list-sub { display: block; font-size: 12px; color: #aaa; }
+
+.cert-list-arrow {
+  color: #ccc;
+  font-size: 12px;
+  transition: color 0.15s;
+}
+.cert-list-item.active .cert-list-arrow { color: #AF3065; }
+
+/* ── Certificate viewer card ─────────────────────────────── */
+.cert-viewer-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cert-viewer-header {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #AF3065;
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.download-btn:hover { background: #8d1f4f; color: #fff; }
+
+.cert-viewer-body {
+  flex: 1;
+  min-height: 520px;
+  display: flex;
+  align-items: stretch;
+}
+.cert-iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  border: none;
+  display: block;
+}
+.no-selection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 14px;
+  gap: 10px;
+}
+.no-selection .bi { font-size: 36px; }

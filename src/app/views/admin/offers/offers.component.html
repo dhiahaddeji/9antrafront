@@ -1,0 +1,132 @@
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>Add Offers</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+<br>
+<br>
+   <!-- ======= Profile Section ======= -->
+    <div class="container">
+      <div class="main-body">
+        <!-- <form (ngSubmit)="addProject()" enctype="multipart/form-data"> -->
+          <form (ngSubmit)="addOffer()" #foodForm="ngForm">
+
+          <div class="row gutters-sm mt-5">
+          <div class="col-md-4">
+            
+            <div class="card mb-3">
+         
+            </div>
+          </div>
+          <div class="col-md-8 container">
+            <div class="card">
+              <div class="card-body">
+               <div class="form-group mb-3">
+                    <label for="name">Poste</label>
+                    <input class="form-control" type="text" id="title" [(ngModel)]="project.poste" name="title" required #thisTitle="ngModel">
+          <div class="alert alert-danger" *ngIf="thisTitle.touched && thisTitle.invalid">
+            <div *ngIf="thisTitle?.errors?.['required']">Poste is required!</div>
+          </div>
+        
+                  
+                  </div>
+        
+                  <div class="form-group mb-3">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" [(ngModel)]="project.description" name="description" required #thisDesc="ngModel"></textarea>
+                    <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid">
+                      <div *ngIf="thisDesc?.errors?.['required']">Description is required!</div>
+                    </div>
+                  </div>
+        
+        
+                  <div class="form-group mb-3">
+                    <label for="description">Skills</label>
+                    <input class="form-control" type="text" id="tech" [(ngModel)]="project.skills" name="tech" required #thisT="ngModel">
+                    <div class="alert alert-danger" *ngIf="thisT.touched && thisT.invalid">
+                      <div *ngIf="thisT?.errors?.['required']">Skills is required!</div>
+                    </div>
+                  
+                
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="nbProjects">Company</label>
+                    <select class="form-control" id="categorie" [(ngModel)]="selectedCategory" name="categorie" required>
+                      <ng-container *ngFor="let categorie of categories">
+                        <option [value]="categorie.id" *ngIf="categorie.status === true">{{ categorie.nom }}</option>
+                      </ng-container>
+                    </select>
+                    
+                     
+                
+                    <div class="form-group mb-3">
+                        <label for="nbProjects">Education</label>
+                        <select class="form-control" id="education" [(ngModel)]="project.education" name="education" required>
+                         <option>High School Degree </option>
+                         <option>Associate's Degree </option>
+                         <option>Bachelor's Degree</option>
+                         <option>Master's Degree</option>
+                         <option>Doctoral Degree</option>
+
+
+                        </select>
+                            
+                        <div class="form-group mb-3">
+                            <label for="nbProjects">Job Type</label>
+                            <select class="form-control" id="type" [(ngModel)]="project.type" name="type" required>
+                             <option>Full-time </option>
+                             <option>Contract</option>
+                              <option>Part-time</option>
+                              <option>Temporary</option>
+                              <option>Internship</option>
+                              <option>Freelance </option>
+                            <option>On-site</option>  
+
+                            </select>
+                            <div class="form-group mb-3">
+                                <label for="nbProjects">Experience level</label>
+                                <select class="form-control" id="experience" [(ngModel)]="project.experience" name="experience" required>
+                                 <option>Mid Level </option>
+                                 <option>Senior Level  </option>
+                                 <option>Entry Level </option>
+                                 <option>No Experience Required  </option>
+                                 
+
+                                </select>          
+                            
+                             
+    </div></div></div></div>
+               
+                </div>
+                <div class="row d-flex justify-content-end">
+                  <div class="col-2">
+                    <button type="submit" [disabled]="!foodForm.form.valid ">Submit</button>
+
+                  </div>
+                  <div></div>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row mt-5">
+        </div>
+      </form>
+      </div>
+  
+      <div class="row bg-white shadow d-flex justify-content-center">
+        <div class="col-6">
+          <!-- Place additional content here -->
+        </div>
+      </div>
+    </div>
+
+    
+
+  </main><!-- End #main -->

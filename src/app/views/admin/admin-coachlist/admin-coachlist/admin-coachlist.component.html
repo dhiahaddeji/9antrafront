@@ -1,0 +1,81 @@
+<main class="pt-4">
+  <div style="margin-bottom: 50px" class="d-block d-lg-none"></div>
+  <div class="row justify-content-between">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="data_table card1 mt-4" style="overflow-y: scroll; height: 600px">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Date</th>
+          <th>Skills</th>
+          <th>Resume</th>
+          <th>Enabled</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of tabCoach">
+          <td>
+            <div class="d-flex align-items-center">
+              <img
+                src="/assets/Documents/{{ x.image }}"
+                alt=""
+                style="width: 45px; height: 45px"
+                class="rounded-circle"
+              />
+              <a routerLink="profile/{{ x.id }}">
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{ x.firstName }} {{ x.lastName }}</p>
+                  <p class="text-muted mb-0">{{ x.username }}</p>
+                </div>
+              </a>
+            </div>
+          </td>
+          <td>
+            <p class="text-muted mb-0">{{ x.numeroTel }}</p>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">{{ x.createdAt | date }}</p>
+          </td>
+          <td>
+            <div *ngFor="let i of tabFormateur">
+              <p *ngIf="x.id == i.user.id" class="fw-normal mb-1">
+                {{ i.skills }}
+              </p>
+            </div>
+          </td>
+          <td>
+            <button
+              class="btn btn-rounded btn-sm"
+              [routerLink]="'/admin/coachlist/resumecoach/' + x.id"
+            >
+              <!---             <button class="btn btn-rounded btn-sm" (click)="deleteSession(x.id)">
+  -->
+
+              <i class="fa-regular fa-file"> </i> <img [src]="safeUrl" />
+            </button>
+          </td>
+
+          <td *ngIf="x.enabled == 0">
+            <button class="unpaid btn-rounded btn-sm">No</button>
+          </td>
+          <td *ngIf="x.enabled == 1">
+            <button class="paid btn-rounded btn-sm">Yes</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

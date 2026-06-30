@@ -1,0 +1,241 @@
+<main>
+  <div style="margin-bottom: 50px; " class="d-block d-lg-none"> </div>
+  <div class="row justify-content-between" style="padding: 20px 0 20px 20px;">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Quiz</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Quiz List</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-center justify-content-end">
+      <button
+        type="button"
+        class="btn filter p-2 border pe-3 me-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        <i class="bi bi-filter-square fa-2xl me-3"></i> Filter
+      </button>
+
+      <button
+        type="button"
+        class="btn register p-2 border pe-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop1"
+        style="margin-right: 70px;"
+      >
+        <i class="bi bi-plus fa-2xl me-3"></i> Create Quiz
+      </button>
+
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="staticBackdropLabel"
+                style="color: #af3065; font-weight: bold"
+              >
+                Filter
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-8 form__group field mt-5 mb-3">
+                    <label class="mb-3 form__label">Training</label>
+                    <select
+                      name="Formation"
+                      id="id_select"
+                      autofocus="true"
+                      class="form__field mt-2"
+                      [(ngModel)]="formationId"
+                    >
+                      <option [value]="0" disabled selected>Training</option>
+                      <option   *ngFor="let i of formations"  [value]="i.id">{{i.nomFormation}}</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                class="btn register"
+                (click)="getAllQuizs()"
+              >
+                filter
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="staticBackdrop1"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title"
+                id="staticBackdropLabel"
+                style="color: #af3065; font-weight: bold"
+              >
+                New Quiz
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form  [formGroup]="quizForm"
+              (ngSubmit)="addQuiz()">
+                <div class="row">
+                    <div class="col-12">
+                      <div class="row text-center">
+                        <div class="form__group field mt-4">
+                          <label class="mb-3 form__label">Training</label>
+                          <select
+                            autofocus="true"
+                            class="form__field"
+                            [formControl]="TrainingForm"
+                          >
+                          <option [value]="0" disabled selected>Training</option>
+                          <option   *ngFor="let i of formations"  [value]="i.id">{{i.nomFormation}}</option>
+                          </select>
+                          <mat-error *ngIf="TrainingForm.invalid">{{getTrainingFormError()}}</mat-error>
+                        </div>
+                      </div>
+                      <div class="row text-center">
+                        <div class="form__group field mt-4">
+                          <input
+                            type="text"
+                            class="form__field"
+                            placeholder="Group name"
+                            [formControl]="QuizNameForm"
+                            id="groupName"
+                          />
+                          <mat-error *ngIf="QuizNameForm.invalid">{{getQuizNameFormError()}}</mat-error>
+                          <label for="groupName" class="form__label"
+                            >Quiz Name</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    type="reset"
+                    class="btn register"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    type="submit"
+                    cdkFocusInitial
+                    class="btn register"
+
+                  >
+                    Create
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" *ngIf="Quizs?.length!=0">
+      <div class="col-lg-4 col-md-6" *ngFor="let i of Quizs"  >
+        <div class="card shadow-sm mb-4">
+          <div class="row mt-4 mx-2">
+            <div class="nav d-flex justify-content-between">
+              <p class="text-center"><span style="font-size: 20px;color: black;font-weight: normal;">{{i.name}}</span></p>
+              <div class="filter">
+                <button
+                  class="icon"
+                  data-bs-toggle="dropdown"
+                  style="border: none; background-color: #ffffff00"
+                >
+                  <i
+                    class="bi bi-three-dots-vertical"
+
+                  ></i>
+                </button>
+                <ul
+                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+              >
+                <li class="dropdown-header text-start"></li>
+                <li>
+                  <button
+                    class="dropdown-item mb-2"
+                  (click)="deleteQuiz(i.id)"
+                  >
+                    <span><i class="bi bi-trash-fill  me-3" style="color: red;"></i> </span>
+                    Delete Quiz
+                  </button>
+                </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #b9b0b0;"></div>
+          <div class="card-body" routerLink="/coach/coach-quiz-form/{{i.id}}" style="cursor: pointer;">
+            <div class="mb-3 align-items-center d-flex" style="font-size: 20px;">
+             <span style="font-weight: bold;margin-right: 20px;color: black;">Training  : </span> {{i.formationId.nomFormation}}
+            </div>
+            <div class="trainer-profile d-flex align-items-center mb-3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="Quizs?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+      <div class="row nodata">
+        <img src="../../../../../assets/img/nodata.png" width="250px" height="250px"><br>
+        <p style="overflow: hidden;">There are no quiz available.</p>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,44 @@
+<main id="main">
+    <div style="margin-bottom: 50px; " class="d-block d-lg-none"> </div>
+    <div class="row justify-content-between">
+        <div class="col-8">
+            <div class="pagetitle">
+              <h1>Dashboard</h1>
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+              </nav>
+            </div>
+</div>
+    <div class="col-4 d-flex align-items-center justify-content-center "><button type="button" class="btn register mb-3" routerLink="/admin/hackerspaceform"> <i class="bi bi-plus fa-2xl me-3"></i>Add new</button></div>
+
+  </div>
+  <!-- End Page Title -->
+  <div class="row mx-4 mt-5">
+    <div class="col-12 col-sm-12 col-lg-4"  *ngFor="let o of Hackerspace">
+        <div class="card" style="width: 18rem;">
+            <img src="../../../../../assets/Documents/{{o.photo}}" class="card-img-top" width="60" height="200" alt="...">
+            <!-- <iframe src="../../../../../assets/Documents/1707299498005_cahier.pdf" height="auto" style="overflow-x: hidden;" width="auto"></iframe> -->
+            <div class="card-body">
+              <p class="card-text fw-semibold mt-2">{{o.region}} : {{o.adresse}} </p><br>
+                <button class="me-1" routerLink="/admin/hackerspaceUpdate/{{o.id}}"
+                  style="margin-left: 90px; border: none; background-color: black; border-radius: 4px;width: 40px;height: 40px;">
+                  <i class="fa-solid fa-pen" style="color: #ffffff; "></i>
+                </button>
+                <button class="me-1" style="border: none; background-color: #FF4744; border-radius: 4px;margin-top: 20px;margin-left: 10px;width: 40px;height: 40px;"><i
+                    class="fa-solid fa-xmark  fa-lg" style="color: #ffffff;"
+                    (click)="deleteHackerspace(o.id)"></i>
+                </button>
+            </div>
+          </div>
+    </div>
+    <div *ngIf="Hackerspace?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+      <div class="nodata">
+        <img src="../../../../../assets/img/nodata.png" width="250px"><br>
+        <p style="overflow: hidden;">There are no hackerspaces available.</p>
+      </div>
+    </div>
+  </div>
+</main>

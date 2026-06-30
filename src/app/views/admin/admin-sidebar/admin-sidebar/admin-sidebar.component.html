@@ -1,0 +1,260 @@
+<!--  SIDEBAR  -->
+<header>
+
+  <!-- ── Desktop / tablet sidebar ─────────────────────────────────────── -->
+  <nav id="sidebarMenu" class="d-lg-block sidebar" [class.show]="sidebarOpen" id="navbarCollapse">
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay d-lg-none" (click)="closeSidebar()" *ngIf="sidebarOpen"></div>
+
+    <!-- Fixed header: logo + profile -->
+    <div class="sidebar-header">
+      <div class="sidebar-logo d-none d-lg-flex">
+        <a routerLink="/"><img src="assets/img/logo1.png" alt="Logo"></a>
+      </div>
+
+      <a [routerLink]="['/admin/profile']" class="nav-profile" *ngIf="data" (click)="closeSidebar()">
+        <img
+          src="assets/Documents/{{photo}}"
+          onerror="this.src='assets/img/profile-img.jpg'"
+          alt="Profile"
+        />
+        <div class="profile-info">
+          <span class="welcome-text">Welcome back</span>
+          <span class="profile-name d-block">{{username}}</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Scrollable nav links -->
+    <div class="sidebar-nav">
+
+      <p class="nav-section-label">Main Menu</p>
+
+      <a
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{exact:true}"
+        routerLink="/admin"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="trainings"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-book"></i>
+        <span>Training</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="calendar"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-calendar"></i>
+        <span>Calendar</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="groups"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-user-group"></i>
+        <span>Groups</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="coachlist"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-user"></i>
+        <span>Coachs</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="studentlist"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-user-graduate"></i>
+        <span>Students</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="feedback"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-star"></i>
+        <span>Feedback</span>
+      </a>
+
+      <!-- Update dropdown -->
+      <button
+        class="nav-item-link"
+        (click)="toggleMenu('update')"
+        type="button"
+      >
+        <i class="fa-solid fa-repeat"></i>
+        <span>Update</span>
+        <i class="fa-solid fa-chevron-down nav-chevron" [class.open]="openMenu==='update'"></i>
+      </button>
+      <div class="submenu" [class.open]="openMenu==='update'">
+        <a routerLink="categories" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Categories</a>
+        <a routerLink="chapters" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Chapters</a>
+        <a routerLink="hackerspace" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Hackerspaces</a>
+        <a routerLink="sessionform" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Sessions</a>
+      </div>
+
+      <!-- Projects dropdown -->
+      <button
+        class="nav-item-link"
+        (click)="toggleMenu('projects')"
+        type="button"
+      >
+        <i class="fa-solid fa-folder"></i>
+        <span>Projects</span>
+        <i class="fa-solid fa-chevron-down nav-chevron" [class.open]="openMenu==='projects'"></i>
+      </button>
+      <div class="submenu" [class.open]="openMenu==='projects'">
+        <a routerLink="projectowner" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Project Owners</a>
+        <a routerLink="projects" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Projects</a>
+        <a routerLink="projectclients" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Project Clients</a>
+        <a routerLink="specificproject" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Specific Project</a>
+      </div>
+
+      <!-- Jobs dropdown -->
+      <button
+        class="nav-item-link"
+        (click)="toggleMenu('jobs')"
+        type="button"
+      >
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Jobs</span>
+        <i class="fa-solid fa-chevron-down nav-chevron" [class.open]="openMenu==='jobs'"></i>
+      </button>
+      <div class="submenu" [class.open]="openMenu==='jobs'">
+        <a routerLink="company" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Company</a>
+        <a routerLink="list-offer" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Offers</a>
+        <a routerLink="all-specific-offer" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Specific Offers</a>
+        <a routerLink="candidacy" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Candidacy</a>
+      </div>
+
+      <!-- E-Learning dropdown -->
+      <button
+        class="nav-item-link"
+        (click)="toggleMenu('elearning')"
+        type="button"
+      >
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>E-Learning</span>
+        <i class="fa-solid fa-chevron-down nav-chevron" [class.open]="openMenu==='elearning'"></i>
+      </button>
+      <div class="submenu" [class.open]="openMenu==='elearning'">
+        <a routerLink="events" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Events</a>
+        <a routerLink="courses" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Courses</a>
+        <a routerLink="chaptersE" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Chapters</a>
+        <a routerLink="lessons" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Lessons</a>
+        <a routerLink="reports" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Reports</a>
+        <a routerLink="paths" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">Paths</a>
+      </div>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="demands"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-message"></i>
+        <span>Demands</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="requests"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-message"></i>
+        <span>Requests</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="messages"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa-solid fa-comments"></i>
+        <span>Messages</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="certificate"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="bi bi-award"></i>
+        <span>Certificate</span>
+      </a>
+
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="admin-chatbot"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="fa fa-commenting"></i>
+        <span>ChatBot</span>
+      </a>
+
+      <p class="nav-section-label" style="margin-top:8px;">Account</p>
+
+      <button class="nav-item-link nav-logout" (click)="logout()" type="button">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Log Out</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ── Mobile top navbar ─────────────────────────────────────────────── -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top d-block d-lg-none">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        (click)="toggleSidebar()"
+      >
+        <img src="assets/img/menu.png" class="w-10" alt="menu">
+      </button>
+
+      <a class="navbar-brand ms-3" routerLink="/">
+        <img src="assets/img/logo1.png" height="28" alt="Logo">
+      </a>
+
+      <div class="d-flex align-items-center ms-auto gap-2 pe-1">
+        <span class="fw-semibold text-muted small d-none d-sm-inline">{{username}}</span>
+        <button type="button" class="btn btn-sm d-flex align-items-center gap-1 mobile-logout-btn" (click)="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="d-none d-sm-inline">Logout</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+</header>

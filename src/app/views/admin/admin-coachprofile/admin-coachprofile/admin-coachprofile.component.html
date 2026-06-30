@@ -1,0 +1,230 @@
+<main id="main" class="main">
+  <div class="d-lg-none d-md-block"><br /><br /><br /></div>
+  <div class="pagetitle">
+    <h1>View profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <!-- ======= Profile Section ======= -->
+  <div class="container">
+    <div class="main-body">
+      <div class="row gutters-sm mt-5">
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-body text-center">
+              <img
+                src="assets/Documents/{{ photo }}"
+                alt="Admin"
+                style="border-radius: 20px"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card mb-3 p-2">
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Full Name</h5>
+                  <h3 class="text-secondary">{{firstname}} {{lastname}}</h3>
+                </div>
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Email</h5>
+                  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c7a756c5c766977716974327d70">{{data.username}}</a>
+                </div>
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Date</h5>
+                  <h3 class="text-secondary">{{date}}</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <h5 class="mb-1">About</h5>
+                  <h3 class="text-secondary">{{about}}</h3>
+                </div>
+
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Phone</h5>
+                  <h3 class="text-secondary">{{phone}}</h3>
+                </div>
+
+                <button
+                  class="btn btn-rounded btn-sm custom-small-button"
+                  [routerLink]="'/admin/coachlist/resumecoach/' + id"
+                >
+                  <i class="fa-regular fa-file"></i>
+                  <img [src]="safeUrl" class="img-fluid" />
+                </button>
+                <div class="col-sm-15">
+                  <div class="row">
+                    <div class="col-sm-12 text-end">
+                      <a
+                        class="btn mt-4"
+                        style="background-color: #00a066; color: white"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        >Status</a
+                      >
+
+                      <div
+                        class="modal fade"
+                        id="staticBackdrop"
+                        data-bs-backdrop="static"
+                        data-bs-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3 style="color: #af3065">Choose status</h3>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <form action="">
+                              <div class="modal-body">
+                                <div class="card1">
+                                  <div class="content">
+                                    <input
+                                      type="radio"
+                                      [(ngModel)]="selectedValue"
+                                      value="0"
+                                      name="rd"
+                                      id="two"
+                                    />
+                                    <br />
+                                    <input
+                                      type="radio"
+                                      [(ngModel)]="selectedValue"
+                                      value="1"
+                                      name="rd"
+                                      id="three"
+                                    />
+
+                                    <label for="two" class="box second">
+                                      <div class="plan">
+                                        <span class="circle"></span>
+                                        <span class="yearly">NO</span>
+                                      </div>
+                                    </label>
+                                    <br />
+                                    <label for="three" class="box third">
+                                      <div class="plan">
+                                        <span class="circle"></span>
+                                        <span class="yearly">YES</span>
+                                      </div>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button
+                                  type="submit"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                  (click)="updateEnable()"
+                                  class="btn register"
+                                >
+                                  Save
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row gutters-sm mt-5">
+        <div class="col-sm-6 mb-6 overflow-auto" style="max-height: 300px">
+          <div class="card">
+            <div class="card-body text-center">
+              <h4 class="d-flex mb-4 fw-bold">Groups</h4>
+              <h5>Web Design</h5>
+              <hr />
+              <h5>Backend API</h5>
+              <hr />
+              <h5>Mobile Template</h5>
+              <hr />
+              <h5>One Page</h5>
+              <hr />
+              <h5>Backend API</h5>
+              <hr />
+              <h5>Mobile Template</h5>
+              <hr />
+              <h5>One Page</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 mb-6 overflow-auto" style="max-height: 300px">
+          <div class="card">
+            <div class="card-body text-center">
+              <h4 class="d-flex mb-4 fw-bold">Notes</h4>
+              <ng-container *ngIf="tabFormateur && tabFormateur.length > 0; else noNotes">
+                <ng-container *ngFor="let note of tabFormateur">
+                  <h5>{{ note.content }}</h5>
+                  <hr>
+                </ng-container>
+              </ng-container>
+              <ng-template #noNotes>
+                <p>No notes available.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+</div>
+      <div class="row mt-5 ">
+        <div class="text-center">
+
+          <a class="btn px-4 mx-2 " style="background-color: #AF3065; color: white;" target="__blank" href="profile.html">New group</a>
+          <a class="btn px-4 mx-2 " style="background-color: #AF3065; color: white;" target="__blank" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Add Note</a>
+
+        </div>
+      </div>
+      <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 style="color: #AF3065;">Add Notes</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form (submit)="addNoteToUser(Note.value)">
+            <div class="modal-body">
+              <div class="row">
+                <div class="form__group field mt-3 mb-3">
+                  <textarea type="input" class="form__field" placeholder="Note" name="Note" #Note required></textarea>
+                  <label for="Note" class="form__label">Note</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button  type="submit"  class="btn-close" data-bs-dismiss="modal" aria-label="Close" class="btn register">Save</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- End #main -->

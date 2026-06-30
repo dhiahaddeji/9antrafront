@@ -1,0 +1,130 @@
+<main id="main" class="main">
+  <div class="d-lg-none d-md-block"><br><br><br></div>
+  <div class="pagetitle">
+    <h1>Edit profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+
+  <!-- ======= Edit Section ======= -->
+  <div class="container edit">
+    <div class="row gutters">
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="account-settings">
+              <div class="user-profile">
+                <div class="user-avatar mt-5 mb-5 text-center">
+                  <img src="assets/Documents/{{data.image}}" alt="Admin" style="border-radius: 20px;" width="200">
+
+                </div>
+
+                <h5 class="user-name text-center"></h5>
+                <h6 class="user-email text-center"><a class="__cf_email__"
+                    data-cfemail="82fbf7e9ebc2cfe3faf5e7eeeeace1edef">[email&#160;protected]</a></h6>
+              </div>
+              <div class="about text-center mt-4">
+                <h5>About</h5>
+                <p>{{data.about}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="row gutters mt-5 mb-5">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h5 class="mb-2 fw-bold">Personal Details</h5>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form__group mt-3">
+                  <input [(ngModel)]="firstNameInp" type="text" class="form__field" id="fullName"
+                    placeholder="Enter full name">
+                  <label for="firstname" class="form__label">First Name</label>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form__group mt-3">
+                  <input [(ngModel)]="lastNameInp" type="text" class="form__field" id="fullName"
+                    placeholder="Enter full name">
+                  <label for="lastname" class="form__label">Last Name</label>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form__group mt-3">
+                  <input [(ngModel)]="usernameInp" type="email" class="form__field" id="eMail"
+                    placeholder="Enter email ID" (blur)="checkEmailFormat()">
+                  <label for="eMail" class="form__label">Email</label>
+                  <div *ngIf="emailInvalid" class="text-danger">Invalid email format.</div>
+
+                </div>
+
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form__group mt-3">
+                  <input [(ngModel)]="phoneInp" type="text" class="form__field" id="phone"
+                    placeholder="Enter phone number">
+                  <label for="phone" class="form__label">Phone</label>
+                </div>
+              </div>
+
+              <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+  <div class="form__group mt-3">
+    <input [(ngModel)]="passwordInp" type="password" class="form__field" id="password" placeholder="Enter password">
+    <label for="password" class="form__label">Password</label>
+  </div>
+</div> -->
+
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form__group mt-3">
+                  <input [(ngModel)]="passwordInp" type="password" class="form__field" id="password"
+                    placeholder="Enter password">
+                  <label for="password" class="form__label">New Password</label>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form__group mt-3">
+                  <input [(ngModel)]="cppasswordInp" type="password" class="form__field" id="password" placeholder="Enter password">
+                  <label for="password" class="form__label">Confirm Password</label>
+                </div>
+                </div>
+            </div>
+            <div class="row gutters mt-5 mb-5">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h5 class="mt-3 mb-2 fw-bold">Description</h5>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="form__group field mt-4">
+                  <textarea [(ngModel)]="aboutInp" class="form__field" name="About" rows="0" required></textarea>
+                  <label for="name" class="form__label">About</label>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="row gutters mt-3">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="text-end">
+                  <button type="button" id="submit" name="submit" class="btn btn-secondary"
+                    routerLink="/coach/profile">Cancel</button>
+                  <button (click)="updateUser()" type="button" id="submit" name="submit" class="btn"
+                    style="background-color: #AF3065; color: white;">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main><!-- End #main -->

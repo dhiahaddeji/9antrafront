@@ -1,0 +1,72 @@
+<div class="container mb-4" *ngIf="lesson" [ngStyle]="getTopStyle()">
+  <div class="row">
+    <div class="col-md-8">
+      <video #videoPlayer controls class="img-fluid" [poster]="'assets/Lessons/Lesson_' + id + '/' + thumbnail"
+        style="width: 120%;">
+        <!-- <source [src]="'assets/Lessons/Lesson_' + id + '/' + lesson.videoLesson"> -->
+        <source [src]="getVideoSource()">
+        <source>
+      </video>
+    </div>
+    <div class="col-md-4">
+      <!-- <div class="card card-color" style="width: 120%; height: 20%;">
+              <div class="card-body d-flex flex-column align-items-start justify-content-center">
+                <div class="text-center" style="font-weight: bold; font-size: 150%;">{{ lesson.title }}</div>
+              </div>
+            </div> -->
+
+      <div class="card card-color">
+        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+          <div class="text-center" style="font-weight: bold; font-size: 150%;">{{ lesson.title }}</div>
+        </div>
+      </div>
+
+
+      <div *ngIf="course" class="accordion accordion-flush" id="faqlist">
+        <div *ngFor="let chapter of course!.chapters" class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#faq-content-' + chapter.id">
+              <i class="bi bi-check2-square mr-1"></i>
+              {{ chapter.title }}
+            </button>
+          </h3>
+          <div *ngFor="let lesson of chapter.lesson" [id]="'faq-content-' + chapter.id"
+            class="accordion-collapse collapse" [attr.data-bs-parent]="'#faqlist'">
+            <div class="accordion-body">
+              <div class="lesson-title">
+                <a (click)="changeLesson1(lesson.id!)"><i class="bi bi-play-circle mr-2"></i>{{ lesson.title }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div *ngIf="course" class="accordion accordion-flush" id="faqlist">
+        <div *ngFor="let chapter of course!.chapters" class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#faq-content-' + chapter.id">
+              <i class="bi bi-check2-square mr-1"></i>
+              {{ chapter.title }}
+            </button>
+          </h3>
+          <div *ngFor="let lesson of chapter.lesson" [id]="'faq-content-' + chapter.id"
+            [ngClass]="{
+              'accordion-collapse': true,
+              'collapse': true,
+              'show': selectedChapter === chapter.id
+            }"
+            [attr.data-bs-parent]="'#faqlist'">
+            <div class="accordion-body">
+              <div class="lesson-title">
+                <a (click)="changeLesson1(lesson.id!)"><i class="bi bi-play-circle mr-2"></i>{{ lesson.title }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      
+    </div>
+  </div>
+
+</div>

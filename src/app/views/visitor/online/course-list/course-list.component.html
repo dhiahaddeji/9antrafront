@@ -1,0 +1,112 @@
+<!-- <div data-aos="fade-up" class="d-flex align-content-around flex-wrap mt-5 mb-5">
+    <div *ngFor="let course of courses" class="card ml-2 mb-2" style="width: 30%;">
+        <img class="card-img-top img-fluid" [src]="getImage(course)" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title"> <a [routerLink]="['courseDetails', course.id]">{{ course.title }}</a></h5>
+            <p class="card-text"> <a [routerLink]="['courseDetails', course.id]">{{ course.description }}</a></p>
+        </div>
+    </div>
+</div> -->
+
+
+<div data-aos="fade-up" class="container-lg py-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h1 class="text-nowrap fw-semibold" style="font-family: Segoe UI;color: #AF2F64;">Available Courses</h1>
+    </div>
+
+    <div class="card-group" style="width: 100%;">
+        <div class="row d-flex justify-content-center align-content-center" style="width: 100%;">
+            <div *ngFor="let course of courses" class="card p-2 ml-4 mb-5 col-12 col-lg-6 col-sm-6" style="border-radius: 15px;max-width: 400px;border-width: 0px;" >
+                <img class="img-fluid card-img-top w-100 d-block" [src]="getImage(course)" style="object-fit: cover;width: 320px;height: 280px;border-radius: 15px;">
+                <div class="card-body">
+                    <div class="d-md-flex justify-content-between align-items-center align-items-md-center pb-2">
+                        <h3 class="fw-semibold" style="width: fit-content;color: #3E3333;font-family: Segoe UI;"><strong>{{ course.title }}</strong></h3>
+                    </div>
+                    <p class="card-text" style="color: #3E3333;">{{ course.description }}</p>
+                    <div>
+                        <div class="d-flex d-md-flex align-items-center align-items-md-center pb-2">
+                            <!-- Start: Icone SVG --><svg xmlns="http://www.w3.org/2000/svg" width="24.954" height="29.363" viewBox="0 0 24.954 29.363">
+                  <g id="exam" transform="translate(0 0)">
+                  <path id="Tracé_178" data-name="Tracé 178" d="M142.195,29.663h0l-6.806-6.008a.943.943,0,0,0-.625-.228H118.383a.836.836,0,0,0-.883.78v27.8a.836.836,0,0,0,.883.78H141.57a.836.836,0,0,0,.883-.78v-21.8A.746.746,0,0,0,142.195,29.663Zm-1.508,21.567h-21.42V24.986H134.4l5.039,4.448h-3.79V27.806a.89.89,0,0,0-1.767,0v2.409a.836.836,0,0,0,.883.78h5.922Z" transform="translate(-117.5 -23.427)" fill="#af2f64"/>
+                  <path id="Tracé_179" data-name="Tracé 179" d="M218.632,218.787l-1.554,1.554-.222-.222a.78.78,0,0,0-1.1,1.1l.773.773a.78.78,0,0,0,1.1,0l2.105-2.105a.78.78,0,0,0-1.1-1.1Z" transform="translate(-211.067 -210.951)" fill="#af2f64"/>
+                  <path id="Tracé_180" data-name="Tracé 180" d="M538.611,274.117h.259a.78.78,0,0,0,0-1.56h-.259a.78.78,0,0,0,0,1.56Z" transform="translate(-519.071 -262.844)" fill="#af2f64"/>
+                  <path id="Tracé_181" data-name="Tracé 181" d="M348.169,272.557a.78.78,0,0,0,0,1.56h5.053a.78.78,0,0,0,0-1.56Z" transform="translate(-336.725 -262.844)" fill="#af2f64"/>
+                  <path id="Tracé_182" data-name="Tracé 182" d="M538.611,397.111h.259a.78.78,0,1,0,0-1.559h-.259a.78.78,0,1,0,0,1.559Z" transform="translate(-519.071 -381.044)" fill="#af2f64"/>
+                  <path id="Tracé_183" data-name="Tracé 183" d="M353.222,395.552h-5.053a.78.78,0,1,0,0,1.559h5.053a.78.78,0,1,0,0-1.559Z" transform="translate(-336.725 -381.044)" fill="#af2f64"/>
+                  <path id="Tracé_184" data-name="Tracé 184" d="M538.611,520.107h.259a.78.78,0,0,0,0-1.56h-.259a.78.78,0,0,0,0,1.56Z" transform="translate(-519.071 -499.244)" fill="#af2f64"/>
+                  <path id="Tracé_185" data-name="Tracé 185" d="M353.222,518.547h-5.053a.78.78,0,0,0,0,1.56h5.053a.78.78,0,0,0,0-1.56Z" transform="translate(-336.725 -499.244)" fill="#af2f64"/>
+                  <path id="Tracé_186" data-name="Tracé 186" d="M538.611,643.1h.259a.78.78,0,0,0,0-1.56h-.259a.78.78,0,0,0,0,1.56Z" transform="translate(-519.071 -617.443)" fill="#af2f64"/>
+                  <path id="Tracé_187" data-name="Tracé 187" d="M353.222,641.542h-5.053a.78.78,0,0,0,0,1.56h5.053a.78.78,0,0,0,0-1.56Z" transform="translate(-336.725 -617.443)" fill="#af2f64"/>
+                  <path id="Tracé_188" data-name="Tracé 188" d="M217.078,345.22a.78.78,0,0,0,.551-.228l2.105-2.105a.78.78,0,0,0-1.1-1.1l-1.554,1.554-.222-.222a.78.78,0,1,0-1.1,1.1l.774.773A.78.78,0,0,0,217.078,345.22Z" transform="translate(-211.068 -329.152)" fill="#af2f64"/>
+                  <path id="Tracé_189" data-name="Tracé 189" d="M216.255,466.381l-.5.5a.78.78,0,0,0,1.1,1.1l.5-.5.5.5a.78.78,0,1,0,1.1-1.1l-.5-.5.5-.5a.78.78,0,1,0-1.1-1.1l-.5.5-.5-.5a.78.78,0,0,0-1.1,1.1Z" transform="translate(-211.095 -447.351)" fill="#af2f64"/>
+                  <path id="Tracé_190" data-name="Tracé 190" d="M218.632,587.771l-1.554,1.554-.222-.222a.78.78,0,1,0-1.1,1.1l.773.774a.78.78,0,0,0,1.1,0l2.105-2.105a.78.78,0,0,0-1.1-1.1Z" transform="translate(-211.067 -565.549)" fill="#af2f64"/>
+                  </g>
+                  </svg>
+    <!-- End: Icone SVG -->
+        <h5 class="fw-lighter ps-3" style="font-family: Segoe UI;padding-left: 0px;width: fit-content;">Training &amp; Assessment</h5>
+    </div>
+    <div class="d-flex d-md-flex align-items-center align-items-md-center pb-2">
+        <!-- Start: Icone SVG --><svg xmlns="http://www.w3.org/2000/svg" width="25.254" height="25.247" viewBox="0 0 25.254 25.247">
+    <g id="Layer_1_1_" transform="translate(0.15 0.15)">
+    <path id="Tracé_192" data-name="Tracé 192" d="M1,20.872H16.076v5.077L19.2,24.077l3.119,1.872V20.872h3.639V1.117H1Zm20.413-3.528c-.047.047-.1.091-.146.135-.028.025-.054.051-.083.075s-.067.05-.1.075a3.1,3.1,0,0,1-1.543.622l-.029,0c-.1.01-.211.016-.318.016s-.213-.006-.318-.016l-.029,0a3.1,3.1,0,0,1-1.543-.622c-.033-.025-.068-.049-.1-.075s-.055-.05-.083-.075c-.049-.044-.1-.088-.146-.135a3.118,3.118,0,1,1,4.437,0Zm-.138,6.769L19.2,22.865l-2.079,1.248V18.756c.018.01.037.017.056.027a4.2,4.2,0,0,0,.426.209l.02.007a4.136,4.136,0,0,0,3.157,0l.02-.007a4.1,4.1,0,0,0,.426-.209c.018-.01.038-.017.056-.027v5.357ZM2.04,2.157H24.914V19.832h-2.6V17.9a4.159,4.159,0,1,0-6.238,0v1.937H2.04Z" transform="translate(-1 -1.117)" fill="#af2f64" stroke="#af2f64" stroke-width="0.3"/>
+    <rect id="Rectangle_977" data-name="Rectangle 977" width="12.864" height="1.169" transform="translate(5.847 3.508)" fill="#af2f64" stroke="#af2f64" stroke-width="0.3"/>
+    <rect id="Rectangle_978" data-name="Rectangle 978" width="8.186" height="1.169" transform="translate(8.186 5.847)" fill="#af2f64" stroke="#af2f64" stroke-width="0.3"/>
+    <rect id="Rectangle_979" data-name="Rectangle 979" width="5.847" height="1.169" transform="translate(3.508 15.203)" fill="#af2f64" stroke="#af2f64" stroke-width="0.3"/>
+    </g>
+    </svg>
+    <!-- End: Icone SVG -->
+      <h5 class="fw-lighter ps-3" style="font-family: Segoe UI;padding-left: 0px;width: fit-content;">Achievement Certificate</h5>
+  </div>
+  <div class="d-flex d-md-flex align-items-center align-items-md-center pb-2">
+      <!-- Start: Icone SVG --><svg xmlns="http://www.w3.org/2000/svg" width="27.474" height="27.474" viewBox="0 0 27.474 27.474">
+    <g id="calendar_1_" transform="translate(0 0)">
+    <path id="Tracé_191" data-name="Tracé 191" d="M25.185,2.576H21.464V.859a.859.859,0,1,0-1.717,0V2.576H14.6V.859a.859.859,0,1,0-1.717,0V2.576H7.727V.859a.859.859,0,1,0-1.717,0V2.576H2.29A2.289,2.289,0,0,0,0,4.865V25.184a2.29,2.29,0,0,0,2.29,2.29h22.9a2.289,2.289,0,0,0,2.289-2.29V4.865A2.288,2.288,0,0,0,25.185,2.576Zm.572,22.608a.573.573,0,0,1-.572.573H2.29a.573.573,0,0,1-.573-.573V4.865a.573.573,0,0,1,.573-.572H6.01V6.01a.859.859,0,0,0,1.717,0V4.293h5.151V6.01a.859.859,0,1,0,1.717,0V4.293h5.151V6.01a.859.859,0,1,0,1.717,0V4.293h3.721a.573.573,0,0,1,.572.572Z" fill="#af2f64"/>
+    <rect id="Rectangle_968" data-name="Rectangle 968" width="3.508" height="2.339" transform="translate(5.847 10.525)" fill="#af2f64"/>
+    <rect id="Rectangle_969" data-name="Rectangle 969" width="3.508" height="3.508" transform="translate(5.847 14.033)" fill="#af2f64"/>
+    <rect id="Rectangle_970" data-name="Rectangle 970" width="3.508" height="2.339" transform="translate(5.847 18.711)" fill="#af2f64"/>
+    <rect id="Rectangle_971" data-name="Rectangle 971" width="3.508" height="2.339" transform="translate(11.694 18.711)" fill="#af2f64"/>
+    <rect id="Rectangle_972" data-name="Rectangle 972" width="3.508" height="3.508" transform="translate(11.694 14.033)" fill="#af2f64"/>
+    <rect id="Rectangle_973" data-name="Rectangle 973" width="3.508" height="2.339" transform="translate(11.694 10.525)" fill="#af2f64"/>
+    <rect id="Rectangle_974" data-name="Rectangle 974" width="3.508" height="2.339" transform="translate(17.541 18.711)" fill="#af2f64"/>
+    <rect id="Rectangle_975" data-name="Rectangle 975" width="3.508" height="3.508" transform="translate(17.541 14.033)" fill="#af2f64"/>
+    <rect id="Rectangle_976" data-name="Rectangle 976" width="3.508" height="2.339" transform="translate(17.541 10.525)" fill="#af2f64"/>
+    </g>
+    </svg>
+    <!-- End: Icone SVG -->
+    <h5 *ngIf="course.duration == 1" class="fw-lighter ps-3" style="font-family: Segoe UI;padding-left: 0px;width: fit-content;">{{ course.duration }} week</h5>
+    <h5 *ngIf="course.duration! > 1" class="fw-lighter ps-3" style="font-family: Segoe UI;padding-left: 0px;width: fit-content;">{{ course.duration }} weeks</h5>
+                        </div>
+                    </div>
+                    <div class="d-md-flex justify-content-md-center">
+                        <hr style="border-width: 2px;border-color: #FAB555;background: #FAB555;width: 60%;">
+                    </div>
+                    <div class="d-flex d-md-flex justify-content-end justify-content-md-end"><button [routerLink]="['courseDetails', course.id]" class="btn btn-primary d-md-flex justify-content-md-center align-items-md-center" type="button" style="background: #AF2F64;padding-top: 12px;padding-bottom: 12px;padding-right: 16px;padding-left: 16px;border-radius: 30px;border-width: 0px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor">
+                                <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                <path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"></path>
+                            </svg></button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="container">
+    <!-- Start: 1 Row 2 Columns -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-5 col-xxl-5"><img class="img-fluid" src="/assets/img/clipboard-image-23.png?h=3dce33c5ca8bd2626b68cc891b2f34ec" width="624" height="624"></div>
+            <div class="col-md-6 col-lg-7 col-xxl-7 d-flex d-lg-flex flex-column justify-content-center justify-content-lg-center">
+                <h1 class="mb-5" style="font-family: Segoe UI;color: #AF2F64;">An accredited diploma</h1>
+                <ul>
+                    <li class="mb-4 list-color" style="font-family: Segoe UI;font-size: 20px;"><span style="font-family: Segoe UI;color: #3E3333;">For the majority of our programs, we offer a certificate, equivalent to the level of an associate’s, bachelor’s or master’s qualification, respectively.</span></li>
+                    <li class="mb-4 list-color" style="font-family: Segoe UI;font-size: 20px;"><span style="font-family: Segoe UI;color: #3E3333;">At the end of your program, you'll receive the support of your dedicated career coach who will help you find work.</span></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- End: 1 Row 2 Columns -->
+</div>

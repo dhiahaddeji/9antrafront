@@ -1,0 +1,179 @@
+<main id="main">
+  <div class="d-lg-none d-md-block"><br /><br /><br /></div>
+
+  <div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="container d-flex justify-content-center">
+      <div class="card shadow-sm h-100 col-md-6">
+        <div class="card-body">
+          <h1 class="text-center fw-bold mb-3" style="color: #af3065">
+            Add Feedback
+          </h1>
+
+          <!-- Training Section -->
+          <div class="form-group mb-4">
+            <label for="exampleFormControlInput1">Training</label>
+            <select
+              [(ngModel)]="formation"
+              name="group"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option disabled selected>Select Training</option>
+              <option
+                *ngFor="let x of Allformation"
+                value="{{ x.nomFormation }}"
+              >
+                {{ x.nomFormation }}
+              </option>
+            </select>
+          </div>
+          <div class="frame mb-4">
+            <h3 class="text-center">How was the training?</h3>
+            <div class="card1">
+              <!-- Visible radio buttons with labels -->
+
+              <label class="box fifth">
+                <div class="plan">
+                  <input
+                    type="radio"
+                    value="5"
+                    name="rating"
+                    [(ngModel)]="selectedRating"
+                    hidden
+                  />
+                  <span
+                    class="circle"
+                    [ngClass]="{ selected: selectedRating >= 5 }"
+                    (click)="setRating(5)"
+                    >&#9733;</span
+                  >
+                  <span class="yearly">It was great</span>
+                </div>
+              </label>
+              <label class="box fourth">
+                <div class="plan">
+                  <input
+                    type="radio"
+                    value="4"
+                    name="rating"
+                    [(ngModel)]="selectedRating"
+                    hidden
+                  />
+                  <span
+                    class="circle"
+                    [ngClass]="{ selected: selectedRating >= 4 }"
+                    (click)="setRating(4)"
+                    >&#9733;</span
+                  >
+                  <span class="yearly"> Good, but could be better.</span>
+                </div>
+              </label>
+              <label class="box third">
+                <div class="plan">
+                  <input
+                    type="radio"
+                    value="3"
+                    name="rating"
+                    [(ngModel)]="selectedRating"
+                    hidden
+                  />
+                  <span
+                    class="circle"
+                    [ngClass]="{ selected: selectedRating >= 3 }"
+                    (click)="setRating(3)"
+                    >&#9733;</span
+                  >
+                  <span class="yearly">It was ok</span>
+                </div>
+              </label>
+              <label class="box second">
+                <div class="plan">
+                  <input
+                    type="radio"
+                    value="2"
+                    name="rating"
+                    [(ngModel)]="selectedRating"
+                    hidden
+                  />
+                  <span
+                    class="circle"
+                    [ngClass]="{ selected: selectedRating >= 2 }"
+                    (click)="setRating(2)"
+                    >&#9733;</span
+                  >
+                  <span class="yearly"> Needs improvement</span>
+                </div>
+              </label>
+              <label class="box first">
+                <div class="plan">
+                  <input
+                    type="radio"
+                    value="1"
+                    name="rating"
+                    [(ngModel)]="selectedRating"
+                    hidden
+                  />
+                  <span
+                    class="circle"
+                    [ngClass]="{ selected: selectedRating >= 1 }"
+                    (click)="setRating(1)"
+                    >&#9733;</span
+                  >
+                  <span class="yearly">I did not like it</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Frame for Description Section -->
+          <div class="frame">
+            <h3 class="text-center">Feedback Description</h3>
+            <textarea
+              [(ngModel)]="comment"
+              name="description"
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="text-end mt-4">
+            <button
+              type="button"
+              id="submit"
+              name="submit"
+              class="btn btn-light"
+              style="border-radius: 5px"
+              routerLink="/student"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="submit"
+              (click)="AddFeedback()"
+              class="btn"
+              style="
+                background-color: #af3065;
+                color: white;
+                border-radius: 5px;
+              "
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

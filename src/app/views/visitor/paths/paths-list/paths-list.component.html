@@ -1,0 +1,170 @@
+<!-- <div style="background: #AF2F64;"  [ngStyle]="getTopStyle()">
+    <div class="container-lg py-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <h1 class="fw-semibold mt-3" style="font-family: Segoe UI;color: #F9F9F5;">Explore a New Career Path
+                    </h1>
+                    <p class="mt-2" style="font-family: Segoe UI;color: #F9F9F5;">Looking to make a career change? Not
+                        sure how to get started? This collection is designed to help you explore new career
+                        opportunities in fields like information technology, data science, graphic design, or marketing.
+                    </p>
+                </div>
+                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
+                    <img [src]="'assets/img/path_page.png'" class="img-fluid" style="max-height: 60vh;" alt="Photo">
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div style="background: #AF2F64;" [ngStyle]="getTopStyle()">
+    <div class="container">
+        <!-- Start: 1 Row 2 Columns -->
+        <div class="row">
+            <div class="col-sm-8 col-md-8 d-flex align-items-center">
+                <div>
+                    <h1 class="fw-semibold text-light " style="font-family: Segoe UI;color: #F9F9F5;">Explore a New
+                        Career Path</h1>
+                    <p class="mt-2 text-light">Looking to make a career change? Not sure how to get started? This
+                        collection
+                        is designed to help you explore new career opportunities in fields like information technology,
+                        data science, graphic design, or marketing.</p>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-md-4 d-flex justify-content-center align-items-center">
+                <img [src]="'assets/img/path_page.png'" class="img-fluid" style="height: 60%;" alt="Photo">
+            </div>
+        </div><!-- End: 1 Row 2 Columns -->
+    </div>
+</div>
+
+
+
+<div class="my-5">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="mb-4" style="font-family: Segoe UI;color: #AF2F64;">Available Paths</h1>
+        <h2><a (click)="clickShowMore()" style="color: #AF2F64; cursor: pointer;"><i
+                    class="bi bi-three-dots-vertical"></i></a></h2>
+    </div><!-- Start: Simple Slider -->
+
+    <div *ngIf="!showMore" class="container">
+        <div class="d-md-flex align-items-md-center" style="height: fit-content;">
+            <!-- Start: 1 Row 3 Columns -->
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let path of paths" class="col-md-4"><a [routerLink]="['details', path.id]"
+                            style="text-decoration: none;color: #212529;">
+                            <div class="card p-2" style="border-radius: 15px;"><img
+                                    class="img-fluid card-img-top w-100 d-block"
+                                    style="border-radius: 15px;object-fit: cover;text-align: center;"
+                                    [src]="getImage(path)">
+                                <div class="card-body text-center">
+                                    <h5 class="fw-semibold card-title" style="font-family: Segoe UI;">{{path.title}}
+                                    </h5>
+                                    <p class="fw-lighter card-text" style="font-family: Segoe UI;">{{path.description}}
+                                    </p>
+                                    <a class="fw-lighter mb-3" href="#"
+                                        style="font-family: Segoe UI;color: #AF2F64;">Learn More<svg
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="-128 0 512 512" width="1em"
+                                            height="1em" fill="currentColor">
+                                            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z">
+                                            </path>
+                                        </svg></a>
+                                </div>
+                            </div>
+                        </a></div>
+                </div>
+            </div><!-- End: 1 Row 3 Columns -->
+        </div><!-- End: Slide -->
+    </div>
+
+    <div *ngIf="showMore" class="container">
+        <div class="d-md-flex align-items-md-center" style="height: fit-content;">
+            <!-- Start: 1 Row 3 Columns -->
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let path of allPaths" class="col-md-4"><a [routerLink]="['details', path.id]"
+                            style="text-decoration: none;color: #212529;">
+                            <div class="card p-2" style="border-radius: 15px;"><img
+                                    class="img-fluid card-img-top w-100 d-block"
+                                    style="border-radius: 15px;object-fit: cover;text-align: center;"
+                                    [src]="getImage(path)">
+                                <div class="card-body text-center">
+                                    <h5 class="fw-semibold card-title" style="font-family: Segoe UI;">{{path.title}}
+                                    </h5>
+                                    <p class="fw-lighter card-text" style="font-family: Segoe UI;">{{path.description}}
+                                    </p>
+                                    <a class="fw-lighter mb-3" href="#"
+                                        style="font-family: Segoe UI;color: #AF2F64;">Learn More<svg
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="-128 0 512 512" width="1em"
+                                            height="1em" fill="currentColor">
+                                            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z">
+                                            </path>
+                                        </svg></a>
+                                </div>
+                            </div>
+                        </a></div>
+                </div>
+            </div><!-- End: 1 Row 3 Columns -->
+        </div><!-- End: Slide -->
+    </div>
+
+    <div class="container my-5">
+        <h1 class="fw-semibold mb-4" style="font-family: Segoe UI;color: #AF2F64;">A dedicated expert coach to support
+            you</h1><!-- Start: 1 Row 2 Columns -->
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-md-6 col-lg-7 col-xxl-7">
+                    <ul>
+                        <li class="mb-4 list-color" style="font-family: Segoe UI;font-size: 20px;"><span
+                                style="font-family: Segoe UI;color: #3E3333;">During weekly video chats, your mentor
+                                will support your progress, helping you identify goals, work through challenges, and
+                                manage your time as you complete each project.</span></li>
+                        <li class="mb-4 list-color" style="font-family: Segoe UI;font-size: 20px;"><span
+                                style="font-family: Segoe UI;color: #3E3333;">All coaches are experts and working
+                                professionals in your field of study vetted by the Bridge team.</span></li>
+                    </ul>
+                    <div class="d-flex d-xl-flex justify-content-start justify-content-xl-end py-3 ps-4"><button
+                            class="btn later rounded" type="button"
+                            >Learn
+                            more</button><button class="btn register ms-3 rounded" (click)="askForCoach()" type="button"
+                            >Ask for a
+                            coach</button></div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xxl-4 mt-3 mt-md-0"><img class="img-fluid"
+                        [src]="'assets/img/clipboard-image-16.png?h=3560d003a33266c18efe07117cd44c2c'"
+                        style="border-radius: 20px;border-right: 5px solid #fab555;border-bottom: 5px solid #fab555;">
+                </div>
+            </div>
+        </div><!-- End: 1 Row 2 Columns -->
+    </div>
+
+    <div class="container my-5">
+        <h1 class="fw-normal pb-3" style="font-family: Segoe UI;color: #AF2F64;">Real-World Projects</h1>
+        <!-- Start: 1 Row 2 Columns -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-8 p-0 p-lg-5">
+                    <ul>
+                        <li class="mb-4 list-color" style="font-family: Segoe UI;font-size: 20px;"><span
+                                style="font-family: Segoe UI;color: #3E3333;">During weekly video chats, your mentor
+                                will support your progress, helping you identify goals, work through challenges, and
+                                manage your time as you complete each project.</span></li>
+                        <li class="mb-4 list-color" style="font-family: Segoe UI;font-size: 20px;"><span
+                                style="font-family: Segoe UI;color: #3E3333;">All coaches are experts and working
+                                professionals in your field of study vetted by the Bridge team.</span></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-4"><img class="img-fluid"
+                        src="/assets/img/clipboard-image-17.png?h=da746f56d2a2bd0159d789820d0c78b8"></div>
+            </div>
+        </div><!-- End: 1 Row 2 Columns -->
+    </div>
+
+    <app-help></app-help>

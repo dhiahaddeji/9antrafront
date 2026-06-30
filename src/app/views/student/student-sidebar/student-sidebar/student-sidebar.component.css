@@ -1,0 +1,275 @@
+/* ─── Layout ─────────────────────────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 290px;
+  z-index: 600;
+  background: #ffffff;
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden removed — needed so the notification dropdown can escape the sidebar */
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    box-shadow: none;
+  }
+}
+
+/* ─── Sidebar header (logo + profile) — fixed, never scrolls ─────────── */
+.sidebar-header {
+  flex-shrink: 0;
+  padding: 20px 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+}
+
+/* ─── Scrollable nav area ─────────────────────────────────────────────── */
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 12px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #e0c4d0 transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar { width: 4px; }
+.sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: #e0c4d0;
+  border-radius: 4px;
+}
+
+/* ─── Brand / Logo ────────────────────────────────────────────────────── */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 16px;
+}
+.sidebar-logo img { height: 32px; }
+
+/* Notification bell inside sidebar header */
+.sidebar-notif {
+  display: flex;
+  align-items: center;
+}
+.sidebar-notif ::ng-deep .notification-button {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  position: relative;
+  cursor: pointer;
+  color: #555;
+}
+.sidebar-notif ::ng-deep .notification-button i { font-size: 20px !important; color: #555; }
+.sidebar-notif ::ng-deep .notification-button:hover i { color: #AF3065; }
+
+/* Dropdown must escape sidebar — force fixed positioning below sidebar header */
+.sidebar-notif ::ng-deep .dropdown-menu {
+  position: fixed !important;
+  top: 60px !important;
+  left: 5px !important;
+  right: auto !important;
+  transform: none !important;
+  z-index: 9999 !important;
+}
+
+/* ─── Profile block ───────────────────────────────────────────────────── */
+.nav-profile {
+  display: flex;
+  align-items: center;
+  padding: 12px 8px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  transition: background 0.2s;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav-profile:hover { background: #fdf5f8; }
+
+.nav-profile img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #AF3065;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+  padding: 0 8px;
+}
+.profile-info .welcome-text {
+  font-size: 11px;
+  color: #999;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 1px;
+}
+.profile-info .profile-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-name:hover { color: #AF3065; }
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.profile-actions .action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.profile-actions .action-btn:hover { background: #f7e6ee; color: #AF3065; }
+.profile-actions .action-btn.logout-btn:hover { background: #fff0f0; color: #dc3545; }
+
+/* ─── Section label ───────────────────────────────────────────────────── */
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #bbb;
+  padding: 16px 12px 4px;
+  margin: 0;
+}
+
+/* ─── Nav items ───────────────────────────────────────────────────────── */
+.nav-item-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 2px;
+  border: none;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+}
+.nav-item-link i {
+  width: 20px;
+  font-size: 16px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  color: #888;
+  transition: color 0.15s;
+}
+.nav-item-link:hover {
+  background: #fdf5f8;
+  color: #AF3065;
+}
+.nav-item-link:hover i { color: #AF3065; }
+
+.nav-item-link.active {
+  background: #f7e6ee;
+  color: #AF3065;
+  font-weight: 600;
+}
+.nav-item-link.active i { color: #AF3065; }
+
+/* chevron */
+.nav-chevron {
+  margin-left: auto;
+  font-size: 11px;
+  color: #bbb;
+  transition: transform 0.25s ease;
+}
+.nav-chevron.open { transform: rotate(180deg); }
+
+/* ─── Submenu ─────────────────────────────────────────────────────────── */
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 12px;
+}
+.submenu.open { max-height: 500px; }
+.submenu .sub-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #666;
+  font-size: 13px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 1px;
+}
+.submenu .sub-link::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ccc;
+  margin-right: 10px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.submenu .sub-link:hover { background: #fdf5f8; color: #AF3065; }
+.submenu .sub-link:hover::before { background: #AF3065; }
+.submenu .sub-link.active { color: #AF3065; font-weight: 600; }
+.submenu .sub-link.active::before { background: #AF3065; }
+
+/* ─── Logout at bottom ────────────────────────────────────────────────── */
+.nav-logout {
+  color: #dc3545 !important;
+}
+.nav-logout i { color: #dc3545 !important; }
+.nav-logout:hover {
+  background: #fff0f0 !important;
+  color: #a71d2a !important;
+}
+.nav-logout:hover i { color: #a71d2a !important; }
+
+/* ─── Mobile navbar ───────────────────────────────────────────────────── */
+#main-navbar {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* Mobile logout button */
+.mobile-logout-btn {
+  background: #fff0f0;
+  color: #dc3545;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.mobile-logout-btn:hover { background: #f8d7da; color: #a71d2a; }
+
+a { text-decoration: none; }

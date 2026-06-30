@@ -1,0 +1,55 @@
+{
+  "questions":[
+    {
+    "question":"what is your name",
+    "answer":"My name is ChatBot."
+    },
+    {
+    "question":"how are you",
+    "answer":"I'm doing well, thank you!"
+    },
+    {
+      "question":"Hello",
+      "answer":"Hi therea!"
+    },
+    {
+      "question": "What are you up to?",
+      "answer": "no"
+      },
+      {
+      "question": "How's work going?",
+      "answer": "I'm doing well, thank you!"
+      },
+      {
+      "question": "Have you been busy lately?",
+      "answer": "helo brother"
+      },
+      {
+      "question": "What have you been up to lately?",
+      "answer": "I'm doing well, thank you!"
+      },
+      {
+      "question": "How are things going with you?",
+      "answer": "I'm doing well, thank you!"
+      },
+      {
+        "question": "How's your day been so far?",
+        "answer": "I'm doing well, thank you!, It's been pretty busy but productive."
+        }
+        ,
+        {
+        "question": "Any exciting plans for the weekend?",
+        "answer": "I'm doing well, thank you!, Yes, I'm planning to go hiking with some friends."
+        }
+        ,
+        {
+        "question": "How's work going?",
+        "answer": "I'm doing well, thank you!, Work's been good, I've been making progress on my tasks."
+        }
+        ,
+        {
+        "question": "Have you been busy lately?",
+        "answer": "I'm doing well, thank you!, Yes, I've had a lot on my plate recently."
+        }
+  ]
+}

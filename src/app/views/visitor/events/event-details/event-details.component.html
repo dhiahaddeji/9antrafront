@@ -1,0 +1,30 @@
+<section id="hero" class="d-flex align-items-center" data-aos="fade-up">
+    <div class="image-container">
+        <img src="assets/img/nosformation.png" class="img-fluid" alt="">
+        <h1 class="image-heading fw-bolder" style="font-size: 32px;">Our Events</h1>
+    </div>
+</section><!-- End Hero -->
+
+<div *ngIf="event" data-aos="fade-up" class="d-flex justify-content-center mt-5 mb-5">
+    <div class="card" style="width: 40%;">
+        <img class="card-img-top" [src]="getImage(event.image)" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{ event.name }} <span class="badge bg-custom-color text-wrap"> {{ event.date | date:'dd-MM-yy' }} </span> </h5>
+            <p class="card-text"> {{ event.description }}</p>
+            <a *ngIf="!userLoggedIn" (click)="login()" class="btn btn-register mt-3">Register</a>
+            <div *ngIf="userLoggedIn">
+                <button *ngIf="!userRegistered" (click)="scheduleEvent(event.id!)" type="button" class="btn register mb-3"><i class="fa-solid fa-plus"></i>
+                    Schedule</button>
+                <button *ngIf="userRegistered" (click)="unregisterFromEvent(event.id!)" type="button" class="btn register mb-3"><i class="fa-solid fa-minus"></i> Cancel</button>
+                <div class="row" *ngIf="userRegistered">
+                    <div class="col" *ngIf="event.facebookLink">
+                        <button type="button" class="btn register mb-3" (click)="redirectToExternalURL(event.facebookLink)"><i class="fa-brands fa-facebook-f"></i></button>
+                    </div>
+                    <div class="col" *ngIf="event.googleMeetLink">
+                        <button type="button" class="btn register mb-3" (click)="redirectToExternalURL(event.googleMeetLink)"><i class="fa-brands fa-google"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

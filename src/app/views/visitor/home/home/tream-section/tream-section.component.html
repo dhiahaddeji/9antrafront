@@ -1,0 +1,77 @@
+<!-- ======= Trainers Section ======= -->
+<section id="trainers" class="trainers">
+  <div class="" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Meet the Heroes</h2>
+      <h5>On THE-BRIDGE, instructors from all over the world instruct millions of students. We offer the knowledge and
+        abilities.</h5>
+    </div>
+    <div class="row" data-aos="zoom-in" data-aos-delay="100">
+      <!-- Carousel wrapper -->
+      <div
+        id="carouselMultiItemExample"
+        class="carousel slide carousel-dark text-center"
+        data-mdb-ride="carousel"
+      >
+        <!-- Controls -->
+        <div class="d-flex justify-content-center mb-4">
+          <button class="carousel-control-prev" type="button"
+          [disabled]="page==0"
+          (click)="previousPage()"
+            >
+            <span  style="margin-right:100px" class="carousel-control-prev-icon"  aria-hidden="true" ></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-mdb-target="#carouselMultiItemExample1"
+          [disabled]="page==count_page-1"
+          (click)="nextPage()"
+            >
+            <span  style="margin-left:100px" class="carousel-control-next-icon"   aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- Inner -->
+        <div class="carousel-inner py-4">
+          <!-- Slide items -->
+          <div
+          >
+            <div class="container">
+              <div class="row justify-content-between">
+                <div *ngFor="let coach of tabCoach" class="col-lg-4 mb-3" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="card p-4 shadow" style="border: none">
+                    <div class="col d-flex justify-content-center">
+                      <img class="rounded-circle shadow-1-strong mb-4" src="/assets/Documents/{{coach['user'].image}}"
+                        alt="avatar" style="height: 150px; ; width: 150px ; " />
+                    </div>
+                    <h5 class="mb-3">{{ coach['user'].firstName }} {{ coach['user'].lastName }}</h5>
+                    <div>
+                      <div>
+                        <p class="fw-normal mb-1">{{coach.skills}}</p>
+
+
+                        <p class="text-muted">{{ coach.description }}</p>
+                        <div class="social">
+
+                          <a href="{{ coach.github }}" target="_blank" rel="noopener noreferrer" class="ms-2"><i
+                              class="bi bi-github"></i></a>
+
+                          <a href="{{ coach.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="tabCoach?.length == 0" class="text-center mt-3 d-flex justify-content-center">
+                  <div class="nodata">
+                    <p style="overflow: hidden;">There are no coachs available.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

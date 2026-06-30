@@ -1,0 +1,103 @@
+<main class="content">
+  <div class="p-0">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-12 col-lg-12 col-xl-12">
+        <div class="py-2 px-4 border-bottom">
+          <div class="d-flex align-items-center py-1">
+            <div class="position-relative">
+              <img src="../../../../assets/img/forum.jpg" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+            </div>
+            <div class="" style="margin-right: 50px;">
+              <strong>Forum</strong>
+              <div class="text-muted small"><em>Typing...</em></div>
+            </div>
+            <div class="search mt-xs-3" style="width: 100%;">
+              <input [(ngModel)]="search" (input)="getForum()" type="text" class="form-control" placeholder="SEARCH SUBJECT..." style="max-width: 80%;min-width: auto;border-radius: 10px;">
+            </div>
+          </div>
+        </div>
+        <div class="add" style="position: relative;">
+          <button class="forum-post-btn" (click)="showPostModal = true" style="position: absolute;top: 10px; right: 30px;margin-bottom: 5px;">
+            <i class="bi bi-pencil-square me-1"></i>Post
+          </button>
+        </div>
+        <div class="position-relative" style="height: 70vh; overflow-y: scroll; margin-left: 10px;margin-top: 50px;" #scrollRef>
+          <div class="post mt-4" style="padding: 10px; width: 100%; overflow-x: hidden;cursor: pointer;" *ngFor="let post of forums" routerLink="/student/forum/{{post.id}}">
+            <div class="row" style="width: 100%;">
+              <p>{{post.subject.substring(0,100)}}</p>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-4 col-lg-3 mb-2 d-flex align-items-center">
+                <img src="assets/Documents/{{post.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33">
+                <p style="margin: 0px 0px 0px 10px; color: #202124; font-weight: bold;">
+                  {{ post.userEnvoi['firstName'] }} {{ post.userEnvoi['lastName'] }},
+                  <span *ngIf="post.responses && post.responses.length > 0" style="color: #202124; font-weight: normal;">
+                    {{ post.responses[0]?.userEnvoi.firstName }}<span *ngIf="post.responses.length > 1">...</span>
+                  </span>
+                  <span style="margin-left: 5px; color: #646F85;">{{ post.responses.length}}</span>
+                </p>
+              </div>
+
+              <!-- Post Content -->
+              <div class="col-12 col-md-8 col-lg-9 mb-2 d-flex justify-content-between flex-wrap text-wrap">
+                <p style="margin: 7px 0px 0px 0px; color: black; font-weight: bold;text-wrap: wrap;" *ngIf="post.responses?.length==0">
+                  {{ post.post.substring(0, 100) }}<span *ngIf="calculLength(post.post)>100">...</span>
+                </p>
+                <p style="margin: 7px 0px 0px 0px; color: black; font-weight: bold;text-wrap: wrap;" *ngIf="post.responses.length>0">
+                  {{ post.post.substring(0, 60) }}...<span style="font-weight: normal; color: #202124;"> – {{ post.responses[0]?.content.substring(0, 40) }}...</span>
+                </p>
+                <p style="margin: 7px 0px 0px 0px; color: #808080;">{{ post.created_at | date: 'HH:mm' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-grow-0 py-3 px-4 border-top d-flex justify-content-center">
+          <div class="pagination d-flex gap-4">
+            <button [disabled]="page==0" (click)="previousPage()">
+              <i class="bi bi-arrow-left-short" style="font-size: 35px;"></i>
+            </button>
+            <button [disabled]="page==count_page-1" (click)="nextPage()">
+              <i class="bi bi-arrow-right-short" style="font-size: 35px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Angular post modal overlay -->
+        <div class="post-overlay" *ngIf="showPostModal" (click)="showPostModal = false">
+          <div class="post-dialog" (click)="$event.stopPropagation()">
+            <div class="post-dialog-header">
+              <h5 class="post-dialog-title">New Forum Post</h5>
+              <button type="button" class="post-close-btn" (click)="showPostModal = false">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+            <div class="post-dialog-body">
+              <input
+                [(ngModel)]="forum.subject"
+                class="post-input"
+                placeholder="Subject..."
+              />
+              <textarea
+                [(ngModel)]="forum.post"
+                class="post-textarea"
+                placeholder="Write your post here..."
+                rows="5"
+              ></textarea>
+            </div>
+            <div class="post-dialog-footer">
+              <button class="post-btn-cancel" (click)="showPostModal = false">Cancel</button>
+              <button class="post-btn-submit" (click)="send()">
+                <i class="bi bi-send me-1"></i>Publish
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+

@@ -1,0 +1,11 @@
+mat-h5,
+.mat-typography .mat-h5,
+.mat-typography h5 {
+  font: initial;
+  margin: initial;
+}
+.mat-typography .mat-h6,
+.mat-typography h6 {
+  font: initial;
+  margin: initial;
+}

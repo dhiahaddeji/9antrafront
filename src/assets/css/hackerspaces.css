@@ -1,0 +1,105 @@
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/**
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-bg {
+  background-color: #f3f5fa;
+}
+
+
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #000000;
+}
+
+
+
+/*--------------------------------------------------------------
+# Hackerspace
+--------------------------------------------------------------*/
+
+.shadow{
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.226);
+ 
+  background: #fff;
+  border-radius: 20px;
+}
+
+
+.Hackerspace .info .social-links {
+  padding-left: 60px;
+}
+
+.Hackerspace .info .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #333;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+  margin-right: 10px;
+}
+
+.Hackerspace .info .social-links a:hover {
+  background: #bae447;
+  color: #fff;
+}
+
+.Hackerspace .info i {
+  font-size: 20px;
+  color: #333333;
+  float: left;
+  width: 44px;
+  height: 44px;
+  background: #e7f5fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.Hackerspace .info .email:hover i,
+.Hackerspace .info .address:hover i,
+.Hackerspace .info .phone:hover i {
+  background: #AF3065;
+  color: #fff;
+}
+
+.Hackerspace  .info h4 {
+  padding: 0 0 0 60px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #0a0a0a;
+}
+
+.Hackerspace  .info p {
+  padding: 0 0 10px 60px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #070707;
+}
+
+

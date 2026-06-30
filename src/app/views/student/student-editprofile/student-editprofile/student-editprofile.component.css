@@ -1,0 +1,203 @@
+main {
+  padding: 20px 30px;
+  transition: all 0.3s;
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444;
+  min-height: 100vh;
+}
+
+@media (min-width: 991.98px) {
+  main { padding-left: 310px; }
+}
+
+a { color: #333; text-decoration: none; }
+a:hover { color: #AF3065; }
+h1,h2,h3,h4,h5,h6 { font-family: "Nunito", sans-serif; }
+
+/* Page title */
+.pagetitle { margin-bottom: 20px; }
+.pagetitle h1 { font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0; }
+.breadcrumb { font-size: 13px; font-family: "Nunito", sans-serif; color: #899bbd; font-weight: 600; }
+.breadcrumb a { color: #899bbd; }
+.breadcrumb a:hover { color: #51678f; }
+.breadcrumb .breadcrumb-item::before { color: #899bbd; }
+.breadcrumb .active { color: #51678f; font-weight: 600; }
+
+/* ── Avatar side card ──────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  margin-bottom: 0;
+}
+
+.avatar-side-card,
+.form-card {
+  height: 100%;
+}
+
+/* Avatar */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.avatar-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f7e6ee;
+  box-shadow: 0 4px 16px rgba(175,48,101,0.15);
+  display: block;
+}
+
+/* "Change Photo" label — styled as a button */
+.btn-upload-photo {
+  display: block;
+  width: 100%;
+  background: #f7e6ee;
+  color: #AF3065;
+  border: 1.5px dashed #AF3065;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.btn-upload-photo:hover {
+  background: #f0d0e0;
+  color: #8d1f4f;
+}
+
+/* "Upload Photo" button — shown after file chosen */
+.btn-save-photo {
+  display: block;
+  width: 100%;
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+  margin-bottom: 4px;
+}
+.btn-save-photo:hover { background: #8d1f4f; }
+
+/* ── Form card ─────────────────────────────────────────────────── */
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #AF3065;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f7e6ee;
+  margin-bottom: 4px;
+}
+
+/* Floating label inputs */
+.form__group {
+  position: relative;
+  padding-top: 22px;
+  margin-bottom: 4px;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #e0e0e0;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  padding: 6px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.form__field::placeholder { color: transparent; }
+.form__field:focus { border-bottom-color: #AF3065; }
+
+.form__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #aaa;
+  transition: 0.2s;
+  pointer-events: none;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 14px;
+  top: 26px;
+  color: #bbb;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+.form__field:focus ~ .form__label {
+  font-size: 11px;
+  top: 0;
+  color: #AF3065;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.field-error {
+  font-size: 12px;
+  color: #dc3545;
+  margin-top: 4px;
+}
+
+/* ── Action buttons ────────────────────────────────────────────── */
+.btn-cancel {
+  display: inline-flex;
+  align-items: center;
+  background: #f0f0f0;
+  color: #555;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-cancel:hover { background: #e2e2e2; color: #333; }
+
+.btn-update {
+  display: inline-flex;
+  align-items: center;
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 26px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-update:hover {
+  background: #8d1f4f;
+  color: #fff;
+  transform: translateY(-1px);
+}

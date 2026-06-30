@@ -1,0 +1,156 @@
+<style>
+  .textarea-wrapper {
+   position: relative;
+   width: 500px;
+   height: max-content;/* Modifier la largeur selon vos besoins */
+ }
+
+ .textarea-field {
+   width: 90%;
+   height: max-content;/* Modifier la largeur selon vos besoins */
+
+   border: #929191bd;
+   outline: none;
+   padding: 5px 0;
+ }
+
+
+
+ </style>
+ <main id="main" class="main">
+
+     <link href="https://fonts.gstatic.com" rel="preconnect">
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+     <section id="cource-details-tabs" class="cource-details-tabs">
+         <div class="container" data-aos="fade-up">
+             <div class="row">
+               <div class="col-lg-8">
+                 <div class="d-lg-none d-md-block"><br><br><br></div>
+                 <div class="row justify-content-between">
+                     <div class="col-4">
+                 <div class="pagetitle">
+                   <h1>Projects</h1>
+                   <nav>
+                     <ol class="breadcrumb">
+                       <li class="breadcrumb-item"><a routerLink="/student">Home</a></li>
+                       <li class="breadcrumb-item active">Projects</li>
+                     </ol>
+                   </nav>
+                 </div>
+             </div>
+
+
+             </div><!-- End Page Title -->
+             <div>
+               <h5 class="fw-bold">My files</h5>
+             </div>
+
+             <div class="row my-4">
+                 <div class="col-md-5"><span class="fw-bold ms-4">Name</span> </div>
+                 <div class="col-md-2 fw-bold d-flex justify-content-center">Type </div>
+                 <div class="col-md-3 fw-bold d-flex justify-content-center">Last Mofified</div>
+
+            </div>
+
+
+            <ul *ngFor="let event of project" class="nav nav-tabs flex-column">
+             <li class="nav-item">
+
+               <a [class.active]="selectedProjectId === event.id" class="nav-link show" data-bs-toggle="tab" href="#tab-1" (click)="selectProject(event.id)">
+                   <div class="row my-2">
+                     <span *ngIf="event.remark !== null  " class="text-success"><i class="bi bi-check"></i></span>
+
+                  <div class="col-md-5"><span class="mx-4"><img  [src]="getFileTypeImage(event.type)" alt="" width="25px" height="25px"></span>{{ getFileNameWithoutTimestamp(event.projectname) }}
+                  </div>
+                  <div class="col-md-2 d-flex justify-content-center ">{{ event.type }}  </div>
+                  <div class="col-md-2 d-flex justify-content-center ">{{ event.date | date:"dd/MM/yyyy"}}</div>
+
+
+                  <div class="col-md-3 d-flex justify-content-center">
+
+                     <div class="filter">
+                     <button class="icon" href="#" data-bs-toggle="dropdown" style="border: none; background-color: #ffffff00;"><i class="bi bi-three-dots"></i></button>
+                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                       <li class="dropdown-header ">
+
+                       </li>
+
+                       <li><button class="dropdown-item p-2" (click)="viewFile(event.projectname)" *ngIf="event.type !== 'RAR' && event.type !== 'ZIP' && event.type !== 'DOCX' && event.type !== 'DOC'"><span><i class="bi bi-eye me-3"></i> </span> Insight</button></li>
+                       <li>
+                         <button class="dropdown-item p-2" (click)="downloadFile(event.projectname)">
+                           <span><i class="bi bi-download me-3"></i></span> Download
+                         </button>
+                       </li>
+                     </ul>
+
+                   </div>
+
+
+                 </div>
+                 <div class="row my-2" *ngIf="renamingProjectId === event.id">
+       <div class="col-md-12">
+         <textarea class="form-control" rows="3"></textarea>
+       </div>
+     </div>
+             </div>
+
+         </a>
+
+               </li>
+
+
+
+
+             </ul>
+
+           </div>
+
+           <div   class="col-lg-3 bg-white shadow mx-4  d-none d-lg-block info "  >
+             <div *ngIf="selectedProjectId !== null" class="tab-content ">
+             <div class="tab-pane active show" id="tab-1">
+             <div class="row mt-5"><p class="fw-bold text-dark d-flex justify-content-center fs-5">File info</p></div>
+             <div class="row mt-2 d-flex justify-content-center">        <img [src]="getFileTypeImage(selectedProject.type)" class="img-fluid w-50" alt="">
+             </div>
+             <div class="row my-4  fw-bold d-flex justify-content-center">{{ getFileNameWithoutTimestamp(selectedProject.projectname) }}</div>
+             <textarea [(ngModel)]="selectedProject.remark" #remarkTextArea class="input-field justify-content-center w-100" placeholder="Any Remark?"
+             [value]="selectedProject.remark === 'No Remark' ? '' : selectedProject.remark" (ngModelChange)="updateRemark($event)"></textarea>
+
+           <button (click)="addRemark(selectedProject.id, selectedProject.remark)" class="btn btn-link float-end btn-sm" type="submit">Add Your Remark</button>
+           <div class="row my-5 text-center d-flex justify-content-center">
+               <hr class="w-75">
+             </div>
+             <div class="row mt-5">
+               <p class="fw-semibold fs-6 ms-5">Name: {{ getFileNameWithoutTimestamp(selectedProject.projectname) }}</p>
+             </div>
+             <div class="row mt-2">
+               <p class="fw-semibold fs-6 ms-5">Type: {{ selectedProject.type }}</p>
+             </div>
+             <div class="row mt-2">
+               <p class="fw-semibold fs-6 ms-5">Size: {{ selectedProject.size }}</p>
+             </div>
+             <div class="row mt-2">
+               <p class="fw-semibold fs-6 ms-5">Last Modified: {{ selectedProject.date | date: 'dd/MM/yyyy' }}</p>
+             </div>
+             <div class="row mt-2">
+               <p class="fw-semibold fs-6 ms-5">Remark: {{ selectedProject.remark }}</p>
+             </div>
+
+
+           </div>
+            </div>
+            <div *ngIf="selectedProjectId === null" class="d-flex flex-column align-items-center mt-5">
+             <p class="fw-bold text-danger">No project selected</p>
+             <img src="../../../../../assets/img/folder (2).png" alt="Folder Image" class="mt-3" />
+           </div>
+
+           </div>
+
+         </div>
+       </div>
+
+
+        </section>
+
+
+   </main>

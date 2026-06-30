@@ -1,0 +1,282 @@
+
+<div *ngIf="course" [ngStyle]="getTopStyle()">
+  <div class="container-lg my-5">
+    <!-- Start: 1 Row 2 Columns -->
+    <div class="container p-0 p-md-5" style="border-radius: 10px;border: 2px solid #FAB555;">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="fw-semibold" style="font-family: Segoe UI;color: #3E3333;">{{course.title}}</h1>
+                <p style="font-family: Segoe UI;color: #3E3333;font-size: 20px;">{{course.description}}</p>
+                <div class="d-flex d-md-flex align-items-center align-items-md-center pb-2">
+                    <!-- Start: Icone SVG --><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                        viewBox="0 0 30 30">
+                        <path id="language2"
+                            d="M21,6A15,15,0,1,0,36,21,15,15,0,0,0,21,6ZM19.062,7.71a20.943,20.943,0,0,0-3.372,5.982,20.049,20.049,0,0,1-4.53-1.836A13.4,13.4,0,0,1,19.062,7.71Zm-8.574,4.932a20.972,20.972,0,0,0,4.878,2.01,21.375,21.375,0,0,0-.954,5.838H7.578A13.363,13.363,0,0,1,10.488,12.642ZM7.578,21.5h6.834a21.338,21.338,0,0,0,.954,5.838,21.235,21.235,0,0,0-4.878,2.01A13.334,13.334,0,0,1,7.578,21.5Zm3.582,8.634A20.5,20.5,0,0,1,15.69,28.3a21.151,21.151,0,0,0,3.372,5.982A13.363,13.363,0,0,1,11.16,30.138ZM20.5,34.416a20.324,20.324,0,0,1-3.816-6.354,20.4,20.4,0,0,1,3.816-.456Zm0-7.818a21.512,21.512,0,0,0-4.146.5,20.322,20.322,0,0,1-.924-5.6H20.5Zm0-6.1h-5.07a20.322,20.322,0,0,1,.924-5.6,21,21,0,0,0,4.146.5Zm0-6.108a20.521,20.521,0,0,1-3.816-.456A20.1,20.1,0,0,1,20.5,7.578ZM34.422,20.5h-6.84a21.522,21.522,0,0,0-.954-5.838,21.233,21.233,0,0,0,4.89-2.016A13.4,13.4,0,0,1,34.422,20.5ZM30.84,11.862A20.026,20.026,0,0,1,26.3,13.7,21.171,21.171,0,0,0,22.932,7.71,13.369,13.369,0,0,1,30.84,11.862ZM21.51,7.584a20.173,20.173,0,0,1,3.8,6.354,20.847,20.847,0,0,1-3.8.456Zm0,7.818a20.933,20.933,0,0,0,4.134-.5,20.2,20.2,0,0,1,.924,5.592H21.51Zm0,6.1h5.058a20.427,20.427,0,0,1-.924,5.592,21.809,21.809,0,0,0-4.134-.5Zm0,6.108a19.846,19.846,0,0,1,3.8.456,20.173,20.173,0,0,1-3.8,6.354Zm1.428,6.678A21.17,21.17,0,0,0,26.3,28.3a20.138,20.138,0,0,1,4.542,1.836A13.4,13.4,0,0,1,22.938,34.29Zm8.574-4.932a21.233,21.233,0,0,0-4.89-2.016,21.484,21.484,0,0,0,.954-5.838h6.84A13.321,13.321,0,0,1,31.512,29.358Z"
+                            transform="translate(-6 -6)" fill="#fab555" />
+                    </svg>
+                    <!-- End: Icone SVG -->
+                    <h5 class="fw-lighter ps-3"
+                        style="font-family: Segoe UI;padding-left: 0px;width: fit-content;color: #3E3333;">
+                        <span *ngIf="course.language == 'TUNISIAN'" class="fi fi-tn ml-2"></span>
+                        <span *ngIf="course.language == 'FRENCH'" class="fi fi-fr ml-2"></span>
+                        <span *ngIf="course.language == 'ENGLISH'" class="fi fi-gb ml-2"></span>
+                    </h5>
+                </div>
+                <div class="d-flex d-md-flex align-items-center align-items-md-center pb-2">
+                    <!-- Start: Icone SVG --><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                        viewBox="0 0 30 30">
+                        <g id="calendar2" transform="translate(-9.753 -5.474)">
+                            <path id="Tracé_227" data-name="Tracé 227"
+                                d="M25.208,42.441H21.581a.534.534,0,0,0-.557.508v3.3a.534.534,0,0,0,.557.508h3.627a.534.534,0,0,0,.557-.508v-3.3A.534.534,0,0,0,25.208,42.441Zm-.557,3.3H22.139V43.456h2.512Z"
+                                transform="translate(-7.083 -24.459)" fill="#fab555" />
+                            <path id="Tracé_228" data-name="Tracé 228"
+                                d="M47.976,42.441H44.349a.534.534,0,0,0-.557.508v3.3a.534.534,0,0,0,.557.508h3.627a.534.534,0,0,0,.557-.508v-3.3A.534.534,0,0,0,47.976,42.441Zm-.557,3.3H44.907V43.456h2.512Z"
+                                transform="translate(-21.392 -24.459)" fill="#fab555" />
+                            <path id="Tracé_229" data-name="Tracé 229"
+                                d="M70.042,42.441H66.415a.534.534,0,0,0-.557.508v3.3a.534.534,0,0,0,.557.508h3.627a.534.534,0,0,0,.557-.508v-3.3A.534.534,0,0,0,70.042,42.441Zm-.557,3.3H66.973V43.456h2.512Z"
+                                transform="translate(-35.26 -24.459)" fill="#fab555" />
+                            <path id="Tracé_230" data-name="Tracé 230"
+                                d="M25.208,64.677H21.581a.534.534,0,0,0-.557.508v3.3a.534.534,0,0,0,.557.508h3.627a.534.534,0,0,0,.557-.508v-3.3A.534.534,0,0,0,25.208,64.677Zm-.557,3.3H22.139V65.692h2.512Z"
+                                transform="translate(-7.083 -39.172)" fill="#fab555" />
+                            <path id="Tracé_231" data-name="Tracé 231"
+                                d="M47.976,64.677H44.349a.534.534,0,0,0-.557.508v3.3a.534.534,0,0,0,.557.508h3.627a.534.534,0,0,0,.557-.508v-3.3A.534.534,0,0,0,47.976,64.677Zm-.557,3.3H44.907V65.692h2.512Z"
+                                transform="translate(-21.392 -39.172)" fill="#fab555" />
+                            <path id="Tracé_232" data-name="Tracé 232"
+                                d="M70.042,64.677H66.415a.534.534,0,0,0-.557.508v3.3a.534.534,0,0,0,.557.508h3.627a.534.534,0,0,0,.557-.508v-3.3A.534.534,0,0,0,70.042,64.677Zm-.557,3.3H66.973V65.692h2.512Z"
+                                transform="translate(-35.26 -39.172)" fill="#fab555" />
+                            <path id="Tracé_233" data-name="Tracé 233"
+                                d="M39.2,8.154H35.5V7.479a2.211,2.211,0,0,0-4.4,0v.675H26.95V7.479a2.211,2.211,0,0,0-4.4,0v.675H18.4V7.479a2.113,2.113,0,0,0-2.2-2.005A2.113,2.113,0,0,0,14,7.479v.675H10.31a.534.534,0,0,0-.557.508V34.966a.534.534,0,0,0,.557.508H39.2a.534.534,0,0,0,.557-.508V8.661A.534.534,0,0,0,39.2,8.154Zm-6.983-.675a1.092,1.092,0,0,1,2.174,0v2.8a1.092,1.092,0,0,1-2.174,0Zm-7.464-.99a1.043,1.043,0,0,1,1.087.99v2.8a1.092,1.092,0,0,1-2.174,0V8.709c0-.016.005-.031.005-.048s0-.032-.005-.048V7.479A1.043,1.043,0,0,1,24.749,6.489Zm-9.638.99a1.092,1.092,0,0,1,2.174,0v2.8a1.092,1.092,0,0,1-2.174,0Zm23.528,26.98H10.868V9.169H14V10.28a2.113,2.113,0,0,0,2.2,2.005,2.113,2.113,0,0,0,2.2-2.005V9.169h4.148V10.28a2.211,2.211,0,0,0,4.4,0V9.169H31.1V10.28a2.211,2.211,0,0,0,4.4,0V9.167h3.137Z"
+                                transform="translate(0 0)" fill="#fab555" />
+                        </g>
+                    </svg>
+                    <!-- End: Icone SVG -->
+                    <h5 class="fw-lighter ps-3"
+                        style="font-family: Segoe UI;padding-left: 0px;width: fit-content;color: #3E3333;">
+                        {{course.duration}} Weeks</h5>
+                </div>
+                <div class="pt-3"><button class="btn later rounded" type="button"
+                        >Watch later <i class="fa-regular fa-heart"></i></button>
+                        <a class="btn register ms-3 rounded"
+                         type="button" (click)="startCourse()">Start Course</a>
+                </div>
+            </div>
+            <div class="col-md-6 d-md-flex align-items-md-center">
+                <img class="img-fluid" [src]="'assets/Courses_E_Learning/Course_' + id + '/' + course.image" alt="Path's image">
+            </div>
+        </div>
+    </div><!-- End: 1 Row 2 Columns -->
+  </div>
+</div>
+
+
+
+<!-- <div class="ml-4" *ngIf="course" [ngStyle]="getTopStyle()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <h4 class="course-title">
+                <span class="d-inline-block d-md-none">{{ course!.title }}</span>
+                <span class="d-none d-md-inline">{{ course!.title }}</span>
+                <span *ngIf="course!.language == 'TUNISIAN'" class="fi fi-tn"></span>
+                <span *ngIf="course!.language == 'FRENCH'" class="fi fi-fr"></span>
+                <span *ngIf="course!.language == 'ENGLISH'" class="fi fi-gb"></span>
+              </h4>
+              <p class="font-italic course-duration">{{ course!.duration}} Weeks</p>
+              <p class="text-wrap course-description">{{ course!.description }}</p>
+            </div>
+            <div class="col-md-4">
+              <img [src]="'assets/Courses_E_Learning/Course_' + id + '/' + course.image" style="max-height: 80%;" alt="Courses's image"
+                class="img-fluid float-md-right rounded">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="row no-gutters mt-2 justify-content-center" *ngIf="course">
+  <div class="col-md-6 mt-2 mt-md-0">
+    <div class="card h-100">
+      <div class="card-body  justify-content-center">
+        <video controls class="img-fluid">
+          <source [src]="'assets/Courses_E_Learning/Course_' + id + '/' + course.trailer">
+        </video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row no-gutters mt-8 justify-content-center" *ngIf="course">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <div class="mb-2">
+          <h4 class="section-header-title">Goals :</h4>
+        </div>
+        <div class="mb-4 flex-grow-1">
+          <div *ngFor="let goal of course!.goal" class="d-flex align-items-center">
+            <i class="bi bi-arrow-right-short goal-icon"></i>
+            <span class="goal-description">{{ goal.description }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row no-gutters mt-2" *ngIf="course">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <div class="mb-2">
+          <h4 class="section-header-title">Goals :</h4>
+        </div>
+        <div class="mb-4 flex-grow-1">
+          <div *ngFor="let goal of course!.goal" class="d-flex align-items-center">
+            <i class="bi bi-arrow-right-short goal-icon"></i>
+            <span class="goal-description">{{ goal.description }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 mt-2 mt-md-0">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <video controls class="img-fluid">
+          <source [src]="'assets/Courses_E_Learning/Course_' + id + '/' + course.trailer">
+        </video>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <section *ngIf="course">
+  <div class="container" style="max-width: 60%;">
+    <div class="row no-gutters mt-2" >
+    
+      <div class="row">
+        <div class="col-md-8">
+          <h3 style="color: #AF2F64;">Turn it into a career</h3>
+          <p class="mt-8 fw-lighter" >Turn your Development knowledge into applicable professional skills. Follow our online degree program and land a job in your new career!</p>
+          <div class="card mt-2 border border-warning">
+            <div class="card-header">
+              <p>Development</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <img class="img-fluid" src="assets/img/TurnCoursName.png" alt="">
+                </div>
+                <div class="col-md-8" >
+                  <p class="card-text">
+                    WEB DEVELOPER
+                    <br>
+                    JUMPSTART YOUR CAREER IN WEB DEVELOPMENT BY LEARNING TO BUILD RESPONSIVE, DYNAMIC WEBSITES.
+                  </p>
+                </div>
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <img class="mt-8" src="assets/img/career.png" alt="">
+        </div>
+      </div>
+  
+    
+    
+  </div>
+  </div>
+  
+</section> -->
+
+<section *ngIf="course">
+  <div class="container course-container">
+    <div class="row no-gutters mt-2">
+      <div class="col-md-8">
+        <h3 class="text-md-start" style="color: #AF2F64;">Turn it into a career</h3>
+        <p class="mt-2 mt-md-4 fw-lighter text-md-start">Turn your Development knowledge into applicable professional skills. Follow our online degree program and land a job in your new career!</p>
+        <div class="card mt-4 mt-md-2 border border-warning">
+          <div class="card-header">
+            <p>Development</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <img class="img-fluid" src="assets/img/TurnCoursName.png" alt="">
+              </div>
+              <div class="col-md-8">
+                <p class="card-text">
+                  WEB DEVELOPER
+                  <br>
+                  JUMPSTART YOUR CAREER IN WEB DEVELOPMENT BY LEARNING TO BUILD RESPONSIVE, DYNAMIC WEBSITES.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4 mt-md-0 d-flex justify-content-center align-items-center">
+        <img class="img-fluid" src="assets/img/career.png" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<div class="row mt-2" *ngIf="course">
+  <div class="col-12 col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-title">
+        <div class="section-header">
+          <span>Table of content</span>
+          <h2>Table of content</h2>
+        </div>
+      </div>
+      <div class="card-body">
+        <section id="faq" class="faq">
+          <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+              <div class="col-lg-12">
+                <div class="accordion accordion-flush" id="faqlist">
+                  <div *ngFor="let chapter of course!.chapters" class="accordion-item">
+                    <h3 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse" [attr.data-bs-target]="'#faq-content-' + chapter.id">
+                        <i class="bi bi-check2-square mr-1"></i>
+                        {{ chapter.title }}
+                      </button>
+                    </h3>
+                    <div *ngFor="let lesson of chapter.lesson" [id]="'faq-content-' + chapter.id"
+                      class="accordion-collapse collapse" [attr.data-bs-parent]="'#faqlist'">
+                      <div class="accordion-body">
+                        <div class="lesson-title">
+                          <a (click)="startLesson(lesson.id!)"><i class="bi bi-play-circle mr-2"></i>{{ lesson.title }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-help></app-help>

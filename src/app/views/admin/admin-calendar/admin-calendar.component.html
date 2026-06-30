@@ -1,0 +1,204 @@
+<main class="cal-main">
+  <div class="d-lg-none" style="height:70px;"></div>
+
+  <!-- ── Page header ─────────────────────────────────────────────── -->
+  <div class="cal-page-header">
+    <div>
+      <h1 class="cal-title">Sessions Calendar</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+          <li class="breadcrumb-item active">Calendar</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="cal-header-controls">
+      <select class="filter-select" [(ngModel)]="selectedFilter" (ngModelChange)="retrieveSessions()">
+        <option value="all">All Sessions</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="expired">Expired</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ── Main layout ─────────────────────────────────────────────── -->
+  <div class="cal-layout">
+
+    <!-- ══ Calendar grid ══════════════════════════════════════════ -->
+    <div class="cal-card">
+
+      <!-- Month navigation -->
+      <div class="cal-nav">
+        <button class="cal-nav-btn" (click)="prevMonth()">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <div class="cal-month-label">
+          <span class="cal-month-name">{{ currentMonthName }}</span>
+          <span class="cal-year">{{ currentYear }}</span>
+        </div>
+        <button class="cal-nav-btn" (click)="nextMonth()">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+        <button class="cal-today-btn" (click)="goToToday()">Today</button>
+      </div>
+
+      <!-- Weekday headers -->
+      <div class="cal-weekdays">
+        <div class="cal-weekday" *ngFor="let d of weekdays">{{ d }}</div>
+      </div>
+
+      <!-- Day grid -->
+      <div class="cal-grid">
+        <ng-container *ngFor="let week of calendarWeeks; trackBy: trackByWeek">
+          <div
+            *ngFor="let day of week; trackBy: trackByDay"
+            class="cal-day"
+            [class.other-month]="day.monthOffset !== 0"
+            [class.is-today]="day.isToday"
+            [class.is-selected]="selectedDay === day"
+            [class.has-sessions]="day.sessions.length > 0"
+            (click)="selectDay(day)"
+          >
+            <span class="cal-day-num">{{ day.dayNumber }}</span>
+
+            <!-- Session dots / count badge -->
+            <div *ngIf="day.sessions.length > 0" class="cal-dots">
+              <ng-container *ngIf="day.sessions.length <= 3">
+                <span
+                  *ngFor="let s of day.sessions; trackBy: trackBySession"
+                  class="cal-dot"
+                  [class.dot-expired]="s._expired"
+                ></span>
+              </ng-container>
+              <span *ngIf="day.sessions.length > 3" class="cal-count-badge">
+                {{ day.sessions.length }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Legend -->
+      <div class="cal-legend">
+        <span class="legend-item"><span class="legend-dot dot-upcoming"></span>Upcoming session</span>
+        <span class="legend-item"><span class="legend-dot dot-exp"></span>Expired session</span>
+        <span class="legend-item"><span class="legend-today-box"></span>Today</span>
+      </div>
+    </div>
+
+    <!-- ══ Detail panel ════════════════════════════════════════════ -->
+    <div class="detail-panel">
+
+      <!-- No day selected -->
+      <div *ngIf="!selectedDay || selectedDay.sessions.length === 0" class="detail-empty">
+        <div class="detail-empty-icon"><i class="bi bi-calendar2-event"></i></div>
+        <p *ngIf="!selectedDay">Click a day to see sessions</p>
+        <p *ngIf="selectedDay && selectedDay.sessions.length === 0">
+          No sessions on
+          <strong>{{ selectedDay.date | date:'MMMM d' }}</strong>
+        </p>
+      </div>
+
+      <!-- Day has sessions -->
+      <ng-container *ngIf="selectedDay && selectedDay.sessions.length > 0">
+        <div class="detail-date-header">
+          <div class="detail-date-badge">
+            <span class="detail-day-num">{{ selectedDay.date | date:'d' }}</span>
+            <span class="detail-day-month">{{ selectedDay.date | date:'MMM' }}</span>
+          </div>
+          <div>
+            <div class="detail-dow">{{ selectedDay.date | date:'EEEE' }}</div>
+            <div class="detail-count">
+              {{ selectedDay.sessions.length }} session{{ selectedDay.sessions.length > 1 ? 's' : '' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="session-list">
+          <div
+            *ngFor="let session of selectedDay.sessions; trackBy: trackBySession"
+            class="session-card"
+            [class.session-expired]="session._expired"
+            [class.session-active]="selectedSession === session"
+            (click)="selectSession(session)"
+          >
+            <div class="session-time-col">
+              <span class="session-time">{{ session.startDate | date:'HH:mm' }}</span>
+              <span class="session-time-end">{{ session.finishDate | date:'HH:mm' }}</span>
+            </div>
+            <div class="session-info">
+              <div class="session-name">{{ session.sessionName }}</div>
+              <div class="session-desc" *ngIf="session.description">{{ session.description }}</div>
+              <div class="session-meta">
+                <span class="session-duration">
+                  <i class="bi bi-clock me-1"></i>{{ session._duration }} min
+                </span>
+                <span *ngIf="session._expired" class="session-badge badge-expired">Expired</span>
+                <span *ngIf="!session._expired" class="session-badge badge-upcoming">Upcoming</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected session detail -->
+        <div class="selected-session-detail" *ngIf="selectedSession && selectedDay.sessions.includes(selectedSession)">
+          <div class="ssd-header">Session Details</div>
+
+          <div class="ssd-row" *ngIf="sessionGroups.length > 0">
+            <i class="bi bi-people-fill"></i>
+            <div>
+              <div class="ssd-label">Groups</div>
+              <div class="ssd-value">
+                <span *ngFor="let g of sessionGroups; trackBy: trackByGroup" class="group-tag">{{ g.groupName }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ssd-row">
+            <i class="bi bi-calendar3"></i>
+            <div>
+              <div class="ssd-label">Date</div>
+              <div class="ssd-value">{{ selectedSession.startDate | date:'EEEE, d MMMM yyyy' }}</div>
+            </div>
+          </div>
+
+          <div class="ssd-row">
+            <i class="bi bi-clock"></i>
+            <div>
+              <div class="ssd-label">Time</div>
+              <div class="ssd-value">
+                {{ selectedSession.startDate | date:'HH:mm' }} – {{ selectedSession.finishDate | date:'HH:mm' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="ssd-row">
+            <i class="bi bi-hourglass-split"></i>
+            <div>
+              <div class="ssd-label">Duration</div>
+              <div class="ssd-value">{{ selectedSession._duration ?? durationInMinutes }} minutes</div>
+            </div>
+          </div>
+
+          <div class="ssd-action">
+            <button 
+              *ngIf="!selectedSession._expired"
+              (click)="editSession(selectedSession)"
+              class="join-btn btn-edit"
+            >
+              <i class="bi bi-pencil-square me-2"></i>Edit
+            </button>
+            <button 
+              *ngIf="!selectedSession._expired"
+              (click)="deleteSession(selectedSession)"
+              class="join-btn btn-delete"
+            >
+              <i class="bi bi-trash me-2"></i>Delete
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</main>

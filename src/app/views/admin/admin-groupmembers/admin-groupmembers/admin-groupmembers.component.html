@@ -1,0 +1,434 @@
+<main class="gx-5">
+  <div style="margin-bottom: 50px" class="d-block d-lg-none"></div>
+  <div class="row justify-content-between">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Groups</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Groups List</li>
+            <li class="breadcrumb-item active" *ngIf="group">
+              {{ group.groupName }}
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-4 d-flex align-items-center justify-content-center">
+      <button
+        type="button"
+        class="btn register p-2 border pe-3"
+        (click)="openAddCertifDialog(group.id)"
+      >
+        <i class="bi bi-plus fa-2xl me-3"></i> Certificates
+      </button>
+      <button
+        type="button"
+        class="btn filter p-2 border pe-3 me-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        <i class="bi bi-filter-square fa-2xl me-3"></i> Filter
+      </button>
+
+      <button
+        type="button"
+        class="btn register p-2 border pe-3"
+        (click)="openAddUserDialog(group.id)"
+      >
+        <i class="bi bi-plus fa-2xl me-3"></i> Add User
+      </button>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5
+            class="modal-title"
+            id="staticBackdropLabel"
+            style="color: #af3065; font-weight: bold"
+          >
+            Filter
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="row d-flex justify-content-center">
+              <div class="col-8 form__group field mt-3">
+                <label class="mb-3 form__label">Status</label>
+                <select
+                  name="status"
+                  [(ngModel)]="status"
+                  id="id_select"
+                  autofocus="true"
+                  class="form__field"
+                >
+                  <option value="Status" disabled selected>Status</option>
+                  <option value="1">Paid</option>
+                  <option value="0">Unpaid</option>
+                  <option value="2">Panding</option>
+                  <option value="3">Canceled</option>
+                </select>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-8 form__group field mt-5 mb-3">
+                <label class="mb-3 form__label">Training</label>
+                <select
+                  name="Formation"
+                  [(ngModel)]="Formation"
+                  id="id_select"
+                  autofocus="true"
+                  class="form__field"
+                >
+                  <option value="1" disabled selected>Training</option>
+                  <option
+                    *ngFor="let o of tabFormation"
+                    value="{{ o.nomFormation }}"
+                  >
+                    {{ o.nomFormation }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="getfilts()"
+            class="btn register"
+          >
+            filter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #updatecertif>
+    <div class="certificate-dialog">
+      <h2 mat-dialog-title class="dialog-title">Modify Certificates</h2>
+      <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="form-container">
+        <form
+          [formGroup]="certificateForm"
+          (ngSubmit)="modifyCertificates()"
+          class="form-container"
+        >
+          <mat-form-field class="form-field">
+            <mat-label>Month</mat-label>
+            <input matInput formControlName="month" placeholder="Month" />
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Periode</mat-label>
+            <input matInput formControlName="periode" placeholder="Periode" />
+          </mat-form-field>
+          <button class="btn modify-button" type="submit">
+            Modify Certificates
+          </button>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #addUserDialog>
+    <h2
+      mat-dialog-title
+      style="font-size: 24px; font-weight: bold; margin-bottom: 16px"
+    >
+      Add User to Group
+    </h2>
+    <mat-dialog-content>
+      <div class="filter-input-container">
+        <input
+          type="text"
+          [(ngModel)]="usernameFilter"
+          placeholder="Search by Username"
+          class="form-control filter-input"
+        />
+      </div>
+      <table style="width: 100%" *ngIf="filteredStudents.length > 0">
+        <thead style="background-color: #f2f2f2">
+          <tr>
+            <th style="padding: 12px; font-weight: bold">Fullname</th>
+            <th style="padding: 12px; font-weight: bold">Email</th>
+            <th style="padding: 12px; font-weight: bold">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of filteredStudents">
+            <td style="padding: 12px">
+              {{ student.firstName }} {{ student.lastName }}
+            </td>
+            <td style="padding: 12px">{{ student.username }}</td>
+            <td style="padding: 12px">
+              <button
+                style="
+                  background-color: #af3065;
+                  color: #fff;
+                  border: none;
+                  padding: 8px 16px;
+                  font-size: 14px;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+                "
+                (click)="addUserToGroup(group.id, student.id)"
+              >
+                Add Student
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-dialog-content>
+    <mat-dialog-content *ngIf="filteredStudents.length === 0">
+      <div class="alert alert-danger" role="alert">
+        <p class="text-red">
+          There are no students to add to the {{ group.groupName }}.
+        </p>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions
+      style="display: flex; justify-content: flex-end; margin-top: 24px"
+    >
+      <button
+        mat-button
+        style="
+          background-color: #f2f2f2;
+          color: #333;
+          border: none;
+          padding: 8px 16px;
+          font-size: 14px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        "
+        (click)="closeAddUserDialog()"
+      >
+        Exit
+      </button>
+    </mat-dialog-actions>
+  </ng-template>
+  <ng-template #addcertif>
+    <div class="certificate-dialog">
+      <h2 mat-dialog-title class="dialog-title">Generate Certificates</h2>
+      <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="row">
+        <form (ngSubmit)="saveCertif()">
+          <input
+            type="text"
+            [(ngModel)]="certif.month"
+            name="month"
+            placeholder="Month"
+            class="form-control"
+          />
+          <input
+            type="text"
+            [(ngModel)]="certif.periode"
+            name="periode"
+            placeholder="Periode"
+            class="form-control"
+          />
+          <br />
+          <mat-progress-bar
+            *ngIf="isLoading"
+            mode="indeterminate"
+          ></mat-progress-bar>
+          <br />
+          <button
+            class="btn generate-button"
+            type="submit"
+            [disabled]="!isValidCertif()"
+          >
+            Generate Certificates
+          </button>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #addcertifNo>
+    <h2 mat-dialog-title>Certificates Already Generated</h2>
+    <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+    <div class="confirmation-dialog">
+      <mat-dialog-content>
+        <p>The certificates have already been generated for this group.</p>
+      </mat-dialog-content>
+      <div class="button-container">
+        <button
+          mat-button
+          mat-dialog-close
+          class="btn-no"
+          (click)="openModifyCertifDialog()"
+        >
+          Update Certificates
+        </button>
+        <button
+          mat-button
+          class="btn-yes"
+          (click)="openDeleteConfirmationDialog(group.id)"
+        >
+          Delete Certificates
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteConfirmationDialog>
+    <div class="confirmation-dialog">
+      <h2 mat-dialog-title>Confirmation</h2>
+      <p>Are you sure you want to delete the certificates for this group?</p>
+      <div class="button-container">
+        <button mat-button class="btn-no" (click)="cancelDeleteCer()">
+          No
+        </button>
+        <button
+          mat-button
+          class="btn-yes"
+          (click)="deleteConfirmationDialogRef?.close('confirmed')"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #nouser>
+    <h2 mat-dialog-title>No Users</h2>
+    <mat-dialog-content>
+      <p>No users are assigned to this group.</p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>OK</button>
+    </mat-dialog-actions>
+  </ng-template>
+
+  <ng-template #confirmationCertif>
+    <div class="confirmation-dialog">
+      <h2 mat-dialog-title>Generated Certificates</h2>
+      <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+      <p>Your certificates have been generated successfully.</p>
+      <div class="check-animation">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="#00C853"
+          stroke="#00C853"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M48 16L27.2 48 16 34"
+            fill="none"
+            stroke-width="6"
+            transform="translate(8,8)"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #confirmationDialog>
+    <div class="confirmation-dialog">
+      <h2 mat-dialog-title>Confirmation</h2>
+      <p>
+        Are you sure you want to delete
+        {{ getStudentFullname(userIdRemove) }} from the {{ group.groupName }}?
+      </p>
+      <div class="button-container">
+        <button mat-button class="btn-no" (click)="cancelDelete()">No</button>
+        <button mat-button class="btn-yes" (click)="confirmDelete()">
+          Yes
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="data_table card1 mt-4" style="overflow-y: scroll; height: 600px">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let student of studentDetails"
+          [ngClass]="{ 'table-warning': student.enabled === 0 }"
+        >
+          <td>
+            <div class="d-flex align-items-center">
+              <img
+                src="assets/Documents/{{ student.image }}"
+                alt=""
+                style="width: 45px; height: 45px"
+                class="rounded-circle"
+              />
+              <div class="ms-3">
+                <p class="fw-bold mb-1">{{ student.firstName }}</p>
+                <p class="text-muted mb-0">{{ student.lastName }}</p>
+              </div>
+            </div>
+            <div *ngIf="student.enabled === 0" style="color: red">
+              This student is UNPAID
+            </div>
+          </td>
+          <td>
+            <p class="text-muted mb-0">{{ student.numeroTel }}</p>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">20/02/2023</p>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">Software engineer</p>
+          </td>
+          <td>
+            <button
+              class="btn btn-md"
+              (click)="openConfirmationDialog(group.id, student.id)"
+            >
+              <i class="fa-regular fa-trash-can" style="color: red"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

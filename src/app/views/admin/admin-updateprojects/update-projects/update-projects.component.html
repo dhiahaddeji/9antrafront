@@ -1,0 +1,151 @@
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>Update Projects</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+    <!-- ======= Profile Section ======= -->
+    <div class="container">
+      <div class="main-body">
+        <!-- <form (ngSubmit)="addProject()" enctype="multipart/form-data"> -->
+          <form (ngSubmit)="updateProject()" #foodForm="ngForm">
+
+          <div class="row gutters-sm mt-5">
+          <div class="col-md-4">
+            
+            <div class="card mb-3">
+              <!-- <div class="card-body text-center p-2 my-2">
+                <img src="assets/img/profile-img.jpg" alt="Admin" style="border-radius: 20px;" width="200">
+                <div class="mt-2 mx-5">
+                  <div class="file btn-lg fs-6 fw-bold" style="position: relative; overflow: hidden; background-color: #AF3065; color: #ffffff;">
+                    <span><i class="bi bi-camera me-3"></i></span> Add New
+                    <input type="file" (change)="onFileChange($event)" name="file" style="position: absolute; opacity: 0; right: 0; top: 0;">
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-md-8 container">
+            <div class="card">
+              <div class="card-body">
+               <div class="form-group mb-3">
+                <label for="name">Title</label>
+                <input class="form-control" type="text" id="title" [(ngModel)]="project.titre" name="title" required #thisTitle="ngModel">
+      <div class="alert alert-danger" *ngIf="thisTitle.touched && thisTitle.invalid">
+        <div *ngIf="thisTitle?.errors?.['required']">Title is required!</div>
+      </div>
+    
+              
+              </div>
+    
+              <div class="form-group mb-3">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" [(ngModel)]="project.description" name="description" required #thisDesc="ngModel"></textarea>
+                <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid">
+                  <div *ngIf="thisDesc?.errors?.['required']">Description is required!</div>
+                </div>
+              </div>
+    
+    
+              <div class="form-group mb-3">
+                <label for="description">Tech</label>
+                <input class="form-control" type="text" id="tech" [(ngModel)]="project.technologies" name="tech" required #thisT="ngModel">
+                <div class="alert alert-danger" *ngIf="thisT.touched && thisT.invalid">
+                  <div *ngIf="thisT?.errors?.['required']">Tech is required!</div>
+                </div>
+              
+              
+              </div>
+              <div class="form-group mb-3">
+                <label for="nbProjects">ProjectOwner</label>
+                <select class="form-control" id="categorie" [(ngModel)]="selectedCategory" name="categorie" required>
+                  <ng-container *ngFor="let categorie of categories">
+                    <option [value]="categorie.id" *ngIf="categorie.status === true">{{ categorie.nom }}</option>
+                  </ng-container>
+                </select>    
+                <div class="alert alert-danger" *ngIf="foodForm.controls['categorie'].touched && foodForm.controls['categorie'].invalid">
+                  <div *ngIf="foodForm.controls['categorie'].errors">ProjectOwner required!</div>
+                </div>
+    
+                        <div class="form-group mb-3">
+                          <label for="nbExercices">Price</label>
+                          <input class="form-control" type="number" id="price" [(ngModel)]="project.price" name="price" required #thisPrice="ngModel">
+                          <div class="alert alert-danger" *ngIf="thisPrice.touched && thisPrice.invalid">
+                            <div *ngIf="thisPrice?.errors?.['required']">Price is required!</div>
+                          </div>
+                        </div>
+                        </div>
+          <div class="form-group mb-3">
+            <div class="form-group mb-3">
+              <label for="nbExercices">Video</label>
+              <!-- <input type="file" id="video" name="video" (change)="onVideoChange($event)" accept="video/mp4" required> -->
+              <input type="file" id="videoInput" accept="video/*" (change)="onVideoChange($event)">
+             
+              
+             
+            </div>
+            
+           <video id="videoPreview" controls *ngIf="selectedVideo">
+  <source [src]="selectedVideo" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<video id="videoPreview" controls *ngIf="!selectedVideo && food?.video">
+  <source [src]="'assets/adminProjects/' + food.titre + '_' + food.id + '/' + food.video.replace('%20', ' ')" type="video/mp4" width="300px">
+
+  Your browser does not support the video tag.
+</video>
+
+            <div class="form-group mb-3">
+              <div class="form-group mb-3">
+                <label for="nbExercices">Image</label>
+                <input type="file" name="files" multiple (change)="onFileChange($event)">
+               
+<div class="row">
+    <div class="col-md-12">
+      <div class="thumbnails-container">
+        <div *ngFor="let thumbnail of thumbnails" class="thumbnail">
+          <img [src]="thumbnail" alt="Thumbnail">
+        </div>
+      </div>
+    </div>
+  </div></div>
+        
+</div>
+</div>
+               
+                </div>
+                <div class="row d-flex justify-content-end">
+                  <div class="col-2">
+                    <button type="submit" [disabled]="!foodForm.form.valid">Submit</button>
+
+                  </div>
+                  <div></div>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        <div class="row mt-5">
+        </div>
+      </form>
+      </div>
+  
+      <div class="row bg-white shadow d-flex justify-content-center">
+        <div class="col-6">
+          <!-- Place additional content here -->
+        </div>
+      </div>
+    </div>
+
+    
+
+  </main><!-- End #main -->
+  

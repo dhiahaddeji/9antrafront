@@ -1,0 +1,77 @@
+
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>View Candidacy</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+  
+  
+  <section id="Hackerspace" class="Hackerspace mt-5">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title mb-5 text-center">
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-12 d-flex align-items-start">
+          <!-- <div class="info">
+            <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" class="img-fluid" width="100%" />
+  
+          </div> -->
+        </div>
+        
+  
+        <div class=" align-items-start">
+          <div class="description">
+            <b class="m-0">First Name: </b>
+            {{project.nom}}
+          </div>
+          <div class="technologies">
+            <b class="m-0">Last Name: </b>
+            {{project.prenom}}
+          </div>
+          <div class="price">
+            <b class="m-0">Phone Number: </b> {{ project.numtel  ? project.numtel : '_'  }}
+          </div>
+          
+          <div class="name">
+            <b class="m-0">Email: </b>    
+            <a *ngIf="project.email" [href]="'mailto:' + project.email" (click)="copyEmail(project.email)" style="color: blue;">{{ project.email }}</a>
+            <span *ngIf="!project.email">_</span>          
+          </div> 
+          <div class="col-lg-9 col-md-12">
+  
+          <div class="name">
+            <b class="m-0">Experience: </b> {{project.experience}}
+          </div>
+          <div class="name">
+            <b class="m-0">Education: </b> {{ project.education ? project.education : '_'   }}
+          </div> <div class="name">
+            <b class="m-0">Job Type: </b> {{ project.type ? project.type : '_'   }}
+          </div>  
+        
+  </div>
+          <!-- Modal -->
+        </div>
+      </div>
+  <br> <br>
+      <!-- Video -->
+      <div class="data_table card1 mt-4 " >
+        <div class="embed-responsive embed-responsive-21by9" >
+            <iframe class="embed-responsive-item"[src]="safeUrl" style="height:600px !important; width: 1125px !important;"></iframe>
+          </div>
+    </div>
+      </div>
+      </section>
+      </main>
+  
+      <!-- Order Now Button -->
+  
+  
+      <!-- Login Section -->
+     

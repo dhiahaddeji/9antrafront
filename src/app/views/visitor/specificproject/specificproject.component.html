@@ -1,0 +1,151 @@
+<section id="login" class="login" style="margin-top: 130px; margin-bottom: 100px;">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+        data-aos-delay="200">
+        <form (ngSubmit)="addProject()" #foodForm="ngForm" role="form"
+        class="php-email-form" *ngIf="!formSubmitted">
+        <h1 class="text-center">Order your specific project</h1>
+        <h6 class="text-center" style="color: red;">NB: The asterisk (*) denotes a mandatory field</h6>
+        <div class=" text-center">
+          <div class="trainers">
+            
+          </div>
+        </div>
+                 <div class="form__group field">
+                  <input class="form__field" type="text" id="titre" name="titre" [(ngModel)]="project.titre" required #t="ngModel">
+                  <label for="titre" class="form__label">Titre  <span class="required">*</span>
+                  </label>
+                  <div class="alert alert-danger" *ngIf="t.touched && t.invalid">
+                    <div *ngIf="thisT?.errors?.['required']">Title is required!</div>
+                  </div>
+          
+                    
+                    </div>
+
+                    <div class="form__group field">
+                      <label for="description" class="form__label">Description <span class="required">*</span></label>
+                      <textarea class="form__field" id="description" [(ngModel)]="project.description" name="description" required #thisDesc="ngModel"></textarea>
+                      <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid">
+                        <div *ngIf="thisDesc?.errors?.['required']">Description is required!</div>
+                      </div>
+                    </div>
+          
+          
+                    <div class="form__group field">
+                      <label for="description" class="form__label">Technologies<span class="required">*</span></label>
+                      <input class="form__field" type="text" id="tech" [(ngModel)]="project.technologies" name="technologies" required #thisT="ngModel">
+                      <div class="alert alert-danger" *ngIf="thisT.touched && thisT.invalid">
+                        <div *ngIf="thisT?.errors?.['required']">Technologies is required!</div>
+                      </div>
+                    
+                  
+                    </div>
+                  
+                              <div class="form__group field">
+                                <label for="nbExercices" class="form__label">Budget <span class="required">*</span></label>
+                                <input class="form__field" type="number" id="price" [(ngModel)]="project.price" name="price" required #thisPrice="ngModel">
+                                <div class="alert alert-danger" *ngIf="thisPrice.touched && thisPrice.invalid">
+                                  <div *ngIf="thisPrice?.errors?.['required']">Price is required!</div>
+                              </div>
+                              </div>
+                              <div class="form__group field">
+                              <label for="nbExercices" class="form__label">Last Name <span class="required">*</span></label>
+                              <input  class="form__field" type="text" id="price" [(ngModel)]="project.nom" name="nom" required #m="ngModel">
+                              <div class="alert alert-danger" *ngIf="m.touched && m.invalid">
+                                <div *ngIf="m?.errors?.['required']">Last Name is required!</div>
+                            </div>                            </div>  
+                            
+                            <div class="form__group field">
+
+                            <label for="nbExercices" class="form__label">First Name <span class="required">*</span></label>
+                              <input  class="form__field" type="text" id="price" [(ngModel)]="project.prenom" name="prenom" required #s="ngModel">
+                              <div class="alert alert-danger" *ngIf="s.touched && s.invalid">
+                                <div *ngIf="thisPrice?.errors?.['required']">First Name is required!</div>
+                            </div>  
+                             </div>
+                             
+                             <div class="form__group field">
+
+                             <label for="nbExercices" class="form__label">Email <span class="required">*</span></label>
+                              <input [(ngModel)]="project.email" type="email" name="Email" id="Email" class="form__field"placeholder="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #thisPriwce="ngModel" />
+                              <div class="alert alert-danger" *ngIf="thisPriwce.touched && thisPriwce.invalid && !formSubmitted">
+                                <div *ngIf="thisPriwce?.errors?.['required']">Email is required!</div>
+                                <div *ngIf="thisPriwce?.errors?.['pattern']">Invalid email format! The email must contain '@' and '.'.</div>
+                              </div>   
+                              </div>
+  
+                              <div class="form__group field">
+
+                              <label for="nbExercices" class="form__label">Remark</label>
+                              
+                            <input class="form__field" type="text" id="price" [(ngModel)]="project.remark" name="remark"  >
+                              
+                            </div>                            <div class="form__group field">
+                              <label for="nbExercices" class="form__label">Phone Number <span class="required">*</span></label>
+                              <input [(ngModel)]="project.numtel" type="number" name="NumTel" id="NumTel" class="form__field" placeholder="Phone Number" required pattern="[0-9]{8}" #thisDessc="ngModel" />
+                                <div class="alert alert-danger" *ngIf="thisDessc.touched && thisDessc.invalid && !formSubmitted">
+                                  <div *ngIf="thisDessc?.errors?.['required']">Phone Number is required!</div>
+                                  <div *ngIf="thisDessc?.errors?.['pattern']">Phone Number must contain exactly 8 digits!</div>
+                                </div>                           
+                            </div>  
+                              
+              <div class="form__group field">
+                <label for="nbExercices">Video</label>
+              
+                  <!-- <input type="file" id="video" name="video" (change)="onVideoChange($event)" accept="video/mp4" required> -->
+                  <input class="form-control" type="file" id="videoInput" accept="video/*" (change)="onVideoChange($event)">
+              
+    
+                </div>
+                <br>
+                <div class="video-container" *ngIf="selectedVideo">
+                  <video controls>
+                    <source [src]="selectedVideo" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+       
+                    
+                <div class="form__group field">
+                  <label for="nbExercices">Pictures</label>
+                  <input class="form-control"  type="file" name="files" multiple (change)="onFileChange($event)" width="150px">
+                 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="thumbnails-container">
+          <br>
+          <div *ngFor="let thumbnail of thumbnails" class="thumbnail">
+            <img [src]="thumbnail" alt="Thumbnail" class="thumbnail-image">
+          </div>
+          
+        </div>
+        
+      </div>
+   
+                 <br><br>
+                  <div class="row d-flex justify-content-center">
+                      <button type="submit" class=" register btn col-lg-5 mt-2"
+                      [disabled]="!foodForm.form.valid ">Submit</button>
+  
+                    <div></div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+    
+          <div class="row mt-5">
+          </div>
+        </form>
+        <div *ngIf="formSubmitted">
+          <h2>Thank you! Your specific project has been sent. Our team will contact you as soon as possible.</h2>
+        </div>  
+      </div>
+      <div class="col-lg-5 order-1 order-lg-2 photo d-flex align-items-center" data-aos="zoom-in" data-aos-delay="200">
+        <img src="assets/img/login.png" class="img-fluid animated mb-5" alt="">
+      </div>
+      
+    </div>
+  </div>
+</section><!-- End Login -->
+  

@@ -1,0 +1,135 @@
+<main>
+    <div class="d-lg-none d-md-block"><br><br><br></div>
+    <div class="pagetitle">
+      <h1>Generate Certificate</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Generate Certificate</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+    <!-- ======= Profile Section ======= -->
+    <div class="container">
+      <div class="main-body">
+        <div *ngIf="showThankYouPopup" class="popup alert alert-success">
+          <h2>Thank you!</h2>
+          <p>Certificate has been generated successfully.</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          <strong>Error:</strong> {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="certifForm" (ngSubmit)="liste()">
+          <div class="col-md-8 container">
+            <div class="card">
+              <div class="card-body">
+                <div class="form-group mb-3">
+
+                  <!-- List of Students -->
+                  <div class="mb-3 mt-3">
+                    <label for="name">List of Students:</label>
+                    <textarea 
+                      class="form-control" 
+                      rows="6" 
+                      id="name" 
+                      placeholder="List of Students (one per line)"
+                      formControlName="name"
+                      [class.is-invalid]="certifForm.get('name')?.invalid && certifForm.get('name')?.touched">
+                    </textarea>
+                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('name')?.invalid && certifForm.get('name')?.touched">
+                      <div *ngIf="certifForm.get('name')?.errors?.['required']">List of Students is required!</div>
+                      <div *ngIf="certifForm.get('name')?.errors?.['minlength']">List must be at least 3 characters!</div>
+                    </div>
+                  </div>
+
+                  <!-- Period -->
+                  <div class="mb-3">
+                    <label for="periode">Period:</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="periode" 
+                      placeholder="e.g., 2 months, 3 months"
+                      formControlName="periode"
+                      [class.is-invalid]="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
+                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
+                      <div *ngIf="certifForm.get('periode')?.errors?.['required']">Period is required!</div>
+                    </div>
+                  </div>
+
+                  <!-- Formation -->
+                  <div class="mb-3">
+                    <label for="formation">Formation:</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="formation" 
+                      placeholder="e.g., Web Development"
+                      formControlName="formation"
+                      [class.is-invalid]="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
+                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
+                      <div *ngIf="certifForm.get('formation')?.errors?.['required']">Formation is required!</div>
+                    </div>
+                  </div>
+
+                  <!-- Month -->
+                  <div class="mb-3">
+                    <label for="month">Month:</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      id="month" 
+                      placeholder="e.g., June 2026"
+                      formControlName="month"
+                      [class.is-invalid]="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
+                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
+                      <div *ngIf="certifForm.get('month')?.errors?.['required']">Month is required!</div>
+                    </div>
+                  </div>
+
+                  <!-- Date -->
+                  <div class="mb-3">
+                    <label for="start">Date:</label>
+                    <input 
+                      type="datetime-local" 
+                      id="start" 
+                      class="form-control"
+                      min="2022-01-01" 
+                      formControlName="start"
+                      [class.is-invalid]="certifForm.get('start')?.invalid && certifForm.get('start')?.touched">
+                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('start')?.invalid && certifForm.get('start')?.touched">
+                      <div *ngIf="certifForm.get('start')?.errors?.['required']">Date is required!</div>
+                    </div>
+                  </div>
+
+                  <br/> <br/>
+                  <div class="row d-flex justify-content-end">
+                    <div class="col-2">
+                      <button 
+                        type="submit" 
+                        class="btn btn-primary submit w-100"
+                        [disabled]="certifForm.invalid || isLoading">
+                        <span *ngIf="!isLoading">Generate</span>
+                        <span *ngIf="isLoading">Loading...</span>
+                      </button>
+                    </div>
+                  </div>
+                  <br/> <br/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="row bg-white shadow d-flex justify-content-center">
+        <div class="col-6">
+          <!-- Place additional content here -->
+        </div>
+      </div>
+    </div>
+
+</main><!-- End #main -->

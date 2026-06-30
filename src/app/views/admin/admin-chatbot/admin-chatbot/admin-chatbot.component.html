@@ -1,0 +1,110 @@
+<main class="pt-4" (document:click)="closeCollapse($event)">
+  <div style="margin-bottom: 50px" class="d-block d-lg-none"></div>
+  <div class="row justify-content-between">
+    <div class="col-8">
+      <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="info mt-4" style="position: relative;">
+    <h1 style="color: black;">What is " <strong>Unmatched</strong>" ?</h1>
+    <p style="font-size: 17px;">This is where you'll see user messages your AI couldn't answer.You can provide answers for these and your model will use these for similar questions later.</p>
+  </div>
+  <div class="questions mt-5">
+    <div class="header d-flex" style="position: relative;">
+      <input class="form-check-input mt-0" type="checkbox"  [(ngModel)]="isChecked" style="width: 25px;height: 25px;margin-right: 25px;border-radius: 7px;">
+      <h1 style="font-weight: bold;color: black;">Unmatched</h1>
+      <i class="bi bi-x-lg" *ngIf="isChecked && unmatched?.length>0" style="font-size: 25px;margin-left: 25px;cursor: pointer;"  data-bs-toggle="modal" data-bs-target="#deleteAll"></i>
+      <div class="add d-flex"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="position: absolute;right: 0;border: 2px black solid;border-radius: 10px;padding: 5px;align-items: center;cursor: pointer;padding-right: 20px;">
+        <i class="bi bi-plus" style="font-size: 27px;margin-right: 7px;"></i>
+        <h3 style="margin:0;">Add question</h3>
+      </div>
+    </div>
+
+    <div class="body mt-4">
+      <div class="mt-3" *ngFor="let question of unmatched; let i = index" role="button" (click)="toggleCollapseOpen(i)"  style="background-color: #F5F5F5; padding: 15px; border-radius: 15px;">
+        <div class="question d-flex" style="position: relative;">
+          <i class="bi bi-question-lg" style="font-size: 25px; margin-right: 25px; border-radius: 7px;"></i>
+          <h4 style="color: black;">{{question['question']}}</h4>
+          <i class="bi bi-x-lg" style="position: absolute;top:0;right: 0;font-size: 20px;"  data-bs-toggle="modal" data-bs-target="#deleteByKey"></i>
+
+          <div class="modal fade" id="deleteByKey" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="bi bi-trash3-fill" style="color: red;font-size: 25px;margin-right: 15px;"></i>Delete unmatched question </h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want delete this unmatched question ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="deleteByKey(question['question'])">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="answer">
+          <div class="collapse"  [class.show]="!isCollapsed[i]" style="position: relative;">
+            <textarea class="form-control mt-2" [(ngModel)]="answer" aria-label="With textarea" style="background-color: #F5F5F5;outline: none;border: none;" placeholder="Answer the question..."></textarea>
+            <i class="bi bi-plus-circle-fill" style="font-size: 25px;position: absolute;bottom: 0;right: 0;color: blue;padding: 15px;" (click)="teach(question['question'])"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nodata mt-4" *ngIf="unmatched?.length==0">
+      <h1 class="text-center mt-4" style="color: rgb(95, 94, 94);">No unmatched questions available</h1>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Question & Answer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control mt-2" [(ngModel)]="newQuestion"  style="background-color: #F5F5F5;outline: none;border: none;" placeholder="Add question..."></textarea>
+          <textarea class="form-control mt-2" [(ngModel)]="newAnswer"  style="background-color: #F5F5F5;outline: none;border: none;" placeholder="Add answer..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+   <!-- Modal -->
+   <div class="modal fade" id="deleteAll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="bi bi-trash3-fill" style="color: red;font-size: 25px;margin-right: 15px;"></i>Delete unmatched questions </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want delete all unmatched questions ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deleteAll()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

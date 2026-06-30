@@ -1,0 +1,91 @@
+
+
+<style>.bg-gray {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+}
+.text-center {
+text-align: center;
+}
+
+</style>
+<main>
+
+  
+  <section id="Hackerspace" class="Hackerspace mt-5">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title mb-5 text-center">
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-12 d-flex align-items-start">
+          <div class="info">
+            <img [src]="'assets/SpecificCompany/' + project.image"
+              alt="Image du ProjectOwner" class="img-fluid" width="100%">
+          </div>
+        </div>
+      <div class="col-lg-9 col-md-12">
+        <div class="description">
+            <div class="container">
+                <h2 class="text-center">Company Name : {{ project.nom }}</h2>
+                <br>
+              </div>
+                         <div class="name bg-gray" >
+  
+           <b class="m-0">Who are we ? </b>
+          <br>
+          {{project.descriptionC}}
+        </div>
+        <div class="technologies" class="name bg-gray" >
+          <b class="m-0">Adresse: </b>
+          {{project.adresse}}
+        </div>
+        <div class="name bg-gray" > 
+          <b class="m-0">Email: </b>
+          {{project.email}}
+        </div>
+    
+        <div class="name bg-gray" >
+          <b class="m-0">Phone Number:</b> {{project.numtel}}
+        </div>
+        </div>
+        <br>
+  
+        <div class="name bg-gray">
+            <b class="m-0">Job Description:</b> 
+            <br>{{project.description}}
+          </div>  <div class="name bg-gray" >
+            <b class="m-0">Skills:</b> 
+          <p >  {{ project.skills }} </p>
+          </div>
+          <div class="name bg-gray" >
+            <b class="m-0">Education:</b> 
+          <p >  {{ project.education }} </p>
+          </div><div class="name bg-gray" >
+            <b class="m-0">Experience Level:</b> 
+          <p >  {{ project.experience }} </p>
+          </div>
+          <div class="name bg-gray" >
+            <b class="m-0">Job Type:</b> 
+          <p >  {{ project.type }} </p>
+          </div>
+          
+  
+        <!-- Modal -->
+      </div>
+  </div>
+      <br> <br>  <br> <br>
+      <br> <br>
+      <br> <br>
+      <br> 
+      <!-- Video -->
+      
+      </div>
+      </section>
+      </main>
+  
+      <!-- Order Now Button -->
+  
+  
+      <!-- Login Section -->
+     

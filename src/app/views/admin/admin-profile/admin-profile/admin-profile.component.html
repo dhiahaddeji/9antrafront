@@ -1,0 +1,231 @@
+<main>
+  <div class="d-lg-none d-md-block"><br /><br /><br /></div>
+  <div class="pagetitle">
+    <h1>View profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <!-- ======= Profile Section ======= -->
+  <div class="container">
+    <div class="main-body">
+      <div class="row gutters-sm mt-5">
+        <div class="col-md-4" *ngIf="data">
+          <div class="card mb-3">
+            <div class="card-body text-center p-2 my-2">
+              <img
+                src="assets/Documents/{{ data.image }}"
+                alt="Admin"
+                style="border-radius: 20px"
+                width="200"
+              />
+              <div class="mt-2 mx-5">
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  class="file btn-lg fs-6 fw-bold"
+                  style="
+                    position: relative;
+                    overflow: hidden;
+                    background-color: #af3065;
+                    color: #ffffff;
+                  "
+                >
+                  <span><i class="bi bi-camera me-3"></i></span> Add New
+                  <!-- <input type="file" name="file" style="  position: absolute;
+
+            opacity: 0;
+            right: 0;
+            top: 0;"
+            />-->
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Modal title
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <form [formGroup]="UpdaImage">
+                <div class="modal-body">
+                  <div class="input-group mb-3">
+                    <input
+                      (change)="onFileSelected($event)"
+                      type="file"
+                      name="image"
+                      class="form-control"
+                      id="inputGroupFile02"
+                    />
+                    <label class="input-group-text" for="inputGroupFile02"
+                      >Upload</label
+                    >
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" (click)="AddCoachForm()" class="btn-close"  class="btn btn-primary" data-bs-dismiss="modal"  aria-label="Close">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Full Name</h5>
+
+                  <h3 class="text-secondary">{{ data.lastName }} {{ data.firstName }}</h3>
+                </div>
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Email</h5>
+                  <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                    data-cfemail="1c7a756c5c766977716974327d70"> {{ data.username }}</a>
+                </div>
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Date</h5>
+                  <h3 class="text-secondary">2001/22/55</h3>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <h5 class="mb-1">Phone</h5>
+                  <h3 class="text-secondary">{{ data.numeroTel }}</h3>
+                </div>
+              </div>
+
+              <div class="row"><br /><br /><br /><br /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row bg-white shadow d-flex justify-content-center">
+          <div class="col-6">
+            <div class="col-10">
+              <div class="form__group mt-3">
+                <input
+                  [(ngModel)]="firstNameInp"
+                  type="text"
+                  class="form__field"
+                  id="fullName"
+                  placeholder="Enter full name"
+                />
+                <label for="fullName" class="form__label">Full Name</label>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form__group mt-3">
+                <input
+                  [(ngModel)]="lastNameInp"
+                  type="text"
+                  class="form__field"
+                  id="fullName"
+                  placeholder="Enter full name"
+                />
+                <label for="fullName" class="form__label">Last Name</label>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form__group mt-3">
+                <input
+                  [(ngModel)]="phoneInp"
+                  type="text"
+                  class="form__field"
+                  id="phone"
+                  placeholder="Enter phone number"
+                />
+                <label for="phone" class="form__label">Phone</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-10">
+              <div class="form__group mt-3">
+                <input
+                  [(ngModel)]="usernameInp"
+                  type="email"
+                  class="form__field"
+                  id="eMail"
+                  placeholder="Enter email ID"
+                  (blur)="checkEmailFormat()"
+                />
+                <label for="eMail" class="form__label">Email</label>
+                <div *ngIf="emailInvalid" class="text-danger">
+                  Invalid email format.
+                </div>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form__group mt-3">
+                <input
+                  [(ngModel)]="passwordInp"
+                  type="password"
+                  class="form__field"
+                  id="password"
+                  placeholder="Enter password"
+                />
+                <label for="password" class="form__label">Password</label>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="form__group mt-3">
+                <input
+                  [(ngModel)]="cppasswordInp"
+                  type="password"
+                  class="form__field"
+                  id="password"
+                  placeholder="Enter password"
+                />
+                <label for="password" class="form__label"
+                  >Confirm Password</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-end mt-5 mb-3">
+            <div class="col-2">
+              <button
+                (click)="updateUser()"
+                type="button"
+                id="submit"
+                name="submit"
+                class="btn"
+                style="background-color: #af3065; color: white"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- End #main -->

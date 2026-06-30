@@ -1,0 +1,133 @@
+
+<section
+  id="login"
+  class="login"
+  style="margin-top: 130px; margin-bottom: 100px"
+>
+  <div class="container">
+    <div class="row justify-content-between">
+      <div
+        class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <h1 class="text-center">Create an account !</h1>
+
+        <form
+          [formGroup]="SignUpForm"
+          (ngSubmit)="SignUp()"
+        >
+          <div  class="loader" *ngIf="isLoading"></div>
+
+          <div class="form__group field">
+            <input
+              type="input"
+              [formControl]="FirstNameForm"
+              name="FirstName"
+              id="name"
+              class="form__field"
+              placeholder="FirstName"
+
+              required
+            />
+            <mat-error *ngIf="FirstNameForm.invalid && FirstNameForm.touched">{{getFirstNameFormError()}}</mat-error>
+            <label for="name" class="form__label">FirstName</label>
+          </div>
+
+          <div class="form__group field">
+            <input
+              [formControl]="LastNameForm"
+              type="input"
+              name="LastName"
+              class="form__field"
+              placeholder="LastName"
+              required
+            />
+            <mat-error *ngIf="LastNameForm.invalid && LastNameForm.touched">{{getLastNameFormError()}}</mat-error>
+            <label for="name" class="form__label">LastName</label>
+          </div>
+
+          <div class="form__group field">
+            <input
+              [formControl]="NumTlfForm"
+              type="input"
+              name="Number"
+              id="name"
+              class="form__field"
+              placeholder="Phone number"
+              required
+            />
+            <mat-error *ngIf="NumTlfForm.invalid && NumTlfForm.touched">{{getNumTlfFormError()}}</mat-error>
+            <label for="name" class="form__label">Phone number</label>
+          </div>
+
+
+
+          <div class="form__group field">
+            <input
+              [formControl]="EmailForm"
+              type="input"
+              name="username"
+              id="name"
+              class="form__field"
+              placeholder="email"
+
+              required
+            />
+            <mat-error *ngIf="EmailForm.invalid && EmailForm.touched">{{getEmailFormError()}}</mat-error>
+            <label for="name" class="form__label">Email</label>
+          </div>
+
+
+
+          <div class="form__group field">
+            <input
+              [formControl]="passwordForm"
+              name="password"
+              type="password"
+              class="form__field"
+              placeholder="Password"
+              id="name"
+              required
+            />
+            <mat-error *ngIf="passwordForm.invalid && passwordForm.touched">{{getPasswordFormError()}}</mat-error>
+            <label for="name" class="form__label">Password</label>
+          </div>
+          <div class="form__group field col-md-6 mt-5" style="width: 100%;">
+            <select
+              name="Country"
+              [formControl]="CountryForm"
+              id="id_select"
+              autofocus="true"
+              class="form__field with-flag"
+              placeholder="Select Country"
+            >
+              <option  disabled selected  value="">Select Country</option>
+              <option value="Tunisia" class="flag-tunisia">Tunisia</option>
+              <option value="Algeria" class="flag-algeria">Algeria</option>
+            </select>
+            <mat-error *ngIf="CountryForm.invalid && CountryForm.touched">{{getCountryFormError()}}</mat-error>
+          </div>
+          <div class="mt-5 text-center">
+            <button class="register btn col-lg-5 mt-2" type="submit">
+              Signup
+            </button>
+          </div>
+          <div class="mt-5 text-center">
+            <a routerLink="/login" class="col-lg-5 mt-2">
+              <h5>Already have an account ?</h5>
+            </a>
+          </div>
+        </form>
+      </div>
+      <div
+        class="col-lg-5 order-1 order-lg-2 photo"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
+        <img src="assets/img/login.png" class="img-fluid animated" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Login -->

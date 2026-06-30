@@ -1,0 +1,56 @@
+<main class="gx-5">
+  <div class="d-lg-none d-md-block my-3"></div>
+  <div class="pagetitle ms-3 pt-3">
+    <h1>Projects</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Projects</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <!-- Groups section -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6" *ngFor="let group of groups">
+        <div class="card shadow-sm mb-4">
+          <div class="card-header d-flex align-items-center">
+            <h5 class="fw-bold m-0">#{{ group.groupName }}</h5>
+            
+          </div>
+
+          <div class="card-body">
+            <div class="mb-3 d-flex align-items-center">
+              <span class="pe-4 fw-bold">Training:</span>
+              <span class="badge bg-danger">{{ group.formation.nomFormation }}</span>
+            </div>
+            <div class="trainer-profile d-flex align-items-center mb-3">
+              <span class="pe-4 fw-bold">Members:</span>
+              <ng-container *ngIf="group.etudiants.length > 0; else noMembers">
+                <ng-container *ngFor="let student of group.etudiants; let i = index">
+                  <img
+                    *ngIf="i < 3"
+                    [src]="'assets/Documents/' + student.image"
+                    width="40px"
+                    height="40px"
+                    class="rounded-circle me-2"
+                  />
+                </ng-container>
+              </ng-container>
+              <ng-template #noMembers>
+                <span class="text-muted">No members in this group.</span>
+              </ng-template>
+            </div>
+            <button class="btn btn-success btn-circle" (click)="clientProject(group.id)">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Groups section -->
+</main>
+<!-- End #main -->

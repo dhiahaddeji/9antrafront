@@ -1,0 +1,228 @@
+a {
+  color: #01130b;
+  text-decoration: none;
+
+}
+
+a:hover {
+  color: #AF3065;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+}
+
+/*--------------------------------------------------------------
+  # Main
+  --------------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+
+  .card {
+    background: #ffffff;
+    padding: 0px;
+    border-radius: 12px;
+    border: 1px solid #4e4e4e;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.5s ease;
+  }
+
+  .card:hover {
+    background: #ffffff;
+    padding: 0px;
+    border-radius: 12px;
+    border: 1px solid #fab555;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+  }
+
+
+
+.register {
+
+  background-color: #AF3065;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.register:hover {
+  background-color: #d8208e;
+  color: #ffffff;
+}
+
+.toggle-button-cover {
+  display: table-cell;
+  position: relative;
+  width: 200px;
+  height: 140px;
+  box-sizing: border-box;
+}
+
+.button-cover {
+  height: 100px;
+  margin: 20px;
+  background-color: #fff;
+  box-shadow: 0 10px 20px -8px #ffffff;
+  border-radius: 4px;
+}
+
+.button-cover:before {
+  counter-increment: button-counter;
+  content: counter(button-counter);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px;
+}
+
+.button-cover,
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 36px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #ffffff;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+
+/* Button 12 */
+#button-12 .knobs:before,
+#button-12 .knobs:after,
+#button-12 .knobs span,
+#button-12 .knobs span:before,
+#button-12 .knobs span:after {
+  position: absolute;
+  top: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  border-radius: 2px;
+  transition: 0.3s ease all;
+}
+
+#button-12 .knobs:before {
+  content: 'YES';
+  left: 4px;
+}
+
+#button-12 .knobs:after {
+  content: 'NO';
+  right: 4px;
+}
+
+#button-12 .knobs:before,
+#button-12 .knobs:after {
+  width: 27px;
+  height: 10px;
+  color: #4e4e4e;
+  padding: 9px 3px;
+  z-index: 1;
+}
+
+#button-12 .knobs span {
+  display: inline-block;
+  z-index: 2;
+}
+
+#button-12 .knobs span,
+#button-12 .knobs span:before,
+#button-12 .knobs span:after {
+  width: 40px;
+  height: 20px;
+  padding: 80px 0px;
+}
+
+#button-12 .knobs span:before,
+#button-12 .knobs span:after {
+  content: '';
+  top: 0;
+}
+
+#button-12 .knobs span:before {
+  left: -40px;
+  background-color: #F44336;
+}
+
+#button-12 .knobs span:after {
+  right: -30px;
+  background-color: #00A066;
+}
+
+#button-12 .checkbox:checked+.knobs span:before {
+  left: 4px;
+}
+
+#button-12 .checkbox:checked+.knobs span:after {
+  right: -74px;
+}
+
+.event-image {
+  max-width: 100%; /* Limits the image width to its container's width */
+  max-height: 200px; /* Limits the image height to 300 pixels */
+  width: auto; /* Allows the image to scale proportionally with the container */
+  display: block; /* Ensures that the image is a block element */
+  margin: 0 auto; /* Centers the image horizontally within its container (optional) */
+}
+
+@media (max-width: 768px) {
+  .margin-sm {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
