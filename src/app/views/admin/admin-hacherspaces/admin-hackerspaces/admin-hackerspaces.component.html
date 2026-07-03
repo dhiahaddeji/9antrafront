@@ -19,7 +19,7 @@
   <div class="row mx-4 mt-5">
     <div class="col-12 col-sm-12 col-lg-4"  *ngFor="let o of Hackerspace">
         <div class="card" style="width: 18rem;">
-            <img src="../../../../../assets/Documents/{{o.photo}}" class="card-img-top" width="60" height="200" alt="...">
+            <img [src]="backendUrl + '/uploads/Documents/' + o.photo" class="card-img-top" width="60" height="200" alt="...">
             <!-- <iframe src="../../../../../assets/Documents/1707299498005_cahier.pdf" height="auto" style="overflow-x: hidden;" width="auto"></iframe> -->
             <div class="card-body">
               <p class="card-text fw-semibold mt-2">{{o.region}} : {{o.adresse}} </p><br>

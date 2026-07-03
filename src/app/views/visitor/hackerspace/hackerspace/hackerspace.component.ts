@@ -4,6 +4,7 @@ import { HackerspacesService } from 'src/app/MesServices/Hackerspaces/hackerspac
 import { DomSanitizer } from '@angular/platform-browser';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { environement } from 'src/environement/environement.dev';
 
 const STATIC_HACKERSPACES: { [key: string]: any } = {
   'Tunis Lac 1': {
@@ -82,7 +83,7 @@ export class HackerspaceComponent implements OnInit {
         this.description = res.description  || fallback.description || '';
         this.mapsUrl     = res.location     || fallback.mapsUrl     || '';
         this.photoSrc    = res.photo
-          ? 'assets/Documents/' + res.photo
+          ? environement.BASE_URL + '/uploads/Documents/' + res.photo
           : (fallback.photoSrc || '');
       }, () => { /* fallback already applied above */ });
   }
