@@ -2,6 +2,7 @@ import { UserService } from './../../../../MesServices/UserService/user-service.
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { RecordService } from 'src/app/MesServices/Record/record.service';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-coach-records',
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class CoachRecordsComponent implements OnInit {
 
+  backendUrl = environement.BASE_URL;
   idGroup: any;
   ListViedo: any[] = [];
   UserPublisher: any = [];

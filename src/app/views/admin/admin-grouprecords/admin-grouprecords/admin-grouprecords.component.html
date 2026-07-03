@@ -18,8 +18,9 @@
       <div class="col-lg-4 col-md-6 mb-3" *ngFor="let i of records">
         <div class="card shadow-sm">
 
-              <video width="100%" height="225" id="videoPlayer" controls>
-                <source src="assets/Records/{{i.videoLink}}" type="video/mp4">
+              <video width="100%" height="225" controls>
+                <source [src]="backendUrl + '/uploads/Records/' + i.videoLink" type="video/mp4">
+                <source [src]="backendUrl + '/uploads/Records/' + i.videoLink" type="video/webm">
               </video>
               <div class="card-body">
             <div class=" mt-2   d-flex justify-content-between align-items-start">
