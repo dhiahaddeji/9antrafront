@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecordService } from 'src/app/MesServices/Record/record.service';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-student-records',
@@ -10,6 +11,7 @@ import { UserService } from 'src/app/MesServices/UserService/user-service.servic
 })
 export class StudentRecordsComponent implements OnInit {
 
+  backendUrl = environement.BASE_URL;
   selectedGrou:any=[];
   selectedRecords:any=[];
   imagepath = '';
