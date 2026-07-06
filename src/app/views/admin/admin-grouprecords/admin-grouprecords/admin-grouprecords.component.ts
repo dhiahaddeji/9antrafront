@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import Swal from 'sweetalert2';
 import { RecordService } from 'src/app/MesServices/Record/record.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-admin-grouprecords',
@@ -9,6 +10,7 @@ import { RecordService } from 'src/app/MesServices/Record/record.service';
   styleUrls: ['./admin-grouprecords.component.css']
 })
 export class AdminGrouprecordsComponent implements OnInit{
+  backendUrl = environement.BASE_URL;
   id:any;
   records:any;
   constructor(private route: ActivatedRoute,private recordsService:RecordService){}

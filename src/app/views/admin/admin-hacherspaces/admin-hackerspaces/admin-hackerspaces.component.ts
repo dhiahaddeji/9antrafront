@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HackerspacesService } from 'src/app/MesServices/Hackerspaces/hackerspaces.service';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 
 
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class AdminHackerspacesComponent implements OnInit {
   Hackerspace:any=[]
+  backendUrl = environement.BASE_URL
 
 
   constructor(private hs: HackerspacesService) { }

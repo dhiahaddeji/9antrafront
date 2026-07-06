@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HackerspacesService } from 'src/app/MesServices/Hackerspaces/hackerspaces.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-hackerspace-section',
@@ -24,7 +25,11 @@ export class HackerspaceSectionComponent implements OnInit {
   ngOnInit(): void {
     this.hackerspacesService.getAllHackerspaces().subscribe(
       (data: any) => {
-        this.hackerspaces = Array.isArray(data) ? data : [];
+        const apiItems = (Array.isArray(data) ? data : []).map((h: any) => ({
+          ...h,
+          localPhoto: h.photo ? environement.BASE_URL + '/uploads/Documents/' + h.photo : null,
+        }));
+        this.hackerspaces = apiItems;
         if (!this.hackerspaces.some((h: any) => h.region === 'Tunis Lac 1')) {
           this.hackerspaces = [this.tunisLac1, ...this.hackerspaces];
         }

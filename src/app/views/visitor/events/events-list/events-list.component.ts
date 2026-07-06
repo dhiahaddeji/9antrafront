@@ -53,7 +53,7 @@ export class EventsListComponent implements OnInit{
         this.showLoader=false;
       },
       (error) => {
-        alert(error);
+        console.error('Failed to load events:', error);
       }
     )
   }
