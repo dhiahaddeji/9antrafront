@@ -108,6 +108,34 @@
             </select>
             <mat-error *ngIf="CountryForm.invalid && CountryForm.touched">{{getCountryFormError()}}</mat-error>
           </div>
+
+          <div class="form__group field col-md-6 mt-5" style="width: 100%;">
+            <select
+              name="Role"
+              [formControl]="RoleForm"
+              id="role_select"
+              class="form__field"
+              placeholder="Select Role"
+            >
+              <option disabled selected value="">Select Account Type</option>
+              <option value="student">Student</option>
+              <option value="coach">Coach</option>
+            </select>
+            <mat-error *ngIf="RoleForm.invalid && RoleForm.touched">Please select an account type</mat-error>
+          </div>
+
+          <div *ngIf="selectedRole === 'coach' || RoleForm.value === 'coach'" class="form__group field mt-5" style="width: 100%;">
+            <label class="form__label" style="display: block; margin-bottom: 10px;">Upload Your CV (PDF or Word)</label>
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              (change)="onCvSelected($event)"
+              class="form__field"
+              placeholder="Choose CV file"
+            />
+            <mat-error *ngIf="!cvFile" style="color: red; font-size: 12px; display: block; margin-top: 5px;">CV file is required for coaches</mat-error>
+            <small *ngIf="cvFile" style="color: green; display: block; margin-top: 5px;">✓ {{cvFile.name}} selected</small>
+          </div>
           <div class="mt-5 text-center">
             <button class="register btn col-lg-5 mt-2" type="submit">
               Signup

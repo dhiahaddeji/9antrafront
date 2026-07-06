@@ -61,13 +61,20 @@ export class StudentHomeComponent implements OnInit {
   getSessionByFormationId() {
     this.sessionService.getSessionByFormationId(this.userId).subscribe({
       next: (res: any) => {
-        // precompute month name once per session so template never calls a method
-        this.sessions = (res as any[]).map(s => ({
-          ...s,
-          _monthName: MONTHS[parseInt(s.startDate?.substring(5, 7), 10) - 1] ?? ''
-        }));
+        if (res && res.length > 0) {
+          // precompute month name once per session so template never calls a method
+          this.sessions = (res as any[]).map(s => ({
+            ...s,
+            _monthName: MONTHS[parseInt(s.startDate?.substring(5, 7), 10) - 1] ?? ''
+          }));
+        } else {
+          this.sessions = [];
+        }
       },
-      error: (err) => console.log(err)
+      error: (err) => {
+        console.warn('Sessions API error (non-critical):', err);
+        this.sessions = []; // Set empty array to prevent crash
+      }
     });
   }
 

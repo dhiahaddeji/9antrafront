@@ -2,7 +2,10 @@
 <header>
 
   <!-- ── Desktop / tablet sidebar ─────────────────────────────────────── -->
-  <nav id="sidebarMenu" class="d-lg-block sidebar collapse" id="navbarCollapse">
+  <nav id="sidebarMenu" class="d-lg-block sidebar" [class.show]="sidebarOpen" id="navbarCollapse">
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay d-lg-none" (click)="closeSidebar()" *ngIf="sidebarOpen"></div>
 
     <!-- Fixed header: logo + profile -->
     <div class="sidebar-header">
@@ -11,7 +14,7 @@
         <app-notification class="ms-auto sidebar-notif"></app-notification>
       </div>
 
-      <a [routerLink]="['/student/profile']" class="nav-profile" *ngIf="data">
+      <a [routerLink]="['/student/profile']" class="nav-profile" *ngIf="data" (click)="closeSidebar()">
         <img
           src="assets/Documents/{{photo}}"
           onerror="this.src='assets/img/profile-img.jpg'"
@@ -34,8 +37,7 @@
         [routerLinkActiveOptions]="{exact:true}"
         routerLink="/student"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
@@ -45,8 +47,7 @@
         [routerLinkActive]="'active'"
         routerLink="calendar"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="fa-solid fa-calendar"></i>
         <span>Calendar</span>
@@ -63,11 +64,12 @@
         <i class="fa-solid fa-chevron-down nav-chevron" [class.open]="openMenu==='messages'"></i>
       </button>
       <div class="submenu" [class.open]="openMenu==='messages'">
-        <a routerLink="chatAll" [routerLinkActive]="'active'" class="sub-link">All Messages</a>
+        <a routerLink="chatAll" [routerLinkActive]="'active'" class="sub-link" (click)="closeSidebar()">All Messages</a>
         <a *ngFor="let group of groups"
            routerLink="chat/{{group.id}}"
            [routerLinkActive]="'active'"
-           class="sub-link">
+           class="sub-link"
+           (click)="closeSidebar()">
           {{group.groupName}}
         </a>
       </div>
@@ -76,8 +78,7 @@
         [routerLinkActive]="'active'"
         routerLink="records"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="fa-solid fa-play"></i>
         <span>Records</span>
@@ -87,8 +88,7 @@
         [routerLinkActive]="'active'"
         routerLink="projects"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="fa-solid fa-folder"></i>
         <span>Projects</span>
@@ -98,8 +98,7 @@
         [routerLinkActive]="'active'"
         routerLink="FeedBack"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="fa-solid fa-star"></i>
         <span>Feedback</span>
@@ -109,8 +108,7 @@
         [routerLinkActive]="'active'"
         routerLink="forum"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="fa-solid fa-message"></i>
         <span>Forum</span>
@@ -120,8 +118,7 @@
         [routerLinkActive]="'active'"
         routerLink="student-quiz"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="bi bi-joystick"></i>
         <span>Quiz</span>
@@ -131,8 +128,7 @@
         [routerLinkActive]="'active'"
         routerLink="getcertificats"
         class="nav-item-link"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="closeSidebar()"
       >
         <i class="bi bi-award"></i>
         <span>Certificates</span>
@@ -154,13 +150,12 @@
       <button
         class="navbar-toggler border-0"
         type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
+        (click)="toggleSidebar()"
       >
         <img src="assets/img/menu.png" class="w-10" alt="menu">
       </button>
 
-      <a class="navbar-brand ms-3" routerLink="/student">
+      <a class="navbar-brand ms-3" routerLink="/student" (click)="closeSidebar()">
         <img src="assets/img/logo1.png" height="28" alt="Logo">
       </a>
 

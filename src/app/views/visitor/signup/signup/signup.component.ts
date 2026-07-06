@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
@@ -9,9 +9,11 @@ import Swal from 'sweetalert2';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
 
   isLoading: boolean = false;
+  selectedRole: string = 'student'; // Default to student
+  cvFile: File | null = null;
   SignUpForm:FormGroup
   constructor(private formBuilder:FormBuilder,private userService : UserService,private router: Router){
     this.SignUpForm = this.formBuilder.group({
@@ -20,16 +22,27 @@ export class SignupComponent {
       numTel:this.NumTlfForm,
       email:this.EmailForm,
       country:this.CountryForm,
-      password:this.passwordForm
+      password:this.passwordForm,
+      role:this.RoleForm,
+      cv:this.CvForm
     })
   }
 
-  NumTlfForm=new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(8),Validators.pattern("^[0-9]*$")]);
-  FirstNameForm=new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(50)]);
-  LastNameForm=new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(50)]);
-  EmailForm=new FormControl('',[Validators.required,Validators.email]);
-  passwordForm=new FormControl('',[Validators.required,Validators.minLength(8)]);
-  CountryForm=new FormControl('',[Validators.required]);
+  NumTlfForm=new FormControl<string>('', {validators:[Validators.required,Validators.minLength(8),Validators.maxLength(8),Validators.pattern("^[0-9]*$")], nonNullable: true});
+  FirstNameForm=new FormControl<string>('', {validators:[Validators.required,Validators.minLength(3),Validators.maxLength(50)], nonNullable: true});
+  LastNameForm=new FormControl<string>('', {validators:[Validators.required,Validators.minLength(3),Validators.maxLength(50)], nonNullable: true});
+  EmailForm=new FormControl<string>('', {validators:[Validators.required,Validators.email], nonNullable: true});
+  passwordForm=new FormControl<string>('', {validators:[Validators.required,Validators.minLength(8)], nonNullable: true});
+  CountryForm=new FormControl<string>('', {validators:[Validators.required], nonNullable: true});
+  RoleForm=new FormControl<string>('student', {validators:[Validators.required], nonNullable: true});
+  CvForm=new FormControl<string>('', {nonNullable: true});
+
+  ngOnInit() {
+    // Track role changes
+    this.RoleForm.valueChanges.subscribe(role => {
+      this.selectedRole = role;
+    });
+  }
 
 
 
@@ -112,44 +125,95 @@ export class SignupComponent {
         }
         }
         return '';
+    }
+
+    onCvSelected(event: any) {
+      this.cvFile = event.target.files[0];
+    }
+
+    SignUp(){
+      const role = this.SignUpForm.value['role'];
+      
+      // Validate coach CV requirement
+      if (role === 'coach' && !this.cvFile) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Missing CV',
+          text: 'As a coach, you must upload your CV file.'
+        });
+        return;
       }
 
+      if(this.SignUpForm.valid){
+        this.isLoading = true;
 
-        SignUp(){
-          if(this.SignUpForm.valid){
-            this.isLoading = true;
-            this.userService.signup(
-              {
-                "firstName":this.SignUpForm.value['firstName'],
-                "lastName":this.SignUpForm.value['lastName'],
-                "username":this.SignUpForm.value['email'],
-                "numeroTel":this.SignUpForm.value['numTel'],
-                "country":this.SignUpForm.value['country'],
-                "password":this.SignUpForm.value['password']
+        if (role === 'student') {
+          // Student signup - send JSON
+          this.userService.signup({
+            "firstName":this.SignUpForm.value['firstName'],
+            "lastName":this.SignUpForm.value['lastName'],
+            "username":this.SignUpForm.value['email'],
+            "numeroTel":this.SignUpForm.value['numTel'],
+            "country":this.SignUpForm.value['country'],
+            "password":this.SignUpForm.value['password']
+          }).subscribe((res:any)=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Signup successfully',
+              text: 'Your registration went successfully! Check your email to verify your account.',
+            });
+            this.router.navigate(['/login']);
+            this.isLoading = false;
+          },(error)=>{
+            let msg = 'Something went wrong. Please try again.';
+            if (error.status === 0) {
+              msg = 'Cannot reach the server. Make sure the backend is running.';
+            } else if (error.status === 409) {
+              msg = 'Email already used!';
+            } else if (error.error?.message) {
+              msg = error.error.message;
             }
+            Swal.fire({ icon: 'error', title: 'Oops...', text: msg });
+            this.isLoading = false;
+          });
+        } else if (role === 'coach') {
+          // Coach signup - send FormData with CV file
+          const formData = new FormData();
+          formData.append('username', this.SignUpForm.value['email']);
+          formData.append('password', this.SignUpForm.value['password']);
+          formData.append('firstName', this.SignUpForm.value['firstName']);
+          formData.append('lastName', this.SignUpForm.value['lastName']);
+          formData.append('numeroTel', this.SignUpForm.value['numTel']);
+          formData.append('country', this.SignUpForm.value['country']);
+          formData.append('typeFormation', 'Web Development'); // Default type
+          formData.append('CV', this.cvFile!);
+          formData.append('Github', ''); // Optional
+          formData.append('Linkedin', ''); // Optional
+          formData.append('skills', ''); // Optional
 
-            ).subscribe((res:any)=>{
-              Swal.fire({
-                icon: 'success',
-                title: 'Signup successfully',
-                text: 'Your registration went successfully! Check your email to verify your account.',
-              });
-              this.router.navigate(['/login']);
-            },(error)=>{
-              console.log(error);
-              let msg = 'Something went wrong. Please try again.';
-              if (error.status === 0) {
-                msg = 'Cannot reach the server. Make sure the backend is running on port 8094.';
-              } else if (error.status === 409) {
-                msg = 'Email already used!';
-              } else if (error.error?.message) {
-                msg = error.error.message;
-              }
-              Swal.fire({ icon: 'error', title: 'Oops...', text: msg });
-              this.isLoading = false;
-            })
-          }else{
-            this.SignUpForm.markAllAsTouched();
-          }
+          this.userService.signupCoach(formData).subscribe((res:any)=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Signup successfully',
+              text: 'Your registration went successfully! Check your email to verify your account.',
+            });
+            this.router.navigate(['/login']);
+            this.isLoading = false;
+          },(error)=>{
+            let msg = 'Something went wrong. Please try again.';
+            if (error.status === 0) {
+              msg = 'Cannot reach the server. Make sure the backend is running.';
+            } else if (error.status === 400) {
+              msg = error.error?.message || 'Invalid form data. Please check all required fields.';
+            } else if (error.error?.message) {
+              msg = error.error.message;
+            }
+            Swal.fire({ icon: 'error', title: 'Oops...', text: msg });
+            this.isLoading = false;
+          });
         }
+      }else{
+        this.SignUpForm.markAllAsTouched();
+      }
+    }
 }

@@ -32,6 +32,16 @@ main {
   border-radius: 16px;
 }
 
+.info h1 {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  margin-bottom: 10px;
+}
+
+.info p, .info li {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  line-height: 1.6;
+}
+
 /* ── Filter ────────────────────────────────────────────────────── */
 .filter {
   background: #fff;
@@ -48,9 +58,9 @@ main {
   padding: 8px 20px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
-.register:hover { background: #8d1f4f; color: #fff; }
+.register:hover { background: #8d1f4f; color: #fff; transform: translateY(-2px); }
 
 /* ── Floating label form ───────────────────────────────────────── */
 .form__group { position: relative; padding: 15px 30px 0; margin-top: 10px; }
@@ -79,5 +89,165 @@ main {
 .form__field:focus { border-bottom-color: #AF3065; }
 .form__field:focus ~ .form__label { top: 0; font-size: 1rem; font-weight: 700; color: #AF3065; }
 
+/* ── Quiz Card Responsive ──────────────────────────────────────── */
+.quiz-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.quiz-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-name {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: black;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.formation-label {
+  font-weight: bold;
+  color: black;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  flex-shrink: 0;
+}
+
+.formation-name {
+  color: #555;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  word-break: break-word;
+}
+
+/* ── Responsive Grid ───────────────────────────────────────────── */
+@media (max-width: 576px) {
+  .quiz-name {
+    font-size: 1rem;
+  }
+
+  .formation-label, .formation-name {
+    font-size: 0.85rem;
+  }
+
+  .info {
+    padding: 15px;
+  }
+
+  .info h1 {
+    font-size: 1.25rem;
+  }
+
+  .info p, .info li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .info {
+    padding: 15px 20px;
+  }
+}
+
 /* ── Chart ─────────────────────────────────────────────────────── */
 #divChart { display: block; width: 200px; height: 190px; }
+
+/* ── Utility ───────────────────────────────────────────────────── */
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 1rem; }
+
+/* ── Tab Buttons ───────────────────────────────────────────────── */
+.quiz-tabs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: 2px solid #AF3065;
+  border-radius: 8px;
+  background: white;
+  color: #AF3065;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn:hover {
+  background: #f7e6ee;
+  transform: translateY(-2px);
+}
+
+.tab-btn.tab-active {
+  background: #AF3065;
+  color: white;
+  box-shadow: 0 4px 12px rgba(175, 48, 101, 0.3);
+}
+
+/* ── Quiz Card States ──────────────────────────────────────────── */
+.quiz-not-passed {
+  border-left: 4px solid #FFC107;
+}
+
+.quiz-not-passed:hover {
+  border-left: 4px solid #FF9800;
+}
+
+.quiz-passed {
+  border-left: 4px solid #28a745;
+  opacity: 0.9;
+}
+
+.quiz-passed:hover {
+  border-left: 4px solid #20c997;
+  opacity: 1;
+}
+
+/* ── Status Badges ─────────────────────────────────────────────── */
+.quiz-status-badge {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.quiz-status-badge.not-passed {
+  background: #FFF3CD;
+  color: #FFC107;
+  border: 1px solid #FFB300;
+}
+
+.quiz-status-badge.passed {
+  background: #D4EDDA;
+  color: #28a745;
+  border: 1px solid #20c997;
+}
+
+/* ── Responsive Tabs ───────────────────────────────────────────── */
+@media (max-width: 576px) {
+  .quiz-tabs {
+    gap: 0.5rem;
+  }
+
+  .tab-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .tab-btn i {
+    display: none;
+  }
+}

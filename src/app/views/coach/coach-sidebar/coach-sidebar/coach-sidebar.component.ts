@@ -20,10 +20,19 @@ export class CoachSidebarComponent implements OnInit {
   groups: Groups[] = [];
   id_formateur: any;
   openMenu: string | null = null;
+  sidebarOpen = false;
   private jwtToken: string;
 
   toggleMenu(name: string): void {
     this.openMenu = this.openMenu === name ? null : name;
+  }
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar(): void {
+    this.sidebarOpen = false;
   }
   constructor(
     private sr: UserService,

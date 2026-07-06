@@ -43,16 +43,15 @@
 
           <div class="form__group field">
             <input
-              ngModel
-              type="input"
+              [(ngModel)]="email"
+              type="email"
               name="username"
-              id="name"
+              id="email"
               class="form__field"
               placeholder="email"
-              [(ngModel)]="email"
               required
             />
-            <label for="name" class="form__label">Email</label>
+            <label for="email" class="form__label">Email</label>
           </div>
 
           <!-- Display error message for invalid email -->
@@ -62,19 +61,19 @@
 
           <div class="form__group field">
             <input
-              ngModel
+              [(ngModel)]="password"
               name="password"
               type="password"
               class="form__field"
               placeholder="Password"
-              id="name"
+              id="password"
               required
             />
-            <label for="name" class="form__label">Password</label>
+            <label for="password" class="form__label">Password</label>
           </div>
           <div class="mt-5 text-center">
-            <button class="register btn col-lg-5 mt-2" type="submit">
-              Login
+            <button class="register btn col-lg-5 mt-2" type="submit" [disabled]="!email || !password || !isValidEmail(email) || isLoading">
+              {{ isLoading ? 'Logging in...' : 'Login' }}
             </button>
           </div>
           <div class="mt-5 text-center">

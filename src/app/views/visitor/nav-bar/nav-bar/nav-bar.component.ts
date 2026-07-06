@@ -3,11 +3,7 @@ import { CategorieService } from 'src/app/MesServices/Categorie/categorie.servic
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
 import { HackerspacesService } from 'src/app/MesServices/Hackerspaces/hackerspaces.service';
 import { NavbarLoaderCommunicationService } from 'src/app/MesServices/NavbarLoaderComs/navbar-loader-communication.service';
-//import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { CategorieService } from 'src/app/MesServices/Categorie/categorie.service';
-//import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
-//import { HackerspacesService } from 'src/app/MesServices/Hackerspaces/hackerspaces.service';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 import Swal from 'sweetalert2';
@@ -28,32 +24,35 @@ export class NavBarComponent implements OnInit, AfterViewInit {
   userImage:any=null;
   tabHackerSpace: any = [{ region: 'Tunis Lac 1' }]
   isLoading: boolean = false;
+  mobileMenuOpen = false;
+  openDropdown: string | null = null;
+  
   @ViewChild('navbar', { static: true }) navbar!: ElementRef;
 
   constructor(private cs: CategorieService,
     private elementRef: ElementRef,
     private fs: FormationsService,
     private HackerSpaceService: HackerspacesService,
-
-    private navbarLoaderService: NavbarLoaderCommunicationService, //{ }
-    //export class NavBarComponent implements OnInit {
-    //user: any;
-    //tabCategorie: any = [];
-    //Categorie = '';
-    //Formation: any = [];
-    //tabFormation: any = [];
-    //id: any;
-    //tabHackerSpace: any = [];
-
-    //constructor(
-    //private cs: CategorieService,
-    //private fs: FormationsService,
-    //private HackerSpaceService: HackerspacesService,
+    private navbarLoaderService: NavbarLoaderCommunicationService,
     private authService: UserAuthService,
     private userService: UserService,
     private route: Router,
     private us: UserAuthService
   ) { }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen = false;
+    this.openDropdown = null;
+  }
+
+  toggleDropdown(name: string): void {
+    this.openDropdown = this.openDropdown === name ? null : name;
+  }
+
   getAllCategorie() {
     this.cs.getCategories().subscribe((res) => {
       this.tabCategorie = res;
@@ -61,6 +60,7 @@ export class NavBarComponent implements OnInit, AfterViewInit {
     });
     this.loadUserInfo();
   }
+
   logout() {
     Swal.fire({
       title: 'Are you sure?',
@@ -73,18 +73,20 @@ export class NavBarComponent implements OnInit, AfterViewInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.authService.clear();
-
         this.route.navigate(['/login']);
       }
     });
   }
+
   scrollToTop() {
-    // Scroll the page to the top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.closeMobileMenu();
   }
+
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn2();
   }
+
   loadUserInfo(): void {
     const userId = localStorage.getItem('id');
     if (!userId) return;
@@ -116,17 +118,15 @@ export class NavBarComponent implements OnInit, AfterViewInit {
       this.tabFormation = res;
     });
   }
+
   ngOnInit(): void {
     this.loadUserInfo();
-    this.isLoading=false;
+    this.isLoading = false;
     this.getAllCategorie()
-    //this.getFormationByCategorie(this.id)
     this.getAllHackerSpace()
-
   }
 
   ngAfterViewInit() {
-    // Send the height of the navbar to the shared service
     const navbarHeight = this.navbar.nativeElement.offsetHeight;
     this.navbarLoaderService.setNavbarHeight(navbarHeight);
   }
@@ -141,66 +141,24 @@ export class NavBarComponent implements OnInit, AfterViewInit {
       if(roles.includes('ETUDIANT'))
         this.route.navigate(['student'])
 
-        if(roles.includes('FORMATEUR'))
+      if(roles.includes('FORMATEUR'))
         this.route.navigate(['coach'])
     }
+    this.closeMobileMenu();
   }
 
   navigateToHackerspace(region: string) {
     this.scrollToTop();
-    const dropdowns = document.querySelectorAll('.dropdown-menu.show');
-    dropdowns.forEach((dropdown) => dropdown.classList.remove('show'));
-    const navbarCollapse = document.getElementById('navbarCollapse');
-    if (navbarCollapse?.classList.contains('show')) {
-      navbarCollapse.classList.remove('show');
-    }
     this.route.navigate(['/hackerspace', region]);
   }
 
   navigateToOffers() {
-    console.log('navigateToOffers appelée');
     this.scrollToTop();
-    
-    // Close all dropdowns
-    const dropdowns = document.querySelectorAll('.dropdown-menu.show');
-    dropdowns.forEach((dropdown) => {
-      dropdown.classList.remove('show');
-    });
-    
-    // Close mobile navbar if open
-    const navbarCollapse = document.getElementById('navbarCollapse');
-    if (navbarCollapse?.classList.contains('show')) {
-      navbarCollapse.classList.remove('show');
-    }
-    
-    this.route.navigate(['/offers']).then(success => {
-      console.log('Navigation vers /offers:', success);
-    }).catch(error => {
-      console.error('Erreur navigation:', error);
-    });
+    this.route.navigate(['/offers']);
   }
 
   navigateToCompany() {
-    console.log('navigateToCompany appelée');
     this.scrollToTop();
-    
-    // Close all dropdowns
-    const dropdowns = document.querySelectorAll('.dropdown-menu.show');
-    dropdowns.forEach((dropdown) => {
-      dropdown.classList.remove('show');
-    });
-    
-    // Close mobile navbar if open
-    const navbarCollapse = document.getElementById('navbarCollapse');
-    if (navbarCollapse?.classList.contains('show')) {
-      navbarCollapse.classList.remove('show');
-    }
-    
-    this.route.navigate(['/company']).then(success => {
-      console.log('Navigation vers /company:', success);
-    }).catch(error => {
-      console.error('Erreur navigation:', error);
-    });
+    this.route.navigate(['/company']);
   }
-
 }

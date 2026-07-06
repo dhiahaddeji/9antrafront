@@ -1,252 +1,291 @@
-<header id="header" class="fixed-top " #navbar>
-  <div class="">
-    <nav class="navbar navbar-expand-xl d-xl-none">
-      <div class="container-fluid d-flex justify-content-between">
-        <a routerLink="" class="navbar-brand text-center"><img src="assets/img/logo1.png" class="img-fluid" alt=""></a>
-        <div class="btns d-flex">
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span> <img src="assets/img/menu.png" class="w-10" alt=""></span>
-          </button>
-          <app-notification class="d-block d-xl-none mt-2"></app-notification>
-        </div>
-        <div class="collapse navbar-collapse justify-content-between flex-row-reverse" id="navbarCollapse">
-          <ul class="navbar-nav">
-            <li><a class="nav-link" (click)="scrollToTop()" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                routerLink="">Home</a></li>
-            <li class="nav-item dropdown">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown">Training</a>
-              <ul class="dropdown-menu">
+<header id="header" class="fixed-top" #navbar>
+  <!-- Desktop Navbar (UNCHANGED) -->
+  <nav class="navbar navbar-expand-lg d-none d-lg-block">
+    <div class="container-fluid">
+      <a routerLink="" class="navbar-brand"><img src="assets/img/logo1.png" class="img-fluid" alt=""></a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span> <img src="assets/img/menu.png" class="w-10" alt=""></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between flex-row-reverse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li><a class="nav-link" (click)="scrollToTop()"  [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"
+              routerLink="">Home</a></li>
+          <li class="nav-item dropdown">
+            <a  data-bs-auto-close="outside" class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown">Training</a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let o of tabCategorie">
+                <a  class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+                  (click)="getFormationByCategorie(o.id)" >{{o.nomCate}}</a>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let x of tabFormation" [id]="x.id">
+                    <a routerLink="training/{{x.nomFormation}}" (click)="scrollToTop()" class="dropdown-item" (click)="scrollToTop()">{{x.nomFormation}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown ">
+            <a  data-bs-auto-close="outside" class="nav-link dropdown-toggle "
+              data-bs-toggle="dropdown">Hackerspace</a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let i of tabHackerSpace">
+                <a href="javascript:void(0)" class="dropdown-item"
+                  (click)="navigateToHackerspace(i.region)">{{i.region}}</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="online" (click)="scrollToTop()" >Online</a></li>
+          <li class="nav-item dropdown ">
+            <a  data-bs-auto-close="outside" class="nav-link dropdown-toggle "
+              data-bs-toggle="dropdown">E-learning</a>
+            <ul class="dropdown-menu">
+              <li >
+                  <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="paths" (click)="scrollToTop()">Paths</a>
+                  <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="events" (click)="scrollToTop()">Events</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['contacts', 'Contact']" (click)="scrollToTop()">Contact</a></li>
+          <li>
+            <a
+              class="nav-link"
+              (click)="scrollToTop()"
+              [routerLinkActive]="'active'"
+              routerLink="project"
+              data-bs-toggle="dropdown"
+              >Projects</a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToOffers()">Offers</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToCompany()">Company</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="ms-5" >
+            <a class="btn get-started" routerLink="signup" *ngIf="!isLoggedIn()">Get Started</a>
+            <a class="btn get-started" *ngIf="isLoggedIn()" (click)="redirectToDahsboard()">Dashboard</a>
+          </li>
+          <li class="ms-3" style="margin-top: 15px;margin-right: 10px;">
+            <app-notification ></app-notification>
+          </li>
+          <!-- Profile dropdown (desktop) -->
+          <li class="nav-item dropdown d-flex align-items-center" *ngIf="isLoggedIn()">
+            <a class="nav-link p-0 ms-2 profile-toggle" data-bs-toggle="dropdown">
+              <img *ngIf="userImage != null"
+                   src="assets/Documents/{{ userImage }}"
+                   alt="Profile" class="user-image-nav rounded-circle" />
+              <img *ngIf="userImage == null"
+                   src="assets/img/trainers/trainer-1.jpg"
+                   alt="Profile" class="user-image-nav rounded-circle" />
+              <i class="bi bi-chevron-down profile-caret"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end user-menu">
+              <div class="user-info text-center">
+                <img *ngIf="user?.image != null"
+                     src="assets/Documents/{{ user?.image }}"
+                     alt="Profile" class="user-image rounded-circle" />
+                <img *ngIf="user?.image == null"
+                     src="assets/img/trainers/trainer-1.jpg"
+                     alt="Profile" class="user-image rounded-circle" />
+                <p class="user-name mt-2 mb-0">{{ user?.firstName }} {{ user?.lastName }}</p>
+                <p class="user-email">{{ user?.username }}</p>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="redirectToDahsboard()">
+                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item disconnect-button" (click)="logout()">
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navbar (NEW - RESPONSIVE) -->
+  <nav id="mobile-navbar" class="navbar navbar-mobile d-lg-none">
+    <div class="navbar-mobile-container">
+      <!-- Hamburger Toggle -->
+      <button type="button" class="navbar-mobile-toggler" (click)="toggleMobileMenu()">
+        <img src="assets/img/menu.png" alt="menu">
+      </button>
+
+      <!-- Logo -->
+      <a routerLink="" class="navbar-mobile-brand" (click)="closeMobileMenu()">
+        <img src="assets/img/logo1.png" alt="Logo">
+      </a>
+
+      <!-- Right Actions -->
+      <div class="navbar-mobile-actions">
+        <app-notification class="d-block"></app-notification>
+      </div>
+
+      <!-- Mobile Menu Sidebar -->
+      <div class="navbar-mobile-menu" [class.open]="mobileMenuOpen">
+        <!-- Overlay -->
+        <div class="navbar-mobile-overlay" (click)="closeMobileMenu()" *ngIf="mobileMenuOpen"></div>
+
+        <!-- Menu Content -->
+        <div class="navbar-mobile-content">
+          <div class="navbar-mobile-header">
+            <span class="menu-title">Menu</span>
+            <button class="close-btn" (click)="closeMobileMenu()">
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+
+          <ul class="navbar-mobile-list">
+            <!-- Home -->
+            <li>
+              <a class="mobile-nav-item" (click)="scrollToTop()" routerLink="">
+                <i class="fa-solid fa-home"></i> Home
+              </a>
+            </li>
+
+            <!-- Training -->
+            <li class="mobile-dropdown">
+              <button class="mobile-nav-item mobile-dropdown-btn" (click)="toggleDropdown('training')">
+                <i class="fa-solid fa-book"></i> Training
+                <i class="fa-solid fa-chevron-down" [class.rotated]="openDropdown === 'training'"></i>
+              </button>
+              <ul class="mobile-submenu" [class.open]="openDropdown === 'training'">
                 <li *ngFor="let o of tabCategorie">
-                  <a href="javascript:void(0)" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
-                    (click)="getFormationByCategorie(o.id)">{{o.nomCate}}</a>
-                  <ul class="dropdown-menu">
-                    <li *ngFor="let x of tabFormation" [id]="x.id">
-                      <a routerLink="training/{{x.nomFormation}}" class="dropdown-item" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="scrollToTop()">{{x.nomFormation}}</a>
+                  <button class="mobile-submenu-item" (click)="getFormationByCategorie(o.id); toggleDropdown('cat-' + o.id)">
+                    {{o.nomCate}}
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                  <ul class="mobile-submenu-level2" [class.open]="openDropdown === ('cat-' + o.id)">
+                    <li *ngFor="let x of tabFormation">
+                      <a routerLink="training/{{x.nomFormation}}" class="mobile-submenu-item-child" (click)="scrollToTop()">
+                        {{x.nomFormation}}
+                      </a>
                     </li>
                   </ul>
                 </li>
               </ul>
-
-
             </li>
-            <li class="nav-item dropdown ">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle "
-                data-bs-toggle="dropdown">Hackerspace</a>
-              <ul class="dropdown-menu">
+
+            <!-- Hackerspace -->
+            <li class="mobile-dropdown">
+              <button class="mobile-nav-item mobile-dropdown-btn" (click)="toggleDropdown('hackerspace')">
+                <i class="fa-solid fa-laptop-code"></i> Hackerspace
+                <i class="fa-solid fa-chevron-down" [class.rotated]="openDropdown === 'hackerspace'"></i>
+              </button>
+              <ul class="mobile-submenu" [class.open]="openDropdown === 'hackerspace'">
                 <li *ngFor="let i of tabHackerSpace">
-                  <a href="javascript:void(0)" class="dropdown-item"
-                    (click)="navigateToHackerspace(i.region)">{{i.region}}</a>
+                  <a class="mobile-submenu-item" (click)="navigateToHackerspace(i.region)">
+                    {{i.region}}
+                  </a>
                 </li>
+              </ul>
+            </li>
 
-              </ul>
-            </li>
-            <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="online"  data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="scrollToTop()">Online</a></li>
-            <li class="nav-item dropdown ">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle "
-                data-bs-toggle="dropdown">E-learning</a>
-              <ul class="dropdown-menu">
-                <li >
-                    <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="paths" data-bs-toggle="dropdown" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="scrollToTop()">Paths</a>
-                    <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="events" data-bs-toggle="dropdown" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="scrollToTop()">Events</a>
-                    <!-- <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="reports" data-bs-toggle="dropdown">Reports</a> -->
-                </li>
-              </ul>
-            </li>
-            <!-- <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="paths">Paths</a></li>
-            <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="events">Events</a></li> -->
-            <!-- <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="contact">Contact</a></li> -->
-            <li><a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['contacts', 'Contact']" (click)="scrollToTop()">Contact</a></li>
-            <!-- <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="reports">Reports</a></li> -->
-            <!-- <li class="ms-5"><a class="btn get-started" href="#inscription">Get Started</a></li> -->
-          <!-- </ul> -->
+            <!-- Online -->
             <li>
-              <a
-                class="nav-link"
-                [routerLinkActive]="'active'"
-                routerLink="project"
-                data-bs-toggle="dropdown" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                (click)="scrollToTop()"
-                >Projects</a
-              >
-            </li>
-            <li class="nav-item dropdown">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToOffers()">Offers</a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToCompany()">Company</a>
-                </li>
-              </ul>
-            </li>
-            <li class="ms-5" >
-              <a class="btn get-started" routerLink="signup" *ngIf="!isLoggedIn()">Get Started</a>
-              <a class="btn get-started" *ngIf="isLoggedIn()" (click)="redirectToDahsboard()">Dashboard</a>
-            </li>
-            <li class="ms-3" style="margin-top: 15px;margin-right: 10px;">
-              <app-notification ></app-notification>
-            </li>
-            <!-- Profile dropdown (mobile) -->
-            <li class="nav-item dropdown d-flex align-items-center" *ngIf="isLoggedIn()">
-              <a class="nav-link p-0 ms-2 profile-toggle" data-bs-toggle="dropdown">
-                <img *ngIf="userImage != null"
-                     src="assets/Documents/{{ userImage }}"
-                     alt="Profile" class="user-image-nav rounded-circle" />
-                <img *ngIf="userImage == null"
-                     src="assets/img/trainers/trainer-1.jpg"
-                     alt="Profile" class="user-image-nav rounded-circle" />
-                <i class="bi bi-chevron-down profile-caret"></i>
+              <a class="mobile-nav-item" (click)="scrollToTop()" routerLink="online">
+                <i class="fa-solid fa-globe"></i> Online
               </a>
-              <div class="dropdown-menu dropdown-menu-end user-menu">
-                <div class="user-info text-center">
-                  <img *ngIf="user?.image != null"
-                       src="assets/Documents/{{ user?.image }}"
-                       alt="Profile" class="user-image rounded-circle" />
-                  <img *ngIf="user?.image == null"
-                       src="assets/img/trainers/trainer-1.jpg"
-                       alt="Profile" class="user-image rounded-circle" />
-                  <p class="user-name mt-2 mb-0">{{ user?.firstName }} {{ user?.lastName }}</p>
-                  <p class="user-email">{{ user?.username }}</p>
-                </div>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="redirectToDahsboard()">
-                  <i class="bi bi-speedometer2 me-2"></i>Dashboard
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item disconnect-button" (click)="logout()">
-                  <i class="bi bi-box-arrow-right me-2"></i>Logout
-                </a>
-              </div>
             </li>
-          </ul>
 
-        </div>
-      </div>
-    </nav>
-    <nav class="navbar navbar-expand-lg d-none d-xl-block">
-      <div class="container-fluid">
-        <a routerLink="" class="navbar-brand"><img src="assets/img/logo1.png" class="img-fluid" alt=""></a>
-          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span> <img src="assets/img/menu.png" class="w-10" alt=""></span>
-          </button>
-        <div class="collapse navbar-collapse justify-content-between flex-row-reverse" id="navbarCollapse">
-          <ul class="navbar-nav">
-            <li><a class="nav-link" (click)="scrollToTop()"  [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"
-                routerLink="">Home</a></li>
-            <li class="nav-item dropdown">
-              <a  data-bs-auto-close="outside" class="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown">Training</a>
-              <ul class="dropdown-menu">
-                <li *ngFor="let o of tabCategorie">
-                  <a  class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
-                    (click)="getFormationByCategorie(o.id)" >{{o.nomCate}}</a>
-                  <ul class="dropdown-menu">
-                    <li *ngFor="let x of tabFormation" [id]="x.id">
-                      <a routerLink="training/{{x.nomFormation}}" (click)="scrollToTop()" class="dropdown-item" (click)="scrollToTop()">{{x.nomFormation}}</a>
-                    </li>
-                  </ul>
+            <!-- E-Learning -->
+            <li class="mobile-dropdown">
+              <button class="mobile-nav-item mobile-dropdown-btn" (click)="toggleDropdown('elearning')">
+                <i class="fa-solid fa-graduation-cap"></i> E-Learning
+                <i class="fa-solid fa-chevron-down" [class.rotated]="openDropdown === 'elearning'"></i>
+              </button>
+              <ul class="mobile-submenu" [class.open]="openDropdown === 'elearning'">
+                <li>
+                  <a routerLink="paths" class="mobile-submenu-item" (click)="scrollToTop()">
+                    <i class="fa-solid fa-map"></i> Paths
+                  </a>
                 </li>
-              </ul>
-
-
-            </li>
-            <li class="nav-item dropdown ">
-              <a  data-bs-auto-close="outside" class="nav-link dropdown-toggle "
-                data-bs-toggle="dropdown">Hackerspace</a>
-              <ul class="dropdown-menu">
-                <li *ngFor="let i of tabHackerSpace">
-                  <a href="javascript:void(0)" class="dropdown-item"
-                    (click)="navigateToHackerspace(i.region)">{{i.region}}</a>
-                </li>
-
-              </ul>
-            </li>
-            <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="online" (click)="scrollToTop()" >Online</a></li>
-            <li class="nav-item dropdown ">
-              <a  data-bs-auto-close="outside" class="nav-link dropdown-toggle "
-                data-bs-toggle="dropdown">E-learning</a>
-              <ul class="dropdown-menu">
-                <li >
-                    <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="paths" (click)="scrollToTop()">Paths</a>
-                    <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="events" (click)="scrollToTop()">Events</a>
-                    <!-- <a class="dropdown-item" [routerLinkActive]="'active'" routerLink="reports" data-bs-toggle="dropdown">Reports</a> -->
+                <li>
+                  <a routerLink="events" class="mobile-submenu-item" (click)="scrollToTop()">
+                    <i class="fa-solid fa-calendar-check"></i> Events
+                  </a>
                 </li>
               </ul>
             </li>
-            <!-- <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="paths">Paths</a></li>
-            <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="events">Events</a></li> -->
-            <!-- <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="contact">Contact</a></li> -->
-            <li><a class="nav-link" [routerLinkActive]="'active'" [routerLink]="['contacts', 'Contact']" (click)="scrollToTop()">Contact</a></li>
-            <!-- <li><a class="nav-link" [routerLinkActive]="'active'" routerLink="reports">Reports</a></li> -->
-            <!-- <li class="ms-5"><a class="btn get-started" href="#inscription">Get Started</a></li> -->
-          <!-- </ul> -->
+
+            <!-- Projects -->
             <li>
-              <a
-                class="nav-link"
-                (click)="scrollToTop()"
-                [routerLinkActive]="'active'"
-                routerLink="project"
-                data-bs-toggle="dropdown"
-                >Projects</a
-              >
+              <a class="mobile-nav-item" (click)="scrollToTop()" routerLink="project">
+                <i class="fa-solid fa-folder"></i> Projects
+              </a>
             </li>
-            <li class="nav-item dropdown">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
-              <ul class="dropdown-menu">
+
+            <!-- Offers -->
+            <li class="mobile-dropdown">
+              <button class="mobile-nav-item mobile-dropdown-btn" (click)="toggleDropdown('offers')">
+                <i class="fa-solid fa-briefcase"></i> Offers
+                <i class="fa-solid fa-chevron-down" [class.rotated]="openDropdown === 'offers'"></i>
+              </button>
+              <ul class="mobile-submenu" [class.open]="openDropdown === 'offers'">
                 <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToOffers()">Offers</a>
+                  <a class="mobile-submenu-item" (click)="navigateToOffers()">
+                    <i class="fa-solid fa-list"></i> All Offers
+                  </a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToCompany()">Company</a>
+                  <a class="mobile-submenu-item" (click)="navigateToCompany()">
+                    <i class="fa-solid fa-building"></i> Companies
+                  </a>
                 </li>
               </ul>
             </li>
 
-            <li class="ms-5" >
-              <a class="btn get-started" routerLink="signup" *ngIf="!isLoggedIn()">Get Started</a>
-              <a class="btn get-started" *ngIf="isLoggedIn()" (click)="redirectToDahsboard()">Dashboard</a>
-            </li>
-            <li class="ms-3" style="margin-top: 15px;margin-right: 10px;">
-              <app-notification ></app-notification>
-            </li>
-            <!-- Profile dropdown (desktop) -->
-            <li class="nav-item dropdown d-flex align-items-center" *ngIf="isLoggedIn()">
-              <a class="nav-link p-0 ms-2 profile-toggle" data-bs-toggle="dropdown">
-                <img *ngIf="userImage != null"
-                     src="assets/Documents/{{ userImage }}"
-                     alt="Profile" class="user-image-nav rounded-circle" />
-                <img *ngIf="userImage == null"
-                     src="assets/img/trainers/trainer-1.jpg"
-                     alt="Profile" class="user-image-nav rounded-circle" />
-                <i class="bi bi-chevron-down profile-caret"></i>
+            <!-- Contact -->
+            <li>
+              <a class="mobile-nav-item" (click)="scrollToTop()" [routerLink]="['contacts', 'Contact']">
+                <i class="fa-solid fa-envelope"></i> Contact
               </a>
-              <div class="dropdown-menu dropdown-menu-end user-menu">
-                <div class="user-info text-center">
-                  <img *ngIf="user?.image != null"
-                       src="assets/Documents/{{ user?.image }}"
-                       alt="Profile" class="user-image rounded-circle" />
-                  <img *ngIf="user?.image == null"
-                       src="assets/img/trainers/trainer-1.jpg"
-                       alt="Profile" class="user-image rounded-circle" />
-                  <p class="user-name mt-2 mb-0">{{ user?.firstName }} {{ user?.lastName }}</p>
-                  <p class="user-email">{{ user?.username }}</p>
+            </li>
+
+            <li class="mobile-divider"></li>
+
+            <!-- Get Started / Dashboard -->
+            <li *ngIf="!isLoggedIn()">
+              <a routerLink="signup" class="mobile-nav-item mobile-cta" (click)="closeMobileMenu()">
+                <i class="fa-solid fa-user-plus"></i> Get Started
+              </a>
+            </li>
+
+            <li *ngIf="isLoggedIn()">
+              <a class="mobile-nav-item mobile-cta" (click)="redirectToDahsboard()">
+                <i class="fa-solid fa-tachometer-alt"></i> Dashboard
+              </a>
+            </li>
+
+            <!-- User Profile -->
+            <li *ngIf="isLoggedIn()" class="mobile-divider"></li>
+            <li *ngIf="isLoggedIn()" class="mobile-user-section">
+              <div class="mobile-user-info">
+                <img *ngIf="userImage != null" src="assets/Documents/{{ userImage }}" alt="Profile" class="mobile-user-img"/>
+                <img *ngIf="userImage == null" src="assets/img/trainers/trainer-1.jpg" alt="Profile" class="mobile-user-img"/>
+                <div class="mobile-user-details">
+                  <p class="mobile-user-name">{{ user?.firstName }} {{ user?.lastName }}</p>
+                  <p class="mobile-user-email">{{ user?.username }}</p>
                 </div>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="redirectToDahsboard()">
-                  <i class="bi bi-speedometer2 me-2"></i>Dashboard
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item disconnect-button" (click)="logout()">
-                  <i class="bi bi-box-arrow-right me-2"></i>Logout
-                </a>
               </div>
+              <a class="mobile-logout-btn" (click)="logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              </a>
             </li>
           </ul>
         </div>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </header>
 

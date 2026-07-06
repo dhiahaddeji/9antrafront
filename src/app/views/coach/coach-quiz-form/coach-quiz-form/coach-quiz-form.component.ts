@@ -14,6 +14,9 @@ export class CoachQuizFormComponent implements OnInit{
   quizForm:FormGroup
   id:any
   answers:any
+  showAddQuestionModal: boolean = false;
+  questionType: string = 'multiple'; // 'multiple' or 'trueFalse'
+  
   constructor( private route : ActivatedRoute,private router: Router,private formBuilder:FormBuilder,private quizService:QuizService,private formationService:FormationsService){
     this.quizForm=this.formBuilder.group({
       question:this.QuestionForm,
@@ -26,6 +29,7 @@ export class CoachQuizFormComponent implements OnInit{
   CorrectAnswerForm=new FormControl('',[Validators.required]);
   WrongAnswerForm1=new FormControl('',[Validators.required]);
   WrongAnswerForm2=new FormControl('',[Validators.required]);
+  
   getQuestionFormError(){
     if(this.QuestionForm.touched){
       if(this.QuestionForm.hasError("required")){
@@ -58,31 +62,85 @@ export class CoachQuizFormComponent implements OnInit{
             }
             return '';
           }
+
+  updateValidators() {
+    if (this.questionType === 'trueFalse') {
+      // Remove validators for wrong answers in True/False mode
+      this.WrongAnswerForm1.clearValidators();
+      this.WrongAnswerForm2.clearValidators();
+      this.WrongAnswerForm1.updateValueAndValidity();
+      this.WrongAnswerForm2.updateValueAndValidity();
+    } else {
+      // Add validators for wrong answers in Multiple Choice mode
+      this.WrongAnswerForm1.setValidators([Validators.required]);
+      this.WrongAnswerForm2.setValidators([Validators.required]);
+      this.WrongAnswerForm1.updateValueAndValidity();
+      this.WrongAnswerForm2.updateValueAndValidity();
+    }
+  }
+
+  changeQuestionType(type: string) {
+    this.questionType = type;
+    this.updateValidators();
+  }
+  
   addQuestionsAnswers(){
     if(this.quizForm.valid){
-      this.quizService.addQuestionsAnswers(this.id,
-        {
-          "question":this.quizForm.value['question'],
-          "correct_answer":this.quizForm.value['correctAnswer'],
-          "wrong_answer1":this.quizForm.value['wrongAnswer1'],
-          "wrong_answer2":this.quizForm.value['wrongAnswer2'],
+      let payload: any;
+      
+      if(this.questionType === 'multiple'){
+        // Multiple choice with 4 options
+        payload = {
+          "question": this.quizForm.value['question'],
+          "correct_answer": this.quizForm.value['correctAnswer'],
+          "wrong_answer1": this.quizForm.value['wrongAnswer1'],
+          "wrong_answer2": this.quizForm.value['wrongAnswer2'],
+          "type": "multiple"
+        };
+      } else {
+        // True/False question
+        payload = {
+          "question": this.quizForm.value['question'],
+          "correct_answer": this.quizForm.value['correctAnswer'],
+          "wrong_answer1": this.quizForm.value['correctAnswer'] === 'True' ? 'False' : 'True',
+          "wrong_answer2": this.quizForm.value['correctAnswer'] === 'True' ? 'False' : 'True',
+          "type": "trueFalse"
+        };
+      }
+      
+      this.quizService.addQuestionsAnswers(this.id, payload).subscribe(
+        (res:any)=>{
+          Swal.fire({
+            icon: 'success',
+            title: 'Question Added',
+            text: 'Your question added successfully!',
+          });
+          this.resetForm();
+          this.showAddQuestionModal = false;
+          this.getQuestionsByQuizId(this.id);
+        }, 
+        (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to add question. Please try again.',
+          });
         }
-      ).subscribe((res:any)=>{
-        console.log(res);
-      })
-      Swal.fire({
-        icon: 'success',
-        title: 'Options successfully',
-        text: 'Your options added successfully!',
-      });
-      const newUrl = `coach/coach-quiz-form/${this.id}`;
-      setTimeout(() => {
-        window.location.href = newUrl;
-      }, 1200);
+      );
     }else{
       this.quizForm.markAllAsTouched();
     }
+  }
 
+  resetForm() {
+    this.quizForm.reset();
+    this.questionType = 'multiple';
+    this.updateValidators(); // Reset validators to default
+  }
+
+  closeAddQuestionModal(){
+    this.resetForm();
+    this.showAddQuestionModal = false;
   }
   getQuestionsByQuizId(id:any){
     this.quizService.getQuestionsByQuizId(id).subscribe((res:any)=>{
@@ -103,15 +161,16 @@ export class CoachQuizFormComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.quizService.deleteAnswerById(id).subscribe((res:any)=>{
-        })
-        Swal.fire('Deleted!', 'The Option has been deleted.', 'success');
-        const newUrl = `coach/coach-quiz-form/${this.id}`;
-        setTimeout(() => {
-          window.location.href = newUrl;
-        }, 2000);
+          Swal.fire('Deleted!', 'The Option has been deleted.', 'success');
+          this.getQuestionsByQuizId(this.id);
+          setTimeout(() => {
+            this.router.navigate([`/coach/coach-quiz-form/${this.id}`]);
+          }, 800);
+        }, (error) => {
+          Swal.fire('Error!', 'Failed to delete question.', 'error');
+        });
       }
     });
-
   }
   ngOnInit() {
     this.id=this.route.snapshot.paramMap.get('id');

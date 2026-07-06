@@ -18,22 +18,32 @@ export class StudentSidebarComponent implements OnInit {
   photo!: any;
   groups: any;
   openMenu: string | null = null;
+  sidebarOpen = false;
+  currentUser: any;
 
   toggleMenu(name: string): void {
     this.openMenu = this.openMenu === name ? null : name;
+  }
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar(): void {
+    this.sidebarOpen = false;
   }
   constructor(
     private sr: UserService,
     private Auth: UserAuthService,
     private route: Router,
     private http: HttpClient,
-    private groupService:GroupService,
+    private groupService: GroupService,
   ) {}
 
   getUserByid(id: any) {
+    if (!id) return; // Guard clause
     this.sr.getUserById(id).subscribe((res) => {
       this.data = res;
-      console.log(this.data);
       this.username = this.data.firstName + ' ' + this.data.lastName;
       this.photo = this.data.image;
       if (this.data.image === "imagePath") {
@@ -41,16 +51,25 @@ export class StudentSidebarComponent implements OnInit {
       } else {
         this.photo = this.data.image;
       }
+    }, (error) => {
+      console.error('Error fetching user by ID:', error);
     });
   }
 
-  getGroupsByStudentId(id:any){
-    this.groupService.getGroupsByStudentId(id).subscribe((res:any)=>{
-      this.groups = res
-      console.log(this.groups);
-    },(error)=>{
-      console.log(error);
-    })
+  getGroupsByStudentId(id: any) {
+    if (!id) {
+      this.groups = []; // Set empty array if no ID
+      return;
+    }
+    this.groupService.getGroupsByStudentId(id).subscribe(
+      (res: any) => {
+        this.groups = res || [];
+      },
+      (error) => {
+        console.warn('Groups API error (this is not critical):', error);
+        this.groups = []; // Set empty array on error to prevent crash
+      }
+    );
   }
 
   logout() {
@@ -64,7 +83,7 @@ export class StudentSidebarComponent implements OnInit {
       confirmButtonText: 'Yes, log out!',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Clear authentication data (assuming this.Auth.clear() does the job)
+        // Clear authentication data
         this.Auth.clear();
 
         // Navigate to the login page
@@ -73,14 +92,10 @@ export class StudentSidebarComponent implements OnInit {
     });
   }
 
-  currentUser: any;
-
   getCurrentUserDetails(): void {
     this.http.get<any>('https://9antrabackend-production.up.railway.app/api/user/me').subscribe(
       (response) => {
         this.currentUser = response;
-        console.log('Current user:', this.currentUser);
-        this.photo.currentUser?.image;
       },
       (error) => {
         console.error('Error fetching current user details:', error);
@@ -89,8 +104,11 @@ export class StudentSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserByid(localStorage.getItem('id'));
+    const userId = localStorage.getItem('id');
+    if (userId) {
+      this.getUserByid(userId);
+      this.getGroupsByStudentId(userId);
+    }
     this.getCurrentUserDetails();
-    this.getGroupsByStudentId(localStorage.getItem('id'));
   }
 }

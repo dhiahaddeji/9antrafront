@@ -22,7 +22,12 @@ export class UserService {
   signup(user:any){
     return this.http.post(`${environement.BASE_URL}/auth/Signup`, user, { headers: this.requestHeader });
   }
+
+  signupCoach(formData: FormData){
+    return this.http.post(`${environement.BASE_URL}/auth/signup`, formData, { headers: this.requestHeader });
+  }
   public login(loginData: any) {
+    console.log('Sending login request with data:', { username: loginData.username });
     return this.http.post(this.PATH_OF_API + '/api/auth/signin', loginData, {
       headers: this.requestHeader,
     });

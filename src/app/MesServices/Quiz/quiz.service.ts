@@ -1,13 +1,31 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { UserAuthService } from '../user-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
   private BASE_URL = ' https://9antrabackend-production.up.railway.app/api/quiz';
-  constructor(private http: HttpClient) { }
+  private quizResultsUpdated = new Subject<void>(); // Subject to notify quiz results update
+
+  constructor(private http: HttpClient, private userAuthService: UserAuthService) { }
+
+  // Get current user ID
+  getCurrentUserId(): number {
+    return this.userAuthService.getId();
+  }
+
+  // Emit event when quiz results are updated
+  notifyQuizResultsUpdated() {
+    this.quizResultsUpdated.next();
+  }
+
+  // Observable for quiz results updates
+  getQuizResultsUpdated(): Observable<void> {
+    return this.quizResultsUpdated.asObservable();
+  }
 
   getAllQuiz(id:any){
     return this.http.get(`${this.BASE_URL}/getAllQuizs?id=${id}`)

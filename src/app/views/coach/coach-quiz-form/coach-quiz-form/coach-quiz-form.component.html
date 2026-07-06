@@ -1,7 +1,7 @@
 <main>
-  <div style="margin-bottom: 50px; " class="d-block d-lg-none"> </div>
-  <div class="row justify-content-between" style="padding: 20px 0 20px 20px;">
-    <div class="col-6">
+  <div style="margin-bottom: 50px;" class="d-block d-lg-none"></div>
+  <div class="row justify-content-between px-3 px-md-4" style="padding: 20px 0;">
+    <div class="col-12 col-md-6">
       <div class="pagetitle">
         <h1>Quiz</h1>
         <nav>
@@ -12,204 +12,191 @@
         </nav>
       </div>
     </div>
-    <div class="col-4 d-flex align-items-center justify-content-end">
-
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-end mt-2 mt-md-0">
       <button
         type="button"
         class="btn register p-2 border pe-3"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop1"
-        style="margin-right: 70px;"
+        (click)="showAddQuestionModal = true"
       >
-        <i class="bi bi-plus fa-2xl me-3"></i> Add Options
+        <i class="bi bi-plus fa-2xl me-3"></i><span class="d-none d-sm-inline">Add Question</span>
       </button>
-      <div
-        class="modal fade"
-        id="staticBackdrop1"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5
-                class="modal-title"
-                id="staticBackdropLabel"
-                style="color: #af3065; font-weight: bold"
-              >
-                New Question
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form [formGroup]="quizForm"
-              (ngSubmit)="addQuestionsAnswers()">
-
-                <!-- -------------------question ----------------------------->
-               <div class="form-group mb-3">
-                  <label for="name">Question</label>
-                  <input
-                    name="name"
-                    type="text"
-                    [formControl]="QuestionForm"
-                    class="form-control"
-                    id="name"
-                    placeholder="Question..."
-                  />
-                  <mat-error *ngIf="QuestionForm.invalid">{{getQuestionFormError()}}</mat-error>
-                </div>
-                <!-- -------------------correct answer ----------------------------->
-                <div class="form-group mb-3">
-                  <label for="name">Correct answer</label>
-                  <input
-                    name="name"
-                    type="text"
-                    [formControl]="CorrectAnswerForm"
-                    class="form-control"
-                    id="name"
-                    placeholder="correct Answer..."
-                  />
-                  <mat-error *ngIf="CorrectAnswerForm.invalid">{{getCorrectAnswerFormError()}}</mat-error>
-                </div>
-                <!-- -------------------wrong answer1 ----------------------------->
-                <div class="form-group mb-3">
-                  <label for="name">Wrong Answer 1</label>
-                  <input
-                    name="name"
-                    type="text"
-                    [formControl]="WrongAnswerForm1"
-                    class="form-control"
-                    id="name"
-                    placeholder="Wrong Answer..."
-                  />
-                  <mat-error *ngIf="WrongAnswerForm1.invalid">{{getWrongAnswerForm1Error()}}</mat-error>
-                </div>
-                <!-- -------------------wrong answer2 ----------------------------->
-                <div class="form-group mb-3">
-                  <label for="name" class="mb-1">Wrong Answer 2</label>
-                  <input
-                    name="name"
-                    type="text"
-                    [formControl]="WrongAnswerForm2"
-                    class="form-control"
-                    id="name"
-                    placeholder="Wrong Answer..."
-                  />
-                  <mat-error *ngIf="WrongAnswerForm2.invalid">{{getWrongAnswerForm2Error()}}</mat-error>
-                </div>
-                <div class="text-end">
-                  <div
-                    class="modal"
-                    tabindex="-1"
-                    role="dialog"
-
-                  >
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Success</h5>
-                          <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-
-                          >
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <p></p>
-                        </div>
-                        <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-primary"
-
-                          >
-                            OK
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    id="cancel"
-                    name="cancel"
-                    class="btn btn-light"
-                    style="border-radius: 5px"
-                    routerLink="/coach/coach-quiz"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    id="submit"
-                    name="submit"
-                    class="btn"
-                    style="
-                      background-color: #af3065;
-                      color: white;
-                      border-radius: 5px;
-                    "
-                  >
-                    Add
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-  <div class="container d-flex justify-content-center">
-    <table class="table align-middle mb-0 bg-white">
-      <thead class="bg-light ">
-        <tr >
-          <th>Question</th>
-          <th>Correct Answer</th>
-          <th>Wrong Answer 1</th>
-          <th>Wrong Answer 2</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-        *ngFor="let a of answers"
-        >
-        <td> <p class="fw-normal mb-1">{{a.question}}</p>
-        </td>
-          <td>
-            <p  class="fw-normal mb-1">{{a.correct_answer}}</p>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">{{a.wrong_answer1}}</p>
-          </td>
-          <td>
-            <p class="fw-normal mb-1">{{a.wrong_answer2}}</p>
-          </td>
-        <td>
-        <button class="btn btn-danger btn-circle" (click)="deleteById(a.id)">
-          <span class="bi bi-trash-fill"></span>
-        </button>
-        </td>
-        </tr>
-        <tr *ngIf="answers?.length==0">
-          <td colspan="7" class="text-center">No questions found</td>
-        </tr>
-      </tbody>
+  <div class="container-fluid px-3 px-md-4">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+          <tr>
+            <th class="col-question">Question</th>
+            <th class="col-answer d-none d-md-table-cell">Correct Answer</th>
+            <th class="col-answer d-none d-lg-table-cell">Wrong Answer 1</th>
+            <th class="col-answer d-none d-lg-table-cell">Wrong Answer 2</th>
+            <th class="col-action">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of answers">
+            <td class="col-question">
+              <p class="fw-normal mb-1 question-text">{{a.question}}</p>
+            </td>
+            <td class="col-answer d-none d-md-table-cell">
+              <p class="fw-normal mb-1">{{a.correct_answer}}</p>
+            </td>
+            <td class="col-answer d-none d-lg-table-cell">
+              <p class="fw-normal mb-1">{{a.wrong_answer1}}</p>
+            </td>
+            <td class="col-answer d-none d-lg-table-cell">
+              <p class="fw-normal mb-1">{{a.wrong_answer2}}</p>
+            </td>
+            <td class="col-action">
+              <button class="btn btn-danger btn-circle" (click)="deleteById(a.id)">
+                <span class="bi bi-trash-fill"></span>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="answers?.length==0">
+            <td [attr.colspan]="5" class="text-center py-3">No questions found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    </table>
+  <!-- Custom Add Question Modal -->
+  <div *ngIf="showAddQuestionModal" class="custom-modal-overlay" (click)="closeAddQuestionModal()">
+    <div class="custom-modal" (click)="$event.stopPropagation()">
+      <div class="custom-modal-header">
+        <h5>Add Question</h5>
+        <button type="button" class="btn-close" (click)="closeAddQuestionModal()"></button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="quizForm" (ngSubmit)="addQuestionsAnswers()">
+          
+          <!-- Question Type Selector -->
+          <div class="form-group mb-4">
+            <label>Question Type</label>
+            <div class="btn-group d-flex gap-2" style="width: 100%;">
+              <button 
+                type="button" 
+                class="btn flex-fill"
+                [class.active]="questionType === 'multiple'"
+                [style.background]="questionType === 'multiple' ? '#af3065' : '#f5f5f5'"
+                [style.color]="questionType === 'multiple' ? 'white' : '#333'"
+                (click)="changeQuestionType('multiple')"
+              >
+                <i class="bi bi-list-check me-2"></i> Multiple Choice (4)
+              </button>
+              <button 
+                type="button" 
+                class="btn flex-fill"
+                [class.active]="questionType === 'trueFalse'"
+                [style.background]="questionType === 'trueFalse' ? '#af3065' : '#f5f5f5'"
+                [style.color]="questionType === 'trueFalse' ? 'white' : '#333'"
+                (click)="changeQuestionType('trueFalse')"
+              >
+                <i class="bi bi-question-circle me-2"></i> True/False
+              </button>
+            </div>
+          </div>
+
+          <!-- Question -->
+          <div class="form-group mb-3">
+            <label for="question">Question</label>
+            <input
+              type="text"
+              [formControl]="QuestionForm"
+              class="form-control"
+              id="question"
+              placeholder="Enter question..."
+            />
+            <mat-error *ngIf="QuestionForm.invalid">{{getQuestionFormError()}}</mat-error>
+          </div>
+          
+          <!-- Multiple Choice Fields -->
+          <ng-container *ngIf="questionType === 'multiple'">
+            <!-- Correct Answer -->
+            <div class="form-group mb-3">
+              <label for="correctAnswer">Correct Answer</label>
+              <input
+                type="text"
+                [formControl]="CorrectAnswerForm"
+                class="form-control"
+                id="correctAnswer"
+                placeholder="Enter correct answer..."
+              />
+              <mat-error *ngIf="CorrectAnswerForm.invalid">{{getCorrectAnswerFormError()}}</mat-error>
+            </div>
+            
+            <!-- Wrong Answer 1 -->
+            <div class="form-group mb-3">
+              <label for="wrongAnswer1">Wrong Answer 1</label>
+              <input
+                type="text"
+                [formControl]="WrongAnswerForm1"
+                class="form-control"
+                id="wrongAnswer1"
+                placeholder="Enter wrong answer..."
+              />
+              <mat-error *ngIf="WrongAnswerForm1.invalid">{{getWrongAnswerForm1Error()}}</mat-error>
+            </div>
+            
+            <!-- Wrong Answer 2 -->
+            <div class="form-group mb-3">
+              <label for="wrongAnswer2">Wrong Answer 2</label>
+              <input
+                type="text"
+                [formControl]="WrongAnswerForm2"
+                class="form-control"
+                id="wrongAnswer2"
+                placeholder="Enter wrong answer..."
+              />
+              <mat-error *ngIf="WrongAnswerForm2.invalid">{{getWrongAnswerForm2Error()}}</mat-error>
+            </div>
+          </ng-container>
+
+          <!-- True/False Fields -->
+          <ng-container *ngIf="questionType === 'trueFalse'">
+            <div class="form-group mb-3">
+              <label for="trueFalseAnswer">Correct Answer</label>
+              <select
+                [formControl]="CorrectAnswerForm"
+                class="form-control"
+                id="trueFalseAnswer"
+              >
+                <option value="" disabled selected>Select answer...</option>
+                <option value="True">True</option>
+                <option value="False">False</option>
+              </select>
+              <mat-error *ngIf="CorrectAnswerForm.invalid">{{getCorrectAnswerFormError()}}</mat-error>
+              <small class="text-muted d-block mt-2">
+                <i class="bi bi-info-circle me-1"></i> Wrong answers will be automatically set
+              </small>
+            </div>
+            <!-- Hide the other wrong answer fields for True/False -->
+            <div class="d-none">
+              <input [formControl]="WrongAnswerForm1" />
+              <input [formControl]="WrongAnswerForm2" />
+            </div>
+          </ng-container>
+        </form>
+      </div>
+      <div class="custom-modal-footer">
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="closeAddQuestionModal()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn register"
+          (click)="addQuestionsAnswers()"
+        >
+          Add Question
+        </button>
+      </div>
+    </div>
   </div>
 
 </main>

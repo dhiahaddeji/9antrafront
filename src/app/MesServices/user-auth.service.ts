@@ -118,8 +118,25 @@ export class UserAuthService {
     return !!localStorage.getItem('jwtToken');
   }
   public clear() {
+    // IMPORTANT: Save quiz results for all users before clearing localStorage
+    const allQuizResults: { [key: string]: string } = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('quizResults_')) {
+        const value = localStorage.getItem(key);
+        if (value) {
+          allQuizResults[key] = value;
+        }
+      }
+    }
+    
     localStorage.clear();
     sessionStorage.clear();
+    
+    // Restore quiz results after clearing
+    Object.entries(allQuizResults).forEach(([key, value]) => {
+      localStorage.setItem(key, value);
+    });
   }
   // public isLoggedIn() {
   //   return this.getRoles() && this.getToken() ;

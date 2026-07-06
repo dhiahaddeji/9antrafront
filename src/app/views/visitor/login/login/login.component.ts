@@ -12,8 +12,10 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
   email: string;
+  password: string;
   isLoading: boolean = false;
   private routeSubscription!: Subscription;
+  
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,
@@ -21,13 +23,14 @@ export class LoginComponent implements OnInit {
     private route : ActivatedRoute
   ) {
     this.email = '';
+    this.password = '';
   }
+  
   ngOnInit(): void {
     // Subscribe to the 'queryParams' observable to get query parameters
     this.routeSubscription = this.route.queryParams.subscribe(params => {
       const email = params['email'];
       if (email) {
-
         this.userService.verifyEmail(email).subscribe(
           (res: any) => {
             console.log(res);
@@ -50,9 +53,28 @@ export class LoginComponent implements OnInit {
   login(loginForm: any) {
     this.isLoading = true;
 
-    this.userService.login(loginForm.value).subscribe(
+    // Validate form
+    if (!loginForm.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill in all fields correctly'
+      });
+      this.isLoading = false;
+      return;
+    }
+
+    // Get form values
+    const loginData = {
+      username: this.email.trim(),
+      password: this.password
+    };
+
+    console.log('Login attempt with:', { username: loginData.username, password: '***' });
+
+    this.userService.login(loginData).subscribe(
       (response: any) => {
-        console.log(response);
+        console.log('Login successful:', response);
         this.userAuthService.setRoles(response.roles[0]);
         this.userAuthService.setToken(response.accessToken);
         this.userAuthService.setRolesSession(response.roles[0]);
@@ -72,15 +94,28 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
-        let msg = 'Login failed. Please try again.';
-        if (error.status === 0) {
-          msg = 'Cannot reach the server. Make sure the backend is running on port 8094.';
-        } else if (error.status === 400) {
-          msg = error.error?.message || 'Invalid credentials or email not verified.';
-        }
-        Swal.fire({ icon: 'error', title: 'Oops...', text: msg });
+        console.error('Login error:', error);
         this.isLoading = false;
+        let msg = 'Login failed. Please try again.';
+        
+        if (error.status === 0) {
+          msg = 'Cannot reach the server. Make sure the backend is running.';
+        } else if (error.status === 400) {
+          msg = error.error?.message || 'Invalid email or password.';
+        } else if (error.status === 401) {
+          msg = 'Unauthorized. Check your credentials.';
+        } else if (error.status === 403) {
+          msg = 'Account is disabled. Contact support.';
+        }
+        
+        Swal.fire({ 
+          icon: 'error', 
+          title: 'Oops...', 
+          text: msg,
+          didClose: () => {
+            this.password = ''; // Clear password on error
+          }
+        });
       }
     );
   }
@@ -89,5 +124,4 @@ export class LoginComponent implements OnInit {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
-
 }
