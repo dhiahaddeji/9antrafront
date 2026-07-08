@@ -69,6 +69,22 @@ export class AdminStudentlistComponent implements OnInit {
     });
   }
 
+  setPaymentStatus(studentId: any, status: number) {
+    this.sr.updateEnabeld(status, studentId).subscribe(() => {
+      this.getallStudent();
+    });
+  }
+
+  getStatusLabel(enabled: number): string {
+    const labels: {[key: number]: string} = {0: 'Unpaid', 1: 'Paid', 2: 'Pending', 3: 'Canceled'};
+    return labels[enabled] ?? 'Unknown';
+  }
+
+  getStatusClass(enabled: number): string {
+    const classes: {[key: number]: string} = {0: 'unpaid', 1: 'paid', 2: 'pending', 3: 'canceled'};
+    return classes[enabled] ?? 'unpaid';
+  }
+
   openAddStudentModal() {
     this.resetNewStudentForm();
     const modalEl = document.getElementById('addStudentModal');

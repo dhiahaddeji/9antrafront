@@ -237,3 +237,19 @@ main {
   background-color: rgb(235, 235, 238);
   color: #000;
 }
+
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.paid-dot { background-color: #05bd73; }
+.unpaid-dot { background-color: #e0810e; }
+.pending-dot { background-color: #a40c3f; }
+.canceled-dot { background-color: #363636; }
+
+.dropdown-toggle::after {
+  margin-left: 6px;
+}
