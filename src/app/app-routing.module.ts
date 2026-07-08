@@ -686,6 +686,7 @@ const routes: Routes = [
   { path: 'admin-trainingUpdate', loadChildren: () => import('./views/admin/admin-trainingUpdate/admin-training-update.module').then(m => m.AdminTrainingUpdateModule) },
   { path: 'notification', loadChildren: () => import('./views/visitor/notification/notification.module').then(m => m.NotificationModule) },
   { path: 'navbar', loadChildren: () => import('./views/visitor/nav-bar/nav-bar.module').then(m => m.NavBarModule) },
+  { path: 'oauth2/redirect', loadChildren: () => import('./views/visitor/oauth2-redirect/oauth2-redirect.module').then(m => m.OAuth2RedirectModule) },
   { path: '**', component: NotFoundComponent },
 
 ];
