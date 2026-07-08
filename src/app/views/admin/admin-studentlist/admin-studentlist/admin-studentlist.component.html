@@ -293,39 +293,17 @@
             <p class="fw-normal mb-1">{{ x.typeFormation }}</p>
           </td>
           <td>
-            <div class="dropdown">
-              <button
-                type="button"
-                [ngClass]="getStatusClass(x.enabled)"
-                class="btn-rounded btn-sm dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{ getStatusLabel(x.enabled) }}
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="javascript:void(0)" (click)="setPaymentStatus(x.id, 1)">
-                    <span class="status-dot paid-dot"></span> Paid
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:void(0)" (click)="setPaymentStatus(x.id, 0)">
-                    <span class="status-dot unpaid-dot"></span> Unpaid
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:void(0)" (click)="setPaymentStatus(x.id, 2)">
-                    <span class="status-dot pending-dot"></span> Pending
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:void(0)" (click)="setPaymentStatus(x.id, 3)">
-                    <span class="status-dot canceled-dot"></span> Canceled
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <select
+              [ngClass]="getStatusClass(x.enabled)"
+              class="status-select"
+              [attr.aria-label]="'Payment status for ' + x.firstName + ' ' + x.lastName"
+              (change)="onStatusChange(x, $event)"
+            >
+              <option [value]="1" [selected]="x.enabled == 1">Paid</option>
+              <option [value]="0" [selected]="x.enabled == 0">Unpaid</option>
+              <option [value]="2" [selected]="x.enabled == 2">Pending</option>
+              <option [value]="3" [selected]="x.enabled == 3">Canceled</option>
+            </select>
           </td>
         </tr>
         <tr *ngIf="tabStudent.length == 0">

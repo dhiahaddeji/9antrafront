@@ -75,6 +75,11 @@ export class AdminStudentlistComponent implements OnInit {
     });
   }
 
+  onStatusChange(student: any, event: Event) {
+    const newStatus = +(event.target as HTMLSelectElement).value;
+    this.setPaymentStatus(student.id, newStatus);
+  }
+
   getStatusLabel(enabled: number): string {
     const labels: {[key: number]: string} = {0: 'Unpaid', 1: 'Paid', 2: 'Pending', 3: 'Canceled'};
     return labels[enabled] ?? 'Unknown';
