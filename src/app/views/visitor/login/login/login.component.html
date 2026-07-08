@@ -1,102 +1,72 @@
-<section
-  id="login"
-  class="login"
-  style="margin-top: 130px; margin-bottom: 100px"
->
+<section class="auth-section">
   <div class="container">
-    <div class="row justify-content-between">
-      <div
-        class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <h1 class="text-center">Login to Your Account</h1>
-        <h3 class="text-center">Login using social networks</h3>
-        <div class="text-center">
-          <div class="trainers">
-            <div class="social">
-              <a
-                href="https://www.facebook.com/MustafaHosny"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="ms-2"
-                ><i class="bi bi-twitter"></i
-              ></a>
-              <a href="https://www.facebook.com/MustafaHosny" class="ms-2"
-                ><i class="bi bi-facebook"></i
-              ></a>
-              <a href="" class="ms-2"><i class="bi bi-instagram"></i></a>
-              <a href="" class="ms-2"><i class="bi bi-linkedin"></i></a>
+    <div class="row align-items-center justify-content-center g-5">
+
+      <!-- Illustration -->
+      <div class="col-lg-5 auth-illustration order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <img src="assets/img/login.png" alt="Login illustration" />
+      </div>
+
+      <!-- Form -->
+      <div class="col-lg-5 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="form-card">
+          <h1 class="form-title">Welcome back</h1>
+          <p class="form-subtitle">Sign in to your account to continue</p>
+
+          <!-- Social login -->
+          <div class="social-icons">
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          </div>
+
+          <div class="form-divider">or sign in with email</div>
+
+          <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" role="form">
+            <div *ngIf="isLoading" class="loader"></div>
+
+            <div class="form__group">
+              <label class="form__label" for="email">Email address</label>
+              <input
+                ngModel
+                type="email"
+                name="username"
+                id="email"
+                class="form__field"
+                placeholder="you@example.com"
+                [(ngModel)]="email"
+                required />
+              <span class="field-error" *ngIf="email && !isValidEmail(email)">
+                Please enter a valid email address
+              </span>
             </div>
-          </div>
+
+            <div class="form__group">
+              <label class="form__label" for="password">Password</label>
+              <input
+                ngModel
+                name="password"
+                type="password"
+                id="password"
+                class="form__field"
+                placeholder="Enter your password"
+                required />
+            </div>
+
+            <div class="text-end mb-3">
+              <a routerLink="/forgotpassword" class="form-link-row" style="font-size:0.85rem;">Forgot password?</a>
+            </div>
+
+            <button class="btn-form-primary" type="submit">Sign In</button>
+
+            <div class="form-link-row mt-3">
+              Don't have an account? <a routerLink="/signup">Create one</a>
+            </div>
+          </form>
         </div>
-
-        <form
-          action=""
-          method="post"
-          #loginForm="ngForm"
-          (ngSubmit)="login(loginForm)"
-          role="form"
-          class="php-email-form"
-        >
-          <div *ngIf="isLoading" class="loader"></div>
-
-          <div class="form__group field">
-            <input
-              ngModel
-              type="input"
-              name="username"
-              id="name"
-              class="form__field"
-              placeholder="email"
-              [(ngModel)]="email"
-              required
-            />
-            <label for="name" class="form__label">Email</label>
-          </div>
-
-          <!-- Display error message for invalid email -->
-          <div class="mt-2 text-center" *ngIf="email && !isValidEmail(email)">
-            <p class="text-danger">Invalid email address</p>
-          </div>
-
-          <div class="form__group field">
-            <input
-              ngModel
-              name="password"
-              type="password"
-              class="form__field"
-              placeholder="Password"
-              id="name"
-              required
-            />
-            <label for="name" class="form__label">Password</label>
-          </div>
-          <div class="mt-5 text-center">
-            <button class="register btn col-lg-5 mt-2" type="submit">
-              Login
-            </button>
-          </div>
-          <div class="mt-5 text-center">
-            <a routerLink="/signup" class="col-lg-5 mt-2">
-              <h5>Create an account</h5>
-            </a>
-          </div>
-          <div class="mt-1 text-center">
-            <a routerLink="/forgotpassword" class="col-lg-5 mt-2">
-              <h5>Forgot password ?</h5>
-            </a>
-          </div>
-        </form>
       </div>
-      <div
-        class="col-lg-5 order-1 order-lg-2 photo"
-        data-aos="zoom-in"
-        data-aos-delay="200"
-      >
-        <img src="assets/img/login.png" class="img-fluid animated" alt="" />
-      </div>
+
     </div>
   </div>
 </section>
-<!-- End Login -->

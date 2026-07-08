@@ -1,5 +1,6 @@
 export const environement = {
   BASE_URL: 'https://9antrabackend-production.up.railway.app/api',
+  BACKEND_ROOT: 'https://9antrabackend-production.up.railway.app',
   websocketUrl: 'https://9antrabackend-production.up.railway.app/ws',
   production: false,
   firebase: {

@@ -71,13 +71,13 @@
               >
             </li>
             <li class="nav-item dropdown">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
+              <a data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToOffers()">Offers</a>
+                  <a class="dropdown-item" routerLink="/offers" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="scrollToTop()">Offers</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToCompany()">Company</a>
+                  <a class="dropdown-item" routerLink="/company" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="scrollToTop()">Company</a>
                 </li>
               </ul>
             </li>
@@ -193,13 +193,13 @@
               >
             </li>
             <li class="nav-item dropdown">
-              <a href="javascript:void(0)" data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
+              <a data-bs-auto-close="outside" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Offers</a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToOffers()">Offers</a>
+                  <a class="dropdown-item" routerLink="/offers" (click)="scrollToTop()">Offers</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" class="dropdown-item" style="cursor: pointer;" (click)="navigateToCompany()">Company</a>
+                  <a class="dropdown-item" routerLink="/company" (click)="scrollToTop()">Company</a>
                 </li>
               </ul>
             </li>

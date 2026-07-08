@@ -18,7 +18,7 @@ export class HackerspaceSectionComponent implements OnInit {
     email: 'contact@9antra.tn',
     phone: '',
     photo: null,
-    localPhoto: 'assets/hackerspace/level1.avif',
+    localPhoto: 'assets/HackerSpace/level1.avif',
     location: 'https://www.google.com/maps/place/LEVEL+1/data=!4m2!3m1!1s0x0:0x80f3289b8fdbecd6?sa=X&ved=1t:2428&ictx=111',
   };
 

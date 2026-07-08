@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { HackerspacesService } from 'src/app/MesServices/Hackerspaces/hackerspaces.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environement } from 'src/environement/environement.dev';
@@ -14,7 +13,7 @@ const STATIC_HACKERSPACES: { [key: string]: any } = {
     phone: '+216 71 000 000',
     description: 'Notre Hackerspace LEVEL 1 à Tunis Lac 1 est un espace collaboratif dédié à l\'innovation technologique et à l\'apprentissage. Venez nous rejoindre et démarrez votre parcours!',
     mapsUrl: 'https://www.google.com/maps/place/LEVEL+1/data=!4m2!3m1!1s0x0:0x80f3289b8fdbecd6?sa=X&ved=1t:2428&ictx=111',
-    photoSrc: 'assets/hackerspace/level1.avif',
+    photoSrc: 'assets/HackerSpace/level1.avif',
   }
 };
 
@@ -36,8 +35,7 @@ export class HackerspaceComponent implements OnInit {
 
   constructor(
     private hackerspaceService: HackerspacesService,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private route: ActivatedRoute
   ) {}
 
   getALlByregion(nom: any): Observable<any> {
@@ -71,20 +69,22 @@ export class HackerspaceComponent implements OnInit {
           return this.getALlByregion(this.parameterValue);
         })
       )
-      .subscribe((res: any) => {
-        // Only override fallback if API returns a real, populated object
-        if (!res || !res.region) return;
-        const fallback = STATIC_HACKERSPACES[this.parameterValue] || {};
-        this.hasError    = false;
-        this.region      = res.region;
-        this.adresse     = res.adresse      || fallback.adresse     || '';
-        this.email       = res.email        || fallback.email       || '';
-        this.phone       = res.phone        || fallback.phone       || '';
-        this.description = res.description  || fallback.description || '';
-        this.mapsUrl     = res.location     || fallback.mapsUrl     || '';
-        this.photoSrc    = res.photo
-          ? environement.BASE_URL + '/uploads/Documents/' + res.photo
-          : (fallback.photoSrc || '');
-      }, () => { /* fallback already applied above */ });
+      .subscribe({
+        next: (res: any) => {
+          if (!res || !res.region) return;
+          const fallback = STATIC_HACKERSPACES[this.parameterValue] || {};
+          this.hasError    = false;
+          this.region      = res.region;
+          this.adresse     = res.adresse      || fallback.adresse     || '';
+          this.email       = res.email        || fallback.email       || '';
+          this.phone       = res.phone        || fallback.phone       || '';
+          this.description = res.description  || fallback.description || '';
+          this.mapsUrl     = res.location     || fallback.mapsUrl     || '';
+          this.photoSrc    = res.photo
+            ? environement.BASE_URL + '/uploads/Documents/' + res.photo
+            : (fallback.photoSrc || '');
+        },
+        error: () => { /* fallback already applied above */ }
+      });
   }
 }

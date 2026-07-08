@@ -9,8 +9,7 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-  
-    <!-- ======= Profile Section ======= -->
+
     <div class="container">
       <div class="main-body">
         <div *ngIf="showThankYouPopup" class="popup alert alert-success">
@@ -28,30 +27,75 @@
               <div class="card-body">
                 <div class="form-group mb-3">
 
-                  <!-- List of Students -->
+                  <!-- Student Search & Select -->
                   <div class="mb-3 mt-3">
-                    <label for="name">List of Students:</label>
-                    <textarea 
-                      class="form-control" 
-                      rows="6" 
-                      id="name" 
-                      placeholder="List of Students (one per line)"
-                      formControlName="name"
-                      [class.is-invalid]="certifForm.get('name')?.invalid && certifForm.get('name')?.touched">
-                    </textarea>
-                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('name')?.invalid && certifForm.get('name')?.touched">
-                      <div *ngIf="certifForm.get('name')?.errors?.['required']">List of Students is required!</div>
-                      <div *ngIf="certifForm.get('name')?.errors?.['minlength']">List must be at least 3 characters!</div>
+                    <label>List of Students:</label>
+
+                    <!-- Selected students chips -->
+                    <div class="d-flex flex-wrap gap-2 mb-2" *ngIf="selectedStudents.length > 0">
+                      <span
+                        *ngFor="let student of selectedStudents"
+                        class="badge bg-primary d-flex align-items-center gap-1"
+                        style="font-size: 0.85rem; padding: 6px 10px;">
+                        {{ student.firstName }} {{ student.lastName }}
+                        <button
+                          type="button"
+                          class="btn-close btn-close-white"
+                          style="font-size: 0.6rem;"
+                          (click)="removeStudent(student)">
+                        </button>
+                      </span>
+                    </div>
+
+                    <!-- Search input -->
+                    <div class="position-relative">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search or select a student..."
+                        [(ngModel)]="searchQuery"
+                        [ngModelOptions]="{standalone: true}"
+                        (focus)="openDropdown()"
+                        (input)="onSearchChange()"
+                        (blur)="hideDropdown()"
+                        autocomplete="off" />
+
+                      <!-- Dropdown results -->
+                      <ul
+                        *ngIf="showDropdown && filteredStudents.length > 0"
+                        class="list-group position-absolute w-100"
+                        style="z-index: 1000; max-height: 220px; overflow-y: auto;">
+                        <li
+                          *ngFor="let student of filteredStudents"
+                          class="list-group-item list-group-item-action"
+                          style="cursor: pointer;"
+                          (mousedown)="selectStudent(student)">
+                          <strong>{{ student.firstName }} {{ student.lastName }}</strong>
+                          <small class="text-muted ms-2">{{ student.username }}</small>
+                        </li>
+                      </ul>
+
+                      <div *ngIf="showDropdown && filteredStudents.length === 0"
+                           class="list-group position-absolute w-100" style="z-index: 1000;">
+                        <li class="list-group-item text-muted">
+                          {{ searchQuery.length > 0 ? 'No students found' : 'All students already selected' }}
+                        </li>
+                      </div>
+                    </div>
+
+                    <div class="text-danger mt-1" style="font-size: 0.85rem;"
+                         *ngIf="selectedStudents.length === 0 && errorMessage">
+                      Please select at least one student.
                     </div>
                   </div>
 
                   <!-- Period -->
                   <div class="mb-3">
                     <label for="periode">Period:</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="periode" 
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="periode"
                       placeholder="e.g., 2 months, 3 months"
                       formControlName="periode"
                       [class.is-invalid]="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
@@ -63,10 +107,10 @@
                   <!-- Formation -->
                   <div class="mb-3">
                     <label for="formation">Formation:</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="formation" 
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="formation"
                       placeholder="e.g., Web Development"
                       formControlName="formation"
                       [class.is-invalid]="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
@@ -78,10 +122,10 @@
                   <!-- Month -->
                   <div class="mb-3">
                     <label for="month">Month:</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="month" 
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="month"
                       placeholder="e.g., June 2026"
                       formControlName="month"
                       [class.is-invalid]="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
@@ -93,11 +137,11 @@
                   <!-- Date -->
                   <div class="mb-3">
                     <label for="start">Date:</label>
-                    <input 
-                      type="datetime-local" 
-                      id="start" 
+                    <input
+                      type="datetime-local"
+                      id="start"
                       class="form-control"
-                      min="2022-01-01" 
+                      min="2022-01-01"
                       formControlName="start"
                       [class.is-invalid]="certifForm.get('start')?.invalid && certifForm.get('start')?.touched">
                     <div class="invalid-feedback d-block" *ngIf="certifForm.get('start')?.invalid && certifForm.get('start')?.touched">
@@ -108,10 +152,10 @@
                   <br/> <br/>
                   <div class="row d-flex justify-content-end">
                     <div class="col-2">
-                      <button 
-                        type="submit" 
+                      <button
+                        type="submit"
                         class="btn btn-primary submit w-100"
-                        [disabled]="certifForm.invalid || isLoading">
+                        [disabled]="certifForm.invalid || isLoading || selectedStudents.length === 0">
                         <span *ngIf="!isLoading">Generate</span>
                         <span *ngIf="isLoading">Loading...</span>
                       </button>

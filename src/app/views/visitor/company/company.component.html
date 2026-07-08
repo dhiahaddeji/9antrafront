@@ -1,111 +1,199 @@
- ======= Hero Section =======
- <style>
-    .card {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-right: 20px; /* Ajoute une marge à droite de chaque carte */
-  
-  }
-  .my-custom-card {
-    height: 300px; /* Définissez la hauteur souhaitée pour la carte */
-    /* Autres styles personnalisés pour la carte */
-  }
-  
-  .card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .card-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .description {
-    position: relative;
-  }
-  
-  .text {
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limite à 2 lignes */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.5em;
-  }
-  
-  .see-more-link {
-    display: none;
-    margin-top: 0.5em;
-    font-style: italic;
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  .expanded .text {
-    -webkit-line-clamp: initial; /* Affiche toutes les lignes */
-  }
-  
-  .expanded .see-more-link {
-    display: inline-block;
-  }
-  
-  </style>
-   <section id="hero" class="d-flex align-items-center" data-aos="fade-up">
-      <img src="assets/img/hackerspaces.png" class="img-fluid" alt="">
-        </section><!-- End Hero -->
-  
-  
-          <!-- ======= Hackerspace Section ======= -->
-          <section id="Hackerspace" class="Hackerspace mt-5">
-            <div class="container" data-aos="fade-up">
-              <div class="section-title mb-5 text-center">
-                <!-- <h2>{{region}} Hackerspace</h2> -->
-                <h2>Comapnies</h2>
-  
-                <hr>
-             
-               
-            
-              </div>
-  
-              <div class="row" >
-  
-                <div class="card my-custom-card" *ngFor="let project of adminProjects">
-                  <div *ngIf="project.image">
-                      <div>
-                        <img [src]="'assets/' + project.image"   />
-  
-                      </div>
-                    </div>
-                                      <div class="card-details">
-                                        <br>
-                <h3>{{ project.nom }}</h3>
-                      <!-- <p>Adresse : {{ project.adresse }}</p>
-                      <p>Phone number: {{ project.numtel }}</p>
+<!-- Hero Banner -->
+<section id="hero" class="d-flex align-items-center" data-aos="fade-up">
+  <img src="assets/img/hackerspaces.png" class="img-fluid w-100" alt="Companies Banner">
+</section>
 
-                      <div class="text" >
-                        {{ project.description }}
-                      </div> -->
-                                        </div>
-                    <br>
-  <!-- <button (click)="showEventDetails(project.id)" >Voir en Details</button> -->
-                  </div>
-                 
-                  </div>
-            
+<!-- Companies Section -->
+<section id="companies" class="companies-section">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title mb-5 text-center">
+      <h2>Our Companies</h2>
+      <h5>Discover the companies that partner with us and explore exciting career opportunities!</h5>
+      <hr>
+      <button type="button" class="btn p-2 border pe-3 me-3 register" (click)="openContactModal()">
+        <i class="bi bi-plus fa-2xl me-3"></i>Do You Want To Add Your Company?
+      </button>
+      <button type="button" class="btn p-2 border pe-3 register" (click)="toggleSearch()">
+        <i class="bi bi-search fa-2xl me-3"></i>Search For A Company
+      </button>
+    </div>
+
+    <!-- Collapsible Search Bar -->
+    <div class="row justify-content-center mb-4" *ngIf="showSearch">
+      <div class="col-md-6">
+        <div class="input-group search-box">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search text-muted"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control border-start-0"
+            placeholder="Search by name, description or address..."
+            [(ngModel)]="searchQuery"
+            (input)="filterCompanies()"
+            autofocus />
+          <button *ngIf="searchQuery" class="btn btn-outline-secondary" type="button" (click)="clearSearch()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="adminProjects.length === 0 && !searchQuery" class="text-center py-5">
+      <p class="text-muted">No companies available at the moment. Please check back later.</p>
+    </div>
+
+    <!-- No results -->
+    <div *ngIf="filtered.length === 0 && searchQuery" class="text-center py-5">
+      <i class="bi bi-building" style="font-size: 3rem; color: #ccc;"></i>
+      <p class="text-muted mt-3">No companies found matching "{{ searchQuery }}".</p>
+    </div>
+
+    <!-- Company Cards Grid -->
+    <div class="row" *ngIf="filtered.length > 0">
+      <div class="col-md-4" *ngFor="let company of filtered" style="margin-bottom: 24px;">
+        <div class="company-card" (click)="openModal(company)">
+
+          <!-- Company Image -->
+          <div class="company-img-wrapper">
+            <img
+              *ngIf="company.image"
+              [src]="'assets/' + company.image"
+              [alt]="company.nom"
+              class="company-img"
+              (error)="onImgError($event)" />
+            <div *ngIf="!company.image" class="company-img-placeholder">
+              <i class="bi bi-building"></i>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="company-body">
+            <h5 class="company-name">{{ company.nom }}</h5>
+
+            <p class="company-desc" *ngIf="company.description">
+              {{ company.description | slice:0:100 }}{{ (company.description?.length ?? 0) > 100 ? '...' : '' }}
+            </p>
+
+            <div class="company-meta">
+              <span *ngIf="company.adresse" class="meta-item">
+                <i class="bi bi-geo-alt-fill"></i> {{ company.adresse }}
+              </span>
+              <span *ngIf="company.email" class="meta-item">
+                <i class="bi bi-envelope-fill"></i> {{ company.email }}
+              </span>
+              <span *ngIf="company.numtel" class="meta-item">
+                <i class="bi bi-telephone-fill"></i> {{ company.numtel }}
+              </span>
+            </div>
+
+            <button class="btn-view w-100 mt-3">More Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  
-                <div class="col-lg-7  mt-lg-0 d-flex align-items-stretch">
-                  <!-- <iframe class="shadow" src="{{location}} | safe" width="700" height="400"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe> -->
-  
-                </div>
-  
-          </section>
-          <!-- <app-form-section></app-form-section> -->
-  
-  
+</section>
+
+<!-- Add Company Modal -->
+<div class="modal-overlay" *ngIf="showAddForm" (click)="closeAddForm()">
+  <div class="modal-card add-form-card" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeAddForm()"><i class="bi bi-x-lg"></i></button>
+
+    <div class="modal-body-content">
+      <h3 class="modal-company-name mb-4">Add Your Company</h3>
+
+      <form (ngSubmit)="submitCompany()" #companyForm="ngForm">
+
+        <div class="add-form-field">
+          <label>Company Name *</label>
+          <input type="text" class="add-form-input" [(ngModel)]="newCompany.nom" name="nom" required placeholder="e.g. Acme Corp" />
+        </div>
+
+        <div class="add-form-field">
+          <label>Description</label>
+          <textarea class="add-form-input" [(ngModel)]="newCompany.description" name="description" rows="3" placeholder="What does your company do?"></textarea>
+        </div>
+
+        <div class="add-form-field">
+          <label>Address</label>
+          <input type="text" class="add-form-input" [(ngModel)]="newCompany.adresse" name="adresse" placeholder="e.g. Lac 2, Tunis" />
+        </div>
+
+        <div class="add-form-row">
+          <div class="add-form-field">
+            <label>Email</label>
+            <input type="email" class="add-form-input" [(ngModel)]="newCompany.email" name="email" placeholder="contact@company.com" />
+          </div>
+          <div class="add-form-field">
+            <label>Phone</label>
+            <input type="text" class="add-form-input" [(ngModel)]="newCompany.numtel" name="numtel" placeholder="+216 XX XXX XXX" />
+          </div>
+        </div>
+
+        <div class="add-form-field">
+          <label>Company Logo / Image</label>
+          <input type="file" class="add-form-input" accept="image/*" (change)="onFileChange($event)" />
+        </div>
+
+        <div *ngIf="addError" class="add-form-error">{{ addError }}</div>
+        <div *ngIf="addSuccess" class="add-form-success">Company submitted! It will appear after review.</div>
+
+        <button type="submit" class="btn-submit-company" [disabled]="companyForm.invalid || addLoading">
+          <span *ngIf="!addLoading">Submit Company</span>
+          <span *ngIf="addLoading"><i class="bi bi-arrow-repeat spin"></i> Submitting...</span>
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Company Detail Modal -->
+<div class="modal-overlay" *ngIf="selectedCompany" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+
+    <div class="modal-img-wrapper">
+      <img
+        *ngIf="selectedCompany.image"
+        [src]="'assets/' + selectedCompany.image"
+        [alt]="selectedCompany.nom"
+        class="modal-img"
+        (error)="onImgError($event)" />
+      <div *ngIf="!selectedCompany.image" class="modal-img-placeholder">
+        <i class="bi bi-building"></i>
+      </div>
+    </div>
+
+    <div class="modal-body-content">
+      <h3 class="modal-company-name">{{ selectedCompany.nom }}</h3>
+
+      <p class="modal-description" *ngIf="selectedCompany.description">
+        {{ selectedCompany.description }}
+      </p>
+
+      <div class="modal-details">
+        <div class="detail-row" *ngIf="selectedCompany.adresse">
+          <i class="bi bi-geo-alt-fill detail-icon"></i>
+          <span>{{ selectedCompany.adresse }}</span>
+        </div>
+        <div class="detail-row" *ngIf="selectedCompany.email">
+          <i class="bi bi-envelope-fill detail-icon"></i>
+          <a [href]="'mailto:' + selectedCompany.email">{{ selectedCompany.email }}</a>
+        </div>
+        <div class="detail-row" *ngIf="selectedCompany.numtel">
+          <i class="bi bi-telephone-fill detail-icon"></i>
+          <a [href]="'tel:' + selectedCompany.numtel">{{ selectedCompany.numtel }}</a>
+        </div>
+        <div class="detail-row" *ngIf="selectedCompany.date">
+          <i class="bi bi-calendar-fill detail-icon"></i>
+          <span>Member since {{ selectedCompany.date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

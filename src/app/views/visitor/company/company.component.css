@@ -1,543 +1,391 @@
-
-
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
-/**
-
-/*--------------------------------------------------------------
-# Sections General
---------------------------------------------------------------*/
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Jost", sans-serif;
 }
+
 section {
-    padding: 60px 0;
-    overflow: hidden;
-  }
-  
-  .section-bg {
-    background-color: #f3f5fa;
-  }
-  
-  
-  
-  .section-title h2 {
-    font-size: 32px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    position: relative;
-    color: #000000;
-  }
-  
-  
-  
-  /*--------------------------------------------------------------
-  # Hackerspace
-  --------------------------------------------------------------*/
-  
-  .shadow{
-    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.226);
-   
-    background: #fff;
-    border-radius: 20px;
-  }
-  
-  
-  .Hackerspace .info .social-links {
-    padding-left: 60px;
-  }
-  
-  .Hackerspace .info .social-links a {
-    font-size: 18px;
-    display: inline-block;
-    background: #333;
-    color: #fff;
-    line-height: 1;
-    padding: 8px 0;
-    border-radius: 50%;
-    text-align: center;
-    width: 36px;
-    height: 36px;
-    transition: 0.3s;
-    margin-right: 10px;
-  }
-  
-  .Hackerspace .info .social-links a:hover {
-    background: #bae447;
-    color: #fff;
-  }
-  
-  .Hackerspace .info i {
-    font-size: 20px;
-    color: #333333;
-    float: left;
-    width: 44px;
-    height: 44px;
-    background: #e7f5fb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .Hackerspace .info .email:hover i,
-  .Hackerspace .info .address:hover i,
-  .Hackerspace .info .phone:hover i {
-    background: #AF3065;
-    color: #fff;
-  }
-  
-  .Hackerspace  .info h4 {
-    padding: 0 0 0 60px;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #0a0a0a;
-  }
-  
-  .Hackerspace  .info p {
-    padding: 0 0 10px 60px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #070707;
-  }
-  
-body {
-    font-family: "Open Sans", sans-serif;
-    color: #444444;
-  }
-
-  a {
-    color: #47b2e4;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #73c5eb;
-    text-decoration: none;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Jost", sans-serif;
-  }
-
-
-
-  .section-title {
-    text-align: center;
-    padding-bottom: 30px;
-  }
-
-  .section-title h2 {
-    font-size: 32px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    position: relative;
-    color: #000000;
-  }
-
-  .section-title h2::before {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 120px;
-    height: 1px;
-    background: #ddd;
-    bottom: 1px;
-    left: calc(50% - 60px);
-  }
-
-  .section-title h2::after {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 40px;
-    height: 3px;
-    background: #FAB555;
-    bottom: 0;
-    left: calc(50% - 20px);
-  }
-
-  .section-title p {
-    margin-bottom: 0;
-  }
-
-
-
-
-
-  /*--------------------------------------------------------------
-  # Services
-  --------------------------------------------------------------*/
-  #services {
-    background: #F8F8F8;
-    padding: 50px;
-
-  }
-
-
-  .services .icon-box {
-
-    padding: 50px 30px;
-    transition: all ease-in-out 0.4s;
-
-    border-radius: 5px;
-  }
-
-  .services .icon-box .icon {
-    margin-bottom: 10px;
-  }
-
-  .services .icon-box .icon i {
-    color: #FAB555;
-    font-size: 36px;
-    transition: 0.3s;
-  }
-
-  .services .icon-box h4 {
-    font-weight: 500;
-    margin-bottom: 15px;
-    font-size: 24px;
-  }
-
-  .services .icon-box h4 a {
-    color: #000000;
-    transition: ease-in-out 0.3s;
-  }
-
-  .services .icon-box p {
-    line-height: 24px;
-    font-size: 14px;
-    margin-bottom: 0;
-  }
-
-  .services .icon-box:hover {
-    transform: translateY(-10px);
-  }
-
-  .services .icon-box:hover h4 a {
-    color: #f7be6e;
-  }
-
-
-  .card
-  {
-    width:380px;
-    height: 335px;
-
-  }
-
-  
-  
-body {
-    font-family: "Open Sans", sans-serif;
-    color: #444444;
-  }
-
-  a {
-    color: #47b2e4;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #73c5eb;
-    text-decoration: none;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Jost", sans-serif;
-  }
-
-
-
-  .section-title {
-    text-align: center;
-    padding-bottom: 30px;
-  }
-
-  .section-title h2 {
-    font-size: 32px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    position: relative;
-    color: #000000;
-  }
-
-  .section-title h2::before {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 120px;
-    height: 1px;
-    background: #ddd;
-    bottom: 1px;
-    left: calc(50% - 60px);
-  }
-
-  .section-title h2::after {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 40px;
-    height: 3px;
-    background: #FAB555;
-    bottom: 0;
-    left: calc(50% - 20px);
-  }
-
-  .section-title p {
-    margin-bottom: 0;
-  }
-
-
-
-
-
-  /*--------------------------------------------------------------
-  # Services
-  --------------------------------------------------------------*/
-  #services {
-    background: #F8F8F8;
-    padding: 50px;
-
-  }
-
-
-  .services .icon-box {
-
-    padding: 50px 30px;
-    transition: all ease-in-out 0.4s;
-
-    border-radius: 5px;
-  }
-
-  .services .icon-box .icon {
-    margin-bottom: 10px;
-  }
-
-  .services .icon-box .icon i {
-    color: #FAB555;
-    font-size: 36px;
-    transition: 0.3s;
-  }
-
-  .services .icon-box h4 {
-    font-weight: 500;
-    margin-bottom: 15px;
-    font-size: 24px;
-  }
-
-  .services .icon-box h4 a {
-    color: #000000;
-    transition: ease-in-out 0.3s;
-  }
-
-  .services .icon-box p {
-    line-height: 24px;
-    font-size: 14px;
-    margin-bottom: 0;
-  }
-
-  .services .icon-box:hover {
-    transform: translateY(-10px);
-  }
-
-  .services .icon-box:hover h4 a {
-    color: #f7be6e;
-  }
-
-
-  .card
-  {
-    width:380px;
-    height: 335px;
-
-  }
-  #inscription {
-    background-color: #F8F8F8;
-  }
-
-  .form__group {
-    position: relative;
-    padding: 15px 30px 0;
-    margin-top: 10px;
-
-  }
-
-  .form__field {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid #383838;
-    outline: 0;
-    font-size: 1.3rem;
-    color: #595959;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-  }
-  .form__field::placeholder {
-    color: transparent;
-  }
-
-
-  .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.2rem;
-    cursor: text;
-    top: 20px;
-  }
-
-  .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1.3rem;
-    color: #505050;
-  }
-  .error-message {
-    color: red;
-  }
-
-
-  .form__field:focus ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #000000;
-    font-weight: 700;
-  }
-
-  .register {
-    font-family: "Jost", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 10px 28px 11px 28px;
-
-    transition: 0.5s;
-    margin: 10px 0 0 0;
-    color: #fff;
-    background: #AF3065;
-
-  }
-
-  .register:hover {
-    color: #fff;
-    background: #d8208e;
-  }
-  #inscription {
-    background-color: #F8F8F8;
-  }
-
-  .form__group {
-    position: relative;
-    padding: 15px 30px 0;
-    margin-top: 10px;
-
-  }
-
-  .form__field {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid #383838;
-    outline: 0;
-    font-size: 1.3rem;
-    color: #595959;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-  }
-  .form__field::placeholder {
-    color: transparent;
-  }
-
-
-  .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.2rem;
-    cursor: text;
-    top: 20px;
-  }
-
-  .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1.3rem;
-    color: #505050;
-  }
-
-
-  .form__field:focus ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #000000;
-    font-weight: 700;
-  }
-  .trainers .social {
-    margin-top: 15px;
-  }
-
-  .trainers .social a {
-    color: #98A2B3;
-    transition: 0.3s;
-  }
-
-  .trainers .social a:hover {
-    color: #FAB555;
-  }
-
-  .trainers .social i {
-    font-size: 18px;
-    margin: 0 2px;
-  }
-
-a
-{
-    color: grey
-
-
-}
-a:hover
-{
-    color: #AF3065;
-    text-decoration: none;
+  padding: 60px 0;
+  overflow: hidden;
 }
 
-  
-  .popup-form-container.open {
-    display: block;
-  }
-  
+/* ── Section Title (matches offers page) ── */
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
 
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #000000;
+}
+
+.section-title h2::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 60px);
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #FAB555;
+  bottom: 0;
+  left: calc(50% - 20px);
+}
+
+.section-title h5 {
+  color: #555;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+/* ── Pink Action Buttons (matches offers page .register) ── */
+.register {
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 28px 11px 28px;
+  transition: 0.5s;
+  margin: 10px 0 0 0;
+  color: #fff;
+  background: #AF3065;
+  border-color: #AF3065 !important;
+}
+
+.register:hover {
+  color: #fff;
+  background: #d8208e;
+}
+
+/* ── Search Box ── */
+.search-box .form-control,
+.search-box .input-group-text {
+  border-color: #dee2e6;
+}
+
+.search-box .form-control:focus {
+  border-color: #AF3065;
+  box-shadow: 0 0 0 3px rgba(175, 48, 101, 0.1);
+}
+
+/* ── Company Cards ── */
+.company-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.company-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(175, 48, 101, 0.15);
+}
+
+.company-img-wrapper {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.company-img-placeholder {
+  font-size: 3rem;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.company-body {
+  padding: 18px 20px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.company-desc {
+  font-size: 13px;
+  color: #666;
+  flex: 1;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.company-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.meta-item {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta-item i {
+  color: #AF3065;
+  margin-right: 4px;
+}
+
+.btn-view {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  border: 2px solid #AF3065;
+  color: #AF3065;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-view:hover {
+  background: #AF3065;
+  color: #fff;
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-card {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.modal-close:hover { color: #AF3065; }
+
+.modal-img-wrapper {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-img-placeholder {
+  font-size: 5rem;
+  color: #ccc;
+}
+
+.modal-body-content {
+  padding: 24px 28px 28px;
+}
+
+.modal-company-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.modal-description {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.detail-icon {
+  color: #AF3065;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.detail-row a {
+  color: #AF3065;
+  text-decoration: none;
+}
+
+.detail-row a:hover {
+  text-decoration: underline;
+}
+
+/* ── Add Company Form ── */
+.add-form-card {
+  max-width: 600px;
+}
+
+.add-form-field {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.add-form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.add-form-input {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.add-form-input:focus {
+  border-color: #AF3065;
+  box-shadow: 0 0 0 3px rgba(175, 48, 101, 0.1);
+}
+
+.add-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.add-form-error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.add-form-success {
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.btn-submit-company {
+  width: 100%;
+  padding: 12px;
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: "Jost", sans-serif;
+}
+
+.btn-submit-company:hover:not(:disabled) {
+  background: #d8208e;
+}
+
+.btn-submit-company:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spin {
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
