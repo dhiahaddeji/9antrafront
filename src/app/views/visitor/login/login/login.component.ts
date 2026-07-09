@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -124,4 +125,10 @@ export class LoginComponent implements OnInit {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
+
+  loginWithOAuth2(provider: string): void {
+    const backendBase = environement.BASE_URL.replace('/api', '');
+    window.location.href = `${backendBase}/oauth2/authorize/${provider}`;
+  }
+
 }
