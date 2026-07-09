@@ -186,7 +186,7 @@
             </span>
             <a
               *ngIf="!selectedSession._expired"
-              [routerLink]="['/student/calendar/meeting/', selectedSession.GeneratedLink]"
+              [routerLink]="['/student/calendar/meeting/', selectedSession.id]"
               class="join-btn btn-join"
             >
               <i class="bi bi-camera-video-fill me-2"></i>Join Class

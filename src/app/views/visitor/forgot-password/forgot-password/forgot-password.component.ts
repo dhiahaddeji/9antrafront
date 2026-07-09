@@ -26,7 +26,11 @@ export class ForgotPasswordComponent {
   }
 
   save() {
+    console.log('=== FORGOT PASSWORD SAVE CALLED ===');
+    console.log('Email entered:', this.emaili);
+    
     if (!this.emaili || !this.isValidEmail(this.emaili)) {
+      console.warn('Invalid email format');
       Swal.fire({
         icon: 'error',
         title: 'Invalid Email',
@@ -51,8 +55,13 @@ export class ForgotPasswordComponent {
       "dateCreation": dateno
     };
 
+    console.log('=== CALLING genCode ===');
+    console.log('Data being sent:', data);
+
     this.sr.genCode(data).subscribe(
       (res: any) => {
+        console.log('=== genCode SUCCESS ===');
+        console.log('Response:', res);
         localStorage.setItem('email', this.emaili.toString());
         this.isLoading = false;
         this.uploadInProgress = false;
@@ -65,7 +74,8 @@ export class ForgotPasswordComponent {
         this.router.navigate(['/verifyemail']);
       },
       (error: any) => {
-        console.log(error);
+        console.log('=== genCode ERROR ===');
+        console.error('Error:', error);
         this.showSuccessIcon = false;
         this.Addetat = true;
         this.uploadInProgress = false;

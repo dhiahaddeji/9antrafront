@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class CoachRecordsComponent implements OnInit {
 
   backendUrl = environement.BASE_URL;
+  filesUrl = environement.BASE_URL.replace('/api', ''); // Remove /api for static files
   idGroup: any;
   ListViedo: any[] = [];
   UserPublisher: any = [];
@@ -50,16 +51,41 @@ export class CoachRecordsComponent implements OnInit {
   getByIdGroup() {
     this.RecordService.getRecordsByIdGroup(this.idGroup).subscribe((data: any) => {
       this.ListViedo = data;
+      
+      // PRE-CALCULATE VIDEO URLs to avoid repeated calls
+      this.ListViedo.forEach((record: any) => {
+        record.videoUrl = this.calculateVideoUrl(record.videoLink);
+        // Initialize user data on each record
+        record.fullName = 'Unknown User';
+        record.imagepath = '';
+      });
+      
       console.log(this.ListViedo);
 
+      // For each record, get the publisher info
       for (let i = 0; i < this.ListViedo.length; i++) {
-        this.UserService.getUserById(this.ListViedo[i].idUser).subscribe((data: any) => {
-          this.UserPublisher.push(data);
-          this.imagepath = this.UserPublisher[i].image;
-          this.fullName = this.UserPublisher[i].firstName + " " + this.UserPublisher[i].lastName;
-          console.log(this.UserPublisher);
-
-        })
+        // Determine the user ID - try multiple property names
+        const recordUserId = this.ListViedo[i].idUser || this.ListViedo[i].userId || (this.ListViedo[i].user?.id);
+        
+        // Guard against undefined/null user IDs
+        if (!recordUserId) {
+          console.warn('No user ID found for record:', this.ListViedo[i]);
+          continue;
+        }
+        
+        this.UserService.getUserById(recordUserId).subscribe(
+          (userData: any) => {
+            // Attach user data directly to the record
+            this.ListViedo[i].publisher = userData;
+            this.ListViedo[i].imagepath = userData.image;
+            this.ListViedo[i].fullName = userData.firstName + " " + userData.lastName;
+            console.log('Record with publisher:', this.ListViedo[i]);
+          },
+          (error) => {
+            console.warn('Error getting user for record:', error);
+            // Keep defaults if error
+          }
+        );
       }
     })
   }
@@ -68,6 +94,20 @@ export class CoachRecordsComponent implements OnInit {
     this.deleteRecord
   }
 
+  calculateVideoUrl(videoLink: string): string {
+    if (!videoLink) {
+      return '';
+    }
 
+    // If videoLink already starts with http, return as-is
+    if (videoLink.startsWith('http')) {
+      return videoLink;
+    }
 
+    // Remove leading slash if present
+    const cleanLink = videoLink.startsWith('/') ? videoLink.substring(1) : videoLink;
+    
+    // Use filesUrl (without /api) for static files
+    return this.filesUrl + '/uploads/Records/' + cleanLink;
+  }
 }

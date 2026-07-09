@@ -155,7 +155,7 @@
       <button type="button" class="btn-cancel" (click)="showDetailModal = false">Close</button>
       <button type="button" *ngIf="!isExpired(selectedEvent)"
         class="btn-save"
-        [routerLink]="['/coach/calendar/meeting/', selectedEvent.generatedLink]"
+        [routerLink]="['/coach/calendar/meeting/', selectedEvent.id]"
         (click)="showDetailModal = false">
         <i class="bi bi-camera-video"></i> Join
       </button>

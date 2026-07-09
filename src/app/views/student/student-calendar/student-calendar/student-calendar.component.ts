@@ -120,6 +120,10 @@ export class StudentCalendarComponent implements OnInit {
     this.databaseDate = new Date(session.startDate);
     this.durationInMinutes = this.calculateDuration(session);
     this.selectedSession = session;
+    console.warn('=== SELECTED SESSION ===');
+    console.warn('Session ID:', session.id);
+    console.warn('Session GeneratedLink:', session.GeneratedLink);
+    console.warn('Full session:', session);
     if (session?.id) this.getGroupsForSession(session.id);
     else this.sessionGroups = [];
     this.updateButtonStatus();

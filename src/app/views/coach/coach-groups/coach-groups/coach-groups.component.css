@@ -303,3 +303,56 @@ main {
   will-change: rotate;
 }
 @keyframes spin { to { rotate: 1turn; } }
+
+/* ── Members list ────────────────────────────────────────────────────── */
+.members-list { display: flex; flex-direction: column; gap: 10px; }
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: background 0.15s;
+}
+.member-item:hover { background: #f1f5f9; }
+.member-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  flex-shrink: 0;
+}
+.member-info { flex: 1; min-width: 0; }
+.member-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.member-email {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Empty message ───────────────────────────────────────────────────── */
+.empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  gap: 8px;
+  color: #94a3b8;
+  text-align: center;
+}
+.empty-message i { font-size: 2rem; opacity: 0.5; }
+.empty-message p { margin: 0; font-size: 0.85rem; }
+

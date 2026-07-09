@@ -12,7 +12,7 @@ declare var JitsiMeetExternalAPI: any;
   styleUrls: ['./meet.component.css']
 })
 export class MeetComponent implements OnInit, AfterViewInit {
-  domain: string = "jitsi1.geeksec.de"; // For self-hosted use your domain
+  domain: string = "jitsi.riot.im"; // Public Jitsi instance - no authentication needed
   room: any;
   roomName: any;
   options: any;

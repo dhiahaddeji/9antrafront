@@ -25,6 +25,12 @@ export class CoachGroupsComponent implements OnInit {
 
   showCreateModal = false;
   isCreating = false;
+  
+  showUploadModal = false;
+  isUploading = false;
+  
+  showMembersModal = false;
+  selectedGroupMembers: any[] = [];
 
   private jwtToken: string;
 
@@ -42,7 +48,7 @@ export class CoachGroupsComponent implements OnInit {
   ngOnInit(): void {
     this.RecordForm = this.formBuilder.group({
       title: ['', Validators.required],
-      video: '',
+      video: ['', Validators.required],
     });
     this.groupForm = this.formBuilder.group({
       groupName: ['', [Validators.required, Validators.minLength(2)]],
@@ -71,6 +77,13 @@ export class CoachGroupsComponent implements OnInit {
   openCreateModal(): void {
     this.groupForm.reset();
     this.showCreateModal = true;
+  }
+
+  openUploadModal(groupId: number): void {
+    this.idGroupe = groupId;
+    this.RecordForm.reset();
+    this.RecordForm.get('video')?.clearAsyncValidators();
+    this.showUploadModal = true;
   }
 
   createGroup(): void {
@@ -137,33 +150,61 @@ export class CoachGroupsComponent implements OnInit {
   }
 
   AddRecordsForm(): void {
+    if (this.RecordForm.invalid) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Validation Error',
+        text: 'Please fill in all required fields and select a video file.'
+      });
+      return;
+    }
+
+    this.isUploading = true;
     const formData = new FormData();
     formData.append('title', this.RecordForm.get('title')?.value);
     formData.append('groupId', this.idGroupe);
     formData.append('idUser', localStorage.getItem('id')!);
-    const photoFile = this.RecordForm.get('video')?.value;
-    if (photoFile instanceof File) {
-      formData.append('file', photoFile, photoFile.name);
+    
+    const videoFile = this.RecordForm.get('video')?.value;
+    if (videoFile instanceof File) {
+      formData.append('file', videoFile, videoFile.name);
     }
+
+    console.warn(`Uploading record for group ${this.idGroupe}, title: ${this.RecordForm.get('title')?.value}`);
+
     this.recordService.addRecord(formData).subscribe({
       next: () => {
-        Swal.fire({ icon: 'success', title: 'Record Added Successfully', showConfirmButton: true })
-          .then((result) => {
-            if (result.isConfirmed) {
-              window.location.href = `coach/groups/${this.idGroupe}/records`;
-            }
-          });
+        this.isUploading = false;
+        this.showUploadModal = false;
+        Swal.fire({
+          icon: 'success',
+          title: 'Record Uploaded Successfully!',
+          text: 'Redirecting to records page...',
+          timer: 2000,
+          showConfirmButton: false
+        }).then(() => {
+          // Use router.navigate instead of window.location.href
+          this.router.navigate(['/coach/groups', this.idGroupe, 'records']);
+        });
       },
       error: (err) => {
-        console.error(err);
-        Swal.fire({ icon: 'error', title: 'Error', text: 'Could not add record.' });
-      },
+        this.isUploading = false;
+        console.error('Upload error:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Upload Failed',
+          text: err.error?.message || 'Could not upload the record. Please try again.'
+        });
+      }
     });
   }
 
   onFileSelected(event: any): void {
     if (event.target.files.length > 0) {
-      this.RecordForm.get('video')!.setValue(event.target.files[0]);
+      const file = event.target.files[0];
+      console.warn(`File selected: ${file.name} (${file.size} bytes)`);
+      this.RecordForm.get('video')!.setValue(file);
+      this.RecordForm.get('video')!.markAsTouched();
     }
   }
 
@@ -171,5 +212,23 @@ export class CoachGroupsComponent implements OnInit {
     const group = this.groups.find((g) => g.id === groupId);
     if (!group?.etudiants) return [];
     return group.etudiants.slice(0, 3).map((s: any) => s.image);
+  }
+
+  getFileName(): string {
+    const file = this.RecordForm.get('video')?.value;
+    return file instanceof File ? file.name : '';
+  }
+
+  openMembersModal(groupId: number): void {
+    this.groupsService.getGroupsById(groupId).subscribe({
+      next: (group) => {
+        this.selectedGroupMembers = group.etudiants || [];
+        this.showMembersModal = true;
+      },
+      error: (err) => {
+        console.error('Error loading group members:', err);
+        Swal.fire({ icon: 'error', title: 'Error', text: 'Could not load group members.' });
+      }
+    });
   }
 }
