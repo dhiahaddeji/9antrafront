@@ -5,82 +5,250 @@
 main {
   padding: 20px 30px;
   transition: all 0.3s;
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  min-height: 100vh;
 }
-.bi:hover{
-  color: black;
-  font-weight: bold;
-}
-.info{
-  background-color: #E9F5FE;
-  padding: 20px;
-  border-radius: 15px;
-}
-textarea:focus{
-  outline: none;
-  border: none;
-}
-.add:hover{
-  background-color: #F5F5F5;
-}
+
 @media (min-width: 991.98px) {
-  main {
-    padding-left: 340px;
-
-  }
+  main { padding-left: 340px; }
 }
-/* Hide the default checkbox */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
- }
 
- .container {
-  display: block;
-  position: relative;
+/* ── Page title ── */
+.pagetitle h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0;
+}
+
+.breadcrumb { font-size: 13px; color: #899bbd; }
+.breadcrumb a { color: #899bbd; text-decoration: none; }
+.breadcrumb a:hover { color: #51678f; }
+.breadcrumb .active { color: #51678f; font-weight: 600; }
+
+/* ── Add button ── */
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 20px;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-add:hover { background: #8e2452; transform: translateY(-1px); }
+
+/* ── Info banner ── */
+.info-banner {
+  background: #E9F5FE;
+  border-left: 4px solid #3b82f6;
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.info-icon { font-size: 1.4rem; color: #3b82f6; margin-top: 2px; }
+.info-title { font-size: 1rem; font-weight: 700; color: #1e3a5f; margin-bottom: 4px; }
+.info-desc { font-size: 0.9rem; color: #374151; margin: 0; }
+
+/* ── Stat card ── */
+.stats-row { display: flex; gap: 16px; }
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 28px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+}
+.stat-number { font-size: 2rem; font-weight: 800; color: #AF3065; line-height: 1; }
+.stat-label  { font-size: 0.8rem; color: #6b7280; margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ── Section header ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+/* ── Clear-all button ── */
+.btn-delete-all {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  background: transparent;
+  color: #ef4444;
+  border: 1.5px solid #ef4444;
+  border-radius: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-delete-all:hover { background: #ef4444; color: #fff; }
+
+/* ── Loading spinner ── */
+.text-pink { color: #AF3065; }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+}
+.empty-icon { font-size: 3.5rem; display: block; margin-bottom: 16px; color: #d1d5db; }
+.empty-state h3 { font-size: 1.1rem; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+.empty-state p  { font-size: 0.9rem; }
+
+/* ── Question list ── */
+.question-list { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── Question card ── */
+.question-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.question-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+
+.question-card__header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
   user-select: none;
- }
+  gap: 0;
+}
 
- /* Create a custom checkbox */
- .checkmark {
-  position: relative;
-  top: 0;
-  left: 0;
-  height: 1.3em;
-  width: 1.3em;
-  background: #606062;
-  border-radius: 5px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.30), 0px 1px 1px rgba(0,5);
- }
+.q-badge {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(175,48,101,0.12);
+  color: #AF3065;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
- /* When the checkbox is checked, add a blue background */
- .container input:checked ~ .checkmark {
-  background-image: linear-gradient(#b9e9b3,#a8e4a0)
- }
+.q-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
- /* Create the checkmark/indicator (hidden when not checked) */
- .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
- }
+.chevron-icon { font-size: 1rem; color: #9ca3af; transition: transform 0.2s; }
 
- /* Show the checkmark when checked */
- .container input:checked ~ .checkmark:after {
+/* ── Icon buttons (trash etc.) ── */
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.icon-btn--danger { color: #9ca3af; }
+.icon-btn--danger:hover { background: #fee2e2; color: #ef4444; }
+
+/* ── Collapsible answer area ── */
+.question-card__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.question-card__body.expanded {
+  max-height: 300px;
+}
+
+.answer-area {
+  padding: 0 20px 16px;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 14px;
+}
+.answer-label {
   display: block;
- }
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.answer-textarea {
+  width: 100%;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #111827;
+  background: #f9fafb;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.answer-textarea:focus { border-color: #AF3065; background: #fff; }
 
- /* Style the checkmark/indicator */
- .container .checkmark:after {
-  left: 0.45em;
-  top: 0.25em;
-  width: 0.25em;
-  height: 0.5em;
-  border: solid white;
-  border-width: 0 0.15em 0.15em 0;
-  transform: rotate(45deg);
- }
+/* ── Teach button ── */
+.btn-teach {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 20px;
+  background: #AF3065;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-teach:hover:not(:disabled) { background: #8e2452; }
+.btn-teach:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Modal shared styles ── */
+.modal-styled .modal-header { border-bottom: 1px solid #f3f4f6; padding: 18px 24px; }
+.modal-styled .modal-body  { padding: 20px 24px; }
+.modal-styled .modal-footer { border-top: 1px solid #f3f4f6; padding: 14px 24px; }
+.modal-styled .modal-title { font-size: 1rem; font-weight: 700; color: #111827; }
+
+/* ── Modal icon colours ── */
+.icon-pink   { color: #AF3065; }
+.icon-danger { color: #ef4444; }
+
+/* ── Selected question preview in delete modal ── */
+.selected-q-preview {
+  margin-top: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #374151;
+  font-style: italic;
+}
