@@ -112,10 +112,24 @@ sessionInfo:any=[];
     }
   }
 
+  private loadJitsiScript(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (typeof (window as any).JitsiMeetExternalAPI !== 'undefined') {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://jitsi1.geeksec.de/external_api.js';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Jitsi'));
+      document.head.appendChild(script);
+    });
+  }
+
   ngOnInit(): void {
     this.getSesisonbygeneratedLink(this.idSession);
-    if(this.idSession !=null){
-      this.initializeJitsi(this.idSession);
+    if (this.idSession != null) {
+      this.loadJitsiScript().then(() => this.initializeJitsi(this.idSession));
     }
   }
 

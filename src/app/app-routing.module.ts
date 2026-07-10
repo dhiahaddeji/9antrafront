@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
+import { RouterModule, Routes, NoPreloading } from '@angular/router';
 import { VisitorLayoutComponent } from './layouts/visitor-layout/visitor-layout.component';
 import { StudentLayoutComponent } from './layouts/student-layout/student-layout.component';
 import { CoachLayoutComponent } from './layouts/coach-layout/coach-layout.component';
@@ -692,7 +692,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: NoPreloading })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

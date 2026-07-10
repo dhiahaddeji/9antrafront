@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
-Chart.register(...registerables);
 
 interface Stats {
   courseName: string;
@@ -56,45 +54,39 @@ export class AdminHomeComponent implements OnInit {
     this.us.getTopCourses().subscribe((topCoursesData) => {
       this.stats = topCoursesData
 
-      if(this.stats.length > 0) {
-      const labels: string[] = this.stats.map((stat) => {
-        if(stat.courseName.length > 10)
-          return stat.courseName.slice(0, 9) + "...";
-        else
-          return stat.courseName
-      })
+      if (this.stats.length > 0) {
+        const labels: string[] = this.stats.map((stat) => {
+          if (stat.courseName.length > 10)
+            return stat.courseName.slice(0, 9) + "...";
+          else
+            return stat.courseName;
+        });
 
-      const data: number[] = this.stats.map(stat => stat.courseAttendees)
-      const max: number = Math.max(...data)
+        const data: number[] = this.stats.map(stat => stat.courseAttendees);
+        const max: number = Math.max(...data);
 
-      var myChart = new Chart("myChart", {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Number of inscriptions',
-            data: data,
-            backgroundColor: [
-              '#AF3065',
-            ],
-
-            borderRadius: 5,
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              min: 0,
-              max: max + 2
-
-
-
+        import('chart.js').then(({ Chart, registerables }) => {
+          Chart.register(...registerables);
+          new Chart("myChart", {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Number of inscriptions',
+                data: data,
+                backgroundColor: ['#AF3065'],
+                borderRadius: 5,
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: { min: 0, max: max + 2 }
+              }
             }
-          }
-        }
-      });
-    }
+          });
+        });
+      }
     })
 
 
