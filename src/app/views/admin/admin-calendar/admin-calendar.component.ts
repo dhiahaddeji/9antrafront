@@ -54,6 +54,9 @@ export class AdminCalendarComponent implements OnInit {
     this.currentMonth = now.getMonth();
     this.currentYear = now.getFullYear();
     this.currentDate = now;
+    this.buildCalendar();
+    const todayDay = this.calendarDays.find(d => d.isToday && d.monthOffset === 0);
+    if (todayDay) this.selectDay(todayDay);
     this.retrieveSessions();
   }
 
