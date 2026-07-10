@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ChatbotService {
-  private BASE_URL = ' http://127.0.0.1:5000';
+  private BASE_URL = 'https://9antra-chatbot-production.up.railway.app';
   constructor(private http: HttpClient) { }
 
 
