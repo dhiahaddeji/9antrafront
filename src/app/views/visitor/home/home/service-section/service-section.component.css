@@ -76,7 +76,7 @@ body {
   #services {
     background: #F8F8F8;
     padding: 50px;
-
+    min-height: 520px;
   }
 
 

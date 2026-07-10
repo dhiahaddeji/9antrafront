@@ -480,6 +480,7 @@ border-radius: 26px 26px 0  0 ;
 
 #hero .animated {
   animation: up-down 2s ease-in-out infinite alternate-reverse both;
+  will-change: transform;
 }
 
 @media (max-width: 991px) {

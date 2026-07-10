@@ -33,7 +33,7 @@ body {
   #trainers {
     background: #F8F8F8;
     padding: 50px;
-
+    min-height: 600px;
   }
 
   .trainers .member {

@@ -1,6 +1,7 @@
 #hackerspaces {
   padding: 60px 0;
   background: #f8f8f8;
+  min-height: 580px;
 }
 
 .section-title {

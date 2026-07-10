@@ -68,4 +68,7 @@ body {
     margin-bottom: 0;
   }
 
+  .carousel-inner {
+    min-height: 350px;
+  }
 
