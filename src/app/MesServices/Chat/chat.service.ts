@@ -6,9 +6,7 @@ import { Chat } from 'src/app/Models/chat';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environement } from 'src/environement/environement.dev';
 import { message } from 'src/app/Models/message';
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ChatService {
   constructor(private db: AngularFireDatabase,private http: HttpClient) {}
 

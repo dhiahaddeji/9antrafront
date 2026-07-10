@@ -7,8 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="assets/img/favicon1.png" rel="icon" />
 
+    <!-- Preload LCP hero image -->
+    <link rel="preload" as="image" href="assets/img/hero-img.png" fetchpriority="high" />
+
     <!-- Preconnect to external origins used by fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
 
     <!-- Vendor CSS — non-blocking (loads after first paint) -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'" />

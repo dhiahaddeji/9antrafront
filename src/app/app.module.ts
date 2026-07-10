@@ -10,8 +10,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './Helpers/auth-interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AngularFireModule } from '@angular/fire/compat';
-import { environement } from 'src/environement/environement.dev';
 import { ProjectMemberComponent } from './views/coach/project-member/project-member.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { CommonModule } from '@angular/common';
@@ -29,7 +27,6 @@ import { ChatbotComponent } from './views/visitor/chatbot/chatbot.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(environement.firebase),
     //AngularFireAuthModule,
     MatDialogModule,
     MatSnackBarModule,
