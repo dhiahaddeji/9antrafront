@@ -1,161 +1,117 @@
-
-<section
-  id="login"
-  class="login"
-  style="margin-top: 130px; margin-bottom: 100px"
->
+<section class="auth-section">
   <div class="container">
-    <div class="row justify-content-between">
-      <div
-        class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <h1 class="text-center">Create an account !</h1>
+    <div class="row align-items-center justify-content-center g-5">
 
-        <form
-          [formGroup]="SignUpForm"
-          (ngSubmit)="SignUp()"
-        >
-          <div  class="loader" *ngIf="isLoading"></div>
-
-          <div class="form__group field">
-            <input
-              type="input"
-              [formControl]="FirstNameForm"
-              name="FirstName"
-              id="name"
-              class="form__field"
-              placeholder="FirstName"
-
-              required
-            />
-            <mat-error *ngIf="FirstNameForm.invalid && FirstNameForm.touched">{{getFirstNameFormError()}}</mat-error>
-            <label for="name" class="form__label">FirstName</label>
-          </div>
-
-          <div class="form__group field">
-            <input
-              [formControl]="LastNameForm"
-              type="input"
-              name="LastName"
-              class="form__field"
-              placeholder="LastName"
-              required
-            />
-            <mat-error *ngIf="LastNameForm.invalid && LastNameForm.touched">{{getLastNameFormError()}}</mat-error>
-            <label for="name" class="form__label">LastName</label>
-          </div>
-
-          <div class="form__group field">
-            <input
-              [formControl]="NumTlfForm"
-              type="input"
-              name="Number"
-              id="name"
-              class="form__field"
-              placeholder="Phone number"
-              required
-            />
-            <mat-error *ngIf="NumTlfForm.invalid && NumTlfForm.touched">{{getNumTlfFormError()}}</mat-error>
-            <label for="name" class="form__label">Phone number</label>
-          </div>
-
-
-
-          <div class="form__group field">
-            <input
-              [formControl]="EmailForm"
-              type="input"
-              name="username"
-              id="name"
-              class="form__field"
-              placeholder="email"
-
-              required
-            />
-            <mat-error *ngIf="EmailForm.invalid && EmailForm.touched">{{getEmailFormError()}}</mat-error>
-            <label for="name" class="form__label">Email</label>
-          </div>
-
-
-
-          <div class="form__group field">
-            <input
-              [formControl]="passwordForm"
-              name="password"
-              type="password"
-              class="form__field"
-              placeholder="Password"
-              id="name"
-              required
-            />
-            <mat-error *ngIf="passwordForm.invalid && passwordForm.touched">{{getPasswordFormError()}}</mat-error>
-            <label for="name" class="form__label">Password</label>
-          </div>
-          <div class="form__group field col-md-6 mt-5" style="width: 100%;">
-            <select
-              name="Country"
-              [formControl]="CountryForm"
-              id="id_select"
-              autofocus="true"
-              class="form__field with-flag"
-              placeholder="Select Country"
-            >
-              <option  disabled selected  value="">Select Country</option>
-              <option value="Tunisia" class="flag-tunisia">Tunisia</option>
-              <option value="Algeria" class="flag-algeria">Algeria</option>
-            </select>
-            <mat-error *ngIf="CountryForm.invalid && CountryForm.touched">{{getCountryFormError()}}</mat-error>
-          </div>
-
-          <div class="form__group field col-md-6 mt-5" style="width: 100%;">
-            <select
-              name="Role"
-              [formControl]="RoleForm"
-              id="role_select"
-              class="form__field"
-              placeholder="Select Role"
-            >
-              <option disabled selected value="">Select Account Type</option>
-              <option value="student">Student</option>
-              <option value="coach">Coach</option>
-            </select>
-            <mat-error *ngIf="RoleForm.invalid && RoleForm.touched">Please select an account type</mat-error>
-          </div>
-
-          <div *ngIf="selectedRole === 'coach' || RoleForm.value === 'coach'" class="form__group field mt-5" style="width: 100%;">
-            <label class="form__label" style="display: block; margin-bottom: 10px;">Upload Your CV (PDF or Word)</label>
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              (change)="onCvSelected($event)"
-              class="form__field"
-              placeholder="Choose CV file"
-            />
-            <mat-error *ngIf="!cvFile" style="color: red; font-size: 12px; display: block; margin-top: 5px;">CV file is required for coaches</mat-error>
-            <small *ngIf="cvFile" style="color: green; display: block; margin-top: 5px;">✓ {{cvFile.name}} selected</small>
-          </div>
-          <div class="mt-5 text-center">
-            <button class="register btn col-lg-5 mt-2" type="submit">
-              Signup
-            </button>
-          </div>
-          <div class="mt-5 text-center">
-            <a routerLink="/login" class="col-lg-5 mt-2">
-              <h5>Already have an account ?</h5>
-            </a>
-          </div>
-        </form>
+      <!-- Illustration -->
+      <div class="col-lg-5 auth-illustration order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <img src="assets/img/login.png" alt="Sign up illustration" />
       </div>
-      <div
-        class="col-lg-5 order-1 order-lg-2 photo"
-        data-aos="zoom-in"
-        data-aos-delay="200"
-      >
-        <img src="assets/img/login.png" class="img-fluid animated" alt="" />
+
+      <!-- Form -->
+      <div class="col-lg-5 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="form-card">
+          <h1 class="form-title">Create an account</h1>
+          <p class="form-subtitle">Join us today — it's free</p>
+
+          <div *ngIf="isLoading" class="loader"></div>
+
+          <form [formGroup]="SignUpForm" (ngSubmit)="SignUp()">
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <div class="form__group">
+                  <label class="form__label" for="firstName">First Name</label>
+                  <input
+                    type="text"
+                    [formControl]="FirstNameForm"
+                    id="firstName"
+                    class="form__field"
+                    placeholder="John" />
+                  <span class="field-error" *ngIf="FirstNameForm.invalid && FirstNameForm.touched">
+                    {{ getFirstNameFormError() }}
+                  </span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form__group">
+                  <label class="form__label" for="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    [formControl]="LastNameForm"
+                    id="lastName"
+                    class="form__field"
+                    placeholder="Doe" />
+                  <span class="field-error" *ngIf="LastNameForm.invalid && LastNameForm.touched">
+                    {{ getLastNameFormError() }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="phone">Phone Number</label>
+              <input
+                type="tel"
+                [formControl]="NumTlfForm"
+                id="phone"
+                class="form__field"
+                placeholder="+216 XX XXX XXX" />
+              <span class="field-error" *ngIf="NumTlfForm.invalid && NumTlfForm.touched">
+                {{ getNumTlfFormError() }}
+              </span>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="signupEmail">Email Address</label>
+              <input
+                type="email"
+                [formControl]="EmailForm"
+                id="signupEmail"
+                class="form__field"
+                placeholder="you@example.com" />
+              <span class="field-error" *ngIf="EmailForm.invalid && EmailForm.touched">
+                {{ getEmailFormError() }}
+              </span>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="signupPassword">Password</label>
+              <input
+                type="password"
+                [formControl]="passwordForm"
+                id="signupPassword"
+                class="form__field"
+                placeholder="At least 6 characters" />
+              <span class="field-error" *ngIf="passwordForm.invalid && passwordForm.touched">
+                {{ getPasswordFormError() }}
+              </span>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="country">Country</label>
+              <select
+                [formControl]="CountryForm"
+                id="country"
+                class="form__field">
+                <option value="" disabled selected>Select your country</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Algeria">Algeria</option>
+              </select>
+              <span class="field-error" *ngIf="CountryForm.invalid && CountryForm.touched">
+                {{ getCountryFormError() }}
+              </span>
+            </div>
+
+            <button class="btn-form-primary" type="submit">Create Account</button>
+
+            <div class="form-link-row mt-3">
+              Already have an account? <a routerLink="/login">Sign in</a>
+            </div>
+
+          </form>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
-<!-- End Login -->

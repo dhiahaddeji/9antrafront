@@ -1,0 +1,259 @@
+/* ============================================================
+   Global Form Design System
+   ============================================================ */
+
+/* ---- Form group (wrapper per field) ---- */
+.form__group {
+  position: relative;
+  margin-bottom: 18px;
+  padding: 0;
+}
+
+/* ---- Label above input ---- */
+.form__label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  position: static;
+  top: auto;
+  transition: none;
+}
+
+/* ---- Input / Textarea / Select ---- */
+.form__field {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #111827;
+  background: #fff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  line-height: 1.5;
+}
+
+.form__field::placeholder {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.form__field:focus {
+  border-color: #AF3065;
+  box-shadow: 0 0 0 3px rgba(175, 48, 101, 0.12);
+  background: #fff;
+}
+
+.form__field.is-invalid,
+.form__field:invalid:not(:placeholder-shown):not(:focus) {
+  border-color: #ef4444;
+}
+
+/* ---- Textarea ---- */
+textarea.form__field {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* ---- Select ---- */
+select.form__field {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  padding-right: 38px;
+}
+
+/* ---- File input ---- */
+input[type="file"].form__field {
+  padding: 8px 12px;
+  cursor: pointer;
+  background: #f9fafb;
+}
+
+/* ---- Inline field error ---- */
+.field-error {
+  display: block;
+  font-size: 0.78rem;
+  color: #ef4444;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* ---- Form section card (auth pages) ---- */
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.10);
+  padding: 40px 36px;
+}
+
+@media (max-width: 576px) {
+  .form-card {
+    padding: 28px 20px;
+    border-radius: 12px;
+  }
+}
+
+/* ---- Form title ---- */
+.form-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.form-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+/* ---- Primary action button ---- */
+.btn-form-primary {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Jost", sans-serif;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: #AF3065;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 8px;
+}
+
+.btn-form-primary:hover:not(:disabled) {
+  background: #8e2452;
+  transform: translateY(-1px);
+}
+
+.btn-form-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---- Auth page divider ---- */
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: #9ca3af;
+  font-size: 0.82rem;
+}
+
+.form-divider::before,
+.form-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* ---- Social login icons ---- */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid #e5e7eb;
+  color: #374151;
+  font-size: 1.1rem;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  border-color: #AF3065;
+  color: #AF3065;
+  background: rgba(175, 48, 101, 0.06);
+}
+
+/* ---- Auth page links ---- */
+.form-link-row {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.88rem;
+  color: #6b7280;
+}
+
+.form-link-row a {
+  color: #AF3065;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-link-row a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Required asterisk ---- */
+.required {
+  color: #ef4444;
+  margin-left: 2px;
+}
+
+/* ---- Loader spinner ---- */
+.loader {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.loader::after {
+  content: '';
+  width: 28px;
+  height: 28px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #AF3065;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Auth page layout ---- */
+.auth-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 0 60px;
+  background: #f3f4f6;
+}
+
+.auth-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-illustration img {
+  max-width: 420px;
+  width: 100%;
+}

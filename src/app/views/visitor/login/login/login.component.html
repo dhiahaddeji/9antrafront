@@ -1,96 +1,74 @@
-<section
-  id="login"
-  class="login"
-  style="margin-top: 130px; margin-bottom: 100px"
->
+<section class="auth-section">
   <div class="container">
-    <div class="row justify-content-between">
-      <div
-        class="col-lg-5 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <h1 class="text-center">Login to Your Account</h1>
+    <div class="row align-items-center justify-content-center g-5">
 
-        <!-- Social login buttons -->
-        <div class="social-login-btns">
-          <button type="button" class="btn-social btn-google" (click)="loginWithOAuth2('google')">
-            <i class="bi bi-google me-2"></i>Continue with Google
-          </button>
-          <button type="button" class="btn-social btn-github" (click)="loginWithOAuth2('github')">
-            <i class="bi bi-github me-2"></i>Continue with GitHub
-          </button>
-        </div>
+      <!-- Illustration -->
+      <div class="col-lg-5 auth-illustration order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+        <img src="assets/img/login.png" alt="Login illustration" />
+      </div>
 
-        <div class="divider">
-          <span>or sign in with email</span>
-        </div>
+      <!-- Form -->
+      <div class="col-lg-5 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="form-card">
+          <h1 class="form-title">Welcome back</h1>
+          <p class="form-subtitle">Sign in to your account to continue</p>
 
-        <form
-          action=""
-          method="post"
-          #loginForm="ngForm"
-          (ngSubmit)="login(loginForm)"
-          role="form"
-          class="php-email-form"
-        >
-          <div *ngIf="isLoading" class="loader"></div>
-
-          <div class="form__group field">
-            <input
-              [(ngModel)]="email"
-              type="email"
-              name="username"
-              id="email"
-              class="form__field"
-              placeholder="email"
-              required
-            />
-            <label for="email" class="form__label">Email</label>
+          <!-- Social login -->
+          <div class="social-icons">
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
           </div>
 
-          <!-- Display error message for invalid email -->
-          <div class="mt-2 text-center" *ngIf="email && !isValidEmail(email)">
-            <p class="text-danger">Invalid email address</p>
-          </div>
+          <div class="form-divider">or sign in with email</div>
 
-          <div class="form__group field">
-            <input
-              [(ngModel)]="password"
-              name="password"
-              type="password"
-              class="form__field"
-              placeholder="Password"
-              id="password"
-              required
-            />
-            <label for="password" class="form__label">Password</label>
-          </div>
-          <div class="mt-5 text-center">
-            <button class="register btn col-lg-5 mt-2" type="submit" [disabled]="!email || !password || !isValidEmail(email) || isLoading">
-              {{ isLoading ? 'Logging in...' : 'Login' }}
+          <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" role="form">
+            <div *ngIf="isLoading" class="loader"></div>
+
+            <div class="form__group">
+              <label class="form__label" for="email">Email address</label>
+              <input
+                type="email"
+                name="username"
+                id="email"
+                class="form__field"
+                placeholder="you@example.com"
+                [(ngModel)]="email"
+                required />
+              <span class="field-error" *ngIf="email && !isValidEmail(email)">
+                Please enter a valid email address
+              </span>
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="password">Password</label>
+              <input
+                [(ngModel)]="password"
+                name="password"
+                type="password"
+                id="password"
+                class="form__field"
+                placeholder="Enter your password"
+                required />
+            </div>
+
+            <div class="text-end mb-3">
+              <a routerLink="/forgotpassword" class="form-link-row" style="font-size:0.85rem;">Forgot password?</a>
+            </div>
+
+            <button class="btn-form-primary" type="submit"
+              [disabled]="!email || !password || !isValidEmail(email) || isLoading">
+              {{ isLoading ? 'Signing in...' : 'Sign In' }}
             </button>
-          </div>
-          <div class="mt-5 text-center">
-            <a routerLink="/signup" class="col-lg-5 mt-2">
-              <h5>Create an account</h5>
-            </a>
-          </div>
-          <div class="mt-1 text-center">
-            <a routerLink="/forgotpassword" class="col-lg-5 mt-2">
-              <h5>Forgot password ?</h5>
-            </a>
-          </div>
-        </form>
+
+            <div class="form-link-row mt-3">
+              Don't have an account? <a routerLink="/signup">Create one</a>
+            </div>
+          </form>
+        </div>
       </div>
-      <div
-        class="col-lg-5 order-1 order-lg-2 photo"
-        data-aos="zoom-in"
-        data-aos-delay="200"
-      >
-        <img src="assets/img/login.png" class="img-fluid animated" alt="" />
-      </div>
+
     </div>
   </div>
 </section>
-<!-- End Login -->
