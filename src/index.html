@@ -31,9 +31,15 @@
       var global = window;
     </script>
 
-    <!-- jQuery + DataTables must be synchronous — Angular DataTables depends on them at init -->
-    <script src="assets/js1/jquery-3.6.0.min.js"></script>
-    <script src="assets/js1/datatables.min.js"></script>
+    <!-- MDB + Simple Slider: defer so they don't block first paint -->
+    <script defer src="assets/js/mdb.min.js"></script>
+    <script defer src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
+    <script defer src="assets/js/Simple-Slider.js"></script>
+
+    <!-- jQuery + DataTables: deferred so they don't block first paint,
+         but still run before Angular's type="module" scripts -->
+    <script defer src="assets/js1/jquery-3.6.0.min.js"></script>
+    <script defer src="assets/js1/datatables.min.js"></script>
 
     <!-- Deferred: only needed for PDF export, not for initial render -->
     <script defer src="assets/js1/pdfmake.min.js"></script>

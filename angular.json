@@ -22,8 +22,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/projectOwner"
-
+              "src/assets/projectOwner",
+              {
+                "glob": "mdb.min.js",
+                "input": "node_modules/mdb-ui-kit/js",
+                "output": "/assets/js"
+              }
             ],
             "styles": [
               "src/assets/css/font.css",
@@ -41,11 +45,7 @@
               "src/assets/css/Simple-Slider.css",
               "src/assets/css/swiper-icons.css"
             ],
-            "scripts": [
-              "node_modules/mdb-ui-kit/js/mdb.min.js",
-              "src/assets/js/Simple-Slider-swiper-bundle.min.js",
-              "src/assets/js/Simple-Slider.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
