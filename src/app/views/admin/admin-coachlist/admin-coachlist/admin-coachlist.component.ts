@@ -52,6 +52,10 @@ taballusers:any=[]
         console.log(this.tabCoach);
       })
     }
+    updateEnabled(coach: any, value: number) {
+      this.sr.updateEnabeld(value, coach.id).subscribe();
+    }
+
     ngOnInit(): void {
       this.getallCoach()
 

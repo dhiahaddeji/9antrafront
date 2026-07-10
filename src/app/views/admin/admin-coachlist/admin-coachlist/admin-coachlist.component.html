@@ -68,11 +68,18 @@
             </button>
           </td>
 
-          <td *ngIf="x.enabled == 0">
-            <button class="unpaid btn-rounded btn-sm">No</button>
-          </td>
-          <td *ngIf="x.enabled == 1">
-            <button class="paid btn-rounded btn-sm">Yes</button>
+          <td>
+            <select
+              class="enabled-select"
+              [class.enabled-yes]="x.enabled == 1"
+              [class.enabled-no]="x.enabled == 0"
+              [(ngModel)]="x.enabled"
+              (ngModelChange)="updateEnabled(x, $event)"
+              aria-label="Enable or disable coach"
+            >
+              <option [ngValue]="1">Yes</option>
+              <option [ngValue]="0">No</option>
+            </select>
           </td>
         </tr>
       </tbody>
