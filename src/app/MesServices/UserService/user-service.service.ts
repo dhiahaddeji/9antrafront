@@ -11,7 +11,7 @@ import { UserAuthService } from '../user-auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  PATH_OF_API = 'https://9antrabackend-production.up.railway.app';
+  // Use environment configuration instead of hardcoded localhost
   requestHeader = new HttpHeaders({ 'No-Auth': 'True' });
 
   constructor(
@@ -28,7 +28,7 @@ export class UserService {
   }
   public login(loginData: any) {
     console.log('Sending login request with data:', { username: loginData.username });
-    return this.http.post(this.PATH_OF_API + '/api/auth/signin', loginData, {
+    return this.http.post(`${environement.BASE_URL}/auth/signin`, loginData, {
       headers: this.requestHeader,
     });
   }
@@ -69,18 +69,18 @@ export class UserService {
   }
   checkCode(code: any) {
     return this.http.get(
-      this.PATH_OF_API + '/api/resetpassword/checkcode/' + code
+      `${environement.BASE_URL}/resetpassword/checkcode/` + code
     );
   }
   genCode(GenCode: any) {
     return this.http.post(
-      this.PATH_OF_API + '/api/resetpassword/generatecode',
+      `${environement.BASE_URL}/resetpassword/generatecode`,
       GenCode
     );
   }
   changePassword(email: any, password: any) {
     return this.http.patch(
-      this.PATH_OF_API + '/api/resetpassword/updatepassword/' + email,
+      `${environement.BASE_URL}/resetpassword/updatepassword/` + email,
       password
     );
   }
@@ -89,7 +89,7 @@ export class UserService {
     return this.http.get(`${environement.BASE_URL}/user/all`);
   }
   public getUserByid(id: any) {
-    return this.http.get(this.PATH_OF_API + '/api/user/finduserbyid/' + id);
+    return this.http.get(`${environement.BASE_URL}/user/finduserbyid/` + id);
   }
 
   getFormateursOfuser() {
@@ -176,6 +176,14 @@ getTopCourses(): Observable<any[]> {
 
 verifyEmail(email:any){
   return this.http.post(`${environement.BASE_URL}/auth/verify`,email);
+}
+
+getAllStudents(): Observable<any[]> {
+  return this.http.get<any[]>(`${environement.BASE_URL}/user/getAllStudents`);
+}
+
+getAllFormations(): Observable<any[]> {
+  return this.http.get<any[]>(`${environement.BASE_URL}/formation/all`);
 }
 
 }

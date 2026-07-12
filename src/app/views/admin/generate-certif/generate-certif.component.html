@@ -28,50 +28,158 @@
               <div class="card-body">
                 <div class="form-group mb-3">
 
-                  <!-- List of Students -->
+                  <!-- List of Students - Autocomplete Dropdown -->
                   <div class="mb-3 mt-3">
-                    <label for="name">List of Students:</label>
-                    <textarea 
-                      class="form-control" 
-                      rows="6" 
-                      id="name" 
-                      placeholder="List of Students (one per line)"
-                      formControlName="name"
-                      [class.is-invalid]="certifForm.get('name')?.invalid && certifForm.get('name')?.touched">
-                    </textarea>
-                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('name')?.invalid && certifForm.get('name')?.touched">
-                      <div *ngIf="certifForm.get('name')?.errors?.['required']">List of Students is required!</div>
-                      <div *ngIf="certifForm.get('name')?.errors?.['minlength']">List must be at least 3 characters!</div>
+                    <label for="studentSearch">List of Students:</label>
+                    
+                    <!-- Autocomplete Input -->
+                    <div class="position-relative">
+                      <input 
+                        type="text" 
+                        class="form-control" 
+                        id="studentSearch"
+                        placeholder="Search student by name, username, or email..."
+                        [value]="searchInput"
+                        (input)="filterStudents($event)"
+                        (focus)="showDropdown = true"
+                        [class.is-invalid]="certifForm.get('students')?.invalid && certifForm.get('students')?.touched">
+                      
+                      <!-- Loading spinner inside input -->
+                      <div *ngIf="isLoadingStudents" class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+
+                      <!-- Dropdown list -->
+                      <div *ngIf="showDropdown && !isLoadingStudents" class="card position-absolute w-100" style="top: 100%; left: 0; max-height: 300px; overflow-y: auto; z-index: 1000; margin-top: 2px;">
+                        <div class="card-body p-0">
+                          <!-- Empty state -->
+                          <div *ngIf="filteredStudents.length === 0" class="p-3 text-muted">
+                            No students found.
+                          </div>
+
+                          <!-- Student list -->
+                          <div *ngFor="let student of filteredStudents" 
+                               class="p-2" 
+                               style="cursor: pointer; border-bottom: 1px solid #f0f0f0; hover-effect"
+                               (click)="selectStudent(student)"
+                               [style.background-color]="isStudentSelected(student.id) ? '#e9ecef' : 'transparent'">
+                            <div class="d-flex justify-content-between">
+                              <div>
+                                <strong>{{ student.firstName }} {{ student.lastName }}</strong>
+                                <br>
+                                <small class="text-muted">{{ student.username }} | {{ student.email }}</small>
+                              </div>
+                              <div>
+                                <input 
+                                  type="checkbox" 
+                                  class="form-check-input mt-2"
+                                  [checked]="isStudentSelected(student.id)"
+                                  (click)="$event.stopPropagation()">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+
+                    <!-- Selected Students as Tags/Chips -->
+                    <div class="mt-3" *ngIf="selectedStudents.length > 0">
+                      <div class="d-flex flex-wrap gap-2">
+                        <div *ngFor="let student of selectedStudents" class="badge bg-primary p-2" style="font-size: 0.9rem;">
+                          {{ student.firstName }} {{ student.lastName }}
+                          <button 
+                            type="button" 
+                            class="btn-close btn-close-white ms-2"
+                            aria-label="Remove"
+                            (click)="removeStudent(student.id)"
+                            style="padding: 0; margin-left: 0.5rem; display: inline;"></button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Selection count -->
+                    <small class="form-text text-muted mt-2 d-block" *ngIf="selectedStudents.length > 0">
+                      Selected: {{ selectedStudents.length }} student(s)
+                    </small>
                   </div>
 
-                  <!-- Period -->
+                  <!-- Period - Fixed Dropdown -->
                   <div class="mb-3">
                     <label for="periode">Period:</label>
-                    <input 
-                      type="text" 
+                    <select 
                       class="form-control" 
-                      id="periode" 
-                      placeholder="e.g., 2 months, 3 months"
+                      id="periode"
                       formControlName="periode"
                       [class.is-invalid]="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
+                      <option value="" disabled>Select a period</option>
+                      <option *ngFor="let period of predefinedPeriods" [value]="period">
+                        {{ period }}
+                      </option>
+                    </select>
                     <div class="invalid-feedback d-block" *ngIf="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
                       <div *ngIf="certifForm.get('periode')?.errors?.['required']">Period is required!</div>
                     </div>
                   </div>
 
-                  <!-- Formation -->
+                  <!-- Formation - Autocomplete Dropdown -->
                   <div class="mb-3">
-                    <label for="formation">Formation:</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="formation" 
-                      placeholder="e.g., Web Development"
-                      formControlName="formation"
-                      [class.is-invalid]="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
-                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
-                      <div *ngIf="certifForm.get('formation')?.errors?.['required']">Formation is required!</div>
+                    <label for="formationSearch">Formation:</label>
+                    
+                    <!-- Autocomplete Input -->
+                    <div class="position-relative">
+                      <input 
+                        type="text" 
+                        class="form-control" 
+                        id="formationSearch"
+                        placeholder="Search formation by name..."
+                        [value]="formationSearchInput"
+                        (input)="filterFormations($event)"
+                        (focus)="showFormationDropdown = true"
+                        [class.is-invalid]="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
+                      
+                      <!-- Loading spinner inside input -->
+                      <div *ngIf="isLoadingFormations" class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+
+                      <!-- Dropdown list -->
+                      <div *ngIf="showFormationDropdown && !isLoadingFormations" class="card position-absolute w-100" style="top: 100%; left: 0; max-height: 300px; overflow-y: auto; z-index: 1000; margin-top: 2px;">
+                        <div class="card-body p-0">
+                          <!-- Empty state -->
+                          <div *ngIf="filteredFormations.length === 0" class="p-3 text-muted">
+                            No formations found.
+                          </div>
+
+                          <!-- Formation list -->
+                          <div *ngFor="let formation of filteredFormations" 
+                               class="p-2" 
+                               style="cursor: pointer; border-bottom: 1px solid #f0f0f0; hover-effect"
+                               (click)="selectFormation(formation)"
+                               [style.background-color]="selectedFormation?.id === formation.id ? '#e9ecef' : 'transparent'">
+                            <strong>{{ formation.nomFormation }}</strong>
+                            <div *ngIf="selectedFormation?.id === formation.id" class="float-end">
+                              <span class="badge bg-primary">Selected</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Selected Formation -->
+                    <div class="mt-2" *ngIf="selectedFormation">
+                      <div class="badge bg-success p-2">
+                        {{ selectedFormation.nomFormation }}
+                        <button 
+                          type="button" 
+                          class="btn-close btn-close-white ms-2"
+                          aria-label="Remove"
+                          (click)="selectedFormation = null; certifForm.patchValue({ formation: '' })"
+                          style="padding: 0; margin-left: 0.5rem; display: inline;"></button>
+                      </div>
                     </div>
                   </div>
 

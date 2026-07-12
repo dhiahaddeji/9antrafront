@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Certificat } from 'src/app/Models/Certificat';
+import { environement } from 'src/environement/environement.dev';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Certificat } from 'src/app/Models/Certificat';
 export class CertificatService {
 
   constructor(private http: HttpClient) { }
-  private baseUrl = 'https://9antrabackend-production.up.railway.app/api/certif';
+  private baseUrl = `${environement.BASE_URL.replace('/api', '')}/api/certif`;
 
   genererCertificatForGroup(idgroupe: number, month: string, periode: string): Observable<void> {
     const url = `${this.baseUrl}/Generer/${idgroupe}`;

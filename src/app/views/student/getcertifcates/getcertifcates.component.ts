@@ -5,6 +5,7 @@ import { CertificatService } from 'src/app/MesServices/Certificat/certificat.ser
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import { Certificat } from 'src/app/Models/Certificat';
 import { User } from 'src/app/Models/user.model';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-getcertifcates',
@@ -56,7 +57,16 @@ export class GetcertifcatesComponent implements OnInit {
   }
 
   getSafeUrl(path: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl('assets/' + path);
+    // path is like: "Certifications/Grafana June 2026 4649761/test test.pdf"
+    // Call API endpoint to serve the PDF from the uploads folder
+    const apiUrl = `${environement.BASE_URL.replace('/api', '')}/api/uploads/Certifications?path=${encodeURIComponent(path)}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(apiUrl);
+  }
+
+  getDownloadUrl(path: string): string {
+    // path is like: "Certifications/Grafana June 2026 4649761/test test.pdf"
+    // Return the download URL
+    return `${environement.BASE_URL.replace('/api', '')}/api/uploads/Certifications?path=${encodeURIComponent(path)}`;
   }
 
   selectCertificate(cert: Certificat): void {

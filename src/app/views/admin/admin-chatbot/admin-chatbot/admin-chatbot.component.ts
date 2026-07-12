@@ -23,7 +23,7 @@ export class AdminChatbotComponent implements OnInit {
   // Which cards are expanded
   expanded: boolean[] = [];
 
-  isLoading = false;
+  isLoading: boolean = false;
 
   constructor(private chatbotService: ChatbotService) {}
 

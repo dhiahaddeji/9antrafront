@@ -94,7 +94,7 @@
             <i class="bi bi-eye me-2"></i>Certificate Preview
             <a
               *ngIf="selectedCertificate"
-              [href]="getSafeUrl(selectedCertificate.path)"
+              [href]="getDownloadUrl(selectedCertificate.path)"
               download
               class="download-btn ms-auto"
             >

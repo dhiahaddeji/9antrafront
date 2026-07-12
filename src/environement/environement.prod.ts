@@ -1,7 +1,7 @@
 export const environement = {
-  BASE_URL: 'http://localhost:8094/api',
-  websocketUrl: 'http://localhost:8094/ws',
-  production: false,
+  BASE_URL: 'https://9antrabackend-production.up.railway.app/api',
+  websocketUrl: 'https://9antrabackend-production.up.railway.app/ws',
+  production: true,
   firebase: {
     apiKey: "YOUR_FIREBASE_API_KEY",
     authDomain: "elearning-groups-chat.firebaseapp.com",

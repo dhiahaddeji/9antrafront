@@ -31,7 +31,7 @@
   <!-- Stats -->
   <div class="stats-row mb-4">
     <div class="stat-card">
-      <span class="stat-number">{{ unmatched?.length || 0 }}</span>
+      <span class="stat-number">{{ unmatched.length || 0 }}</span>
       <span class="stat-label">Unmatched Questions</span>
     </div>
   </div>
@@ -41,7 +41,7 @@
     <h2 class="section-title">
       <i class="bi bi-question-circle me-2"></i>Unmatched Questions
     </h2>
-    <button type="button" class="btn-delete-all" *ngIf="unmatched?.length > 0"
+    <button type="button" class="btn-delete-all" *ngIf="unmatched.length > 0"
       data-bs-toggle="modal" data-bs-target="#deleteAllModal"
       title="Delete all unmatched questions">
       <i class="bi bi-trash3 me-1"></i>Clear all
@@ -55,14 +55,14 @@
   </div>
 
   <!-- Empty state -->
-  <div class="empty-state" *ngIf="!isLoading && unmatched?.length === 0">
+  <div class="empty-state" *ngIf="!isLoading && unmatched.length === 0">
     <i class="bi bi-chat-square-check empty-icon"></i>
     <h3>All caught up!</h3>
     <p>No unmatched questions right now. The bot is handling everything.</p>
   </div>
 
   <!-- Question cards -->
-  <div class="question-list" *ngIf="!isLoading && unmatched?.length > 0">
+  <div class="question-list" *ngIf="!isLoading && unmatched.length > 0">
     <div class="question-card" *ngFor="let item of unmatched; let i = index">
 
       <div class="question-card__header" (click)="toggle(i)">
@@ -94,7 +94,7 @@
           ></textarea>
           <div class="d-flex justify-content-end mt-2">
             <button type="button" class="btn-teach"
-              [disabled]="!answers[item['question']]?.trim()"
+              [disabled]="!(answers[item['question']] && answers[item['question']].trim())"
               (click)="teach(item['question'])">
               <i class="bi bi-robot me-2"></i>Teach Bot
             </button>
@@ -175,7 +175,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete <strong>all {{ unmatched?.length }} unmatched questions</strong>? This cannot be undone.</p>
+        <p>Are you sure you want to delete <strong>all {{ unmatched.length }} unmatched questions</strong>? This cannot be undone.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

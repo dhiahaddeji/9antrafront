@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
+import { UserService } from 'src/app/MesServices/UserService/user-service.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-generate-certif',
@@ -12,10 +14,29 @@ export class GenerateCertifComponent implements OnInit {
   showThankYouPopup: boolean = false;
   isLoading: boolean = false;
   errorMessage: string = '';
+  
+  // Predefined periods
+  predefinedPeriods: string[] = ['1 month', '2 months', '3 months', '4 months', '5 months', '6 months', '1 year'];
+  
+  students: any[] = [];
+  allStudents: any[] = [];
+  filteredStudents: any[] = [];
+  selectedStudents: any[] = [];
+  isLoadingStudents: boolean = false;
+  searchInput: string = '';
+  showDropdown: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  formations: any[] = [];
+  allFormations: any[] = [];
+  filteredFormations: any[] = [];
+  selectedFormation: any = null;
+  isLoadingFormations: boolean = false;
+  formationSearchInput: string = '';
+  showFormationDropdown: boolean = false;
+
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.certifForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      students: ['', Validators.required],
       periode: ['', Validators.required],
       formation: ['', Validators.required],
       month: ['', Validators.required],
@@ -24,15 +45,145 @@ export class GenerateCertifComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadStudents();
+    this.loadFormations();
+  }
+
+  loadStudents(): void {
+    this.isLoadingStudents = true;
+    this.userService.getAllStudents().subscribe(
+      (res: any[]) => {
+        this.allStudents = res;
+        this.filteredStudents = res;
+        this.isLoadingStudents = false;
+        console.log('Students loaded:', this.allStudents);
+      },
+      (err: any) => {
+        console.error('Error loading students:', err);
+        this.isLoadingStudents = false;
+        this.errorMessage = 'Failed to load students from database';
+      }
+    );
+  }
+
+  loadFormations(): void {
+    this.isLoadingFormations = true;
+    this.userService.getAllFormations().subscribe(
+      (res: any[]) => {
+        this.allFormations = res;
+        this.filteredFormations = res;
+        this.isLoadingFormations = false;
+        console.log('Formations loaded:', this.allFormations);
+      },
+      (err: any) => {
+        console.error('Error loading formations:', err);
+        this.isLoadingFormations = false;
+        this.errorMessage = 'Failed to load formations from database';
+      }
+    );
+  }
+
+  filterStudents(event: any): void {
+    const searchTerm = (event.target.value || '').toLowerCase().trim();
+    this.searchInput = searchTerm;
+    
+    if (searchTerm === '') {
+      this.filteredStudents = this.allStudents;
+    } else {
+      this.filteredStudents = this.allStudents.filter(student => 
+        `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm) ||
+        student.username.toLowerCase().includes(searchTerm) ||
+        student.email.toLowerCase().includes(searchTerm)
+      );
+    }
+    this.showDropdown = true;
+  }
+
+  selectStudent(student: any): void {
+    // Check if already selected
+    if (!this.selectedStudents.find(s => s.id === student.id)) {
+      this.selectedStudents.push(student);
+    }
+    
+    // Update form control with a marker value
+    this.certifForm.patchValue({ students: 'selected' });
+    
+    // Clear input and hide dropdown
+    this.searchInput = '';
+    this.filteredStudents = this.allStudents;
+    this.showDropdown = false;
+  }
+
+  removeStudent(studentId: number): void {
+    this.selectedStudents = this.selectedStudents.filter(s => s.id !== studentId);
+    
+    // Clear form control if no students selected
+    if (this.selectedStudents.length === 0) {
+      this.certifForm.patchValue({ students: '' });
+    }
+  }
+
+  isStudentSelected(studentId: number): boolean {
+    return this.selectedStudents.some(s => s.id === studentId);
+  }
+
+  toggleDropdown(): void {
+    this.showDropdown = !this.showDropdown;
+    if (this.showDropdown) {
+      this.filteredStudents = this.allStudents;
+    }
+  }
+
+  closeDropdown(): void {
+    this.showDropdown = false;
+  }
+
+  // Formation filter methods
+  filterFormations(event: any): void {
+    const searchTerm = (event.target.value || '').toLowerCase().trim();
+    this.formationSearchInput = searchTerm;
+    
+    if (searchTerm === '') {
+      this.filteredFormations = this.allFormations;
+    } else {
+      this.filteredFormations = this.allFormations.filter(formation => 
+        formation.nomFormation.toLowerCase().includes(searchTerm)
+      );
+    }
+    this.showFormationDropdown = true;
+  }
+
+  selectFormation(formation: any): void {
+    this.selectedFormation = formation;
+    
+    // Update form value with a marker
+    this.certifForm.patchValue({ formation: 'selected' });
+    
+    // Clear input and hide dropdown
+    this.formationSearchInput = '';
+    this.filteredFormations = this.allFormations;
+    this.showFormationDropdown = false;
+  }
+
+  toggleFormationDropdown(): void {
+    this.showFormationDropdown = !this.showFormationDropdown;
+    if (this.showFormationDropdown) {
+      this.filteredFormations = this.allFormations;
+    }
+  }
+
+  closeFormationDropdown(): void {
+    this.showFormationDropdown = false;
   }
 
   liste(): void {
     console.log('Form valid:', this.certifForm.valid);
-    console.log('Form value:', this.certifForm.value);
+    console.log('Selected Students:', this.selectedStudents);
+    console.log('Selected Formation:', this.selectedFormation);
 
-    if (!this.certifForm.valid) {
-      console.warn('Form is invalid');
-      this.errorMessage = 'Please fill in all required fields';
+    if (!this.certifForm.valid || this.selectedStudents.length === 0 || !this.selectedFormation) {
+      console.warn('Form is invalid, no students selected, or no formation selected');
+      this.errorMessage = 'Please select at least one student and a formation';
       return;
     }
 
@@ -51,21 +202,29 @@ export class GenerateCertifComponent implements OnInit {
       value_date = dd + '/' + mm + '/' + yyyy;
     }
 
+    // Create student list as usernames/emails
+    const studentNames = this.selectedStudents
+      .map(student => student.username)
+      .join('\n');
+
     const article = {
-      liste: formValue.name,
+      liste: studentNames,
       periode: formValue.periode,
-      nom_formation: formValue.formation,
+      nom_formation: this.selectedFormation.nomFormation,
       month: formValue.month,
       date: value_date
     };
 
     console.log('Sending data:', article);
 
-    axios.post("https://9antrabackend-production.up.railway.app/api/certif/Generer", article)
+    const backendUrl = environement.BASE_URL.replace('/api', '');
+    axios.post(`${backendUrl}/api/certif/Generer`, article)
       .then(res => {
         console.log('Certificate generated:', res.data);
         this.showThankYouPopup = true;
         this.certifForm.reset();
+        this.selectedStudents = [];
+        this.selectedFormation = null;
         
         // Hide popup after 3 seconds
         setTimeout(() => {
