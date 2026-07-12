@@ -41,7 +41,7 @@
     <h2 class="section-title">
       <i class="bi bi-question-circle me-2"></i>Unmatched Questions
     </h2>
-    <button type="button" class="btn-delete-all" *ngIf="unmatched?.length > 0"
+    <button type="button" class="btn-delete-all" *ngIf="unmatched.length > 0"
       data-bs-toggle="modal" data-bs-target="#deleteAllModal"
       title="Delete all unmatched questions">
       <i class="bi bi-trash3 me-1"></i>Clear all
@@ -62,7 +62,7 @@
   </div>
 
   <!-- Question cards -->
-  <div class="question-list" *ngIf="!isLoading && unmatched?.length > 0">
+  <div class="question-list" *ngIf="!isLoading && unmatched.length > 0">
     <div class="question-card" *ngFor="let item of unmatched; let i = index">
 
       <div class="question-card__header" (click)="toggle(i)">
