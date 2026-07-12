@@ -62,5 +62,30 @@
     <!-- Tailwind CSS — non-blocking -->
     <link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet" /></noscript>
+
+    <!-- Google Translate: hidden widget + programmatic switcher -->
+    <div id="google_translate_element" class="gt-hidden-widget"></div>
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'fr,ar',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+      function setLang(lang) {
+        if (lang === 'en') {
+          document.cookie = 'googtrans=; path=/; expires=Thu,01 Jan 1970 00:00:00 GMT';
+          document.cookie = 'googtrans=; path=/; domain=.' + window.location.hostname + '; expires=Thu,01 Jan 1970 00:00:00 GMT';
+          window.location.reload();
+          return;
+        }
+        var select = document.querySelector('#google_translate_element select');
+        if (!select) { setTimeout(function() { setLang(lang); }, 300); return; }
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+      }
+    </script>
+    <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>

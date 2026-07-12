@@ -5,12 +5,14 @@ import { RouterModule } from '@angular/router';
 import { NavBarRoutingModule } from './nav-bar-routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NotificationModule } from '../notification/notification.module';
+import { LanguageToggleComponent } from './language-toggle/language-toggle.component';
 
 
 
 @NgModule({
   declarations: [
-    NavBarComponent
+    NavBarComponent,
+    LanguageToggleComponent
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,6 @@ import { NotificationModule } from '../notification/notification.module';
     RouterModule,
     NotificationModule
   ],
-  exports:[NavBarComponent]
+  exports:[NavBarComponent, LanguageToggleComponent]
 })
 export class NavBarModule { }
