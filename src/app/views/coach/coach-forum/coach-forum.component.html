@@ -4,23 +4,21 @@
     <div class="row g-0">
       <div class="col-12 col-lg-12 col-xl-12">
         <div class="py-2 px-4 border-bottom">
-          <div class="d-flex align-items-center py-1">
+          <div class="d-flex align-items-center py-1 gap-2">
             <div class="position-relative">
               <img src="../../../../assets/img/forum.jpg" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
             </div>
-            <div class="" style="margin-right: 50px;">
+            <div class="" style="margin-right: 12px;">
               <strong>Forum</strong>
               <div class="text-muted small"><em>Typing...</em></div>
             </div>
-            <div class="search mt-xs-3" style="width: 100%;">
-              <input [(ngModel)]="search" (input)="getForum()" type="text" class="form-control" placeholder="SEARCH SUBJECT..." style="max-width: 80%;min-width: auto;border-radius: 10px;">
+            <div class="search mt-xs-3 flex-grow-1">
+              <input [(ngModel)]="search" (input)="getForum()" type="text" class="form-control" placeholder="SEARCH SUBJECT..." style="border-radius: 10px;">
             </div>
+            <button class="btn btn-primary ms-2 flex-shrink-0" type="button" data-bs-toggle="modal" data-bs-target="#modalPost">Post</button>
           </div>
         </div>
-        <div class="add" style="position: relative;">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPost" style="position: absolute;top: 10px; right: 30px;margin-bottom: 5px;">Post</button>
-        </div>
-        <div class="position-relative" style="height: 70vh; overflow-y: scroll; margin-left: 10px;margin-top: 50px;" #scrollRef>
+        <div class="position-relative" style="height: 70vh; overflow-y: scroll; margin-left: 10px;margin-top: 10px;" #scrollRef>
           <ng-container *ngIf="forums.length>0">
             <div class="post mt-4" style="padding: 10px; width: 100%; overflow-x: hidden;cursor: pointer;" *ngFor="let post of forums" routerLink="/coach/forum/{{post.id}}">
               <div class="row" style="width: 100%;">
