@@ -51,12 +51,14 @@ export class GenerateCertifComponent implements OnInit {
 
   loadStudents(): void {
     this.isLoadingStudents = true;
-    this.userService.getAllStudents().subscribe(
-      (res: any[]) => {
-        this.allStudents = res;
-        this.filteredStudents = res;
+    this.userService.getAllUsers().subscribe(
+      (res: any) => {
+        const students = (res as any[]).filter(
+          (u: any) => u.roles?.some((r: any) => r.name === 'ETUDIANT') && u.enabled === 1
+        );
+        this.allStudents = students;
+        this.filteredStudents = students;
         this.isLoadingStudents = false;
-        console.log('Students loaded:', this.allStudents);
       },
       (err: any) => {
         console.error('Error loading students:', err);
