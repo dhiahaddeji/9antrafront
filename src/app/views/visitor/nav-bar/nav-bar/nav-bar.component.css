@@ -594,3 +594,16 @@ a.dropdown-item {
     padding: 7px 14px 7px 52px;
   }
 }
+
+/* ── Mobile language toggle row ── */
+.mobile-lang-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+.mobile-lang-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b7280;
+}

@@ -47,8 +47,6 @@
 /* ── Panel ────────────────────────────────────────────────────── */
 .notif-panel {
   position: fixed;
-  top: 60px;
-  left: 5px;
   width: 380px;
   max-height: 520px;
   background: #fff;
@@ -62,9 +60,7 @@
 
 @media (max-width: 480px) {
   .notif-panel {
-    left: 8px;
-    right: 8px;
-    width: auto;
+    width: 320px;
   }
 }
 

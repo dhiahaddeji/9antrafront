@@ -24,6 +24,9 @@
           <span class="profile-name d-block">{{username}}</span>
         </div>
       </a>
+      <div class="sidebar-lang-wrap">
+        <app-lang-toggle></app-lang-toggle>
+      </div>
     </div>
 
     <!-- Scrollable nav links -->
@@ -222,7 +225,7 @@
         <span>ChatBot</span>
       </a>
 
-      <p class="nav-section-label" style="margin-top:8px;">Account</p>
+      <p class="nav-section-label nav-section-label--account">Account</p>
 
       <button class="nav-item-link nav-logout" (click)="logout()" type="button">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>

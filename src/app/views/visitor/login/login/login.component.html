@@ -13,15 +13,17 @@
           <h1 class="form-title">Welcome back</h1>
           <p class="form-subtitle">Sign in to your account to continue</p>
 
-          <!-- Social login -->
-          <div class="social-icons">
-            <a href="#" (click)="loginWithOAuth2('google'); $event.preventDefault()" aria-label="Google" title="Login with Google"><i class="bi bi-google"></i></a>
-            <a href="#" (click)="loginWithOAuth2('github'); $event.preventDefault()" aria-label="GitHub" title="Login with GitHub"><i class="bi bi-github"></i></a>
-            <a href="#" (click)="loginWithOAuth2('facebook'); $event.preventDefault()" aria-label="Facebook" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <!-- OAuth login -->
+          <div class="social-login-btns">
+            <button type="button" class="btn-social btn-google" (click)="loginWithOAuth2('google')">
+              <i class="bi bi-google me-2"></i>Continue with Google
+            </button>
+            <button type="button" class="btn-social btn-github" (click)="loginWithOAuth2('github')">
+              <i class="bi bi-github me-2"></i>Continue with GitHub
+            </button>
           </div>
 
-          <div class="form-divider">or sign in with email</div>
+          <div class="divider"><span>or sign in with email</span></div>
 
           <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" role="form">
             <div *ngIf="isLoading" class="loader"></div>
@@ -54,7 +56,7 @@
             </div>
 
             <div class="text-end mb-3">
-              <a routerLink="/forgotpassword" class="form-link-row" style="font-size:0.85rem;">Forgot password?</a>
+              <a routerLink="/forgotpassword" class="form-link-row forgot-link">Forgot password?</a>
             </div>
 
             <button class="btn-form-primary" type="submit"

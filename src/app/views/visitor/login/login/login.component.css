@@ -1,1 +1,58 @@
 /* Styles handled globally in styles/forms.css */
+
+.forgot-link { font-size: 0.85rem; }
+
+/* ── OAuth buttons ── */
+.social-login-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.btn-social:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn-google {
+  background: #fff;
+  color: #333;
+  border: 1.5px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.btn-google:hover { border-color: #bbb; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+.btn-github {
+  background: #24292e;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.btn-github:hover { background: #1b1f23; }
+
+/* ── OR divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #aaa;
+  font-size: 13px;
+}
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}
+.divider span { padding: 0 12px; white-space: nowrap; }

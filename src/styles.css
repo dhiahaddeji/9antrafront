@@ -2,6 +2,18 @@
 @import "styles/custom-styles.css";
 @import "styles/forms.css";
 
+/* ── Google Translate: hide injected toolbar & prevent body shift ── */
+.gt-hidden-widget { display: none !important; visibility: hidden; position: absolute; top: -9999px; left: -9999px; }
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+.goog-tooltip,
+.goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+#goog-gt-tt,
+.goog-te-balloon-frame { display: none !important; }
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf { display: none !important; }
+
 html,
 body {
   height: 100%;

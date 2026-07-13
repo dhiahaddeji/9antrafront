@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NotificationService } from 'src/app/MesServices/Notification/notification.service';
 import { StompService } from 'src/app/MesServices/StompService/stomp.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
@@ -12,6 +12,11 @@ export class NotificationComponent implements OnInit{
   notifications: any;
   notificationsNotSeen: any[] = [];
   isOpen = false;
+  panelTop = '0px';
+  panelLeft = 'auto';
+  panelRight = 'auto';
+
+  @ViewChild('notifWrapper') notifWrapper!: ElementRef;
 
   constructor(
     private authService: UserAuthService,
@@ -29,7 +34,30 @@ export class NotificationComponent implements OnInit{
 
   toggleDropdown(): void {
     this.isOpen = !this.isOpen;
-    if (this.isOpen) this.changeStatus();
+    if (this.isOpen) {
+      this.changeStatus();
+      this.positionPanel();
+    }
+  }
+
+  private positionPanel(): void {
+    const rect = this.notifWrapper.nativeElement.getBoundingClientRect();
+    const panelWidth = window.innerWidth <= 480 ? 320 : 380;
+    this.panelTop = (rect.bottom + 8) + 'px';
+    if (rect.left < window.innerWidth / 2) {
+      // Bell is in the left half (sidebar) — open panel to the right
+      this.panelLeft = Math.min(rect.left, window.innerWidth - panelWidth - 8) + 'px';
+      this.panelRight = 'auto';
+    } else {
+      // Bell is in the right half (navbar) — open panel aligned to bell's right edge
+      this.panelLeft = 'auto';
+      this.panelRight = Math.max(window.innerWidth - rect.right, 8) + 'px';
+    }
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (this.isOpen) this.positionPanel();
   }
   ngOnInit(): void {
     this.getAll();

@@ -1,0 +1,32 @@
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 3px 4px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.lang-btn:hover {
+  background: rgba(175, 48, 101, 0.12);
+  color: #AF3065;
+}
+
+.lang-btn.active {
+  background: #AF3065;
+  color: #fff;
+}

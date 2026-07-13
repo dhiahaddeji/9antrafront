@@ -18,7 +18,7 @@ export class HackerspaceSectionComponent implements OnInit {
     email: 'contact@9antra.tn',
     phone: '',
     photo: null,
-    localPhoto: 'assets/hackerspace/level1.avif',
+    localPhoto: null,
     location: 'https://www.google.com/maps/place/LEVEL+1/data=!4m2!3m1!1s0x0:0x80f3289b8fdbecd6?sa=X&ved=1t:2428&ictx=111',
   };
 
@@ -27,7 +27,7 @@ export class HackerspaceSectionComponent implements OnInit {
       (data: any) => {
         const apiItems = (Array.isArray(data) ? data : []).map((h: any) => ({
           ...h,
-          localPhoto: h.photo ? environement.BASE_URL + '/uploads/Documents/' + h.photo : null,
+          localPhoto: h.photo ? environement.BASE_URL.replace('/api', '') + '/uploads/Documents/' + h.photo : null,
         }));
         this.hackerspaces = apiItems;
         if (!this.hackerspaces.some((h: any) => h.region === 'Tunis Lac 1')) {

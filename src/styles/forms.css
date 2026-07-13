@@ -232,6 +232,7 @@ input[type="file"].form__field {
   border-top-color: #AF3065;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
+  will-change: transform;
 }
 
 @keyframes spin {

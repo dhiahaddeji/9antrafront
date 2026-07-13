@@ -10,7 +10,7 @@
     </span>
   </button>
 
-  <div class="notif-panel" *ngIf="isOpen">
+  <div class="notif-panel" *ngIf="isOpen" [style.top]="panelTop" [style.left]="panelLeft" [style.right]="panelRight">
     <div class="notif-panel-header">
       <h2 class="notif-panel-title">Notifications</h2>
       <button

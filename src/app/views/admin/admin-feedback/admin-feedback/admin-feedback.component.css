@@ -106,6 +106,18 @@ main {
   height: 100px;
 }
 .custom-icon-position {
-  /* Adjust the margin-left value as per your requirement */
   margin-left: 10px;
+}
+.feedback-menu-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.feedback-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 1050;
+  min-width: 160px;
 }
