@@ -179,7 +179,7 @@ verifyEmail(email:any){
 }
 
 getAllStudents(): Observable<any[]> {
-  return this.http.get<any[]>(`${environement.BASE_URL}/user/getAllStudents`);
+  return this.http.get<any[]>(`${environement.BASE_URL}/groups/all-students`);
 }
 
 getAllFormations(): Observable<any[]> {
