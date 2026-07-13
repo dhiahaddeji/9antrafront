@@ -27,7 +27,7 @@ export class HackerspaceSectionComponent implements OnInit {
       (data: any) => {
         const apiItems = (Array.isArray(data) ? data : []).map((h: any) => ({
           ...h,
-          localPhoto: h.photo ? environement.BASE_URL + '/uploads/Documents/' + h.photo : null,
+          localPhoto: h.photo ? environement.BASE_URL.replace('/api', '') + '/uploads/Documents/' + h.photo : null,
         }));
         this.hackerspaces = apiItems;
         if (!this.hackerspaces.some((h: any) => h.region === 'Tunis Lac 1')) {

@@ -14,7 +14,7 @@ const STATIC_HACKERSPACES: { [key: string]: any } = {
     phone: '+216 71 000 000',
     description: 'Notre Hackerspace LEVEL 1 à Tunis Lac 1 est un espace collaboratif dédié à l\'innovation technologique et à l\'apprentissage. Venez nous rejoindre et démarrez votre parcours!',
     mapsUrl: 'https://www.google.com/maps/place/LEVEL+1/data=!4m2!3m1!1s0x0:0x80f3289b8fdbecd6?sa=X&ved=1t:2428&ictx=111',
-    photoSrc: 'assets/hackerspace/level1.avif',
+    photoSrc: null,
   }
 };
 
@@ -83,7 +83,7 @@ export class HackerspaceComponent implements OnInit {
         this.description = res.description  || fallback.description || '';
         this.mapsUrl     = res.location     || fallback.mapsUrl     || '';
         this.photoSrc    = res.photo
-          ? environement.BASE_URL + '/uploads/Documents/' + res.photo
+          ? environement.BASE_URL.replace('/api', '') + '/uploads/Documents/' + res.photo
           : (fallback.photoSrc || '');
       }, () => { /* fallback already applied above */ });
   }
