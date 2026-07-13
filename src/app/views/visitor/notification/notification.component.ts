@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NotificationService } from 'src/app/MesServices/Notification/notification.service';
 import { StompService } from 'src/app/MesServices/StompService/stomp.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
@@ -12,6 +12,10 @@ export class NotificationComponent implements OnInit{
   notifications: any;
   notificationsNotSeen: any[] = [];
   isOpen = false;
+  panelTop = '0px';
+  panelRight = '0px';
+
+  @ViewChild('notifWrapper') notifWrapper!: ElementRef;
 
   constructor(
     private authService: UserAuthService,
@@ -29,7 +33,21 @@ export class NotificationComponent implements OnInit{
 
   toggleDropdown(): void {
     this.isOpen = !this.isOpen;
-    if (this.isOpen) this.changeStatus();
+    if (this.isOpen) {
+      this.changeStatus();
+      const rect = this.notifWrapper.nativeElement.getBoundingClientRect();
+      this.panelTop = (rect.bottom + 8) + 'px';
+      this.panelRight = (window.innerWidth - rect.right) + 'px';
+    }
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (this.isOpen) {
+      const rect = this.notifWrapper.nativeElement.getBoundingClientRect();
+      this.panelTop = (rect.bottom + 8) + 'px';
+      this.panelRight = (window.innerWidth - rect.right) + 'px';
+    }
   }
   ngOnInit(): void {
     this.getAll();
