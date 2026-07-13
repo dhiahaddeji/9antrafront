@@ -106,15 +106,6 @@
 .sidebar-notif ::ng-deep .notification-button i { font-size: 20px !important; color: #555; }
 .sidebar-notif ::ng-deep .notification-button:hover i { color: #AF3065; }
 
-/* Dropdown must escape sidebar — force fixed positioning below sidebar header */
-.sidebar-notif ::ng-deep .dropdown-menu {
-  position: fixed !important;
-  top: 60px !important;
-  left: 5px !important;
-  right: auto !important;
-  transform: none !important;
-  z-index: 9999 !important;
-}
 
 /* ─── Profile block ───────────────────────────────────────────────────── */
 .nav-profile {
