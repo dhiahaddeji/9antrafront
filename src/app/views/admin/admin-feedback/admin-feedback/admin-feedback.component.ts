@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FeedbackService } from 'src/app/MesServices/Feedback/feedback.service';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,6 +11,8 @@ import Swal from 'sweetalert2';
 export class AdminFeedbackComponent implements OnInit {
   tabFeedback: any = [];
   tabStudent: any = [];
+  baseUrl = environement.BASE_URL.replace('/api', '');
+  openDropdownId: number | null = null;
   constructor(private fs: FeedbackService) {}
 
   getAllFeedbacks() {
@@ -39,9 +42,20 @@ export class AdminFeedbackComponent implements OnInit {
   }
 
   updateFeedback(id: any) {
+    this.openDropdownId = null;
     this.fs.updateFeedback(id).subscribe((data) => {
       this.getAllFeedbacks();
     });
+  }
+
+  toggleDropdown(id: number, event: MouseEvent): void {
+    event.stopPropagation();
+    this.openDropdownId = this.openDropdownId === id ? null : id;
+  }
+
+  @HostListener('document:click')
+  closeDropdown(): void {
+    this.openDropdownId = null;
   }
 
   ngOnInit(): void {

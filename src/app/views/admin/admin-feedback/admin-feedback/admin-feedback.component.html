@@ -17,69 +17,48 @@
       <li></li>
       <div class="col-lg-4 col-md-6" *ngFor="let i of tabFeedback">
         <div class="card shadow-sm mb-4">
-          <div class="row mt-4 mx-2">
-            <a class="nav-profile d-flex align-items-center">
-              <img
-                src="/assets/Documents/{{ i.user.image }}"
-                alt="Profile"
-                width="50px"
-                height="50px"
-                class="rounded-circle"
-              />
-              <span class="ps-4 fw-bold"
-                >{{ i.user.firstName }} {{ i.user.lastName }}</span
+          <div class="d-flex align-items-center mt-4 mx-2">
+            <img
+              [src]="i.user?.image ? baseUrl + '/uploads/Documents/' + i.user.image : 'assets/img/9ant.png'"
+              alt="Profile"
+              width="50px"
+              height="50px"
+              class="rounded-circle"
+              onerror="this.src='assets/img/9ant.png';"
+            />
+            <span class="ps-3 fw-bold">{{ i.user.firstName }} {{ i.user.lastName }}</span>
+            <span class="ms-auto position-relative">
+              <button
+                type="button"
+                title="Feedback options"
+                class="feedback-menu-btn"
+                (click)="toggleDropdown(i.id, $event)"
               >
-              <span class="ps-4">
-                <div class="filter">
-                  <button
-                    class="icon custom-icon-position"
-                    href="#"
-                    data-bs-toggle="dropdown"
-                    style="border: none; background-color: #ffffff00"
-                  >
-                    <i class="bi bi-three-dots-vertical"></i>
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul *ngIf="openDropdownId === i.id" class="dropdown-menu show feedback-dropdown">
+                <li *ngIf="i.posted == true">
+                  <button type="button" (click)="updateFeedback(i.id)" class="dropdown-item">
+                    <i class="bi bi-eye-slash me-2"></i>Unpublish
                   </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                  >
-                    <li class="dropdown-header text-start"></li>
-
-                    <li *ngIf="i.posted == true">
-                      <button
-                        (click)="updateFeedback(i.id)"
-                        class="dropdown-item"
-                        href="#"
-                      >
-                        <span><i class="bi bi-eye me-3"></i> </span>Unpublich
-                      </button>
-                    </li>
-                    <li *ngIf="i.posted == false">
-                      <button
-                        (click)="updateFeedback(i.id)"
-                        class="dropdown-item"
-                        href="#"
-                      >
-                        <span><i class="bi bi-eye me-3"></i> </span>Publich
-                      </button>
-                    </li>
-
-                    <li>
-                      <button
-                        class="dropdown-item text-danger"
-                        (click)="deleteFeedback(i.id)"
-                      >
-                        <span
-                          ><i class="fa-regular fa-trash-can me-3"></i> </span
-                        >Delete
-                      </button>
-                    </li>
-                  </ul>
-                </div></span
-              >
-            </a>
-
-            <p class="mt-3 text-secondary">Add in {{ i.createdAt | date }}</p>
-            <p class="mt-1 text-secondary">
+                </li>
+                <li *ngIf="i.posted == false">
+                  <button type="button" (click)="updateFeedback(i.id)" class="dropdown-item">
+                    <i class="bi bi-eye me-2"></i>Publish
+                  </button>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <button type="button" (click)="deleteFeedback(i.id)" class="dropdown-item text-danger">
+                    <i class="fa-regular fa-trash-can me-2"></i>Delete
+                  </button>
+                </li>
+              </ul>
+            </span>
+          </div>
+          <div class="mx-3 mt-2">
+            <p class="mb-1 text-secondary small">Added {{ i.createdAt | date }}</p>
+            <p class="mb-0 text-secondary small">
               Rating: <span [innerHTML]="generateStarHTML(i.rating)"></span>
             </p>
           </div>

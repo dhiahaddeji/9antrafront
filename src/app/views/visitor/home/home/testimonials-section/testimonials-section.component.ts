@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedbackService } from 'src/app/MesServices/Feedback/feedback.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-testimonials-section',
@@ -9,8 +10,9 @@ import { FeedbackService } from 'src/app/MesServices/Feedback/feedback.service';
 export class TestimonialsSectionComponent implements OnInit {
   data: any = [];
   currentTestimonialIndex = 0;
+  baseUrl = environement.BASE_URL.replace('/api', '');
 
-  isDataLoaded = false; //
+  isDataLoaded = false;
   tabCoachChunks: any[] = [];
   constructor(private fs: FeedbackService) {}
   generateStarHTML(rating: number): string {
