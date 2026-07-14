@@ -23,12 +23,7 @@
               <div class="col-6 d-flex align-items-center justify-content-end"><div class="file  btn-lg fs-6 fw-bold" style="position: relative;
                   overflow: hidden; background-color: #AF3065; color: #ffffff; border-radius: 10px;">
                   <span><i class="bi bi-cloud-plus-fill"></i></span> Add New
-                  <input type="file" name="file" (change)="onFileChange($event)" style="  position: absolute;
-
-                  opacity: 0;
-                  right: 0;
-                  top: 0;"
-                  />
+                  <input type="file" name="file" (change)="onFileChange($event)" style="position: absolute; opacity: 0; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;" />
               </div></div>
 
 
@@ -120,7 +115,7 @@
 <div class="d-flex flex-column align-items-center mt-5" enctype="multipart/form-data">
   <div class="file btn-lg fs-6 fw-bold" style="position: relative; overflow: hidden; background-color: #AF3065; color: #ffffff; border-radius: 10px;">
     <span><i class="bi bi-cloud-plus-fill"></i></span> Update
-    <input type="file" name="file" (change)="onFileChangeU($event, selectedProjectId)" style="position: absolute; opacity: 0; right: 0; top: 0;" />
+    <input type="file" name="file" (change)="onFileChangeU($event, selectedProjectId)" style="position: absolute; opacity: 0; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;" />
   </div>
 </div>
 

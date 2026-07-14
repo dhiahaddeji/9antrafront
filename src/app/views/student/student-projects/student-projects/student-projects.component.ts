@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ProjectService } from 'src/app/MesServices/Projects/projects.service';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
-
+import { environement } from 'src/environement/environement.dev';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 import { Projects } from 'src/app/Models/Projects';
 
@@ -15,6 +15,7 @@ import { Projects } from 'src/app/Models/Projects';
 export class StudentProjectsComponent implements OnInit{
   project:any ;
   selectedProjectId: number | null = null;
+  filesUrl = environement.BASE_URL.replace('/api', '');
 
   constructor(private sanitazer: DomSanitizer,private projectService: ProjectService , private sr: UserService ,  private authService: UserAuthService) { }
   ngOnInit() {
@@ -88,12 +89,11 @@ export class StudentProjectsComponent implements OnInit{
 
 
   downloadFile(fileName: string): void {
-    const timestamp = Date.now();
-    const fileUrl = `../../../../../assets/Projects/${fileName}?timestamp=${timestamp}`;
+    const fileUrl = `${this.filesUrl}/api/uploads/Projects?path=${encodeURIComponent(fileName)}`;
     const link = document.createElement('a');
     link.href = fileUrl;
     link.target = '_blank';
-    link.download = fileName;
+    link.download = fileName.substring(fileName.lastIndexOf('/') + 1);
     link.click();
   }
   getFileTypeImage(fileType: string): string {
@@ -159,21 +159,11 @@ onFileChangeU(event: any, projectId: number): void {
   }
 }
 viewFile(fileName: string) {
-  // Vérifier si le fichier est d'un type pris en charge
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
   if (fileExtension === 'pdf' || fileExtension === 'docx' || fileExtension === 'jpg' || fileExtension === 'png' || fileExtension === 'jpeg' || fileExtension === 'ppt') {
-    const timestamp = Date.now();
-
-    // Construire le chemin complet du fichier à partir du nom du dossier utilisateur et du nom du fichier
-    const fileUrl = `../../../../../assets/Projects/${fileName}?timestamp=${timestamp}`;
-
-    // Générer une URL sécurisée pour le fichier
-    const url: SafeUrl = this.sanitazer.bypassSecurityTrustUrl(fileUrl);
-
-    // Ouvrir une nouvelle fenêtre ou un nouvel onglet pour afficher le fichier
-    window.open(url.toString());
+    const fileUrl = `${this.filesUrl}/api/uploads/Projects?path=${encodeURIComponent(fileName)}`;
+    window.open(fileUrl, '_blank');
   } else {
-    // Gérer le cas où le fichier n'est pas d'un type pris en charge
     console.log('Unsupported file type');
   }
 }
