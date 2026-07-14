@@ -204,9 +204,9 @@ export class GenerateCertifComponent implements OnInit {
       value_date = dd + '/' + mm + '/' + yyyy;
     }
 
-    // Backend matches by firstName + lastName via findByFirstNameAndLastName query
+    // Format: "id:firstName lastName" — backend uses ID for reliable user lookup
     const studentNames = this.selectedStudents
-      .map(student => `${student.firstName} ${student.lastName}`)
+      .map(student => `${student.id}:${student.firstName} ${student.lastName}`)
       .join('\n');
 
     const article = {
