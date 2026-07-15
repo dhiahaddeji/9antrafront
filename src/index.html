@@ -83,6 +83,21 @@
         select.value = lang;
         select.dispatchEvent(new Event('change'));
       }
+
+      /* Kill the Google Translate top bar whenever it appears */
+      (function() {
+        function suppress() {
+          var bar = document.querySelector('.goog-te-banner-frame');
+          if (bar) bar.style.setProperty('display', 'none', 'important');
+          if (document.body) document.body.style.setProperty('top', '0', 'important');
+        }
+        suppress();
+        var obs = new MutationObserver(suppress);
+        obs.observe(document.documentElement, {
+          childList: true, subtree: true,
+          attributes: true, attributeFilter: ['style', 'class']
+        });
+      })();
     </script>
     <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
