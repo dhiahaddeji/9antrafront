@@ -13,7 +13,8 @@ import { Projects } from 'src/app/Models/Projects';
   styleUrls: ['./student-projects.component.css']
 })
 export class StudentProjectsComponent implements OnInit{
-  project:any ;
+  project: any[] = [];
+  isLoading = true;
   selectedProjectId: number | null = null;
   filesUrl = environement.BASE_URL.replace('/api', '');
 
@@ -44,10 +45,11 @@ export class StudentProjectsComponent implements OnInit{
     });
   }
   reloadData() {
-    this.project = this.projectService.getProjectStudent2(localStorage.getItem('id')).subscribe((res)=>{
-      this.project=res;
-      console.log(res);
-     });
+    this.isLoading = true;
+    this.projectService.getProjectStudent2(localStorage.getItem('id')).subscribe((res: any) => {
+      this.project = Array.isArray(res) ? res : [];
+      this.isLoading = false;
+    }, () => { this.isLoading = false; });
   }
   onFileChange(event: any): void {
     const file = event.target.files[0];

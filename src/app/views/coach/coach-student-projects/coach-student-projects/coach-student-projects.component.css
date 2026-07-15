@@ -108,3 +108,27 @@ h4 {
   text-align: center;
   color: #868686;
 }
+
+.project-item {
+  border-bottom: 1px solid #e8ecef;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.project-item:hover {
+  background-color: #f8f9fa;
+}
+.project-item--selected {
+  background-color: #fdf0f5;
+  border-left: 3px solid #AF3065;
+}
+.project-menu-btn {
+  border: none;
+  background: transparent;
+  color: #555;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.project-menu-btn:hover {
+  background: #f0f0f0;
+}

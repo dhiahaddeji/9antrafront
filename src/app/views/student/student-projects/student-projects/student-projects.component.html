@@ -36,58 +36,38 @@
                   <div class="col-md-3 fw-bold d-flex justify-content-center">Last Mofified</div>
 
              </div>
-             <div *ngIf="project.length === 0" class="d-flex flex-column align-items-center mt-5">
+             <div *ngIf="isLoading" class="text-center mt-4">
+               <div class="spinner-border text-secondary" role="status"><span class="visually-hidden">Loading...</span></div>
+             </div>
+
+             <div *ngIf="!isLoading && project.length === 0" class="d-flex flex-column align-items-center mt-5">
               <div class="nodata">
                 <img src="../../../../../assets/img/nodata.webp" width="200px" loading="lazy"><br>
                 <p style="overflow: hidden;">There are no project available.</p>
               </div>
             </div>
 
-             <ul *ngFor="let event of project" class="list-unstyled mb-0">
-              <li class="nav-item border-bottom">
-                <a [class.active]="selectedProjectId === event.id" class="nav-link text-dark d-block px-2" href="#tab-1" (click)="selectProject(event.id); $event.preventDefault()">
-                    <div class="row my-2">
-                      <span *ngIf="event.remark !== null"><i class="bi bi-star-fill text-warning"></i></span>
-
-                   <div class="col-md-5"><span class="mx-4"><img  [src]="getFileTypeImage(event.type)" alt="" width="25px" height="25px" loading="lazy"></span>{{ getFileNameWithoutTimestamp(event.projectname) }}
-                   </div>
-                   <div class="col-md-2 d-flex justify-content-center ">{{ event.type }}  </div>
-                   <div class="col-md-2 d-flex justify-content-center ">{{ event.date | date:"dd/MM/yyyy"}}</div>
-
-
-                   <div class="col-md-3 d-flex justify-content-center">
-
-                      <div class="filter">
-                      <button class="icon" href="#" data-bs-toggle="dropdown" style="border: none; background-color: #ffffff00;"><i class="bi bi-three-dots"></i></button>
-
-                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <li class="dropdown-header ">
-
-                        </li>
-
-                        <li><button class="dropdown-item p-2" (click)="viewFile(event.projectname)" *ngIf="event.type !== 'RAR' && event.type !== 'ZIP' && event.type !== 'DOCX' && event.type !== 'DOC'"><span><i class="bi bi-eye me-3"></i> </span> Insight</button></li>
-                        <li>
-                          <button class="dropdown-item p-2" (click)="downloadFile(event.projectname)">
-                            <span><i class="bi bi-download me-3"></i></span> Download
-                          </button>
-                        </li>                          <li><button class="dropdown-item text-danger p-2" data-bs-toggle="modal" (click)="deleteProject(event.id)"><span>  <i class="fa-regular fa-trash-can  me-3" ></i> </span>Delete</button></li>
-
-                      </ul>
-
+             <div *ngFor="let event of project" class="project-item" [class.project-item--selected]="selectedProjectId === event.id" (click)="selectProject(event.id)">
+                    <div class="row align-items-center py-2 px-2">
+                      <div class="col-md-5 d-flex align-items-center">
+                        <span *ngIf="event.remark !== null" class="me-1"><i class="bi bi-star-fill text-warning"></i></span>
+                        <span class="mx-2"><img [src]="getFileTypeImage(event.type)" alt="" width="25" height="25" loading="lazy"></span>
+                        <span class="text-truncate">{{ getFileNameWithoutTimestamp(event.projectname) }}</span>
+                      </div>
+                      <div class="col-md-2 d-flex justify-content-center">{{ event.type }}</div>
+                      <div class="col-md-2 d-flex justify-content-center">{{ event.date | date:"dd/MM/yyyy" }}</div>
+                      <div class="col-md-3 d-flex justify-content-center">
+                        <div class="filter">
+                          <button type="button" class="project-menu-btn" data-bs-toggle="dropdown" title="File actions" aria-label="File actions" (click)="$event.stopPropagation()"><i class="bi bi-three-dots"></i></button>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button type="button" class="dropdown-item p-2" (click)="viewFile(event.projectname)" *ngIf="event.type !== 'RAR' && event.type !== 'ZIP' && event.type !== 'DOCX' && event.type !== 'DOC'"><i class="bi bi-eye me-2"></i>Insight</button></li>
+                            <li><button type="button" class="dropdown-item p-2" (click)="downloadFile(event.projectname)"><i class="bi bi-download me-2"></i>Download</button></li>
+                            <li><button type="button" class="dropdown-item text-danger p-2" (click)="deleteProject(event.id)"><i class="bi bi-trash me-2"></i>Delete</button></li>
+                          </ul>
+                        </div>
+                      </div>
                     </div>
-
-
-                  </div>
-              </div>
-
-          </a>
-
-                </li>
-
-
-
-
-              </ul>
+             </div>
 
             </div>
 
