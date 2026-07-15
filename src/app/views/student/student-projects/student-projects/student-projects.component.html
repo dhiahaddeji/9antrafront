@@ -43,9 +43,9 @@
               </div>
             </div>
 
-             <ul *ngFor="let event of project" class="nav nav-tabs flex-column">
-              <li class="nav-item">
-                <a [class.active]="selectedProjectId === event.id" class="nav-link show" data-bs-toggle="tab" href="#tab-1" (click)="selectProject(event.id)">
+             <ul *ngFor="let event of project" class="list-unstyled mb-0">
+              <li class="nav-item border-bottom">
+                <a [class.active]="selectedProjectId === event.id" class="nav-link text-dark d-block px-2" href="#tab-1" (click)="selectProject(event.id); $event.preventDefault()">
                     <div class="row my-2">
                       <span *ngIf="event.remark !== null"><i class="bi bi-star-fill text-warning"></i></span>
 

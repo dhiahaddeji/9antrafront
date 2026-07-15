@@ -51,10 +51,10 @@
             </div>
 
 
-            <ul *ngFor="let event of project" class="nav nav-tabs flex-column">
-             <li class="nav-item">
+            <ul *ngFor="let event of project" class="list-unstyled mb-0">
+             <li class="nav-item border-bottom">
 
-               <a [class.active]="selectedProjectId === event.id" class="nav-link show" data-bs-toggle="tab" href="#tab-1" (click)="selectProject(event.id)">
+               <a [class.active]="selectedProjectId === event.id" class="nav-link text-dark d-block px-2" href="#tab-1" (click)="selectProject(event.id); $event.preventDefault()">
                    <div class="row my-2">
                      <span *ngIf="event.remark !== null  " class="text-success"><i class="bi bi-check"></i></span>
 
