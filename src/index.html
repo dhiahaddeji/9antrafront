@@ -16,6 +16,15 @@
     <link rel="dns-prefetch" href="https://9antrabackend-production.up.railway.app" />
     <link rel="preconnect" href="https://9antrabackend-production.up.railway.app" crossorigin />
 
+    <!-- Suppress Google Translate toolbar before any script runs -->
+    <style>
+      .goog-te-banner-frame,
+      .goog-te-banner-frame.skiptranslate,
+      iframe.skiptranslate { display: none !important; height: 0 !important; }
+      body { top: 0 !important; }
+      .skiptranslate > iframe { display: none !important; }
+    </style>
+
     <!-- Vendor CSS — non-blocking (loads after first paint) -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'" />
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -84,20 +93,14 @@
         select.dispatchEvent(new Event('change'));
       }
 
-      /* Kill the Google Translate top bar whenever it appears */
-      (function() {
-        function suppress() {
-          var bar = document.querySelector('.goog-te-banner-frame');
-          if (bar) bar.style.setProperty('display', 'none', 'important');
-          if (document.body) document.body.style.setProperty('top', '0', 'important');
-        }
-        suppress();
-        var obs = new MutationObserver(suppress);
-        obs.observe(document.documentElement, {
-          childList: true, subtree: true,
-          attributes: true, attributeFilter: ['style', 'class']
+      /* Interval-based suppression — runs every 250ms to catch GT's late injection */
+      setInterval(function() {
+        document.querySelectorAll('.goog-te-banner-frame, iframe.skiptranslate').forEach(function(el) {
+          el.style.setProperty('display', 'none', 'important');
+          el.style.setProperty('height', '0', 'important');
         });
-      })();
+        if (document.body) document.body.style.setProperty('top', '0', 'important');
+      }, 250);
     </script>
     <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
