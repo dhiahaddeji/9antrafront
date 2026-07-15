@@ -119,3 +119,28 @@ a:hover {
   color: #af3065;
   text-decoration: none;
 }
+
+/* ── Password strength ─────────────────────────────────────────── */
+.pwd-strength-bar {
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.pwd-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s, background-color 0.3s;
+}
+.pwd-fill--weak    { width: 33%; background-color: #dc3545; }
+.pwd-fill--medium  { width: 66%; background-color: #fd7e14; }
+.pwd-fill--strong  { width: 100%; background-color: #28a745; }
+.pwd-label {
+  font-size: 11px;
+  margin-top: 3px;
+  display: block;
+}
+.pwd-label--weak   { color: #dc3545; }
+.pwd-label--medium { color: #fd7e14; }
+.pwd-label--strong { color: #28a745; }

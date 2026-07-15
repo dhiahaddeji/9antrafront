@@ -81,9 +81,15 @@
                 [formControl]="passwordForm"
                 id="signupPassword"
                 class="form__field"
-                placeholder="At least 6 characters" />
+                placeholder="At least 8 characters" />
               <span class="field-error" *ngIf="passwordForm.invalid && passwordForm.touched">
                 {{ getPasswordFormError() }}
+              </span>
+              <div class="pwd-strength-bar" *ngIf="passwordForm.value">
+                <div class="pwd-fill pwd-fill--{{passwordStrength}}"></div>
+              </div>
+              <span class="pwd-label pwd-label--{{passwordStrength}}" *ngIf="passwordForm.value">
+                {{ passwordStrength | titlecase }}
               </span>
             </div>
 

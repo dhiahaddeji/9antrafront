@@ -97,12 +97,26 @@ export class SignupComponent implements OnInit {
         if(this.passwordForm.hasError("required")){
            return 'You must enter your password';
         }else if(this.passwordForm.hasError("minlength")){
-          return 'You must enter a valid password';
+          return 'Password must be at least 8 characters';
         }
-        //  return 'Password must contain at least one uppercase letter , one lowercase letter and one number';
         }
         return '';
       }
+
+  get passwordStrength(): 'weak' | 'medium' | 'strong' {
+    const pwd = this.passwordForm.value;
+    if (!pwd) return 'weak';
+    const score = [
+      pwd.length >= 8,
+      /[A-Z]/.test(pwd),
+      /[a-z]/.test(pwd),
+      /[0-9]/.test(pwd),
+      /[^A-Za-z0-9]/.test(pwd)
+    ].filter(Boolean).length;
+    if (score <= 2) return 'weak';
+    if (score <= 3) return 'medium';
+    return 'strong';
+  }
 
 
     getEmailFormError(){

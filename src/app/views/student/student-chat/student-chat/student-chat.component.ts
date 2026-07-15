@@ -41,11 +41,18 @@ export class StudentChatComponent implements OnDestroy {
   }
 
   send() {
-    if (this.chat.post !== '') {
-      this.chatService.send(this.chat, this.groupId, this.userId).subscribe({
-        next: () => { this.chat.post = ''; this.shouldScroll = true; }
-      });
-    }
+    const text = this.chat.post.trim();
+    if (!text) return;
+    this.chatMessages.push({
+      id: null, message: text, status: 0,
+      created_at: new Date().toISOString(),
+      userEnvoi: { id: this.userId }
+    });
+    this.chat.post = '';
+    this.shouldScroll = true;
+    this.chatService.send({ subject: '', post: text }, this.groupId, this.userId).subscribe({
+      error: () => this.getChatByGroupId()
+    });
   }
 
   deleteMessage(id: any) {

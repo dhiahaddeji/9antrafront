@@ -41,13 +41,18 @@ export class CoachChatComponent {
     }
   }
   send(){
-    if(this.chat.post !=""){
-      this.chatService.send(this.chat , this.groupId , this.userId).subscribe((res:any)=>{
-        console.log(res);
-        this.chat.post="";
-        this.scrollToBottom();
-      })
-    }
+    const text = this.chat.post.trim();
+    if (!text) return;
+    this.chatMessages.push({
+      id: null, message: text, status: 0,
+      created_at: new Date().toISOString(),
+      userEnvoi: { id: this.userId }
+    });
+    this.chat.post = '';
+    this.scrollToBottom();
+    this.chatService.send({ subject: '', post: text }, this.groupId, this.userId).subscribe({
+      error: () => this.getChatByGroupId()
+    });
   }
   deleteMessage(id:any){
     Swal.fire({
