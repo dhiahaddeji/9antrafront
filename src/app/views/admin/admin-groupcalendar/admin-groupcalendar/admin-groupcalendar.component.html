@@ -123,8 +123,7 @@
                         src="assets/img/calendar-empty.png"
                         alt="Profile"
                         width="25px"
-                        height="25px"
-                      />
+                        height="25px" loading="lazy" />
                     </span>
                     {{ session.startDate | date : "EEE, dd MMMM yyyy" }}
                   </p>
@@ -136,8 +135,7 @@
                         src="assets/img/clock.png"
                         alt="Profile"
                         width="25px"
-                        height="25px"
-                      />
+                        height="25px" loading="lazy" />
                     </span>
                     {{ session.startDate | date : "HH:mm" }} -
                     {{ session.finishDate | date : "HH:mm" }}
@@ -150,8 +148,7 @@
                         src="assets/img/alarm.png"
                         alt="Profile"
                         width="25px"
-                        height="25px"
-                      />
+                        height="25px" loading="lazy" />
                     </span>
                     {{ calculateDuration(session) }} min
                   </p>
@@ -220,8 +217,7 @@
                     src="assets/img/calendar-empty.png"
                     alt="Profile"
                     width="25px"
-                    height="25px"
-                  />
+                    height="25px" loading="lazy" />
                 </span>
                 {{ session.startDate | date : "dd MMMM yyyy" }}
               </p>
@@ -233,8 +229,7 @@
                     src="assets/img/clock.png"
                     alt="Profile"
                     width="25px"
-                    height="25px"
-                  />
+                    height="25px" loading="lazy" />
                 </span>
                 {{ session.startDate | date : "HH:mm" }} -
                 {{ session.finishDate | date : "HH:mm" }}
@@ -247,8 +242,7 @@
                     src="assets/img/alarm.png"
                     alt="Profile"
                     width="25px"
-                    height="25px"
-                  />
+                    height="25px" loading="lazy" />
                 </span>
                 {{ calculateDuration(session) }} min
               </p>

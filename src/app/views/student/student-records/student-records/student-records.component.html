@@ -32,13 +32,13 @@
                    width="50px" 
                    height="50px" 
                    class="rounded-circle"
-                   onerror="this.src='assets/img/profile-img.jpg'">
+                   onerror="this.src='assets/img/profile-img.jpg'" loading="lazy">
               <img *ngIf="!i.imagepath" 
                    src="assets/img/profile-img.jpg" 
                    alt="Profile" 
                    width="50px" 
                    height="50px" 
-                   class="rounded-circle">
+                   class="rounded-circle" loading="lazy">
               
               <div class="ms-4 me-auto">
                 <div class="fw-bold">{{ i.fullName || 'Unknown' }}</div>
@@ -50,7 +50,7 @@
       </div>
       <div *ngIf="selectedRecords.length == 0" class="text-center mt-3 d-flex justify-content-center">
         <div class="nodata">
-          <img src="../../../../../assets/img/nodata.png" width="250px"><br>
+          <img src="../../../../../assets/img/nodata.webp" width="250px" loading="lazy"><br>
           <p style="overflow: hidden;">There are no records available.</p>
         </div>
       </div>

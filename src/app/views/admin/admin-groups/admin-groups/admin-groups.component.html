@@ -140,10 +140,9 @@
                     class="col-6 d-flex justify-content-center align-items-center"
                   >
                     <img
-                      src="assets/img/3d-casual-life-robot-smile.png"
+                      src="assets/img/3d-casual-life-robot-smile.webp"
                       class="w-75"
-                      alt=""
-                    />
+                      alt="" loading="lazy" />
                   </div>
                   <div class="col-6">
                     <div class="row text-center">
@@ -329,8 +328,7 @@
                 src="assets/Documents/{{ group.formateur.image }}"
                 width="40px"
                 height="40px"
-                class="rounded-circle"
-              />
+                class="rounded-circle" loading="lazy" />
               <span class="ps-3 text-secondary"
                 >{{ group.formateur.firstName }}
                 {{ group.formateur.lastName }}</span
@@ -356,8 +354,7 @@
                     [src]="'assets/Documents/' + studentImage"
                     width="40px"
                     height="40px"
-                    class="rounded-circle"
-                  />
+                    class="rounded-circle" loading="lazy" />
                 </ng-container>
               </ng-container>
               <ng-template #noMembers>
@@ -421,8 +418,7 @@
                     [src]="'assets/Documents/' + student.image"
                     width="40px"
                     height="40px"
-                    class="rounded-circle me-3"
-                  />
+                    class="rounded-circle me-3" loading="lazy" />
                   <div>
                     <strong>{{ student.firstName }} {{ student.lastName }}</strong>
                     <br />

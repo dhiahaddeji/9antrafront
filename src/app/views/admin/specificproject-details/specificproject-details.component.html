@@ -16,7 +16,7 @@
     <div class="carousel-item" *ngFor="let image of project.image.split(','); let i = index"
       [class.active]="i === 0">
       <img [src]="'assets/SpecificProject/' + project.titre + '_' + project.id + '/' + image.trim()"
-        class="d-block w-100 img-thumbnail" alt="Slide Image" style="width: 100%; height: auto;">
+        class="d-block w-100 img-thumbnail" alt="Slide Image" style="width: 100%; height: auto;" loading="lazy">
     </div>
   </div>
 
@@ -44,7 +44,7 @@
     <div class="row">
       <div class="col-lg-3 col-md-12 d-flex align-items-start">
         <!-- <div class="info">
-          <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" class="img-fluid" width="100%" />
+          <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" class="img-fluid" width="100%" loading="lazy" />
 
         </div> -->
       </div>

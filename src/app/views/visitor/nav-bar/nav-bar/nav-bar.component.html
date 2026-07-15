@@ -2,9 +2,9 @@
   <!-- Desktop Navbar (UNCHANGED) -->
   <nav class="navbar navbar-expand-lg d-none d-lg-block">
     <div class="container-fluid">
-      <a routerLink="" class="navbar-brand"><img src="assets/img/logo1.png" class="img-fluid" alt=""></a>
+      <a routerLink="" class="navbar-brand"><img src="assets/img/logo1.png" class="img-fluid" alt="" loading="lazy"></a>
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span> <img src="assets/img/menu.png" class="w-10" alt=""></span>
+        <span> <img src="assets/img/menu.png" class="w-10" alt="" loading="lazy"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between flex-row-reverse" id="navbarCollapse">
         <ul class="navbar-nav">
@@ -84,20 +84,20 @@
             <a class="nav-link p-0 ms-2 profile-toggle" data-bs-toggle="dropdown">
               <img *ngIf="userImage != null"
                    src="assets/Documents/{{ userImage }}"
-                   alt="Profile" class="user-image-nav rounded-circle" />
+                   alt="Profile" class="user-image-nav rounded-circle" loading="lazy" />
               <img *ngIf="userImage == null"
-                   src="assets/img/trainers/trainer-1.jpg"
-                   alt="Profile" class="user-image-nav rounded-circle" />
+                   src="assets/img/trainers/trainer-1.webp"
+                   alt="Profile" class="user-image-nav rounded-circle" loading="lazy" />
               <i class="bi bi-chevron-down profile-caret"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end user-menu">
               <div class="user-info text-center">
                 <img *ngIf="user?.image != null"
                      src="assets/Documents/{{ user?.image }}"
-                     alt="Profile" class="user-image rounded-circle" />
+                     alt="Profile" class="user-image rounded-circle" loading="lazy" />
                 <img *ngIf="user?.image == null"
-                     src="assets/img/trainers/trainer-1.jpg"
-                     alt="Profile" class="user-image rounded-circle" />
+                     src="assets/img/trainers/trainer-1.webp"
+                     alt="Profile" class="user-image rounded-circle" loading="lazy" />
                 <p class="user-name mt-2 mb-0">{{ user?.firstName }} {{ user?.lastName }}</p>
                 <p class="user-email">{{ user?.username }}</p>
               </div>
@@ -121,12 +121,12 @@
     <div class="navbar-mobile-container">
       <!-- Hamburger Toggle -->
       <button type="button" class="navbar-mobile-toggler" (click)="toggleMobileMenu()">
-        <img src="assets/img/menu.png" alt="menu">
+        <img src="assets/img/menu.png" alt="menu" loading="lazy">
       </button>
 
       <!-- Logo -->
       <a routerLink="" class="navbar-mobile-brand" (click)="closeMobileMenu()">
-        <img src="assets/img/logo1.png" alt="Logo">
+        <img src="assets/img/logo1.png" alt="Logo" loading="lazy">
       </a>
 
       <!-- Right Actions -->
@@ -280,8 +280,8 @@
             <li *ngIf="isLoggedIn()" class="mobile-divider"></li>
             <li *ngIf="isLoggedIn()" class="mobile-user-section">
               <div class="mobile-user-info">
-                <img *ngIf="userImage != null" src="assets/Documents/{{ userImage }}" alt="Profile" class="mobile-user-img"/>
-                <img *ngIf="userImage == null" src="assets/img/trainers/trainer-1.jpg" alt="Profile" class="mobile-user-img"/>
+                <img *ngIf="userImage != null" src="assets/Documents/{{ userImage }}" alt="Profile" class="mobile-user-img" loading="lazy" />
+                <img *ngIf="userImage == null" src="assets/img/trainers/trainer-1.webp" alt="Profile" class="mobile-user-img" loading="lazy" />
                 <div class="mobile-user-details">
                   <p class="mobile-user-name">{{ user?.firstName }} {{ user?.lastName }}</p>
                   <p class="mobile-user-email">{{ user?.username }}</p>

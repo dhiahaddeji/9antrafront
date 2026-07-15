@@ -33,8 +33,7 @@
                 src="/assets/Documents/{{ x.image }}"
                 alt=""
                 style="width: 45px; height: 45px"
-                class="rounded-circle"
-              />
+                class="rounded-circle" loading="lazy" />
               <a routerLink="profile/{{ x.id }}">
                 <div class="ms-3">
                   <p class="fw-bold mb-1">{{ x.firstName }} {{ x.lastName }}</p>
@@ -64,7 +63,7 @@
               <!---             <button class="btn btn-rounded btn-sm" (click)="deleteSession(x.id)">
   -->
 
-              <i class="fa-regular fa-file"> </i> <img [src]="safeUrl" />
+              <i class="fa-regular fa-file"> </i> <img [src]="safeUrl" loading="lazy" />
             </button>
           </td>
 

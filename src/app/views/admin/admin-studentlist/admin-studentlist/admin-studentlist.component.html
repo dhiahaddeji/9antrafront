@@ -273,8 +273,7 @@
               <img
                 src="/assets/Documents/{{ x.image }}"
                 alt="{{ x.firstName }} {{ x.lastName }}"
-                class="rounded-circle student-avatar"
-              />
+                class="rounded-circle student-avatar" loading="lazy" />
               <a routerLink="profile/{{ x.id }}">
                 <div class="ms-3">
                   <p class="fw-bold mb-1">{{ x.firstName }} {{ x.lastName }}</p>

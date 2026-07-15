@@ -28,7 +28,7 @@
           </video>
           <div class="card-body">
             <div class=" mt-2   d-flex justify-content-between align-items-start">
-              <img src="assets/Documents/{{imagepath}}" alt="Profile" width="50px" height="50px" class="rounded-circle">
+              <img src="assets/Documents/{{imagepath}}" alt="Profile" width="50px" height="50px" class="rounded-circle" loading="lazy">
               <div class="ms-4 me-auto">
                 <div class="fw-bold">{{fullName}}</div>
                 {{i.title}}
@@ -44,7 +44,7 @@
 
       <div *ngIf="ListViedo?.length == 0" class="text-center mt-3 d-flex justify-content-center">
         <div class="nodata">
-          <img src="../../../../../assets/img/nodata.png" width="250px"><br>
+          <img src="../../../../../assets/img/nodata.webp" width="250px" loading="lazy"><br>
           <p style="overflow: hidden;">There are no records available.</p>
         </div>
       </div>

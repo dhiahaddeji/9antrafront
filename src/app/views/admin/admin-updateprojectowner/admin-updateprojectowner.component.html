@@ -19,7 +19,7 @@
             
             <div class="card mb-3">
               <!-- <div class="card-body text-center p-2 my-2">
-                <img src="assets/img/profile-img.jpg" alt="Admin" style="border-radius: 20px;" width="200">
+                <img src="assets/img/profile-img.jpg" alt="Admin" style="border-radius: 20px;" width="200" loading="lazy">
                 <div class="mt-2 mx-5">
                   <div class="file btn-lg fs-6 fw-bold" style="position: relative; overflow: hidden; background-color: #AF3065; color: #ffffff;">
                     <span><i class="bi bi-camera me-3"></i></span> Add New
@@ -63,7 +63,7 @@
                   <div class="form-group mb-3">
                     <label for="nbMeetings">Image</label>
                     <input type="file" (change)="onFileSelectedz($event)" class="form-control-file" id="file" name="file" accept="image/*" required>
-                    <br> <img [src]="imagePreview" alt="Aperçu de l'image" width="200px">
+                    <br> <img [src]="imagePreview" alt="Aperçu de l'image" width="200px" loading="lazy">
 
                     </div>   
         

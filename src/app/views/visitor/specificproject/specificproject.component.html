@@ -116,7 +116,7 @@
         <div class="thumbnails-container">
           <br>
           <div *ngFor="let thumbnail of thumbnails" class="thumbnail">
-            <img [src]="thumbnail" alt="Thumbnail" class="thumbnail-image">
+            <img [src]="thumbnail" alt="Thumbnail" class="thumbnail-image" loading="lazy">
           </div>
           
         </div>
@@ -142,7 +142,7 @@
         </div>  
       </div>
       <div class="col-lg-5 order-1 order-lg-2 photo d-flex align-items-center" data-aos="zoom-in" data-aos-delay="200">
-        <img src="assets/img/login.png" class="img-fluid animated mb-5" alt="">
+        <img src="assets/img/login.webp" class="img-fluid animated mb-5" alt="" loading="lazy">
       </div>
       
     </div>

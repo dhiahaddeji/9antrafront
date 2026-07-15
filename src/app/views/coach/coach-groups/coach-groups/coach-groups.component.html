@@ -69,7 +69,7 @@
               <img *ngFor="let img of getStudentImages(group.id)"
                 [src]="'assets/Documents/' + img"
                 class="member-avatar"
-                onerror="this.src='assets/img/profile-img.jpg'" alt="">
+                onerror="this.src='assets/img/profile-img.jpg'" alt="" loading="lazy">
               <span class="member-count" *ngIf="group.etudiants.length > 3">
                 +{{ group.etudiants.length - 3 }}
               </span>
@@ -88,7 +88,7 @@
     <!-- Empty state -->
     <ng-template #empty>
       <div class="empty-state">
-        <img src="../../../../../assets/img/nodata.png" alt="No groups" width="180">
+        <img src="../../../../../assets/img/nodata.webp" alt="No groups" width="180" loading="lazy">
         <p>No groups yet. Create your first group!</p>
         <button type="button" class="btn-create" (click)="openCreateModal()">
           <i class="bi bi-plus-lg"></i> New Group
@@ -202,7 +202,7 @@
           <div class="member-item" *ngFor="let member of selectedGroupMembers">
             <img [src]="'assets/Documents/' + member.image" 
                  class="member-image" 
-                 onerror="this.src='assets/img/profile-img.jpg'" alt="">
+                 onerror="this.src='assets/img/profile-img.jpg'" alt="" loading="lazy">
             <div class="member-info">
               <div class="member-name">{{ member.firstName }} {{ member.lastName }}</div>
               <div class="member-email">{{ member.username }}</div>

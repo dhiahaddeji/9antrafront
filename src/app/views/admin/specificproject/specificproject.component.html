@@ -54,7 +54,7 @@
             <td>
 
               <div class="d-flex align-items-center">
-                <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" style="width: 45px; height: 45px" class="rounded-circle" />
+                <img [src]="project.imageP ? 'assets/SpecificProject/' + project.titre + '_' + project.id + '/images/' + project.imageP : 'assets/img/image.jpg'" style="width: 45px; height: 45px" class="rounded-circle" loading="lazy" />
 
                 <a routerLink="profile">
                   <div class="ms-3">

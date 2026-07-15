@@ -90,7 +90,7 @@
                                         <h3>Drag&amp;Drop files here</h3>
                                     </div>
                                     <div *ngIf="eventForm.get('Image')!.value">
-                                        <img [src]="getImage()" alt="">
+                                        <img [src]="getImage()" alt="" loading="lazy">
                                     </div>
                                 </div>
                             </div>

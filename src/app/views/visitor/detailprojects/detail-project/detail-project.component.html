@@ -5,7 +5,7 @@
       <div class="carousel-item" *ngFor="let image of project.image.split(','); let i = index"
         [class.active]="i === 0">
         <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + image.trim()"
-          class="d-block w-100 img-thumbnail" alt="Slide Image" style="width: 100%; height: auto;">
+          class="d-block w-100 img-thumbnail" alt="Slide Image" style="width: 100%; height: auto;" loading="lazy">
       </div>
     </ng-container>
   </div>
@@ -34,7 +34,7 @@
       <div class="col-lg-3 col-md-12 d-flex align-items-start">
         <div class="info">
           <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + project.ownerImage"
-            alt="Image du ProjectOwner" class="img-fluid" width="100%">
+            alt="Image du ProjectOwner" class="img-fluid" width="100%" loading="lazy">
         </div>
       </div>
 
@@ -130,7 +130,7 @@
       </div>
       
         <div *ngIf="!isSubmitted" class="col-lg-5 order-1 order-lg-2 photo" data-aos="zoom-in" data-aos-delay="200">
-          <img src="assets/img/about.png" class="img-fluid animated" alt="">
+          <img src="assets/img/about.webp" class="img-fluid animated" alt="" loading="lazy">
         </div>
         <div *ngIf="isSubmitted" class="text-center col-lg-5 order-1 order-lg-2 photo" data-aos="zoom-in" data-aos-delay="200" style="margin-top: 80px;">
           <h2>Thank you,</h2>

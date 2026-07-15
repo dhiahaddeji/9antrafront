@@ -10,15 +10,14 @@
     <!-- Fixed header: logo + profile -->
     <div class="sidebar-header">
       <div class="sidebar-logo d-none d-lg-flex">
-        <a routerLink="/coach"><img src="assets/img/logo1.png" alt="Logo"></a>
+        <a routerLink="/coach"><img src="assets/img/logo1.png" alt="Logo" loading="lazy"></a>
       </div>
 
       <a [routerLink]="['/coach/profile']" class="nav-profile" *ngIf="data" (click)="closeSidebar()">
         <img
           src="assets/Documents/{{photo}}"
           onerror="this.src='assets/img/profile-img.jpg'"
-          alt="Profile"
-        />
+          alt="Profile" loading="lazy" />
         <div class="profile-info">
           <span class="welcome-text">Welcome back</span>
           <span class="profile-name d-block">{{username}}</span>
@@ -134,11 +133,11 @@
         type="button"
         (click)="toggleSidebar()"
       >
-        <img src="assets/img/menu.png" class="w-10" alt="menu">
+        <img src="assets/img/menu.png" class="w-10" alt="menu" loading="lazy">
       </button>
 
       <a class="navbar-brand ms-3" routerLink="/coach" (click)="closeSidebar()">
-        <img src="assets/img/logo1.png" height="28" alt="Logo">
+        <img src="assets/img/logo1.png" height="28" alt="Logo" loading="lazy">
       </a>
 
       <div class="d-flex align-items-center ms-auto gap-2 pe-1">

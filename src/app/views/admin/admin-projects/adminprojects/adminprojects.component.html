@@ -62,23 +62,23 @@
     <td>
       <!-- Affichage des images -->
       <!-- <div>
-        <img [src]="'assets/adminProjects/' + project.image" style="width: 100px; height: 100px" class="img-thumbnail" />
+        <img [src]="'assets/adminProjects/' + project.image" style="width: 100px; height: 100px" class="img-thumbnail" loading="lazy" />
       </div> -->
 
 <!--
       <div *ngIf="adminProjects.length > 0 && adminProjects[0]?.image">
         <div *ngFor="let image of adminProjects[0].image.split(',')">
-          <img src="../../../../../assets/adminProjects/{{ image.trim() }}" style="width: 100px; height: 100px" class="img-thumbnail" />
+          <img src="../../../../../assets/adminProjects/{{ image.trim() }}" style="width: 100px; height: 100px" class="img-thumbnail" loading="lazy" />
         </div>
       </div> -->
       <div *ngIf="project.image">
         <div *ngFor="let image of project.image.split(',')">
-          <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + image.trim() "  style="width: 100px; height: 100px" class="img-thumbnail" />
+          <img [src]="'assets/adminProjects/' + project.titre + '_' + project.id + '/' + image.trim() "  style="width: 100px; height: 100px" class="img-thumbnail" loading="lazy" />
         </div>
       </div>
        <!-- <tr *ngFor="let image of project.image">
         <td>
-          <img [src]="'../../../../../assets/adminProjects/' + image" style="width: 100px; height: 100px" class="img-thumbnail" />
+          <img [src]="'../../../../../assets/adminProjects/' + image" style="width: 100px; height: 100px" class="img-thumbnail" loading="lazy" />
         </td>
       </tr> -->
     </td>

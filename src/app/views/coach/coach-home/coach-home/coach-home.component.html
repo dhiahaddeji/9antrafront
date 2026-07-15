@@ -19,7 +19,7 @@
         <div class="col-12 col-lg-8">
           <div class="row stat mx-1 g-3">
             <div class="col-12 col-sm-6 col-md-3">
-              <img src="assets/img/progress.png" alt="Progress" class="img-fluid w-100">
+              <img src="assets/img/progress.webp" alt="Progress" class="img-fluid w-100" loading="lazy">
             </div>
             <div class="col-12 col-sm-6 col-md-9 d-flex align-items-center">
               <h5 class="text-white fw-bold f2-1 my-4">Here you can track your progress<br>Those are the latest statistics for this week</h5>
@@ -53,7 +53,7 @@
             <div class="card-body text-center">
               <p class="fs-1 mb-2">{{eventsCount}}</p>
               <p class="fs-5 mb-3">Events Upcoming Soon</p>
-              <img src="assets/img/event.png" alt="Events" class="w-50">
+              <img src="assets/img/event.webp" alt="Events" class="w-50" loading="lazy">
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
               <div class="col-12 col-sm-3 col-md-2 text-center">
                 <img [src]="coachProfile?.image ? 'assets/Documents/' + coachProfile.image : 'assets/img/profile-img.jpg'"
                      onerror="this.src='assets/img/profile-img.jpg'"
-                     alt="Coach Profile" class="rounded-circle img-fluid" style="max-width: 80px;">
+                     alt="Coach Profile" class="rounded-circle img-fluid" style="max-width: 80px;" loading="lazy">
               </div>
               <div class="col-12 col-sm-9 col-md-4">
                 <div class="text-center text-md-start">
@@ -102,7 +102,7 @@
       <!-- No Sessions Message -->
       <div *ngIf="sessions?.length == 0" class="text-center mt-4">
         <div class="nodata">
-          <img src="../../../../../assets/img/nodata.png" alt="No Data" class="img-fluid" style="max-width: 200px; width: 100%;">
+          <img src="../../../../../assets/img/nodata.webp" alt="No Data" class="img-fluid" style="max-width: 200px; width: 100%;" loading="lazy">
           <p class="mt-3">There are no sessions available.</p>
         </div>
       </div>

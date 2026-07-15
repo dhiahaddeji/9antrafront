@@ -24,8 +24,7 @@
               [src]="previewSrc || 'assets/img/profile-img.jpg'"
               onerror="this.src='assets/img/profile-img.jpg'"
               alt="Profile"
-              class="avatar-img rounded-circle"
-            />
+              class="avatar-img rounded-circle" loading="lazy" />
           </div>
           <h6 class="fw-bold mb-1">{{ data.firstName }} {{ data.lastName }}</h6>
           <p class="text-muted small mb-3">{{ data.username }}</p>

@@ -22,8 +22,7 @@
                 src="assets/Documents/{{ photo }}"
                 alt="Admin"
                 style="border-radius: 20px"
-                width="200"
-              />
+                width="200" loading="lazy" />
             </div>
           </div>
         </div>
@@ -60,7 +59,7 @@
                   [routerLink]="'/admin/coachlist/resumecoach/' + id"
                 >
                   <i class="fa-regular fa-file"></i>
-                  <img [src]="safeUrl" class="img-fluid" />
+                  <img [src]="safeUrl" class="img-fluid" loading="lazy" />
                 </button>
                 <div class="col-sm-15">
                   <div class="row">

@@ -15,7 +15,7 @@
             <div class="post mt-4" style="padding: 10px; width: 95%; overflow-x: hidden;cursor: pointer;margin-bottom: 30px;margin-left: 20px;">
               <div class="row">
                 <div class="col-12 col-md-2 col-lg-2 mb-2 d-flex align-items-center">
-                  <img src="assets/Documents/{{actualForum.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33">
+                  <img src="assets/Documents/{{actualForum.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33" loading="lazy">
                   <p style="margin: 0px 0px 0px 10px; color: #202124; font-weight: bold;">
                     {{ actualForum.userEnvoi['firstName'] }} {{ actualForum.userEnvoi['lastName'] }}
                   </p>
@@ -34,7 +34,7 @@
               <div class="responses" style="margin: 5px 20px 5px 40px;width: 90%;cursor: pointer;" *ngFor="let response of actualForum.responses">
                 <div class="row">
                   <div class="col-12 col-md-2 col-lg-2 mb-2 d-flex align-items-center">
-                    <img src="assets/Documents/{{response.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33">
+                    <img src="assets/Documents/{{response.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33" loading="lazy">
                     <p style="margin: 0px 0px 0px 10px; color: #202124; font-weight: bold;">
                       {{ response.userEnvoi['firstName'] }} {{ response.userEnvoi['lastName'] }}
                     </p>

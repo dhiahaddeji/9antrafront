@@ -1,6 +1,6 @@
 <!-- <div data-aos="fade-up" class="d-flex align-content-around flex-wrap mt-5 mb-5">
     <div *ngFor="let course of courses" class="card ml-2 mb-2" style="width: 30%;">
-        <img class="card-img-top img-fluid" [src]="getImage(course)" alt="Card image cap">
+        <img class="card-img-top img-fluid" [src]="getImage(course)" alt="Card image cap" loading="lazy">
         <div class="card-body">
             <h5 class="card-title"> <a [routerLink]="['courseDetails', course.id]">{{ course.title }}</a></h5>
             <p class="card-text"> <a [routerLink]="['courseDetails', course.id]">{{ course.description }}</a></p>
@@ -17,7 +17,7 @@
     <div class="card-group" style="width: 100%;">
         <div class="row d-flex justify-content-center align-content-center" style="width: 100%;">
             <div *ngFor="let course of courses" class="card p-2 ml-4 mb-5 col-12 col-lg-6 col-sm-6" style="border-radius: 15px;max-width: 400px;border-width: 0px;" >
-                <img class="img-fluid card-img-top w-100 d-block" [src]="getImage(course)" style="object-fit: cover;width: 320px;height: 280px;border-radius: 15px;">
+                <img class="img-fluid card-img-top w-100 d-block" [src]="getImage(course)" style="object-fit: cover;width: 320px;height: 280px;border-radius: 15px;" loading="lazy">
                 <div class="card-body">
                     <div class="d-md-flex justify-content-between align-items-center align-items-md-center pb-2">
                         <h3 class="fw-semibold" style="width: fit-content;color: #3E3333;font-family: Segoe UI;"><strong>{{ course.title }}</strong></h3>
@@ -99,7 +99,7 @@
     <!-- Start: 1 Row 2 Columns -->
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-lg-5 col-xxl-5"><img class="img-fluid" src="/assets/img/clipboard-image-23.png?h=3dce33c5ca8bd2626b68cc891b2f34ec" width="624" height="624"></div>
+            <div class="col-md-6 col-lg-5 col-xxl-5"><img class="img-fluid" src="/assets/img/clipboard-image-23.webp?h=3dce33c5ca8bd2626b68cc891b2f34ec" width="624" height="624" loading="lazy"></div>
             <div class="col-md-6 col-lg-7 col-xxl-7 d-flex d-lg-flex flex-column justify-content-center justify-content-lg-center">
                 <h1 class="mb-5" style="font-family: Segoe UI;color: #AF2F64;">An accredited diploma</h1>
                 <ul>

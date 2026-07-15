@@ -8,11 +8,13 @@
     <link href="assets/img/favicon1.png" rel="icon" />
 
     <!-- Preload LCP hero image -->
-    <link rel="preload" as="image" href="assets/img/hero-img.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/img/hero-img.webp" fetchpriority="high" />
 
-    <!-- Preconnect to external origins used by fonts -->
+    <!-- Preconnect to external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="dns-prefetch" href="https://9antrabackend-production.up.railway.app" />
+    <link rel="preconnect" href="https://9antrabackend-production.up.railway.app" crossorigin />
 
     <!-- Vendor CSS — non-blocking (loads after first paint) -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -58,10 +60,6 @@
     <script async src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script async src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script async src="assets/js/main.js"></script>
-
-    <!-- Tailwind CSS — non-blocking -->
-    <link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet" /></noscript>
 
     <!-- Google Translate: hidden widget + programmatic switcher -->
     <div id="google_translate_element" class="gt-hidden-widget"></div>

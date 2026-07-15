@@ -135,7 +135,7 @@
                     <input class="form-control" type="file" (change)="onFileChange4($event)" id="file" name="file" accept="image/*" required>
                   </div>
                   <div class="image-container" *ngIf="imagePreview">
-                    <img [src]="imagePreview" alt="Preview" class="centered-image">
+                    <img [src]="imagePreview" alt="Preview" class="centered-image" loading="lazy">
                   </div>          
     
       <div class="row">
@@ -162,7 +162,7 @@
           </div>  
         </div>
         <div class="col-lg-5 order-1 order-lg-2 photo d-flex align-items-center" data-aos="zoom-in" data-aos-delay="200">
-          <img src="assets/img/login.png" class="img-fluid animated mb-5" alt="">
+          <img src="assets/img/login.webp" class="img-fluid animated mb-5" alt="" loading="lazy">
         </div>
         
       </div>

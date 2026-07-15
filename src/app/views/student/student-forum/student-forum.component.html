@@ -6,7 +6,7 @@
         <div class="py-2 px-4 border-bottom">
           <div class="d-flex align-items-center py-1 gap-2">
             <div class="position-relative">
-              <img src="../../../../assets/img/forum.jpg" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+              <img src="../../../../assets/img/forum.webp" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40" loading="lazy">
             </div>
             <div class="" style="margin-right: 12px;">
               <strong>Forum</strong>
@@ -27,7 +27,7 @@
             </div>
             <div class="row">
               <div class="col-12 col-md-4 col-lg-3 mb-2 d-flex align-items-center">
-                <img src="assets/Documents/{{post.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33">
+                <img src="assets/Documents/{{post.userEnvoi['image']}}" class="rounded-circle mr-1" alt="User Avatar" width="33" height="33" loading="lazy">
                 <p style="margin: 0px 0px 0px 10px; color: #202124; font-weight: bold;">
                   {{ post.userEnvoi['firstName'] }} {{ post.userEnvoi['lastName'] }},
                   <span *ngIf="post.responses && post.responses.length > 0" style="color: #202124; font-weight: normal;">

@@ -16,12 +16,12 @@
         <div class="hackerspace-card">
           <div class="card-img-wrap">
             <img
-              [src]="h.localPhoto || (h.photo ? 'assets/Documents/' + h.photo : 'assets/img/9ant.png')"
+              [src]="h.localPhoto || (h.photo ? 'assets/Documents/' + h.photo : 'assets/img/9ant.webp')"
               class="img-fluid hackerspace-img"
               alt="{{ h.region }}"
               width="600" height="200"
               loading="lazy"
-              onerror="this.src='assets/img/9ant.png';this.style.objectFit='contain';this.style.padding='24px';"
+              onerror="this.src='assets/img/9ant.webp';this.style.objectFit='contain';this.style.padding='24px';"
             />
           </div>
           <div class="card-content">

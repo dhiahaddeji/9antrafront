@@ -6,7 +6,7 @@
         <div class="py-2 px-4 border-bottom d-none d-lg-block">
           <div class="d-flex align-items-center py-1">
             <div class="position-relative">
-              <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Group" width="40" height="40">
+              <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Group" width="40" height="40" loading="lazy">
             </div>
             <div class="flex-grow-1 pl-3 ms-3">
               <strong>All</strong>
@@ -21,7 +21,7 @@
             <!-- Sent by me -->
             <div class="chat-message-right pb-4" id="parent" *ngIf="message.userEnvoi['id'] == userId">
               <div>
-                <img src="assets/Documents/{{message.userEnvoi['image']}}" class="rounded-circle mr-1" width="40" height="40" onerror="this.src='assets/img/profile-img.jpg'">
+                <img src="assets/Documents/{{message.userEnvoi['image']}}" class="rounded-circle mr-1" width="40" height="40" onerror="this.src='assets/img/profile-img.jpg'" loading="lazy">
                 <div class="text-muted small text-nowrap mt-2">{{ message.created_at | date:'HH:mm' }}</div>
               </div>
               <div *ngIf="message.status==0" class="me-2">
@@ -39,7 +39,7 @@
             <!-- Received -->
             <div class="chat-message-left pb-4" id="parent" *ngIf="message.userEnvoi['id'] != userId">
               <div>
-                <img src="assets/Documents/{{message.userEnvoi['image']}}" class="rounded-circle mr-1" width="40" height="40" onerror="this.src='assets/img/profile-img.jpg'">
+                <img src="assets/Documents/{{message.userEnvoi['image']}}" class="rounded-circle mr-1" width="40" height="40" onerror="this.src='assets/img/profile-img.jpg'" loading="lazy">
                 <div class="text-muted small text-nowrap mt-2">{{ message.created_at | date:'HH:mm' }}</div>
               </div>
               <div class="ms-2">

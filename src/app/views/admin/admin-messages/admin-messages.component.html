@@ -94,8 +94,7 @@
                 src="assets/Documents/{{ msg.userEnvoi?.image }}"
                 class="rounded-circle ms-2 align-self-end"
                 width="36" height="36"
-                onerror="this.src='assets/img/profile-img.jpg'"
-              />
+                onerror="this.src='assets/img/profile-img.jpg'" loading="lazy" />
             </div>
 
             <!-- Other's message -->
@@ -104,8 +103,7 @@
                 src="assets/Documents/{{ msg.userEnvoi?.image }}"
                 class="rounded-circle me-2"
                 width="36" height="36"
-                onerror="this.src='assets/img/profile-img.jpg'"
-              />
+                onerror="this.src='assets/img/profile-img.jpg'" loading="lazy" />
               <div>
                 <div class="small text-muted mb-1">
                   {{ msg.userEnvoi?.firstName }} {{ msg.userEnvoi?.lastName }}
