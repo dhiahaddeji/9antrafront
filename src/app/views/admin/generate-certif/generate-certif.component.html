@@ -186,13 +186,14 @@
                   <!-- Month -->
                   <div class="mb-3">
                     <label for="month">Month:</label>
-                    <input 
-                      type="text" 
-                      class="form-control" 
-                      id="month" 
-                      placeholder="e.g., June 2026"
+                    <select
+                      class="form-control"
+                      id="month"
                       formControlName="month"
                       [class.is-invalid]="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
+                      <option value="" disabled>Select a month</option>
+                      <option *ngFor="let m of monthOptions" [value]="m">{{ m }}</option>
+                    </select>
                     <div class="invalid-feedback d-block" *ngIf="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
                       <div *ngIf="certifForm.get('month')?.errors?.['required']">Month is required!</div>
                     </div>

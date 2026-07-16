@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from 'src/app/MesServices/Projects/projects.service';
-
 import { Projects } from 'src/app/Models/Projects';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-coach-student-projects',
@@ -14,6 +14,10 @@ import { Projects } from 'src/app/Models/Projects';
 export class CoachStudentProjectsComponent {
   project:any ;
   selectedProject: any;
+  filesUrl = environement.BASE_URL.replace('/api', '');
+  showPdfOverlay = false;
+  pdfViewSafeUrl: any = null;
+
   constructor(    private route: ActivatedRoute,
  private http: HttpClient, private  projectService: ProjectService , private router: Router , private sanitazer :DomSanitizer ) { }
 
@@ -119,23 +123,24 @@ addRemark(projectId: number, remark: string): void {
 }
 
 viewFile(fileName: string) {
-  // Vérifier si le fichier est d'un type pris en charge
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
-  if (fileExtension === 'pdf' || fileExtension === 'docx' || fileExtension === 'jpg' || fileExtension === 'png' || fileExtension === 'jpeg' || fileExtension === 'ppt') {
-    const timestamp = Date.now();
-
-    // Construire le chemin complet du fichier à partir du nom du dossier utilisateur et du nom du fichier
-    const fileUrl = `../../../../../assets/Projects/${fileName}?timestamp=${timestamp}`;
-
-    // Générer une URL sécurisée pour le fichier
-    const url: SafeUrl = this.sanitazer.bypassSecurityTrustUrl(fileUrl);
-
-    // Ouvrir une nouvelle fenêtre ou un nouvel onglet pour afficher le fichier
-    window.open(url.toString());
-  } else {
-    // Gérer le cas où le fichier n'est pas d'un type pris en charge
-    console.log('Unsupported file type');
+  if (fileExtension === 'pdf') {
+    this.openPdfOverlay(fileName);
+  } else if (fileExtension === 'docx' || fileExtension === 'jpg' || fileExtension === 'png' || fileExtension === 'jpeg' || fileExtension === 'ppt') {
+    const fileUrl = `${this.filesUrl}/api/uploads/Projects?path=${encodeURIComponent(fileName)}`;
+    window.open(fileUrl, '_blank');
   }
+}
+
+openPdfOverlay(fileName: string) {
+  const fileUrl = `${this.filesUrl}/api/uploads/Projects?path=${encodeURIComponent(fileName)}`;
+  this.pdfViewSafeUrl = this.sanitazer.bypassSecurityTrustResourceUrl(fileUrl);
+  this.showPdfOverlay = true;
+}
+
+closePdfOverlay() {
+  this.showPdfOverlay = false;
+  this.pdfViewSafeUrl = null;
 }
 
 

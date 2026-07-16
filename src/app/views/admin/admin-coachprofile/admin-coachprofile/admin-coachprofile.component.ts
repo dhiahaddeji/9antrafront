@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GroupService } from 'src/app/MesServices/Groups/group.service';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -22,9 +23,10 @@ export class AdminCoachprofileComponent implements OnInit {
   safeUrl: string | undefined;
 
   tabFormateur: any = [];
+  coachGroups: any[] = [];
   id: any;
   selectedValue: any;
-  constructor(private route: ActivatedRoute, private sr: UserService) {
+  constructor(private route: ActivatedRoute, private sr: UserService, private groupService: GroupService) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
@@ -92,9 +94,16 @@ getUserNotes(userId: any) {
   );
 }
 
-  ngOnInit(): void {
-    this.getUserId(this.id)
-    this.getUserNotes(this.id);
+  getCoachGroups(id: any) {
+    this.groupService.getGroupsByFormateurId(id).subscribe(
+      (res: any[]) => { this.coachGroups = res; },
+      (err) => console.error('Failed to get coach groups:', err)
+    );
+  }
 
+  ngOnInit(): void {
+    this.getUserId(this.id);
+    this.getUserNotes(this.id);
+    this.getCoachGroups(this.id);
   }
 }

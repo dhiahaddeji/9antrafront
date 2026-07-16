@@ -15,8 +15,8 @@ export class GenerateCertifComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
   
-  // Predefined periods
   predefinedPeriods: string[] = ['1 month', '2 months', '3 months', '4 months', '5 months', '6 months', '1 year'];
+  monthOptions: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   
   students: any[] = [];
   allStudents: any[] = [];
@@ -224,11 +224,6 @@ export class GenerateCertifComponent implements OnInit {
       .then(res => {
         console.log('Certificate generated:', res.data);
         this.showThankYouPopup = true;
-        this.certifForm.reset();
-        this.selectedStudents = [];
-        this.selectedFormation = null;
-        
-        // Hide popup after 3 seconds
         setTimeout(() => {
           this.showThankYouPopup = false;
         }, 3000);

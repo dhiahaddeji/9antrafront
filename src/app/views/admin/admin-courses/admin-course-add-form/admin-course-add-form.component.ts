@@ -50,8 +50,12 @@ export class AdminCourseAddFormComponent implements OnInit {
   onVideoSelected(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      if (!file.type.startsWith('video/')) {
+        Swal.fire({ icon: 'error', title: 'Invalid file', text: 'Please select a valid video file. Images (JPEG, PNG, etc.) are not allowed.' });
+        event.target.value = '';
+        return;
+      }
       this.courseForm.get('trailer')!.setValue(file);
-      console.log(this.courseForm.get('trailer')!.value);
     } else {
       this.courseForm.get('trailer')!.setValue(this.imagepath);
     }
@@ -73,8 +77,10 @@ export class AdminCourseAddFormComponent implements OnInit {
       formData.append('course', JSON.stringify(course));
       const photoFile = this.courseForm.get('image')?.value;
       const video = this.courseForm.get('trailer')?.value;
-      if (photoFile instanceof File || video instanceof File) {
+      if (photoFile instanceof File) {
         formData.append('image', photoFile, photoFile.name);
+      }
+      if (video instanceof File) {
         formData.append('video', video, video.name);
       }
 
@@ -99,7 +105,7 @@ export class AdminCourseAddFormComponent implements OnInit {
             this.router.navigateByUrl("/admin/courses")
           },
           (error) => {
-            // Handle error response
+            Swal.fire({ icon: 'error', title: 'Error', text: error.error?.message || error.message || 'Error adding the course. Please try again.' });
           })
 
       // this.eventService.addEvent(formData).subscribe(

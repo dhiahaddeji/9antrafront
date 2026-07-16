@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { error } from 'jquery';
 import { ForumService } from 'src/app/MesServices/Forum/forum.service';
 import { StompForumService } from 'src/app/MesServices/StompService/stomp_forum.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
@@ -34,7 +33,10 @@ export class ForumListComponent {
   ngOnInit() {
     this.userId = this.userAuthService.getId();
     this.id=this.route.snapshot.paramMap.get('id');
-    this.getForumById(this.id)
+    this.getForumById(this.id);
+    this.stomp.subscribe('/topic/forum', () => {
+      this.getForumById(this.id);
+    });
   }
 
 
@@ -49,15 +51,13 @@ export class ForumListComponent {
       this.forumService.sendAnswer(this.userId,this.id,this.forum).subscribe((res:any)=>{
         Swal.fire({
           title: 'Answer',
-          text: 'You answer is added successfully',
+          text: 'Your answer has been added successfully',
           icon: 'success',
         })
         this.forum.post="";
+        this.getForumById(this.id);
         this.scrollToBottom();
       })
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
     }
   }
 

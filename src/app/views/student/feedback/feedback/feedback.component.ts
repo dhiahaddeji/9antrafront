@@ -32,7 +32,7 @@ idUser!:any;
   }
 
   AddFeedback() {
-    if (this.formation && this.comment) {
+    if (this.formation) {
       let feedback = {
         formation: this.formation,
         comment: this.comment,
@@ -75,13 +75,12 @@ idUser!:any;
         }
       );
     } else {
-      this.errorMessage = 'Please fill in all the required fields.';
+      this.errorMessage = 'Please select a training program.';
 
-      // SweetAlert warning message
       Swal.fire({
         icon: 'warning',
         title: 'Warning!',
-        text: 'Please fill in all the required fields.',
+        text: 'Please select a training program.',
       });
     }
   }

@@ -17,6 +17,8 @@ export class StudentProjectsComponent implements OnInit{
   isLoading = true;
   selectedProjectId: number | null = null;
   filesUrl = environement.BASE_URL.replace('/api', '');
+  showPdfOverlay = false;
+  pdfViewSafeUrl: any = null;
 
   constructor(private sanitazer: DomSanitizer,private projectService: ProjectService , private sr: UserService ,  private authService: UserAuthService) { }
   ngOnInit() {
@@ -162,12 +164,23 @@ onFileChangeU(event: any, projectId: number): void {
 }
 viewFile(fileName: string) {
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
-  if (fileExtension === 'pdf' || fileExtension === 'docx' || fileExtension === 'jpg' || fileExtension === 'png' || fileExtension === 'jpeg' || fileExtension === 'ppt') {
+  if (fileExtension === 'pdf') {
+    this.openPdfOverlay(fileName);
+  } else if (fileExtension === 'docx' || fileExtension === 'jpg' || fileExtension === 'png' || fileExtension === 'jpeg' || fileExtension === 'ppt') {
     const fileUrl = `${this.filesUrl}/api/uploads/Projects?path=${encodeURIComponent(fileName)}`;
     window.open(fileUrl, '_blank');
-  } else {
-    console.log('Unsupported file type');
   }
+}
+
+openPdfOverlay(fileName: string) {
+  const fileUrl = `${this.filesUrl}/api/uploads/Projects?path=${encodeURIComponent(fileName)}`;
+  this.pdfViewSafeUrl = this.sanitazer.bypassSecurityTrustResourceUrl(fileUrl);
+  this.showPdfOverlay = true;
+}
+
+closePdfOverlay() {
+  this.showPdfOverlay = false;
+  this.pdfViewSafeUrl = null;
 }
 
 

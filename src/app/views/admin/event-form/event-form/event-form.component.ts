@@ -92,16 +92,14 @@ export class EventFormComponent implements OnInit{
           this.router.navigateByUrl("/admin/events")
         },
         (error) => {
+          const msg = error.error?.message || error.message || 'Error adding the Event. Please try again.';
           Swal.fire({
-            title: 'Error adding the Event. Please try again.',
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-            }
-          })
-          //this.errorMessage = 'Error adding the Event. Please try again.';
+            icon: 'error',
+            title: 'Error',
+            text: msg,
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+          });
         }
       )
 

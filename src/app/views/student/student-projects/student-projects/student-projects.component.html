@@ -47,7 +47,7 @@
               </div>
             </div>
 
-             <div *ngFor="let event of project" class="project-item" [class.project-item--selected]="selectedProjectId === event.id" (click)="selectProject(event.id)">
+             <div *ngFor="let event of project" class="project-item" [class.project-item--selected]="selectedProjectId === event.id" (click)="selectProject(event.id); event.type === 'PDF' && openPdfOverlay(event.projectname)">
                     <div class="row align-items-center py-2 px-2">
                       <div class="col-md-5 d-flex align-items-center">
                         <span *ngIf="event.remark !== null" class="me-1"><i class="bi bi-star-fill text-warning"></i></span>
@@ -109,6 +109,15 @@
 
 
      </section>
+
+<!-- PDF Overlay Viewer -->
+<div *ngIf="showPdfOverlay" class="pdf-overlay" (click)="closePdfOverlay()">
+  <div class="pdf-container" (click)="$event.stopPropagation()">
+    <button type="button" class="pdf-close-btn" (click)="closePdfOverlay()" title="Close"><i class="bi bi-x-lg"></i></button>
+    <iframe [src]="pdfViewSafeUrl" class="pdf-iframe" title="PDF Viewer"></iframe>
+  </div>
+</div>
+
         <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
