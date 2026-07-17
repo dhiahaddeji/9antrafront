@@ -18,6 +18,18 @@
                 <div class="card-body">
                     <h1 class="text-center fw-bold mb-3" style="color: #AF3065;">Update Event</h1>
 
+                    <!-- Success Alert -->
+                    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong> {{ successMessage }}
+                        <button type="button" class="btn-close" (click)="successMessage = ''" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{ errorMessage }}
+                        <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+                    </div>
+
                     <form [formGroup]="eventForm">
                         <div class="form-group mb-3">
                             <label for="exampleFormControlInput1">Name</label>
@@ -45,7 +57,7 @@
                         </div>
                         <div *ngIf="eventForm?.get('facebook')?.invalid && (eventForm?.get('facebook')?.dirty || eventForm?.get('facebook')?.touched)">
                             <div *ngIf="eventForm?.get('facebook')?.hasError('required')" class="alert alert-danger mt-3">Facebook link is required.</div>
-                            <div *ngIf="eventForm?.get('facebook')?.hasError('pattern')" class="alert alert-danger mt-3">Invalid Facebook link format.</div>
+                            <div *ngIf="eventForm?.get('facebook')?.hasError('pattern')" class="alert alert-danger mt-3">Invalid Facebook link format. Use: https://facebook.com/...</div>
                           </div>
 
                         <div class="form-group mb-3">
@@ -55,7 +67,7 @@
                         </div>
                         <div *ngIf="eventForm?.get('ggmeet')?.invalid && (eventForm?.get('ggmeet')?.dirty || eventForm?.get('ggmeet')?.touched)">
                             <div *ngIf="eventForm?.get('ggmeet')?.hasError('required') " class="alert alert-danger mt-3">Google meet link is required.</div>
-                            <div *ngIf="eventForm?.get('ggmeet')?.hasError('pattern')" class="alert alert-danger mt-3">Invalid Google meet link format.</div>
+                            <div *ngIf="eventForm?.get('ggmeet')?.hasError('pattern')" class="alert alert-danger mt-3">Invalid Google meet link format. Use: https://meet.google.com/...</div>
                           </div>
 
                         <div class="form-group mb-3">
@@ -87,7 +99,7 @@
                                         <i class="fa fa-file-image-o"></i>
                                     </div>
                                     <div class="Neon-input-text">
-                                        <h3>Drag&amp;Drop files here</h3>
+                                        <h3>Drag&Drop files here</h3>
                                     </div>
                                     <div *ngIf="eventForm.get('Image')!.value">
                                         <img [src]="getImage()" alt="" loading="lazy">
@@ -96,32 +108,19 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end">
+                        <div class="mt-4">
+                            <!-- Success Message -->
+                            <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Success!</strong> {{ successMessage }}
+                            </div>
+                            
+                            <!-- Error Message -->
+                            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error!</strong> {{ errorMessage }}
+                            </div>
+                        </div>
 
-
-
-
-
-                            <!-- <div class="modal" tabindex="-1" role="dialog">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Success</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">OK</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="alert alert-danger mt-3"></div> -->
+                        <div class="d-flex justify-content-end mt-3">
                             <button type="button" id="submitButton" name="submitButton" class="btn" (click)="updateEvent()"
                                 style="background-color: #AF3065; color: white; border-radius: 5px;">Update</button>
                         </div>

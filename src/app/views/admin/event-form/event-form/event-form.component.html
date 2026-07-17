@@ -126,16 +126,17 @@
 
                         <div class="d-flex justify-content-end">
 
+                            <!-- Error Message -->
+                            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+                                <strong>Error!</strong> {{ errorMessage }}
+                                <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+                            </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-                                </div>
-                                <div class="col"> <button type="button" id="submitButton" name="submitButton"
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" id="submitButton" name="submitButton"
                                         class="btn" (click)="addEvent()"
                                         style="background-color: #AF3065; color: white; border-radius: 5px;">Add</button>
-                                </div>
-                            </div>
                         </div>
                     </form>
 

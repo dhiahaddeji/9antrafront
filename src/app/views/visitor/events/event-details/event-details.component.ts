@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/MesServices/Event/event.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 import { Event } from 'src/app/Models/Event';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -43,7 +44,7 @@ export class EventDetailsComponent {
   }
 
   getImage(imageName: string) {
-    return "assets/Events/" + imageName
+    return `${environement.BASE_URL}/uploads/Events/${imageName}`
   }
 
   redirectToExternalURL(link: string) {

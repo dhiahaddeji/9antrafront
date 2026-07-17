@@ -43,8 +43,8 @@ export class EventFormComponent implements OnInit{
       price: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required],
       date: ['', Validators.required],
-      facebook: ['', [Validators.required],],
-      ggmeet: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)?(meet.google.com|meet.googleusercontent.com|hangouts.google.com|meet.jit.si)\/[\w\-\.]+\/?$/i)]],
+      facebook: ['', [Validators.required, Validators.pattern(/^https?:\/\/(www\.)?facebook\.com\/.+/i)]],
+      ggmeet: ['', [Validators.required, Validators.pattern(/^https?:\/\/(www\.)?(meet\.google\.com|hangouts\.google\.com|meet\.jit\.si)\/.+/i)]],
       Image: ''
     });
   }
@@ -61,7 +61,19 @@ export class EventFormComponent implements OnInit{
   }
 
   addEvent() {
+    console.log('Add event called');
+    console.log('Form valid:', this.eventForm.valid);
+    console.log('Photo file:', this.eventForm.get('Image')?.value);
+    
     if(this.eventForm.valid) {
+      const photoFile = this.eventForm.get('Image')?.value;
+      
+      // Check if image is provided
+      if (!photoFile || !(photoFile instanceof File)) {
+        this.errorMessage = 'Please select an image for the event';
+        console.warn('No image provided');
+        return;
+      }
 
       const formData = new FormData();
       const event = {
@@ -73,10 +85,7 @@ export class EventFormComponent implements OnInit{
         googleMeetLink: this.eventForm.get('ggmeet')?.value
       }
       formData.append('event', JSON.stringify(event));
-      const photoFile = this.eventForm.get('Image')?.value;
-      if (photoFile instanceof File) {
-        formData.append('file', photoFile, photoFile.name);
-      }
+      formData.append('file', photoFile, photoFile.name);
 
       this.eventService.addEvent(formData).subscribe(
         () => {
@@ -105,6 +114,7 @@ export class EventFormComponent implements OnInit{
 
     } else {
       this.errorMessage = ' Please fill in all the required fields correctly.';
+      console.warn('Form is invalid');
     }
   }
 

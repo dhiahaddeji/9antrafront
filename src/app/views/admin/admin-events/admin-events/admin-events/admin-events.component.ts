@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Event } from 'src/app/Models/Event';
 import { EventService } from 'src/app/MesServices/Event/event.service';
 import { Router } from '@angular/router';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,7 +31,7 @@ export class AdminEventsComponent implements OnInit{
   }
 
   getImage(imageName: string) {
-    return "assets/Events/" + imageName
+    return `${environement.BASE_URL}/uploads/Events/${imageName}`
   }
 
   deleteEvent(id: number) {

@@ -229,8 +229,90 @@
     }
 
     .filter{
-      background-color: #ffffff;
-      color: #444444;
-      border-radius: 5px;
+      position: relative;
+      z-index: 1000;
+    }
 
+    .filter .icon {
+      cursor: pointer !important;
+      padding: 0.5rem 0.75rem;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto !important;
+      border: none;
+      background-color: transparent;
+      color: #444444;
+      min-width: 32px;
+      min-height: 32px;
+    }
+
+    .filter .icon:focus {
+      outline: none;
+      box-shadow: none;
+      background-color: rgba(175, 48, 101, 0.1);
+      border-radius: 4px;
+    }
+
+    .filter .icon:hover {
+      color: #AF3065;
+      background-color: rgba(175, 48, 101, 0.1);
+      border-radius: 4px;
+    }
+
+    .filter .dropdown-menu {
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 0.5rem;
+      padding: 0.5rem 0;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      background-color: #ffffff;
+      list-style: none;
+    }
+
+    .filter .dropdown-item {
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0.75rem 1rem;
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background-color: transparent;
+      color: inherit;
+      font-size: 0.95rem;
+    }
+
+    .filter .dropdown-item:hover {
+      background-color: #f0f0f0;
+      color: #AF3065;
+    }
+
+    .filter .dropdown-item:focus {
+      outline: none;
+      background-color: #f0f0f0;
+    }
+
+    .filter .dropdown-item.text-danger {
+      color: #dc3545;
+    }
+
+    .filter .dropdown-item.text-danger:hover {
+      background-color: #f8d7da;
+      color: #c82333;
+    }
+
+    .card {
+      overflow: visible !important;
+    }
+
+    .nav-profile {
+      position: relative;
     }
