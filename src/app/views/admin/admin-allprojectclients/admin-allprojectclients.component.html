@@ -11,8 +11,9 @@
     </div><!-- End Page Title -->
 
 
-    <div class="data_table card1 mt-4 " style="overflow-y: scroll; height:600px;">
-        <div class="select-container">
+    <div class="container-fluid px-4">
+    <div class="data_table card1 mt-4" style="overflow-y: scroll; height:600px;">
+        <div class="select-container d-flex flex-wrap gap-2 mb-3">
             <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
               <option value="" selected>All</option>
               <option value="true">Traitees</option>
@@ -88,10 +89,7 @@
           </table>
         
       </div>
-      <br>
-          <br>  
-          <br>
-          <br>
+    </div><!-- End container-fluid -->
 
   </main><!-- End #main -->
   

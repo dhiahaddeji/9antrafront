@@ -12,9 +12,8 @@
 
 
 
-    <br>
-    <br>
-    <div class="select-container">
+    <div class="container-fluid px-4">
+    <div class="select-container d-flex flex-wrap gap-2 mb-3">
       <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
         <option value="" selected>All</option>
         <option value="true">Traitees</option>
@@ -115,6 +114,6 @@
 
       </table>
       </div>
-
+    </div><!-- End container-fluid -->
 
   </main><!-- End #main -->

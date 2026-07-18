@@ -12,17 +12,18 @@
 
 
 
+    <div class="container-fluid px-4">
     <button type="button" class="btn p-2 border pe-3 me-3 register" routerLink="/admin/add-projectowner">
       <i class="bi bi-plus fa-2xl me-3"></i>Add New
     </button>
     <br>
     <br>
-    <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+    <select class="form-select form-select-sm mb-3" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
       <option value="" selected>All</option>
       <option value="true">Approved</option>
       <option value="false">Not Approved</option>
     </select>
-    <div class="data_table card1 mt-4 " style="overflow-y: scroll; height:600px;">
+    <div class="data_table card1 mt-4" style="overflow-y: scroll; height:600px;">
 
         <table class="table align-middle mb-0 bg-white  ">
           <thead class="bg-light ">
@@ -120,4 +121,5 @@
       </div>
 
 
+  </div><!-- End container-fluid -->
   </main><!-- End #main -->
