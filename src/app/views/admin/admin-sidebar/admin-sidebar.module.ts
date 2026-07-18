@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminSidebarRoutingModule } from './admin-sidebar-routing.module';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
+import { NotificationModule } from '../../visitor/notification/notification.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
   ],
   imports: [
     CommonModule,
-    AdminSidebarRoutingModule
+    AdminSidebarRoutingModule,
+    NotificationModule
   ],
   exports: [
     AdminSidebarComponent
