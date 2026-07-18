@@ -274,7 +274,7 @@
                 [src]="x.image ? (x.image.startsWith('http') ? x.image : backendBase + '/api/uploads/Documents/' + x.image) : 'assets/img/default-avatar.png'"
                 alt="{{ x.firstName }} {{ x.lastName }}"
                 class="rounded-circle student-avatar" loading="lazy"
-                (error)="$any($event.target).src='assets/img/default-avatar.png'" />
+                (error)="$any($event.target).onerror=null; $any($event.target).src='assets/img/9ant.webp'" />
               <a routerLink="profile/{{ x.id }}">
                 <div class="ms-3">
                   <p class="fw-bold mb-1">{{ x.firstName }} {{ x.lastName }}</p>
