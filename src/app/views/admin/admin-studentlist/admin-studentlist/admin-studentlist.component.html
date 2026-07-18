@@ -271,7 +271,7 @@
           <td>
             <div class="d-flex align-items-center">
               <img
-                src="/assets/Documents/{{ x.image }}"
+                [src]="x.image ? backendBase + '/api/uploads/Documents/' + x.image : 'assets/img/default-avatar.png'"
                 alt="{{ x.firstName }} {{ x.lastName }}"
                 class="rounded-circle student-avatar" loading="lazy" />
               <a routerLink="profile/{{ x.id }}">

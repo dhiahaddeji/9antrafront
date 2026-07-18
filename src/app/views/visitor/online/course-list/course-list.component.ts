@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChapterService } from 'src/app/MesServices/ChapterElearning/chapter.service';
 import { CourseService } from 'src/app/MesServices/Course/course.service';
 import { Course } from 'src/app/Models/E-learning/Course';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-course-list',
@@ -11,6 +12,7 @@ import { Course } from 'src/app/Models/E-learning/Course';
 export class CourseListComponent implements OnInit {
 
   courses: Course[] = []
+  private backendBase = environement.BASE_URL.replace('/api', '');
 
   constructor(private _courseService: CourseService) {
 
@@ -31,7 +33,7 @@ export class CourseListComponent implements OnInit {
   }
 
   getImage(course: Course) {
-    return "assets/Courses_E_Learning/Course_" + course.id + "/" + course.image 
+    return `${this.backendBase}/api/uploads/Courses/${course.id}/${course.image}`;
   }
 
 }

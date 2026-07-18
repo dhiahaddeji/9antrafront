@@ -3,6 +3,10 @@
   bottom: 100px;
   right: 20px;
   z-index: 9999;
+  background: transparent;
+  border: none;
+  padding: 0;
+  line-height: 1;
 }
 .chat-container {
   position: fixed;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Component({
   selector: 'app-admin-studentlist',
@@ -13,6 +14,7 @@ export class AdminStudentlistComponent implements OnInit {
   tabFormation: any = [];
   Formation = "";
   status = "";
+  backendBase = environement.BASE_URL.replace('/api', '');
 
   newStudent = {
     firstName: '',
