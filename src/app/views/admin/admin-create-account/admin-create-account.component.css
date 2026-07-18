@@ -1,0 +1,121 @@
+.acm-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0;
+}
+.acm-tab {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #6c757d;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+  border-radius: 4px 4px 0 0;
+}
+.acm-tab:hover { color: #1a3353; }
+.acm-tab.active { color: #1a3353; border-bottom-color: #1a3353; font-weight: 600; }
+
+.acm-sub-tabs {
+  display: flex;
+  gap: 8px;
+  background: #f8f9fa;
+  padding: 8px;
+  border-radius: 10px;
+}
+.acm-sub-tab {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: #495057;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.acm-sub-tab:hover { background: #e9ecef; }
+.acm-sub-tab.active { background: #1a3353; color: #fff; }
+
+.acm-search-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+}
+.acm-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #adb5bd;
+}
+.acm-search {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.acm-search:focus { border-color: #1a3353; }
+
+.acm-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.badge-admin { background: #fff3e0; color: #e65100; }
+.badge-coach { background: #e3f2fd; color: #1565c0; }
+.badge-student { background: #e8f5e9; color: #2e7d32; }
+
+.acm-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.acm-status.enabled { background: #e8f5e9; color: #2e7d32; }
+.acm-status.disabled { background: #fce4ec; color: #c62828; }
+
+.acm-role-select {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+}
+.acm-role-select:focus { border-color: #1a3353; }
+
+.acm-action-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.acm-action-btn:hover { background: #f1f3f5; }
+.btn-activate .bi { color: #adb5bd; }
+.btn-deactivate .bi { color: #2e7d32; }
+
+.acm-form-title { color: #1a3353; font-weight: 600; }
+
+.acm-submit {
+  background: #1a3353;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.acm-submit:hover:not(:disabled) { background: #0d1f35; color: #fff; }
+.acm-submit:disabled { background: #adb5bd; cursor: not-allowed; }

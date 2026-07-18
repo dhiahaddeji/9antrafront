@@ -225,6 +225,16 @@
         <span>ChatBot</span>
       </a>
 
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="account-management"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="bi bi-shield-lock-fill"></i>
+        <span>Account Management</span>
+      </a>
+
       <p class="nav-section-label nav-section-label--account">Account</p>
 
       <button class="nav-item-link nav-logout" (click)="logout()" type="button">

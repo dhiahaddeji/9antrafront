@@ -1,0 +1,243 @@
+<main class="pt-4">
+  <div class="d-lg-none" style="margin-bottom:50px"></div>
+
+  <div class="pagetitle mb-4">
+    <h1>Account Management</h1>
+    <nav><ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+      <li class="breadcrumb-item active">Account Management</li>
+    </ol></nav>
+  </div>
+
+  <!-- Tab bar -->
+  <div class="acm-tabs mb-4">
+    <button class="acm-tab" [class.active]="activeTab==='accounts'" (click)="activeTab='accounts'">
+      <i class="bi bi-people-fill me-2"></i>All Accounts
+    </button>
+    <button class="acm-tab" [class.active]="activeTab==='create'" (click)="activeTab='create'">
+      <i class="bi bi-person-plus-fill me-2"></i>Create Account
+    </button>
+  </div>
+
+  <!-- ═══ ALL ACCOUNTS ═══ -->
+  <div *ngIf="activeTab==='accounts'">
+    <div class="container-fluid px-0">
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="acm-search-wrap">
+          <i class="bi bi-search acm-search-icon"></i>
+          <input class="acm-search" type="text" placeholder="Search by name or email…" [(ngModel)]="searchTerm">
+        </div>
+        <span class="text-muted small">{{ filteredUsers.length }} account(s)</span>
+      </div>
+
+      <div class="data_table card1" style="overflow-y:auto;max-height:600px">
+        <table class="table align-middle mb-0 bg-white">
+          <thead class="bg-light">
+            <tr>
+              <th>Account</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Change Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of filteredUsers">
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img [src]="u.image && u.image.startsWith('http') ? u.image : 'assets/img/9ant.webp'"
+                       class="rounded-circle" style="width:40px;height:40px;object-fit:cover"
+                       (error)="$any($event.target).onerror=null;$any($event.target).src='assets/img/9ant.webp'" loading="lazy">
+                  <div>
+                    <div class="fw-semibold">{{u.firstName}} {{u.lastName}}</div>
+                    <div class="text-muted small">{{u.username}}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="acm-badge" [ngClass]="getRoleBadgeClass(u)">{{getRoleName(u)}}</span>
+              </td>
+              <td>
+                <span class="acm-status" [class.enabled]="u.enabled===1" [class.disabled]="u.enabled!==1">
+                  {{ u.enabled===1 ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td>
+                <select class="acm-role-select" (change)="changeRole(u, $any($event.target).value)">
+                  <option *ngFor="let r of roleOptions" [value]="r" [selected]="u.roles?.[0]?.name===r">{{r}}</option>
+                </select>
+              </td>
+              <td>
+                <button class="acm-action-btn" [class.btn-activate]="u.enabled!==1" [class.btn-deactivate]="u.enabled===1"
+                        (click)="toggleEnabled(u)" [title]="u.enabled===1 ? 'Deactivate' : 'Activate'">
+                  <i class="bi" [class.bi-toggle-on]="u.enabled===1" [class.bi-toggle-off]="u.enabled!==1"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="filteredUsers.length===0">
+              <td colspan="5" class="text-center text-muted py-4">No accounts found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CREATE ACCOUNT ═══ -->
+  <div *ngIf="activeTab==='create'">
+    <!-- Sub-tabs -->
+    <div class="acm-sub-tabs mb-4">
+      <button class="acm-sub-tab" [class.active]="createTab==='admin'" (click)="createTab='admin'">
+        <i class="bi bi-shield-fill me-2"></i>Admin
+      </button>
+      <button class="acm-sub-tab" [class.active]="createTab==='coach'" (click)="createTab='coach'">
+        <i class="bi bi-person-badge-fill me-2"></i>Coach
+      </button>
+      <button class="acm-sub-tab" [class.active]="createTab==='student'" (click)="createTab='student'">
+        <i class="bi bi-mortarboard-fill me-2"></i>Student
+      </button>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-4">
+
+            <!-- Admin form -->
+            <form *ngIf="createTab==='admin'" (ngSubmit)="createAdmin()" #af="ngForm">
+              <h5 class="mb-4 acm-form-title"><i class="bi bi-shield-fill me-2"></i>New Admin Account</h5>
+              <div class="row g-3">
+                <div class="col-6">
+                  <label class="form-label">First Name *</label>
+                  <input class="form-control" [(ngModel)]="admin.firstName" name="fn" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Last Name *</label>
+                  <input class="form-control" [(ngModel)]="admin.lastName" name="ln" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Email *</label>
+                  <input class="form-control" type="email" [(ngModel)]="admin.email" name="em" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Password *</label>
+                  <input class="form-control" type="password" [(ngModel)]="admin.password" name="pw" required minlength="6">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Phone</label>
+                  <input class="form-control" [(ngModel)]="admin.phone" name="ph">
+                </div>
+                <div class="col-12 mt-2">
+                  <button type="submit" class="btn acm-submit w-100" [disabled]="af.invalid || isLoading">
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                    Create Admin Account
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Coach form -->
+            <form *ngIf="createTab==='coach'" (ngSubmit)="createCoach()" #cf="ngForm">
+              <h5 class="mb-4 acm-form-title"><i class="bi bi-person-badge-fill me-2"></i>New Coach Account</h5>
+              <div class="row g-3">
+                <div class="col-6">
+                  <label class="form-label">First Name *</label>
+                  <input class="form-control" [(ngModel)]="coach.firstName" name="fn" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Last Name *</label>
+                  <input class="form-control" [(ngModel)]="coach.lastName" name="ln" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Email *</label>
+                  <input class="form-control" type="email" [(ngModel)]="coach.email" name="em" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Password *</label>
+                  <input class="form-control" type="password" [(ngModel)]="coach.password" name="pw" required minlength="6">
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Phone *</label>
+                  <input class="form-control" [(ngModel)]="coach.phone" name="ph" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Country</label>
+                  <input class="form-control" [(ngModel)]="coach.country" name="ct">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Skills *</label>
+                  <input class="form-control" [(ngModel)]="coach.skills" name="sk" required placeholder="e.g. Angular, Java, DevOps">
+                </div>
+                <div class="col-6">
+                  <label class="form-label">LinkedIn</label>
+                  <input class="form-control" [(ngModel)]="coach.linkedin" name="li">
+                </div>
+                <div class="col-6">
+                  <label class="form-label">GitHub</label>
+                  <input class="form-control" [(ngModel)]="coach.github" name="gh">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Type Formation</label>
+                  <input class="form-control" [(ngModel)]="coach.typeFormation" name="tf">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">CV File (PDF) *</label>
+                  <input class="form-control" type="file" accept=".pdf,.doc,.docx" (change)="onCvSelected($event)">
+                  <div class="form-text text-muted">Account will be inactive until admin activates it.</div>
+                </div>
+                <div class="col-12 mt-2">
+                  <button type="submit" class="btn acm-submit w-100" [disabled]="cf.invalid || !coachCvFile || isLoading">
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                    Create Coach Account
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Student form -->
+            <form *ngIf="createTab==='student'" (ngSubmit)="createStudent()" #sf="ngForm">
+              <h5 class="mb-4 acm-form-title"><i class="bi bi-mortarboard-fill me-2"></i>New Student Account</h5>
+              <div class="row g-3">
+                <div class="col-6">
+                  <label class="form-label">First Name *</label>
+                  <input class="form-control" [(ngModel)]="student.firstName" name="fn" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Last Name *</label>
+                  <input class="form-control" [(ngModel)]="student.lastName" name="ln" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Email *</label>
+                  <input class="form-control" type="email" [(ngModel)]="student.email" name="em" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Password *</label>
+                  <input class="form-control" type="password" [(ngModel)]="student.password" name="pw" required minlength="6">
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Phone</label>
+                  <input class="form-control" [(ngModel)]="student.phone" name="ph">
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Country</label>
+                  <input class="form-control" [(ngModel)]="student.country" name="ct">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Type Formation</label>
+                  <input class="form-control" [(ngModel)]="student.typeFormation" name="tf">
+                </div>
+                <div class="col-12 mt-2">
+                  <button type="submit" class="btn acm-submit w-100" [disabled]="sf.invalid || isLoading">
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                    Create Student Account
+                  </button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
