@@ -1,3 +1,9 @@
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 320px;
+  }
+}
+
 .acm-tabs {
   display: flex;
   gap: 8px;
