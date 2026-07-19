@@ -1,406 +1,102 @@
-:root {
-    scroll-behavior: smooth;
-  }
-  
-  main {
-  
-    padding: 20px 30px;
-    transition: all 0.3s;
-  }
-  
-  
-  @media (min-width: 991.98px) {
-    main {
-      padding-left: 340px;
-      
-    }
-  }
-  a {
-    color: #01130b;
-    text-decoration: none;
-  
-  }
-  
-  a:hover {
-    color: #AF3065;
-    text-decoration: none;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Nunito", sans-serif;
-  }
-  
-  /*--------------------------------------------------------------
-  # Main
-  --------------------------------------------------------------*/
+:root { scroll-behavior: smooth; }
+main { padding: 20px 30px; background: #f5f7f9; min-height: 100vh; }
+@media (min-width: 991.98px) { main { padding-left: 340px; } }
 
- 
-  
-  /*--------------------------------------------------------------
-  # Page Title
-  --------------------------------------------------------------*/
-  .pagetitle {
-    margin-bottom: 10px;
-  }
-  
-  .pagetitle h1 {
-    font-size: 24px;
-    margin-bottom: 0;
-    font-weight: 600;
-    color: #000000;
-  }
-  .card {
-    background: #ffffff;
-    padding: 0px;
-    border-radius: 5px;
-    border: 0;
-    margin-bottom: 1rem;
-  }
-  .card1 {
-    background: #ffffff;
-    padding: 0px;
-    border-radius: 5px;
-    border: 0;
-    margin-bottom: 1rem;
-   
-  }
-  .stat {
-    background: linear-gradient(90.21deg, #F2A89D 0.19%, #E585A5 41.65%, #E071A9 79.12%, #BC78C1 99.92%);
-    box-shadow: 6px 7px 25px rgba(130, 130, 130, 0.25);
-    padding: 50px;
-    border-radius: 5px;
-    border: 0;
-    margin-bottom: 1rem;
-  }
- main {
-    font-family: "Open Sans", sans-serif;
-    background: #f5f7f9;
-    color: #444444;
-    height: 100%;
-  }
+.pagetitle h1 { font-size: 24px; font-weight: 700; color: #1a3353; }
+.breadcrumb a { color: #899bbd; text-decoration: none; }
+.breadcrumb-item.active { color: #51678f; font-weight: 600; }
+.breadcrumb-item + .breadcrumb-item::before { color: #899bbd; }
 
-    /* Breadcrumbs */
-    .breadcrumb {
-      font-size: 14px;
-      font-family: "Nunito", sans-serif;
-      color: #899bbd;
-      font-weight: 600;
-    }
-    
-    .breadcrumb a {
-      color: #899bbd;
-      transition: 0.3s;
-    }
-    
-    .breadcrumb a:hover {
-      color: #51678f;
-    }
-    
-    .breadcrumb .breadcrumb-item::before {
-      color: #899bbd;
-    }
-    
-    .breadcrumb .active {
-      color: #51678f;
-      font-weight: 600;
-    }
+/* ── Tabs ── */
+.cert-tabs { display: flex; gap: 8px; border-bottom: 2px solid #e9ecef; }
+.cert-tab {
+  padding: 10px 22px; border: none; background: transparent;
+  color: #6c757d; font-weight: 600; cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  border-radius: 4px 4px 0 0; transition: color .2s, border-color .2s;
+}
+.cert-tab:hover { color: #1a3353; }
+.cert-tab.active { color: #1a3353; border-bottom-color: #1a3353; }
 
-  .form__group {
-    position: relative;
-    padding: 15px 0px 0;
-    margin-top: 10px;
-  
-  }
-  
-  .form__field {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid #383838;
-    outline: 0;
-    font-size: 1.3rem;
-    color: #595959;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-  }
-  .form__field::placeholder {
-    color: transparent;
-  }
-  
-  
-  .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.2rem;
-    cursor: text;
-    top: 20px;
-  }
-  
-  .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1.3rem;
-    color: #505050;
-  }
-  
-  
-  .form__field:focus ~ .form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #000000;
-    font-weight: 700;
-  }
-  .register{
-    background-color: #AF3065;
-    color: #ffffff;
-    border-radius: 5px;
-  }
-  .register:hover{
-    background-color:#d8208e ;
-    color: #ffffff;
-  }
+/* ── Toast ── */
+.cert-toast {
+  padding: 12px 18px; border-radius: 10px; margin-bottom: 16px;
+  display: flex; align-items: center; font-weight: 500;
+}
+.cert-toast.success { background: #e8f5e9; color: #2e7d32; }
+.cert-toast.error { background: #fce4ec; color: #c62828; }
 
+/* ── Labels ── */
+.cert-label { display: block; font-size: .82rem; font-weight: 700; color: #495057; margin-bottom: 5px; }
 
+/* ── Search input with icon ── */
+.cert-search-wrap { position: relative; flex: 1; max-width: 400px; }
+.cert-search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #adb5bd; z-index: 2; pointer-events: none; }
+.cert-search-input { padding-left: 34px; border-radius: 8px; }
+.cert-spinner { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
 
+/* ── Dropdown ── */
+.cert-dropdown {
+  position: absolute; top: calc(100% + 4px); left: 0; width: 100%;
+  background: #fff; border: 1px solid #dee2e6; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.1); z-index: 1050;
+  max-height: 260px; overflow-y: auto;
+}
+.cert-dropdown-empty { padding: 12px 16px; color: #adb5bd; font-size: .88rem; }
+.cert-dropdown-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; cursor: pointer; transition: background .15s;
+  border-bottom: 1px solid #f8f9fa; font-size: .88rem;
+}
+.cert-dropdown-item:last-child { border-bottom: none; }
+.cert-dropdown-item:hover { background: #f0f4ff; }
+.cert-dropdown-item.selected { background: #eef2ff; }
 
+/* ── Chips ── */
+.cert-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1a3353; color: #fff;
+  border-radius: 20px; padding: 4px 12px; font-size: .82rem; font-weight: 600;
+}
+.cert-chip-remove {
+  background: transparent; border: none; color: rgba(255,255,255,.8);
+  cursor: pointer; padding: 0; line-height: 1; display: flex;
+}
+.cert-chip-remove:hover { color: #fff; }
 
+/* ── Buttons ── */
+.cert-btn-primary {
+  background: #1a3353; color: #fff; border: none;
+  border-radius: 8px; padding: 10px 20px; font-weight: 700;
+  transition: background .2s;
+}
+.cert-btn-primary:hover:not(:disabled) { background: #0d1f35; color: #fff; }
+.cert-btn-primary:disabled { background: #adb5bd; cursor: not-allowed; }
 
+.cert-btn-outline {
+  border: 1px solid #dee2e6; background: #fff; color: #495057;
+  border-radius: 8px; padding: 8px 16px; font-weight: 600;
+  transition: background .15s;
+}
+.cert-btn-outline:hover { background: #f8f9fa; }
 
+.cert-btn-edit {
+  background: #e8f0fe; color: #1a3353; border: none;
+  border-radius: 6px; padding: 5px 12px; font-weight: 600; font-size: .82rem;
+  transition: background .15s;
+}
+.cert-btn-edit:hover { background: #c5d4f5; }
 
+/* ── Table ── */
+.table th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: #adb5bd; font-weight: 700; }
+.table td { font-size: .88rem; }
 
-
-  .toggle-button-cover
-  {
-      display: table-cell;
-      position: relative;
-      width: 200px;
-      height: 140px;
-      box-sizing: border-box;
-  }
-  
-  .button-cover
-  {
-      height: 100px;
-      margin: 20px;
-      background-color: #fff;
-      box-shadow: 0 10px 20px -8px #ffffff;
-      border-radius: 4px;
-  }
-  
-  .button-cover:before
-  {
-      counter-increment: button-counter;
-      content: counter(button-counter);
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      color: #ffffff;
-      font-size: 12px;
-      line-height: 1;
-      padding: 5px;
-  }
-  
-  .button-cover, .knobs, .layer
-  {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-  }
-  
-  .button
-  {
-      position: relative;
-      top: 50%;
-      width: 74px;
-      height: 36px;
-      margin: -20px auto 0 auto;
-      overflow: hidden;
-  }
-  
-  .button.r, .button.r .layer
-  {
-      border-radius: 100px;
-  }
-  
-  .button.b2
-  {
-      border-radius: 2px;
-  }
-  
-  .checkbox
-  {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      opacity: 0;
-      cursor: pointer;
-      z-index: 3;
-  }
-  
-  .knobs
-  {
-      z-index: 2;
-  }
-  
-  .layer
-  {
-      width: 100%;
-      background-color: #ffffff;
-      transition: 0.3s ease all;
-      z-index: 1;
-  }
-  
-
-/* Button 12 */
-#button-12 .knobs:before, #button-12 .knobs:after, #button-12 .knobs span, #button-12 .knobs span:before, #button-12 .knobs span:after
-{
-    position: absolute;
-    top: 4px;
-    font-size: 10px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1;
-    border-radius: 2px;
-    transition: 0.3s ease all;
+.cert-badge-month {
+  background: #fff3e0; color: #e65100;
+  border-radius: 20px; padding: 3px 10px; font-size: .75rem; font-weight: 700;
 }
 
-#button-12 .knobs:before
-{
-    content: 'YES';
-    left: 4px;
-}
-
-#button-12 .knobs:after
-{
-    content: 'NO';
-    right: 4px;
-}
-
-#button-12 .knobs:before, #button-12 .knobs:after
-{
-    width: 27px;
-    height: 10px;
-    color: #4e4e4e;
-    padding: 9px 3px;
-    z-index: 1;
-}
-
-#button-12 .knobs span
-{
-    display: inline-block;
-    z-index: 2;
-}
-
-#button-12 .knobs span, #button-12 .knobs span:before, #button-12 .knobs span:after
-{
-    width: 40px;
-    height: 20px;
-    padding: 80px 0px;
-}
-
-#button-12 .knobs span:before, #button-12 .knobs span:after
-{
-    content: '';
-    top: 0;
-}
-
-#button-12 .knobs span:before
-{
-    left: -40px;
-    background-color: #F44336;
-}
-
-#button-12 .knobs span:after
-{
-    right: -30px;
-    background-color: #00A066;
-}
-
-#button-12 .checkbox:checked + .knobs span:before
-{
-    left:4px;
-}
-
-#button-12 .checkbox:checked + .knobs span:after
-{
-    right: -74px;
-}
-.btn-circle {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.thumbnails-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.thumbnail {
-  width: 200px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.thumbnail img {
-  width: 100%;
-  height: auto;
-}
-
-
-
-
-  
-
-
-/* Autocomplete Dropdown Styles */
-.position-relative {
-  position: relative;
-}
-
-.position-absolute {
-  position: absolute;
-}
-
-[style*="hover-effect"]:hover {
-  background-color: #f8f9fa !important;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.btn-close-white {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%23fff' d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
-}
-
-/* Dropdown animation */
-.card.position-absolute {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #dee2e6;
-}
-
-/* Form control focus state */
-.form-control:focus {
-  border-color: #AF3065;
-  box-shadow: 0 0 0 0.2rem rgba(175, 48, 101, 0.25);
-}
+/* ── Inline edit ── */
+.cert-edit-row td { background: #f0f4ff !important; }
+.cert-edit-card { background: #fff; border-radius: 12px; padding: 20px; border: 1.5px solid #c5d4f5; }
+.cert-edit-title { font-weight: 700; color: #1a3353; font-size: 1rem; margin-bottom: 4px; }

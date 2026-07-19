@@ -1,244 +1,240 @@
 <main>
-    <div class="d-lg-none d-md-block"><br><br><br></div>
-    <div class="pagetitle">
-      <h1>Generate Certificate</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active">Generate Certificate</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-  
-    <!-- ======= Profile Section ======= -->
-    <div class="container">
-      <div class="main-body">
-        <div *ngIf="showThankYouPopup" class="popup alert alert-success">
-          <h2>Thank you!</h2>
-          <p>Certificate has been generated successfully.</p>
-        </div>
+  <div class="d-lg-none d-md-block"><br><br><br></div>
+  <div class="pagetitle">
+    <h1>Certificates</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+        <li class="breadcrumb-item active">Certificates</li>
+      </ol>
+    </nav>
+  </div>
 
-        <div *ngIf="errorMessage" class="alert alert-danger">
-          <strong>Error:</strong> {{ errorMessage }}
-        </div>
+  <!-- Tab bar -->
+  <div class="cert-tabs mb-4">
+    <button type="button" class="cert-tab" [class.active]="activeTab==='generate'" (click)="switchTab('generate')">
+      <i class="bi bi-file-earmark-plus me-2"></i>Generate
+    </button>
+    <button type="button" class="cert-tab" [class.active]="activeTab==='manage'" (click)="switchTab('manage')">
+      <i class="bi bi-pencil-square me-2"></i>Manage & Customize
+    </button>
+  </div>
 
-        <form [formGroup]="certifForm" (ngSubmit)="liste()">
-          <div class="col-md-8 container">
-            <div class="card">
-              <div class="card-body">
-                <div class="form-group mb-3">
-
-                  <!-- List of Students - Autocomplete Dropdown -->
-                  <div class="mb-3 mt-3">
-                    <label for="studentSearch">List of Students:</label>
-                    
-                    <!-- Autocomplete Input -->
-                    <div class="position-relative">
-                      <input 
-                        type="text" 
-                        class="form-control" 
-                        id="studentSearch"
-                        placeholder="Search student by name, username, or email..."
-                        [value]="searchInput"
-                        (input)="filterStudents($event)"
-                        (focus)="showDropdown = true"
-                        [class.is-invalid]="certifForm.get('students')?.invalid && certifForm.get('students')?.touched">
-                      
-                      <!-- Loading spinner inside input -->
-                      <div *ngIf="isLoadingStudents" class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
-                        <div class="spinner-border spinner-border-sm" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-
-                      <!-- Dropdown list -->
-                      <div *ngIf="showDropdown && !isLoadingStudents" class="card position-absolute w-100" style="top: 100%; left: 0; max-height: 300px; overflow-y: auto; z-index: 1000; margin-top: 2px;">
-                        <div class="card-body p-0">
-                          <!-- Empty state -->
-                          <div *ngIf="filteredStudents.length === 0" class="p-3 text-muted">
-                            No students found.
-                          </div>
-
-                          <!-- Student list -->
-                          <div *ngFor="let student of filteredStudents" 
-                               class="p-2" 
-                               style="cursor: pointer; border-bottom: 1px solid #f0f0f0; hover-effect"
-                               (click)="selectStudent(student)"
-                               [style.background-color]="isStudentSelected(student.id) ? '#e9ecef' : 'transparent'">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <strong>{{ student.firstName }} {{ student.lastName }}</strong>
-                                <br>
-                                <small class="text-muted">{{ student.username }} | {{ student.email }}</small>
-                              </div>
-                              <div>
-                                <input 
-                                  type="checkbox" 
-                                  class="form-check-input mt-2"
-                                  [checked]="isStudentSelected(student.id)"
-                                  (click)="$event.stopPropagation()">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Selected Students as Tags/Chips -->
-                    <div class="mt-3" *ngIf="selectedStudents.length > 0">
-                      <div class="d-flex flex-wrap gap-2">
-                        <div *ngFor="let student of selectedStudents" class="badge bg-primary p-2" style="font-size: 0.9rem;">
-                          {{ student.firstName }} {{ student.lastName }}
-                          <button 
-                            type="button" 
-                            class="btn-close btn-close-white ms-2"
-                            aria-label="Remove"
-                            (click)="removeStudent(student.id)"
-                            style="padding: 0; margin-left: 0.5rem; display: inline;"></button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Selection count -->
-                    <small class="form-text text-muted mt-2 d-block" *ngIf="selectedStudents.length > 0">
-                      Selected: {{ selectedStudents.length }} student(s)
-                    </small>
-                  </div>
-
-                  <!-- Period - Fixed Dropdown -->
-                  <div class="mb-3">
-                    <label for="periode">Period:</label>
-                    <select 
-                      class="form-control" 
-                      id="periode"
-                      formControlName="periode"
-                      [class.is-invalid]="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
-                      <option value="" disabled>Select a period</option>
-                      <option *ngFor="let period of predefinedPeriods" [value]="period">
-                        {{ period }}
-                      </option>
-                    </select>
-                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('periode')?.invalid && certifForm.get('periode')?.touched">
-                      <div *ngIf="certifForm.get('periode')?.errors?.['required']">Period is required!</div>
-                    </div>
-                  </div>
-
-                  <!-- Formation - Autocomplete Dropdown -->
-                  <div class="mb-3">
-                    <label for="formationSearch">Formation:</label>
-                    
-                    <!-- Autocomplete Input -->
-                    <div class="position-relative">
-                      <input 
-                        type="text" 
-                        class="form-control" 
-                        id="formationSearch"
-                        placeholder="Search formation by name..."
-                        [value]="formationSearchInput"
-                        (input)="filterFormations($event)"
-                        (focus)="showFormationDropdown = true"
-                        [class.is-invalid]="certifForm.get('formation')?.invalid && certifForm.get('formation')?.touched">
-                      
-                      <!-- Loading spinner inside input -->
-                      <div *ngIf="isLoadingFormations" class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
-                        <div class="spinner-border spinner-border-sm" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
-                      </div>
-
-                      <!-- Dropdown list -->
-                      <div *ngIf="showFormationDropdown && !isLoadingFormations" class="card position-absolute w-100" style="top: 100%; left: 0; max-height: 300px; overflow-y: auto; z-index: 1000; margin-top: 2px;">
-                        <div class="card-body p-0">
-                          <!-- Empty state -->
-                          <div *ngIf="filteredFormations.length === 0" class="p-3 text-muted">
-                            No formations found.
-                          </div>
-
-                          <!-- Formation list -->
-                          <div *ngFor="let formation of filteredFormations" 
-                               class="p-2" 
-                               style="cursor: pointer; border-bottom: 1px solid #f0f0f0; hover-effect"
-                               (click)="selectFormation(formation)"
-                               [style.background-color]="selectedFormation?.id === formation.id ? '#e9ecef' : 'transparent'">
-                            <strong>{{ formation.nomFormation }}</strong>
-                            <div *ngIf="selectedFormation?.id === formation.id" class="float-end">
-                              <span class="badge bg-primary">Selected</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Selected Formation -->
-                    <div class="mt-2" *ngIf="selectedFormation">
-                      <div class="badge bg-success p-2">
-                        {{ selectedFormation.nomFormation }}
-                        <button 
-                          type="button" 
-                          class="btn-close btn-close-white ms-2"
-                          aria-label="Remove"
-                          (click)="selectedFormation = null; certifForm.patchValue({ formation: '' })"
-                          style="padding: 0; margin-left: 0.5rem; display: inline;"></button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Month -->
-                  <div class="mb-3">
-                    <label for="month">Month:</label>
-                    <select
-                      class="form-control"
-                      id="month"
-                      formControlName="month"
-                      [class.is-invalid]="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
-                      <option value="" disabled>Select a month</option>
-                      <option *ngFor="let m of monthOptions" [value]="m">{{ m }}</option>
-                    </select>
-                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('month')?.invalid && certifForm.get('month')?.touched">
-                      <div *ngIf="certifForm.get('month')?.errors?.['required']">Month is required!</div>
-                    </div>
-                  </div>
-
-                  <!-- Date -->
-                  <div class="mb-3">
-                    <label for="start">Date:</label>
-                    <input 
-                      type="datetime-local" 
-                      id="start" 
-                      class="form-control"
-                      min="2022-01-01" 
-                      formControlName="start"
-                      [class.is-invalid]="certifForm.get('start')?.invalid && certifForm.get('start')?.touched">
-                    <div class="invalid-feedback d-block" *ngIf="certifForm.get('start')?.invalid && certifForm.get('start')?.touched">
-                      <div *ngIf="certifForm.get('start')?.errors?.['required']">Date is required!</div>
-                    </div>
-                  </div>
-
-                  <br/> <br/>
-                  <div class="row d-flex justify-content-end">
-                    <div class="col-2">
-                      <button 
-                        type="submit" 
-                        class="btn btn-primary submit w-100"
-                        [disabled]="certifForm.invalid || isLoading">
-                        <span *ngIf="!isLoading">Generate</span>
-                        <span *ngIf="isLoading">Loading...</span>
-                      </button>
-                    </div>
-                  </div>
-                  <br/> <br/>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="row bg-white shadow d-flex justify-content-center">
-        <div class="col-6">
-          <!-- Place additional content here -->
-        </div>
-      </div>
+  <!-- ══════════════ GENERATE TAB ══════════════ -->
+  <div *ngIf="activeTab==='generate'">
+    <div *ngIf="showThankYouPopup" class="cert-toast success">
+      <i class="bi bi-check-circle-fill me-2"></i>Certificate(s) generated successfully!
+    </div>
+    <div *ngIf="errorMessage" class="cert-toast error">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
     </div>
 
-</main><!-- End #main -->
+    <form [formGroup]="certifForm" (ngSubmit)="liste()">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+
+              <!-- Students -->
+              <div class="mb-4">
+                <label class="cert-label">Students *</label>
+                <div class="position-relative">
+                  <i class="bi bi-search cert-search-icon"></i>
+                  <input type="text" class="form-control cert-search-input"
+                    placeholder="Search by name or email…"
+                    [value]="searchInput"
+                    (input)="filterStudents($event)"
+                    (focus)="showDropdown=true">
+                  <div *ngIf="isLoadingStudents" class="cert-spinner"><div class="spinner-border spinner-border-sm"></div></div>
+                  <div *ngIf="showDropdown && !isLoadingStudents" class="cert-dropdown" (mouseleave)="showDropdown=false">
+                    <div *ngIf="filteredStudents.length===0" class="cert-dropdown-empty">No students found</div>
+                    <div *ngFor="let s of filteredStudents" class="cert-dropdown-item"
+                         [class.selected]="isStudentSelected(s.id)" (click)="selectStudent(s)">
+                      <div>
+                        <strong>{{s.firstName}} {{s.lastName}}</strong>
+                        <div class="text-muted small">{{s.username}}</div>
+                      </div>
+                      <i class="bi" [class.bi-check-circle-fill]="isStudentSelected(s.id)" [class.bi-circle]="!isStudentSelected(s.id)"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mt-2" *ngIf="selectedStudents.length">
+                  <span *ngFor="let s of selectedStudents" class="cert-chip">
+                    {{s.firstName}} {{s.lastName}}
+                    <button type="button" title="Remove student" class="cert-chip-remove" (click)="removeStudent(s.id)"><i class="bi bi-x"></i></button>
+                  </span>
+                </div>
+                <small class="text-muted" *ngIf="selectedStudents.length">{{selectedStudents.length}} student(s) selected</small>
+              </div>
+
+              <!-- Period -->
+              <div class="mb-4">
+                <label class="cert-label">Period *</label>
+                <select class="form-select" formControlName="periode" title="Select period">
+                  <option value="" disabled>Select a period</option>
+                  <option *ngFor="let p of predefinedPeriods" [value]="p">{{p}}</option>
+                </select>
+              </div>
+
+              <!-- Formation -->
+              <div class="mb-4">
+                <label class="cert-label">Formation *</label>
+                <div class="position-relative">
+                  <i class="bi bi-search cert-search-icon"></i>
+                  <input type="text" class="form-control cert-search-input"
+                    placeholder="Search formation…"
+                    [value]="formationSearchInput"
+                    (input)="filterFormations($event)"
+                    (focus)="showFormationDropdown=true">
+                  <div *ngIf="isLoadingFormations" class="cert-spinner"><div class="spinner-border spinner-border-sm"></div></div>
+                  <div *ngIf="showFormationDropdown && !isLoadingFormations" class="cert-dropdown" (mouseleave)="showFormationDropdown=false">
+                    <div *ngIf="filteredFormations.length===0" class="cert-dropdown-empty">No formations found</div>
+                    <div *ngFor="let f of filteredFormations" class="cert-dropdown-item"
+                         [class.selected]="selectedFormation?.id===f.id" (click)="selectFormation(f)">
+                      {{f.nomFormation}}
+                      <i *ngIf="selectedFormation?.id===f.id" class="bi bi-check-circle-fill text-success"></i>
+                    </div>
+                  </div>
+                </div>
+                <span *ngIf="selectedFormation" class="cert-chip mt-2 d-inline-flex">
+                  {{selectedFormation.nomFormation}}
+                  <button type="button" title="Remove formation" class="cert-chip-remove" (click)="selectedFormation=null; certifForm.patchValue({formation:''})"><i class="bi bi-x"></i></button>
+                </span>
+              </div>
+
+              <!-- Month -->
+              <div class="mb-4">
+                <label class="cert-label">Month *</label>
+                <select class="form-select" formControlName="month" title="Select month">
+                  <option value="" disabled>Select a month</option>
+                  <option *ngFor="let m of monthOptions" [value]="m">{{m}}</option>
+                </select>
+              </div>
+
+              <!-- Date -->
+              <div class="mb-4">
+                <label class="cert-label">Issue Date *</label>
+                <input type="datetime-local" class="form-control" formControlName="start" min="2022-01-01">
+              </div>
+
+              <button type="submit" class="btn cert-btn-primary w-100" [disabled]="certifForm.invalid || isLoading || !selectedStudents.length || !selectedFormation">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                <i *ngIf="!isLoading" class="bi bi-file-earmark-check me-2"></i>
+                {{isLoading ? 'Generating…' : 'Generate Certificate(s)'}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ══════════════ MANAGE TAB ══════════════ -->
+  <div *ngIf="activeTab==='manage'">
+    <div *ngIf="manageError" class="cert-toast error mb-3">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{manageError}}
+    </div>
+
+    <div class="d-flex align-items-center gap-3 mb-3">
+      <div class="cert-search-wrap">
+        <i class="bi bi-search cert-search-icon"></i>
+        <input type="text" class="form-control cert-search-input" placeholder="Search by student, formation, month…"
+               [(ngModel)]="certSearch" (ngModelChange)="filterCerts()">
+      </div>
+      <button type="button" class="btn cert-btn-outline" (click)="loadCerts()">
+        <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+      </button>
+      <span class="text-muted small">{{filteredCerts.length}} certificate(s)</span>
+    </div>
+
+    <div *ngIf="isLoadingCerts" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="!isLoadingCerts" class="card shadow-sm border-0">
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead class="bg-light">
+            <tr>
+              <th>#</th>
+              <th>Student</th>
+              <th>Formation</th>
+              <th>Month</th>
+              <th>Period</th>
+              <th>Generated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="filteredCerts.length===0">
+              <td colspan="7" class="text-center text-muted py-4">No certificates found</td>
+            </tr>
+            <ng-container *ngFor="let cert of filteredCerts">
+              <!-- Normal row -->
+              <tr *ngIf="editingId !== cert.id">
+                <td class="text-muted small">{{cert.id}}</td>
+                <td>
+                  <div class="fw-semibold">{{cert.studentFirstName}} {{cert.studentLastName}}</div>
+                  <div class="text-muted small">{{cert.studentEmail}}</div>
+                </td>
+                <td>{{cert.formation || '—'}}</td>
+                <td><span class="cert-badge-month">{{cert.month}}</span></td>
+                <td>{{cert.period}}</td>
+                <td class="text-muted small">{{cert.date | date:'dd/MM/yyyy'}}</td>
+                <td>
+                  <button type="button" class="btn cert-btn-edit btn-sm" (click)="startEdit(cert)">
+                    <i class="bi bi-pencil me-1"></i>Edit & Regenerate
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Inline edit row -->
+              <tr *ngIf="editingId === cert.id" class="cert-edit-row">
+                <td colspan="7" class="p-3">
+                  <div class="cert-edit-card">
+                    <div class="cert-edit-title"><i class="bi bi-pencil-square me-2"></i>Edit Certificate #{{cert.id}}</div>
+                    <div class="row g-3 mt-1">
+                      <div class="col-md-4">
+                        <label class="cert-label">Student Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="editForm.name" placeholder="Full name on certificate">
+                      </div>
+                      <div class="col-md-4">
+                        <label class="cert-label">Formation</label>
+                        <input type="text" class="form-control" [(ngModel)]="editForm.formation" placeholder="Formation name">
+                      </div>
+                      <div class="col-md-4">
+                        <label class="cert-label">Month</label>
+                        <select class="form-select" [(ngModel)]="editForm.month" title="Select month">
+                          <option *ngFor="let m of monthOptions" [value]="m">{{m}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="cert-label">Period</label>
+                        <select class="form-select" [(ngModel)]="editForm.period" title="Select period">
+                          <option *ngFor="let p of predefinedPeriods" [value]="p">{{p}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="cert-label">Issue Date</label>
+                        <input type="date" class="form-control" [(ngModel)]="editForm.date" placeholder="yyyy-mm-dd">
+                      </div>
+                    </div>
+                    <div class="d-flex gap-2 mt-3">
+                      <button type="button" class="btn cert-btn-primary" (click)="regenerate(cert.id)" [disabled]="isRegenerating">
+                        <span *ngIf="isRegenerating" class="spinner-border spinner-border-sm me-1"></span>
+                        <i *ngIf="!isRegenerating" class="bi bi-download me-1"></i>
+                        {{isRegenerating ? 'Generating…' : 'Regenerate & Download'}}
+                      </button>
+                      <button type="button" class="btn cert-btn-outline" (click)="cancelEdit()">Cancel</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
