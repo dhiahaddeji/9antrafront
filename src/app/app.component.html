@@ -1,2 +1,24 @@
 <router-outlet></router-outlet>
 <app-chatbot></app-chatbot>
+
+<!-- ── Global drag overlay ── -->
+<div class="upload-drag-overlay" [class.active]="dragActive">
+  <div class="upload-drag-inner">
+    <div class="upload-drag-icon">
+      <i class="bi bi-cloud-upload-fill"></i>
+    </div>
+    <div class="upload-drag-text">Déposer le fichier ici</div>
+    <div class="upload-drag-sub">Photo ou vidéo acceptée</div>
+  </div>
+</div>
+
+<!-- ── Upload toast notification ── -->
+<div class="upload-toast" [class.visible]="uploadToast.visible" [class.drag-type]="uploadToast.type === 'drag'">
+  <div class="upload-toast-icon">
+    <i class="bi" [class.bi-check-circle-fill]="uploadToast.type === 'file'" [class.bi-box-arrow-in-down]="uploadToast.type === 'drag'"></i>
+  </div>
+  <div class="upload-toast-body">
+    <div class="upload-toast-title">{{ uploadToast.type === 'file' ? 'Fichier sélectionné' : 'Fichier déposé' }}</div>
+    <div class="upload-toast-name">{{ uploadToast.message }}</div>
+  </div>
+</div>

@@ -18,6 +18,72 @@ html,
 body {
   height: 100%;
 }
+
+/* ══════════════════════════════════════════════════
+   Global Upload Feedback — drag overlay + toast
+   ══════════════════════════════════════════════════ */
+
+/* Full-screen drag overlay */
+.upload-drag-overlay {
+  position: fixed; inset: 0; z-index: 99999;
+  background: rgba(26, 51, 83, 0.72);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  opacity: 0; transition: opacity .2s ease;
+}
+.upload-drag-overlay.active {
+  opacity: 1; pointer-events: all;
+}
+.upload-drag-inner {
+  background: #fff; border-radius: 24px;
+  padding: 48px 64px; text-align: center;
+  border: 3px dashed #1a3353;
+  animation: ud-pulse .8s ease-in-out infinite alternate;
+}
+@keyframes ud-pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.03); }
+}
+.upload-drag-icon {
+  font-size: 64px; color: #1a3353; line-height: 1; margin-bottom: 16px;
+}
+.upload-drag-text {
+  font-size: 22px; font-weight: 700; color: #1a3353; margin-bottom: 6px;
+}
+.upload-drag-sub {
+  font-size: 14px; color: #6c757d;
+}
+
+/* Toast notification */
+.upload-toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 99998;
+  display: flex; align-items: center; gap: 14px;
+  background: #1a3353; color: #fff;
+  border-radius: 14px; padding: 14px 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.22);
+  min-width: 260px; max-width: 380px;
+  opacity: 0; transform: translateY(20px) scale(.96);
+  transition: opacity .28s ease, transform .28s ease;
+  pointer-events: none;
+}
+.upload-toast.visible {
+  opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
+}
+.upload-toast.drag-type {
+  background: #0d6efd;
+}
+.upload-toast-icon {
+  font-size: 26px; flex-shrink: 0; line-height: 1;
+}
+.upload-toast-title {
+  font-size: .78rem; font-weight: 700; opacity: .75; text-transform: uppercase; letter-spacing: .05em;
+}
+.upload-toast-name {
+  font-size: .92rem; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 280px;
+}
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
