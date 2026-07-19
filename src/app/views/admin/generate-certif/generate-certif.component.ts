@@ -156,10 +156,15 @@ export class GenerateCertifComponent implements OnInit {
 
   // ── Manage ────────────────────────────────────────────────────────────────
 
+  private authHeaders() {
+    const token = localStorage.getItem('jwtToken');
+    return token ? { headers: { Authorization: 'Bearer ' + token } } : {};
+  }
+
   loadCerts(): void {
     this.isLoadingCerts = true;
     this.manageError = '';
-    this.http.get<any[]>(`${this.backendBase}/api/certif/all`).subscribe(
+    this.http.get<any[]>(`${this.backendBase}/api/certif/all`, this.authHeaders()).subscribe(
       (res) => {
         this.allCerts = res;
         this.filteredCerts = res;
@@ -194,7 +199,9 @@ export class GenerateCertifComponent implements OnInit {
   regenerate(certId: number): void {
     this.isRegenerating = true;
     this.manageError = '';
-    this.http.put(`${this.backendBase}/api/certif/update/${certId}`, this.editForm, { responseType: 'blob' }).subscribe(
+    const token = localStorage.getItem('jwtToken');
+    const headers = token ? { Authorization: 'Bearer ' + token } : {};
+    this.http.put(`${this.backendBase}/api/certif/update/${certId}`, this.editForm, { responseType: 'blob', headers }).subscribe(
       (blob: Blob) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
