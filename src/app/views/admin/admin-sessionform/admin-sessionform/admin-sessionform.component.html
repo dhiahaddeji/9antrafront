@@ -2,164 +2,192 @@
   <div class="d-lg-none d-md-block"><br /><br /><br /></div>
 
   <div class="pagetitle">
-    <h1>Session</h1>
+    <h1>Sessions</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">Add Session</li>
+        <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+        <li class="breadcrumb-item active">Session Management</li>
       </ol>
     </nav>
   </div>
-  <div class="container">
-    <div class="details overflow-auto">
-      <button class="btn btn-primary add-button" (click)="openSessionDialog()">
-        <span><i class="bi bi-plus"></i> Add Session</span>
-      </button>
-      <p *ngIf="selectedDay" class="date-selected">
-        {{ selectedDay }} {{ currentMonth }}
-      </p>
-      <p *ngIf="!selectedDay" class="date-selected">No date selected</p>
-      <div class="session-container">
-        <h4>Session Details:</h4>
-        <ul style="list-style: none; padding: 0">
-          <li *ngFor="let session of sessionDetails" class="session-item">
-            <button
-              class="btn btn-danger delete-button"
-              (click)="deleteSession(session)"
-            >
-              <i class="bi bi-x"></i>
+
+  <div class="session-layout">
+
+    <!-- LEFT: Session Details Panel -->
+    <div class="session-panel card shadow-sm border-0">
+      <div class="session-panel-header">
+        <button class="btn-add-session" (click)="openSessionDialog()">
+          <i class="bi bi-plus-lg me-1"></i> Add Session
+        </button>
+        <div class="selected-date-badge" *ngIf="selectedDay; else noDate">
+          <i class="bi bi-calendar3 me-1"></i>
+          {{ selectedDay }} {{ currentMonth }} {{ currentYear }}
+        </div>
+        <ng-template #noDate>
+          <div class="selected-date-badge muted"><i class="bi bi-calendar3 me-1"></i> No date selected</div>
+        </ng-template>
+      </div>
+
+      <div class="session-list">
+        <p class="session-list-title">Sessions on this day</p>
+        <div *ngIf="sessionDetails.length === 0" class="no-sessions">
+          <i class="bi bi-calendar-x"></i>
+          <span>No sessions found</span>
+        </div>
+        <div *ngFor="let session of sessionDetails" class="session-card">
+          <div class="session-card-header">
+            <span class="session-name">{{ session.sessionName }}</span>
+            <button class="btn-delete" (click)="deleteSession(session)" title="Delete">
+              <i class="bi bi-trash3"></i>
             </button>
-
-            {{ session.formation.nomFormation }}<br />
-
-            {{ session.sessionName }}<br />
-            Start at : {{ session.startDate | date : "mediumTime" }}<br />
-            Duration:
-            {{ calculateDuration(session.startDate, session.finishDate) }}
-
-            <div *ngFor="let group of session.groups">
-              {{ group.groupName }}
+          </div>
+          <div class="session-card-body">
+            <div class="session-meta"><i class="bi bi-book me-1"></i>{{ session.formation?.nomFormation }}</div>
+            <div class="session-meta"><i class="bi bi-clock me-1"></i>{{ session.startDate | date:'shortTime' }} — {{ calculateDuration(session.startDate, session.finishDate) }}</div>
+            <div class="session-meta" *ngIf="session.groups?.length">
+              <i class="bi bi-people me-1"></i>
+              <span *ngFor="let g of session.groups; let last=last">{{ g.groupName }}<span *ngIf="!last">, </span></span>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="calendar">
-      <div class="header">
-        <button class="btn btn-link prev-btn" (click)="goToPreviousMonth()">
-          &lt;
-        </button>
-        <span class="month">{{ currentMonth }}</span>
-        <span class="year">{{ currentYear }}</span>
-        <button class="btn btn-link next-btn" (click)="goToNextMonth()">
-          &gt;
-        </button>
+    <!-- RIGHT: Calendar -->
+    <div class="calendar card shadow-sm border-0">
+      <div class="calendar-header">
+        <button class="cal-nav" (click)="goToPreviousMonth()"><i class="bi bi-chevron-left"></i></button>
+        <span class="cal-title">{{ currentMonth }} {{ currentYear }}</span>
+        <button class="cal-nav" (click)="goToNextMonth()"><i class="bi bi-chevron-right"></i></button>
       </div>
-
       <div class="days-names">
-        <div class="day-name" *ngFor="let name of dayNames">{{ name }}</div>
+        <div class="day-name" *ngFor="let name of dayNames">{{ name.slice(0,3) }}</div>
       </div>
       <div class="days">
-        <div *ngFor="let day of daysOffset; let i = index" class="day"></div>
-        <div
-          *ngFor="let day of daysInMonth"
-          class="day"
-          [class.selected]="day === selectedDay"
-          (click)="selectDay(day)"
-        >
-          <span class="day-number" [class.selected]="day === selectedDay">{{
-            day
-          }}</span>
+        <div *ngFor="let day of daysOffset" class="day empty"></div>
+        <div *ngFor="let day of daysInMonth" class="day"
+             [class.selected]="day === selectedDay"
+             [class.today]="isToday(day)"
+             (click)="selectDay(day)">
+          <span class="day-number">{{ day }}</span>
         </div>
       </div>
     </div>
   </div>
 
-  <ng-template #sessionDialog>
-    <div class="session-dialog">
-      <h3>Select Training</h3>
-      <select class="form-select" [(ngModel)]="selectedTraining">
-        <option *ngFor="let formation of formations" [value]="formation.id">
-          {{ formation.nomFormation }}
-        </option>
-      </select>
-      <h3>Name</h3>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="sessionName"
-        required
-        placeholder="Session name"
-      />
+  <!-- ═══ SESSION DIALOG OVERLAY ═══ -->
+  <div class="ses-overlay" *ngIf="showDialog" (click)="closeAll()">
+    <div class="ses-modal" (click)="$event.stopPropagation()">
 
-      <h3>Description</h3>
-      <textarea
-        class="form-control"
-        [(ngModel)]="sessionDescription"
-        required
-        placeholder="Session description"
-      ></textarea>
-      <h3>Session Time</h3>
-      <input type="time" class="form-control" [(ngModel)]="sessionTime" />
+      <!-- Step indicator -->
+      <div class="ses-steps">
+        <div class="ses-step" [class.active]="dialogStep===1" [class.done]="dialogStep>1">
+          <div class="ses-step-num">1</div>
+          <span>Session Info</span>
+        </div>
+        <div class="ses-step-line" [class.done]="dialogStep>1"></div>
+        <div class="ses-step" [class.active]="dialogStep===2">
+          <div class="ses-step-num">2</div>
+          <span>Assign Groups</span>
+        </div>
+      </div>
 
-      <h3>Duration (hours)</h3>
-      <input type="number" class="form-control" [(ngModel)]="sessionDuration" />
+      <!-- Step 1 -->
+      <div *ngIf="dialogStep===1">
+        <h5 class="ses-modal-title">New Session</h5>
 
-      <button class="btn btn-primary" (click)="openGroupsDialog()">Next</button>
-    </div>
-  </ng-template>
+        <div class="ses-field">
+          <label>Training *</label>
+          <select class="form-select" [(ngModel)]="selectedTraining">
+            <option *ngFor="let f of formations" [value]="f.id">{{ f.nomFormation }}</option>
+          </select>
+        </div>
 
-  <!-- Groups Dialog -->
-  <ng-template #groupsDialog>
-    <div class="groups-dialog">
-      <h3>Groups for Session with {{ getSelectedTrainingName() }}</h3>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let group of groups">
-          <label class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              [checked]="isGroupSelected(group)"
-              (change)="selectGroup(group)"
-            />
-            {{ group.groupName }}
+        <div class="ses-field">
+          <label>Session Name *</label>
+          <input class="form-control" [(ngModel)]="sessionName" placeholder="e.g. Morning Session">
+        </div>
+
+        <div class="ses-field">
+          <label>Description *</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="sessionDescription" placeholder="Brief description…"></textarea>
+        </div>
+
+        <div class="ses-row">
+          <div class="ses-field">
+            <label>Start Time *</label>
+            <input type="time" class="form-control" [(ngModel)]="sessionTime">
+          </div>
+          <div class="ses-field">
+            <label>Duration (hours) *</label>
+            <input type="number" class="form-control" [(ngModel)]="sessionDuration" min="1" placeholder="2">
+          </div>
+        </div>
+
+        <div class="ses-actions">
+          <button class="btn-ses-cancel" (click)="closeAll()">Cancel</button>
+          <button class="btn-ses-next" (click)="goToStep2()">
+            Next <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div *ngIf="dialogStep===2">
+        <h5 class="ses-modal-title">Assign Groups</h5>
+        <p class="ses-modal-sub">Training: <strong>{{ getSelectedTrainingName() }}</strong></p>
+
+        <div class="groups-list" *ngIf="groups.length; else noGroups">
+          <label class="group-item" *ngFor="let group of groups"
+                 [class.checked]="isGroupSelected(group)"
+                 (click)="selectGroup(group)">
+            <div class="group-check">
+              <i class="bi" [class.bi-check-circle-fill]="isGroupSelected(group)" [class.bi-circle]="!isGroupSelected(group)"></i>
+            </div>
+            <span>{{ group.groupName }}</span>
           </label>
-        </li>
-      </ul>
-      <button class="btn btn-primary" (click)="createSession()">
-        Create Session
-      </button>
-      <button class="btn btn-secondary" (click)="closeGroupsDialog()">
-        Close
-      </button>
+        </div>
+        <ng-template #noGroups>
+          <div class="no-sessions"><i class="bi bi-people-fill"></i><span>No groups for this training</span></div>
+        </ng-template>
+
+        <div class="ses-actions">
+          <button class="btn-ses-cancel" (click)="dialogStep=1">
+            <i class="bi bi-arrow-left me-1"></i> Back
+          </button>
+          <button class="btn-ses-primary" (click)="createSession()" [disabled]="selectedGroups.length===0 || isCreating">
+            <span *ngIf="isCreating" class="spinner-border spinner-border-sm me-1"></span>
+            <i *ngIf="!isCreating" class="bi bi-check-lg me-1"></i>
+            Create Session
+          </button>
+        </div>
+      </div>
+
     </div>
-  </ng-template>
-  <ng-template #removeDialog let-dialogRef="dialogRef" let-session>
-    <div class="confirmation-dialog">
-      <h2 mat-dialog-title>Confirmation</h2>
-      <p>Are you sure you want to delete {{ session.sessionName }}?</p>
-      <div class="button-container">
-        <button mat-button class="btn-no" (click)="dialogRef.close(false)">
-          No
-        </button>
-        <button mat-button class="btn-yes" (click)="dialogRef.close(true)">
-          Yes
-        </button>
+  </div>
+
+  <!-- Confirm today dialog -->
+  <div class="ses-overlay" *ngIf="showConfirmToday" (click)="cancelAddSessionToday()">
+    <div class="ses-modal ses-modal--sm" (click)="$event.stopPropagation()">
+      <h5 class="ses-modal-title"><i class="bi bi-calendar-check me-2"></i>Add Session Today?</h5>
+      <p class="text-muted">The selected date is today. Do you want to continue?</p>
+      <div class="ses-actions">
+        <button class="btn-ses-cancel" (click)="cancelAddSessionToday()">No</button>
+        <button class="btn-ses-primary" (click)="confirmAddSessionToday()">Yes, Continue</button>
       </div>
     </div>
-  </ng-template>
+  </div>
 
-  <ng-template #confirmationDialog>
-    <div class="confirmation-dialog">
-      <h3>Confirmation</h3>
-      <p>Are you sure you want to add the session today?</p>
-      <button class="btn btn-primary" (click)="confirmAddSessionToday()">
-        Yes
-      </button>
-      <button class="btn btn-secondary" (click)="cancelAddSessionToday()">
-        No
-      </button>
+  <!-- Delete confirm dialog -->
+  <div class="ses-overlay" *ngIf="showDeleteConfirm" (click)="showDeleteConfirm=false">
+    <div class="ses-modal ses-modal--sm" (click)="$event.stopPropagation()">
+      <h5 class="ses-modal-title text-danger"><i class="bi bi-trash3 me-2"></i>Delete Session</h5>
+      <p class="text-muted">Are you sure you want to delete <strong>{{ sessionToDelete?.sessionName }}</strong>?</p>
+      <div class="ses-actions">
+        <button class="btn-ses-cancel" (click)="showDeleteConfirm=false">Cancel</button>
+        <button class="btn-ses-danger" (click)="confirmDelete()">Delete</button>
+      </div>
     </div>
-  </ng-template>
+  </div>
+
 </main>
