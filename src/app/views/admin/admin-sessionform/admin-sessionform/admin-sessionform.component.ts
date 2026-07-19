@@ -230,7 +230,7 @@ export class AdminSessionformComponent implements OnInit {
         this.snack('Session created successfully', true);
         this.fetchSessionDetails(new Date(this.currentYear, this.getMonthIndex(this.currentMonth), this.selectedDay!));
       },
-      () => { this.isCreating = false; this.snack('Failed to create session'); }
+      (err) => { this.isCreating = false; this.snack('Error: ' + (err?.error?.message || err?.message || 'Failed to create session')); }
     );
   }
 
