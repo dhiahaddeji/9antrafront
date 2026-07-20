@@ -32,7 +32,7 @@
         
                   <div class="form-group mb-3">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" [(ngModel)]="project.description" name="description" required #thisDesc="ngModel"></textarea>
+                    <textarea class="form-control" id="description" [(ngModel)]="project.description" name="description" #thisDesc="ngModel"></textarea>
                     <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid">
                       <div *ngIf="thisDesc?.errors?.['required']">Description is required!</div>
                     </div>

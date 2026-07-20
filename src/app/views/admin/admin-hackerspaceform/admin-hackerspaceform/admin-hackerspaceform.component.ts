@@ -29,7 +29,7 @@ export class AdminHackerspaceformComponent implements OnInit {
       region: ['', Validators.required],
       location: ['', Validators.required],
       adresse: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       Photo: ''

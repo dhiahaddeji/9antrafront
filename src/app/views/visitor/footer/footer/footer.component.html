@@ -800,7 +800,7 @@
                         </div>
                         <div class="form__group field col-md-12 mb-4">
                           <label for="nbProjects" class="form__label"
-                            >Description<span class="required">*</span></label
+                            >Description</label
                           >
                           <textarea
                             class="form__field"
@@ -808,17 +808,8 @@
                             id="email"
                             [(ngModel)]="projects.description"
                             name="description"
-                            required
                             #description="ngModel"
                           ></textarea>
-                          <div
-                            class="alert alert-danger"
-                            *ngIf="description.touched && description.invalid"
-                          >
-                            <div *ngIf="description?.errors?.['required']">
-                              Description is required!
-                            </div>
-                          </div>
                         </div>
 
                         <div class="form__group field col-md-12 mb-4">

@@ -41,7 +41,7 @@ export class EventFormComponent implements OnInit{
     this.eventForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0)]],
-      description: ['', Validators.required],
+      description: [''],
       date: ['', Validators.required],
       facebook: ['', [Validators.required],],
       ggmeet: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)?(meet.google.com|meet.googleusercontent.com|hangouts.google.com|meet.jit.si)\/[\w\-\.]+\/?$/i)]],

@@ -37,7 +37,6 @@
                         </div>
                         <div
                             *ngIf="pathsForm?.get('description')?.invalid && (pathsForm?.get('description')?.dirty || pathsForm?.get('description')?.touched)">
-                            <div *ngIf="pathsForm?.get('description')?.hasError('required')"
                                 class="alert alert-danger mt-3">Description is required.</div>
                         </div>
 

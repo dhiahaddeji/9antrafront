@@ -14,7 +14,7 @@
         </div>
                  <div class="form__group field">
                   <input class="form__field" type="text" id="titre" name="titre" [(ngModel)]="project.titre" required #t="ngModel">
-                  <label for="titre" class="form__label">Titre  <span class="required">*</span>
+                  <label for="titre" class="form__label">Titre  
                   </label>
                   <div class="alert alert-danger" *ngIf="t.touched && t.invalid">
                     <div *ngIf="thisT?.errors?.['required']">Title is required!</div>
@@ -24,8 +24,8 @@
                     </div>
 
                     <div class="form__group field">
-                      <label for="description" class="form__label">Description <span class="required">*</span></label>
-                      <textarea class="form__field" id="description" [(ngModel)]="project.description" name="description" required #thisDesc="ngModel"></textarea>
+                      <label for="description" class="form__label">Description </label>
+                      <textarea class="form__field" id="description" [(ngModel)]="project.description" name="description" #thisDesc="ngModel"></textarea>
                       <div class="alert alert-danger" *ngIf="thisDesc.touched && thisDesc.invalid">
                         <div *ngIf="thisDesc?.errors?.['required']">Description is required!</div>
                       </div>
@@ -33,7 +33,7 @@
           
           
                     <div class="form__group field">
-                      <label for="description" class="form__label">Technologies<span class="required">*</span></label>
+                      <label for="description" class="form__label">Technologies</label>
                       <input class="form__field" type="text" id="tech" [(ngModel)]="project.technologies" name="technologies" required #thisT="ngModel">
                       <div class="alert alert-danger" *ngIf="thisT.touched && thisT.invalid">
                         <div *ngIf="thisT?.errors?.['required']">Technologies is required!</div>
@@ -43,14 +43,14 @@
                     </div>
                   
                               <div class="form__group field">
-                                <label for="nbExercices" class="form__label">Budget <span class="required">*</span></label>
+                                <label for="nbExercices" class="form__label">Budget </label>
                                 <input class="form__field" type="number" id="price" [(ngModel)]="project.price" name="price" required #thisPrice="ngModel">
                                 <div class="alert alert-danger" *ngIf="thisPrice.touched && thisPrice.invalid">
                                   <div *ngIf="thisPrice?.errors?.['required']">Price is required!</div>
                               </div>
                               </div>
                               <div class="form__group field">
-                              <label for="nbExercices" class="form__label">Last Name <span class="required">*</span></label>
+                              <label for="nbExercices" class="form__label">Last Name </label>
                               <input  class="form__field" type="text" id="price" [(ngModel)]="project.nom" name="nom" required #m="ngModel">
                               <div class="alert alert-danger" *ngIf="m.touched && m.invalid">
                                 <div *ngIf="m?.errors?.['required']">Last Name is required!</div>
@@ -58,7 +58,7 @@
                             
                             <div class="form__group field">
 
-                            <label for="nbExercices" class="form__label">First Name <span class="required">*</span></label>
+                            <label for="nbExercices" class="form__label">First Name </label>
                               <input  class="form__field" type="text" id="price" [(ngModel)]="project.prenom" name="prenom" required #s="ngModel">
                               <div class="alert alert-danger" *ngIf="s.touched && s.invalid">
                                 <div *ngIf="thisPrice?.errors?.['required']">First Name is required!</div>
@@ -67,7 +67,7 @@
                              
                              <div class="form__group field">
 
-                             <label for="nbExercices" class="form__label">Email <span class="required">*</span></label>
+                             <label for="nbExercices" class="form__label">Email </label>
                               <input [(ngModel)]="project.email" type="email" name="Email" id="Email" class="form__field"placeholder="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #thisPriwce="ngModel" />
                               <div class="alert alert-danger" *ngIf="thisPriwce.touched && thisPriwce.invalid && !formSubmitted">
                                 <div *ngIf="thisPriwce?.errors?.['required']">Email is required!</div>
@@ -82,7 +82,7 @@
                             <input class="form__field" type="text" id="price" [(ngModel)]="project.remark" name="remark"  >
                               
                             </div>                            <div class="form__group field">
-                              <label for="nbExercices" class="form__label">Phone Number <span class="required">*</span></label>
+                              <label for="nbExercices" class="form__label">Phone Number </label>
                               <input [(ngModel)]="project.numtel" type="number" name="NumTel" id="NumTel" class="form__field" placeholder="Phone Number" required pattern="[0-9]{8}" #thisDessc="ngModel" />
                                 <div class="alert alert-danger" *ngIf="thisDessc.touched && thisDessc.invalid && !formSubmitted">
                                   <div *ngIf="thisDessc?.errors?.['required']">Phone Number is required!</div>

@@ -27,7 +27,7 @@ export class AdminReportsUpdateFormComponent implements OnInit {
   ngOnInit(): void {
     this.reportForm = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', [Validators.required, Validators.maxLength(150)]],
+      description: ['', [Validators.maxLength(150)]],
       image: '',
       file: '',
     })

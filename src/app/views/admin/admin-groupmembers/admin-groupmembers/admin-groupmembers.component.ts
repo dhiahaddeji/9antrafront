@@ -75,6 +75,13 @@ export class AdminGroupmembersComponent implements OnInit {
   newPeriode!: string;
   newMonth!: string;
   certificateForm: FormGroup;
+
+  sessionClosed = false;
+  showCloseSessionDialog = false;
+  closeMonth = '';
+  isClosing = false;
+  closeResult: any = null;
+  monthOptions = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { groupId: number },
     private groupService: GroupService,
@@ -194,11 +201,39 @@ export class AdminGroupmembersComponent implements OnInit {
     );
   }
 
+  openCloseSessionDialog(): void {
+    this.closeMonth = '';
+    this.closeResult = null;
+    this.showCloseSessionDialog = true;
+  }
+
+  confirmCloseSession(): void {
+    if (!this.closeMonth) return;
+    this.isClosing = true;
+    this.certificateService.closeGroupSession(this.group.id, this.closeMonth).subscribe({
+      next: (res) => {
+        this.closeResult = res;
+        this.sessionClosed = true;
+        this.isClosing = false;
+        this.fetchGroupMembers();
+      },
+      error: (err) => {
+        console.error('Error closing session:', err);
+        this.isClosing = false;
+        this.closeResult = { error: err.error || 'Failed to close session' };
+      }
+    });
+  }
+
   ngOnInit(): void {
     const groupId = this.data.groupId;
     this.fetchGroupMembers();
     this.getAllStudents();
     this.getAllFormation();
+    this.certificateService.getGroupStatus(groupId).subscribe({
+      next: (status) => { this.sessionClosed = status.sessionClosed; },
+      error: () => {}
+    });
 
     // Pre-fill certificate form fields
     this.loadCertificateValues(groupId);

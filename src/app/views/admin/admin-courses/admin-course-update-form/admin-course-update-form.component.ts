@@ -33,7 +33,7 @@ export class AdminCourseUpdateFormComponent implements OnInit {
 
     this.courseForm = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       duration: ['', Validators.required],
       language: ['', Validators.required],
       image: '',

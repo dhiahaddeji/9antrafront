@@ -25,7 +25,7 @@ export class AdminPathsUpdateFormComponent implements OnInit{
   ngOnInit(): void {
     this.pathsForm = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', [Validators.required, Validators.maxLength(150)]],
+      description: ['', [Validators.maxLength(150)]],
       language: ['', Validators.required],
       duration: ['', [Validators.required, Validators.min(0)]],
       price: ['', [Validators.required, Validators.min(0)]],

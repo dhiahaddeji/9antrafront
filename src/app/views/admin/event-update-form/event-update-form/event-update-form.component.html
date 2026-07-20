@@ -73,7 +73,6 @@
                                 id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                         <div *ngIf="eventForm?.get('description')?.invalid && (eventForm?.get('description')?.dirty || eventForm?.get('description')?.touched)">
-                            <div *ngIf="eventForm?.get('description')?.hasError('required')" class="alert alert-danger mt-3">Description is required.</div>
                           </div>
 
                         <div class="Neon Neon-theme-dragdropbox mt-4">

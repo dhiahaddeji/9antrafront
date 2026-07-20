@@ -32,7 +32,7 @@ export class AdminTrainingUpdateComponent implements OnInit{
 
   CategoryForm=new FormControl('',[Validators.required]);
   NomForm=new FormControl('',[Validators.required,Validators.minLength(4),Validators.maxLength(10)]);
-  DescriptionForm=new FormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(50)]);
+  DescriptionForm=new FormControl('',[Validators.minLength(10),Validators.maxLength(50)]);
   ExerciseForm=new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$")]);
   ProjectsForm=new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$")]);
   MeetingsForm=new FormControl('',[Validators.required,Validators.pattern("^[0-9]*$")]);

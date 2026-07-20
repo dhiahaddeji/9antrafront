@@ -40,5 +40,13 @@ export class CertificatService {
     const url = `${this.baseUrl}/UserCertificatesFormation/${userId}`;
     return this.http.get<string[]>(url);
   }
+
+  closeGroupSession(groupId: number, month: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/close-group/${groupId}?month=${encodeURIComponent(month)}`, {});
   }
+
+  getGroupStatus(groupId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/group-status/${groupId}`);
+  }
+}
 
