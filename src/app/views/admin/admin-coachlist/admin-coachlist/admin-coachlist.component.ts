@@ -43,7 +43,7 @@ export class AdminCoachlistComponent implements OnInit {
 
   openCv(coach: any) {
     const formateur = this.tabFormateur.find((f: any) => f.user?.id === coach.id);
-    const cvFile = formateur?.cv;
+    const cvFile = formateur?.CV;
     if (!cvFile) {
       alert('Aucun CV disponible pour ce coach.');
       return;

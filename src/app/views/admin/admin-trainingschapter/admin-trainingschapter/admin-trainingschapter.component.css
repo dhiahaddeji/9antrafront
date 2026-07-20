@@ -123,3 +123,84 @@
         text-align: end;
         vertical-align: middle;
       }
+
+/* ── Chapter Add Form ── */
+.ch-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+  padding: 36px 40px 32px;
+}
+.ch-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a3353;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.ch-field { margin-bottom: 20px; }
+.ch-label {
+  display: block;
+  font-size: .875rem;
+  font-weight: 600;
+  color: #1a3353;
+  margin-bottom: 6px;
+}
+.ch-required { color: #AF3065; margin-left: 2px; }
+.ch-input, .ch-select, .ch-textarea {
+  width: 100%;
+  border: 1.5px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: .9rem;
+  color: #212529;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+.ch-textarea { resize: vertical; min-height: 100px; }
+.ch-input:focus, .ch-select:focus, .ch-textarea:focus {
+  border-color: #AF3065;
+  box-shadow: 0 0 0 3px rgba(175,48,101,.1);
+}
+.ch-error {
+  background: #fff5f5;
+  color: #dc3545;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: .875rem;
+  margin-bottom: 20px;
+}
+.ch-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+.ch-btn-cancel {
+  background: transparent;
+  border: 1.5px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.ch-btn-cancel:hover { background: #f8f9fa; color: #1a3353; }
+.ch-btn-submit {
+  background: #AF3065;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.ch-btn-submit:hover { background: #d8208e; transform: translateY(-1px); }
