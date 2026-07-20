@@ -27,8 +27,7 @@ export class AdminTrainingsComponent  implements OnInit{
     }
   }
 
-  toggleMenu(id: number, event: MouseEvent) {
-    event.stopPropagation();
+  toggleMenu(id: number) {
     this.openMenuId = this.openMenuId === id ? null : id;
     this.cdr.detectChanges();
   }

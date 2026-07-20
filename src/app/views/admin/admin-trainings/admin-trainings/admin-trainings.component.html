@@ -26,10 +26,13 @@
           <div class="tr-card-header">
             <span class="tr-card-title">{{ formation.nomFormation }}</span>
             <div class="position-relative">
-              <button type="button" title="Options" class="tr-menu-btn" (click)="toggleMenu(formation.id, $event)">
+              <button type="button" title="Options" class="tr-menu-btn" (click)="toggleMenu(formation.id); $event.stopPropagation()">
                 <i class="bi bi-three-dots-vertical"></i>
               </button>
-              <ul class="tr-dropdown" [class.show]="openMenuId === formation.id" (click)="$event.stopPropagation(); closeMenu()">
+              <ul class="tr-dropdown"
+                [class.show]="openMenuId === formation.id"
+                [style.display]="openMenuId === formation.id ? 'block' : 'none'"
+                (click)="$event.stopPropagation(); closeMenu()">
                 <li>
                   <button type="button" class="tr-dropdown-item" [routerLink]="['/admin/trainingsUpdate', formation.id]">
                     <i class="bi bi-pencil-square me-2"></i>Update
