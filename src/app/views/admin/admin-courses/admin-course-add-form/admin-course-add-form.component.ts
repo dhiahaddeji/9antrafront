@@ -16,6 +16,7 @@ export class AdminCourseAddFormComponent implements OnInit {
   imagepath = '';
   successMessage: string = '';
   errorMessage: string = '';
+  videoError: string = '';
   showSuccessModal: boolean = false;
   goals: any[] = []
 
@@ -48,11 +49,13 @@ export class AdminCourseAddFormComponent implements OnInit {
   }
 
   onVideoSelected(event: any) {
+    this.videoError = '';
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       if (!file.type.startsWith('video/')) {
-        Swal.fire({ icon: 'error', title: 'Invalid file', text: 'Please select a valid video file. Images (JPEG, PNG, etc.) are not allowed.' });
+        this.videoError = `Format invalide : "${file.name}" est une image (${file.type || 'type inconnu'}). Veuillez sélectionner un fichier vidéo (MP4, AVI, MOV…).`;
         event.target.value = '';
+        this.courseForm.get('trailer')!.setValue('');
         return;
       }
       this.courseForm.get('trailer')!.setValue(file);
