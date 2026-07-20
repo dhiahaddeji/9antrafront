@@ -275,6 +275,7 @@
 .tr-menu-btn:hover { background: #f0f0f0; color: #1a3353; }
 
 .tr-dropdown {
+  display: none;
   position: absolute;
   right: 0;
   top: calc(100% + 4px);
@@ -288,6 +289,7 @@
   list-style: none;
   margin: 0;
 }
+.tr-dropdown.show { display: block; }
 .tr-dropdown-item {
   display: flex;
   align-items: center;
