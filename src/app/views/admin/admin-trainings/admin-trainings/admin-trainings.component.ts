@@ -18,8 +18,7 @@ export class AdminTrainingsComponent  implements OnInit{
   filteredCategories: any[] = [];
   openMenuId: any = null;
 
-  toggleMenu(id: any, event: Event) {
-    event.stopPropagation();
+  toggleMenu(id: any) {
     this.openMenuId = this.openMenuId === id ? null : id;
   }
 
