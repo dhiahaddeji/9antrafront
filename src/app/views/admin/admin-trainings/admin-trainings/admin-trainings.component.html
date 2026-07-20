@@ -1,117 +1,67 @@
 <main class="gx-5 pt-3" (click)="closeMenu()">
   <div class="d-lg-none d-md-block"><br /><br /><br /></div>
 
-  <div class="row">
-    <div class="col-8">
-      <div class="pagetitle">
-        <h1>Dashboard</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
-          </ol>
-        </nav>
-      </div>
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="pagetitle mb-0">
+      <h1>Trainings</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+          <li class="breadcrumb-item active">Trainings</li>
+        </ol>
+      </nav>
     </div>
+    <button type="button" class="btn register px-4 py-2" routerLink="/admin/trainingsform">
+      <i class="bi bi-plus-lg me-2"></i>Add New
+    </button>
+  </div>
 
-    <div class="col-3 d-flex align-items-center justify-content-end">
-      <!-- <button
-        type="button"
-        class="btn filter p-2 border pe-3 me-3"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
-        <i class="bi bi-filter-square fa-2xl me-3"></i>Filter
-      </button> -->
-
-      <button
-        type="button"
-        class="btn p-2 border pe-3 me-3 register"
-        routerLink="/admin/trainingsform"
-      >
-        <i class="bi bi-plus fa-2xl me-3"></i>Add New
-      </button>
-    </div>
-
-    <div
-      class="modal fade"
-      id="staticBackdrop"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title " id="staticBackdropLabel" style="color: #AF3065; font-weight: bold; "> Filter</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="">
-              <div class="row d-flex justify-content-center">
-                <div class="col-8 form__group field mt-3">
-                  <label class="mb-4 form__label">Categorie</label>
-                  <select name="Categorie" [(ngModel)]="Categorie" id="id_select" autofocus="true" class="form__field mt-3" style="">
-                    <option value="1" disabled selected> Categorie </option>
-                    <option *ngFor="let o of tabCategorie2" value="{{o.id}}"> {{o.nomCate}} </option>
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="searchCategorieByid()" class="btn register">Filter</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-md-6" *ngFor="let category of getFilteredCategories()">
-          <div class="card shadow-sm mb-4" *ngFor="let formation of category?.formations">
-            <div class="row mt-4 mx-2">
-              <div class="d-flex align-items-center justify-content-between px-3">
-                <span class="fw-bold">{{ formation.nomFormation }}</span>
-                <div class="position-relative">
-                  <button type="button" title="Options" class="tr-menu-btn" (click)="toggleMenu(formation.id, $event)">
-                    <i class="bi bi-three-dots-vertical"></i>
+  <!-- Cards grid — one col per formation -->
+  <div class="row g-4">
+    <ng-container *ngFor="let category of getFilteredCategories()">
+      <div class="col-xl-4 col-md-6" *ngFor="let formation of category?.formations">
+        <div class="tr-card">
+          <!-- Card header -->
+          <div class="tr-card-header">
+            <span class="tr-card-title">{{ formation.nomFormation }}</span>
+            <div class="position-relative">
+              <button type="button" title="Options" class="tr-menu-btn" (click)="toggleMenu(formation.id, $event)">
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul class="tr-dropdown" *ngIf="openMenuId === formation.id" (click)="$event.stopPropagation()">
+                <li>
+                  <button type="button" class="tr-dropdown-item" [routerLink]="['/admin/trainingsUpdate', formation.id]">
+                    <i class="bi bi-pencil-square me-2"></i>Update
                   </button>
-                  <ul class="tr-dropdown" *ngIf="openMenuId === formation.id" (click)="$event.stopPropagation()">
-                    <li>
-                      <button type="button" class="tr-dropdown-item" [routerLink]="['/admin/trainingsUpdate', formation.id]">
-                        <i class="bi bi-pencil-square me-2"></i>Update
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="tr-dropdown-item text-danger" (click)="deleteFormation(formation.id); closeMenu()">
-                        <i class="bi bi-trash3 me-2"></i>Delete
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                </li>
+                <li>
+                  <button type="button" class="tr-dropdown-item text-danger" (click)="deleteFormation(formation.id); closeMenu()">
+                    <i class="bi bi-trash3 me-2"></i>Delete
+                  </button>
+                </li>
+              </ul>
             </div>
-            <div class="card-body my-3 mx-5">
-              <div class="d-flex align-items-center mb-3">
-                <span class="pe-4 text-secondary">Created on : {{ formation.createdAt | date }}</span>
-              </div>
-              <div class="mt-auto">
-                <span class="fw-bold">Category: </span>
-                <span class="badge bg-primary">{{ category.nomCate }}</span>
-              </div>
+          </div>
+
+          <!-- Card body -->
+          <div class="tr-card-body">
+            <div class="tr-card-date">
+              <i class="bi bi-calendar3 me-2"></i>Created on : {{ formation.createdAt | date:'MMM d, y' }}
+            </div>
+            <div class="tr-card-category">
+              <span class="fw-semibold me-1">Category:</span>
+              <span class="badge bg-primary">{{ category.nomCate }}</span>
             </div>
           </div>
         </div>
-        <!-- <div *ngIf="this.filteredCategories?.length == 0" class="text-center mt-3 d-flex justify-content-center">
-          <div class="nodata">
-            <img src="../../../../../assets/img/nodata.webp" width="250px" loading="lazy"><br>
-            <p style="overflow: hidden;">There are no training available.</p>
-          </div>
-        </div> -->
       </div>
+    </ng-container>
+
+    <!-- Empty state -->
+    <div *ngIf="getFilteredCategories().length === 0" class="col-12 text-center py-5 text-muted">
+      <i class="bi bi-journal-x tr-empty-icon"></i>
+      <p class="mt-3">No trainings available.</p>
     </div>
   </div>
 </main>

@@ -234,6 +234,32 @@
       border-radius: 5px;
     }
 
+/* ── Training card ── */
+.tr-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  overflow: visible;
+  transition: box-shadow .2s, transform .2s;
+}
+.tr-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+
+.tr-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.tr-card-title { font-weight: 700; font-size: 1rem; color: #1a3353; }
+
+.tr-card-body { padding: 14px 20px 18px; display: flex; flex-direction: column; gap: 10px; }
+.tr-card-date  { font-size: .84rem; color: #6c757d; }
+.tr-card-category { font-size: .88rem; }
+
+.tr-empty-icon { font-size: 48px; }
+
 /* ── 3-dot menu ── */
 .tr-menu-btn {
   background: transparent;
