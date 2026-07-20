@@ -50,23 +50,14 @@
           </td>
           <td>
             <div *ngFor="let i of tabFormateur">
-              <p *ngIf="x.id == i.user.id" class="fw-normal mb-1">
-                {{ i.skills }}
-              </p>
+              <p *ngIf="x.id == i.user.id" class="fw-normal mb-1">{{ i.skills }}</p>
             </div>
           </td>
           <td>
-            <button
-              class="btn btn-rounded btn-sm"
-              [routerLink]="'/admin/coachlist/resumecoach/' + x.id"
-            >
-              <!---             <button class="btn btn-rounded btn-sm" (click)="deleteSession(x.id)">
-  -->
-
-              <i class="fa-regular fa-file"> </i> <img [src]="safeUrl" loading="lazy" />
+            <button class="btn btn-rounded btn-sm" (click)="openCv(x)" title="View CV">
+              <i class="fa-regular fa-file"></i>
             </button>
           </td>
-
           <td>
             <select
               class="enabled-select"
@@ -85,3 +76,20 @@
     </table>
   </div>
 </main>
+
+<!-- CV Overlay -->
+<div class="cv-overlay" *ngIf="cvOverlayVisible" (click)="closeCv()">
+  <div class="cv-overlay-box" (click)="$event.stopPropagation()">
+    <div class="cv-overlay-header">
+      <span class="cv-overlay-title">
+        <i class="fa-regular fa-file-pdf me-2"></i>CV — {{ cvOverlayName }}
+      </span>
+      <button type="button" class="cv-overlay-close" (click)="closeCv()" title="Fermer">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="cv-overlay-body">
+      <iframe [src]="cvOverlaySafeUrl" class="cv-iframe" title="CV"></iframe>
+    </div>
+  </div>
+</div>

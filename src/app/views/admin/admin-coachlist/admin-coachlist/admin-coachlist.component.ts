@@ -1,68 +1,66 @@
-import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
+import { environment } from 'src/environement/environement.prod';
 
 @Component({
   selector: 'app-admin-coachlist',
   templateUrl: './admin-coachlist.component.html',
   styleUrls: ['./admin-coachlist.component.css']
 })
-export class AdminCoachlistComponent {
-  data:any=[]
-  nameuser=""
-  pathdf=""
-  url=""
-  id!:any
-  tabFormateur:any=[]
-  constructor(private sr:UserService ,private route: ActivatedRoute,private sanitizer: DomSanitizer) {
-}
-get safeUrl() {
-  return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
-}
-getUserId(id:any)
-{
-  this.sr.getUserByid(id).subscribe(ex=>{
-    this.data=ex
-    console.log(ex)
-    this.nameuser=this.data.firstName
-    this.pathdf=this.data.files
-    this.url="../../../assets/Documents/"+this.data.files
-  })
-}
+export class AdminCoachlistComponent implements OnInit {
+  data: any = [];
+  nameuser = '';
+  tabFormateur: any = [];
+  tabCoach: any = [];
+  taballusers: any = [];
 
+  cvOverlayVisible = false;
+  cvOverlayName = '';
+  cvOverlaySafeUrl: SafeResourceUrl | null = null;
 
-getAllFormateur() {
-  this.sr.getFormateursOfuser().subscribe(res=>{
-    this.tabFormateur=res
-    console.log(this.tabFormateur);
+  constructor(private sr: UserService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
+
+  getAllFormateur() {
+    this.sr.getFormateursOfuser().subscribe(res => {
+      this.tabFormateur = res;
+    });
   }
-    )
-}
-tabCoach:any=[]
-taballusers:any=[]
 
   getallCoach() {
-    this.sr.getAllUsers().subscribe(res=>{
-      this.taballusers=res;
-      console.log(this.taballusers);
-      this.tabCoach = this.taballusers.filter((user: { roles: any[]; }) => {
-        return user.roles.some(role => role.name === 'FORMATEUR');
-        });
-        console.log(this.tabCoach);
-      })
+    this.sr.getAllUsers().subscribe(res => {
+      this.taballusers = res;
+      this.tabCoach = this.taballusers.filter((user: { roles: any[] }) =>
+        user.roles.some(role => role.name === 'FORMATEUR')
+      );
+    });
+  }
+
+  updateEnabled(coach: any, value: number) {
+    this.sr.updateEnabeld(value, coach.id).subscribe();
+  }
+
+  openCv(coach: any) {
+    const formateur = this.tabFormateur.find((f: any) => f.user?.id === coach.id);
+    const cvFile = formateur?.cv;
+    if (!cvFile) {
+      alert('Aucun CV disponible pour ce coach.');
+      return;
     }
-    updateEnabled(coach: any, value: number) {
-      this.sr.updateEnabeld(value, coach.id).subscribe();
-    }
+    const url = `${environment.BASE_URL}/uploads/Documents/${cvFile}`;
+    this.cvOverlaySafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.cvOverlayName = coach.firstName + ' ' + coach.lastName;
+    this.cvOverlayVisible = true;
+  }
 
-    ngOnInit(): void {
-      this.getallCoach()
+  closeCv() {
+    this.cvOverlayVisible = false;
+    this.cvOverlaySafeUrl = null;
+  }
 
-      this.getAllFormateur()
-    }
-
-      }
-
-
-
+  ngOnInit(): void {
+    this.getallCoach();
+    this.getAllFormateur();
+  }
+}
