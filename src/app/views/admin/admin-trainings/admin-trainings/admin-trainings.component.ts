@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { CategorieService } from 'src/app/MesServices/Categorie/categorie.service';
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
 import Swal from 'sweetalert2';
@@ -16,15 +16,26 @@ export class AdminTrainingsComponent  implements OnInit{
   id :any ;
   searchTerm = '';
   filteredCategories: any[] = [];
-  openMenuId: any = null;
+  openMenuId: number | null = null;
 
-  toggleMenu(id: any) {
+
+  @HostListener('document:click')
+  onDocumentClick() {
+    if (this.openMenuId !== null) {
+      this.openMenuId = null;
+      this.cdr.detectChanges();
+    }
+  }
+
+  toggleMenu(id: number, event: MouseEvent) {
+    event.stopPropagation();
     this.openMenuId = this.openMenuId === id ? null : id;
+    this.cdr.detectChanges();
   }
 
   closeMenu() { this.openMenuId = null; }
 
-    constructor(private cs:CategorieService,private fs: FormationsService) { }
+    constructor(private cs:CategorieService, private fs: FormationsService, private cdr: ChangeDetectorRef) { }
     ngOnInit(): void {
       this.getAllCategorie()
       this.getAllFormation()
