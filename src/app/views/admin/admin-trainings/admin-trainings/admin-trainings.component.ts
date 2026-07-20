@@ -16,6 +16,14 @@ export class AdminTrainingsComponent  implements OnInit{
   id :any ;
   searchTerm = '';
   filteredCategories: any[] = [];
+  openMenuId: any = null;
+
+  toggleMenu(id: any, event: Event) {
+    event.stopPropagation();
+    this.openMenuId = this.openMenuId === id ? null : id;
+  }
+
+  closeMenu() { this.openMenuId = null; }
 
     constructor(private cs:CategorieService,private fs: FormationsService) { }
     ngOnInit(): void {

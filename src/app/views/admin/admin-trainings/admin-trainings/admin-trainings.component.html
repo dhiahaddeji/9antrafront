@@ -1,4 +1,4 @@
-<main class="gx-5 pt-3">
+<main class="gx-5 pt-3" (click)="closeMenu()">
   <div class="d-lg-none d-md-block"><br /><br /><br /></div>
 
   <div class="row">
@@ -73,21 +73,26 @@
         <div class="col-lg-4 col-md-6" *ngFor="let category of getFilteredCategories()">
           <div class="card shadow-sm mb-4" *ngFor="let formation of category?.formations">
             <div class="row mt-4 mx-2">
-              <p class="nav-profile d-flex align-items-center" href="view profile.html">
-                <span class="fw-bold ps-4">{{ formation.nomFormation }}</span>
-                <span>
-                  <div class="filter">
-                    <button class="icon" href="#" data-bs-toggle="dropdown" style="border: none; background-color: #ffffff00;">
-                      <i class="bi bi-three-dots-vertical" style="margin-left:150px;"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start"></li>
-                      <li><button class="dropdown-item" routerLink="/admin/trainingsUpdate/{{formation.id}}"><span><i class="bi bi-pencil-square me-2"></i> </span>update</button></li>
-                      <li><button class="dropdown-item text-danger" (click)="deleteFormation(formation.id)"><span><i class="bi bi-trash3"><i class="fa-regular fa-trash-can me-2"></i> </i> </span>Delete</button></li>
-                    </ul>
-                  </div>
-                </span>
-              </p>
+              <div class="d-flex align-items-center justify-content-between px-3">
+                <span class="fw-bold">{{ formation.nomFormation }}</span>
+                <div class="position-relative">
+                  <button type="button" title="Options" class="tr-menu-btn" (click)="toggleMenu(formation.id, $event)">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="tr-dropdown" *ngIf="openMenuId === formation.id" (click)="$event.stopPropagation()">
+                    <li>
+                      <button type="button" class="tr-dropdown-item" [routerLink]="['/admin/trainingsUpdate', formation.id]">
+                        <i class="bi bi-pencil-square me-2"></i>Update
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" class="tr-dropdown-item text-danger" (click)="deleteFormation(formation.id); closeMenu()">
+                        <i class="bi bi-trash3 me-2"></i>Delete
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
             <div class="card-body my-3 mx-5">
               <div class="d-flex align-items-center mb-3">
