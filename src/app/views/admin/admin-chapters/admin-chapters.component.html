@@ -1,74 +1,63 @@
-<main>
+<main class="gx-5 pt-3" (click)="closeMenu()">
   <div class="d-lg-none d-md-block"><br /><br /><br /></div>
-  <div class="row">
-    <div class="col-8">
-      <div class="pagetitle">
-        <h1>Dashboard</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
-          </ol>
-        </nav>
-      </div>
+
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="pagetitle mb-0">
+      <h1>Chapters</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+          <li class="breadcrumb-item active">Chapters</li>
+        </ol>
+      </nav>
     </div>
-    <div class="col-4 d-flex align-items-center justify-content-end">
-      <button type="button" class="btn p-2 border pe-3 me-3 register" routerLink="/admin/chapters/Add">
-        <i class="bi bi-plus fa-2xl me-3"></i>Add New
-      </button>
-    </div>
+    <button type="button" class="btn ch-add-btn px-4 py-2" routerLink="/admin/chapters/Add">
+      <i class="bi bi-plus-lg me-2"></i>Add New
+    </button>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <ng-container *ngFor="let formation of tabFormation">
-        <div class="col-lg-4 col-md-6">
-          <div class="card shadow-sm mb-4" *ngFor="let chapter of chaptersByFormation[formation.nomFormation]">
-            <div class="card-body my-3 mx-4">
-              <div class="chapter-frame">
-                <div class="row mb-3">
-                  <div class="col-6">
-                    <span class="fw-bold">{{ chapter.title }}</span>
-                  </div>
-                  <div class="col-3">
-                    <button class="icon" href="#" data-bs-toggle="dropdown"
-                      style="border: none; background-color: #ffffff00">
-                      <i class="bi bi-three-dots-vertical" style="margin-left: 100px"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start"></li>
-                      <!-- </ng-template> -->
-                      <li><button class="dropdown-item text-danger mb-3" (click)="deleteChapters(chapter.id)"><span><i
-                              class="bi bi-trash3"></i> <i class="fa-regular fa-trash-can me-3"></i>
-                          </span>Delete</button></li>
-
-                    </ul>
-                  </div>
-                </div>
-                <span>
-                  <div class="filter">
-                    <div class="d-flex align-items-center mb-3">
-                      <span class="pe-4 text-secondary">Created on : {{ chapter.createdAt | date }}</span>
-                    </div>
-                    <div class="chapter-details">
-                      <span class="fw-bold">Training:</span>
-                      <span class="badge bg-primary">{{
-                        formation.nomFormation
-                        }}</span>
-                    </div>
-                  </div>
-                </span>
-              </div>
+  <!-- Grid -->
+  <div class="row g-4">
+    <ng-container *ngFor="let formation of tabFormation">
+      <div class="col-xl-4 col-md-6"
+           *ngFor="let chapter of chaptersByFormation[formation.nomFormation]">
+        <div class="ch-card">
+          <div class="ch-card-header">
+            <span class="ch-card-title">{{ chapter.title }}</span>
+            <div class="position-relative">
+              <button type="button" class="ch-menu-btn" title="Options"
+                (click)="toggleMenu(chapter.id); $event.stopPropagation()">
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul class="ch-dropdown"
+                  [style.display]="openMenuId === chapter.id ? 'block' : 'none'"
+                  (click)="$event.stopPropagation()">
+                <li>
+                  <button type="button" class="ch-dropdown-item text-danger"
+                    (click)="deleteChapters(chapter.id); closeMenu()">
+                    <i class="bi bi-trash3 me-2"></i>Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ch-card-body">
+            <div class="ch-card-date">
+              <i class="bi bi-calendar3 me-2"></i>Created on: {{ chapter.createdAt | date:'MMM d, y' }}
+            </div>
+            <div class="ch-card-formation">
+              <span class="fw-semibold me-1">Training:</span>
+              <span class="badge bg-primary">{{ formation.nomFormation }}</span>
             </div>
           </div>
         </div>
-      </ng-container>
-      <div *ngIf="getAllChapters()?.length == 0" class="text-center mt-3 d-flex justify-content-center">
-        <div class="nodata">
-          <img src="../../../../../assets/img/nodata.webp" width="250px" loading="lazy"><br>
-          <p style="overflow: hidden;">There are no chapters available.</p>
-        </div>
       </div>
+    </ng-container>
+
+    <div *ngIf="getAllChapters()?.length === 0" class="col-12 text-center py-5 text-muted">
+      <i class="bi bi-journal-x ch-empty-icon"></i>
+      <p class="mt-3">No chapters available.</p>
     </div>
   </div>
 </main>

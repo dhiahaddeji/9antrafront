@@ -234,3 +234,77 @@ main {
     border-radius: 5px;
 
   }
+
+main {
+  font-family: "Open Sans", sans-serif;
+  background: #f5f7f9;
+  color: #444;
+  min-height: 100vh;
+  padding: 20px 30px;
+}
+@media (min-width: 991.98px) { main { padding-left: 340px; } }
+
+.pagetitle h1 { font-size: 24px; font-weight: 600; color: #000; margin-bottom: 0; }
+.breadcrumb { font-size: 14px; color: #899bbd; font-weight: 600; }
+.breadcrumb a { color: #899bbd; }
+.breadcrumb a:hover { color: #AF3065; }
+.breadcrumb .active { color: #51678f; }
+
+.ch-add-btn { background: #AF3065; color: #fff; border-radius: 8px; font-weight: 600; }
+.ch-add-btn:hover { background: #d8208e; color: #fff; }
+
+/* Card */
+.ch-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  overflow: visible;
+  transition: box-shadow .2s, transform .2s;
+}
+.ch-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+
+.ch-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.ch-card-title { font-weight: 700; font-size: 1rem; color: #1a3353; }
+
+.ch-card-body { padding: 14px 20px 18px; display: flex; flex-direction: column; gap: 10px; }
+.ch-card-date { font-size: .84rem; color: #6c757d; }
+.ch-card-formation { font-size: .88rem; }
+.ch-empty-icon { font-size: 48px; }
+
+/* 3-dot menu */
+.ch-menu-btn {
+  background: transparent; border: none;
+  padding: 4px 8px; border-radius: 6px;
+  cursor: pointer; color: #6c757d;
+  font-size: 18px; line-height: 1;
+  transition: background .15s;
+}
+.ch-menu-btn:hover { background: #f0f0f0; color: #1a3353; }
+
+.ch-dropdown {
+  display: none;
+  position: absolute; right: 0; top: calc(100% + 4px);
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  min-width: 140px; padding: 6px 0;
+  list-style: none; margin: 0;
+}
+.ch-dropdown-item {
+  display: flex; align-items: center;
+  width: 100%; padding: 9px 16px;
+  background: transparent; border: none;
+  font-size: .88rem; font-weight: 500;
+  cursor: pointer; transition: background .15s;
+}
+.ch-dropdown-item.text-danger { color: #dc3545 !important; }
+.ch-dropdown-item.text-danger:hover { background: #fff5f5; }
