@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
-import { environment } from 'src/environement/environement.prod';
+import { environement } from 'src/environement/environement.prod';
 
 @Component({
   selector: 'app-admin-coachlist',
@@ -48,7 +48,7 @@ export class AdminCoachlistComponent implements OnInit {
       alert('Aucun CV disponible pour ce coach.');
       return;
     }
-    const url = `${environment.BASE_URL}/uploads/Documents/${cvFile}`;
+    const url = `${environement.BASE_URL}/uploads/Documents/${cvFile}`;
     this.cvOverlaySafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.cvOverlayName = coach.firstName + ' ' + coach.lastName;
     this.cvOverlayVisible = true;

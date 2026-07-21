@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import { environement } from 'src/environement/environement.dev';
 
@@ -199,10 +199,10 @@ export class GenerateCertifComponent implements OnInit {
   regenerate(certId: number): void {
     this.isRegenerating = true;
     this.manageError = '';
-    const token = localStorage.getItem('jwtToken');
-    const headers = token ? { Authorization: 'Bearer ' + token } : {};
-    this.http.put(`${this.backendBase}/api/certif/update/${certId}`, this.editForm, { responseType: 'blob', headers }).subscribe(
-      (blob: Blob) => {
+    const token = localStorage.getItem('jwtToken') || '';
+    const headers = new HttpHeaders({ Authorization: 'Bearer ' + token });
+    this.http.put(`${this.backendBase}/api/certif/update/${certId}`, this.editForm, { responseType: 'blob' as 'json', headers }).subscribe(
+      (blob: any) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
