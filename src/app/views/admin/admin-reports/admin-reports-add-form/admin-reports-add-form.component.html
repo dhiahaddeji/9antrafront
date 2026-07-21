@@ -39,7 +39,7 @@
 
                         <div
                             *ngIf="reportForm?.get('description')?.invalid && (reportForm?.get('description')?.dirty || reportForm?.get('description')?.touched)">
-                                Description is required.</div>
+                                <div class="alert alert-danger mt-3">Description is required.</div>
                         </div>
 
                         <div class="form-group mb-3">
