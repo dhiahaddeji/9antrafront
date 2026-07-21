@@ -235,6 +235,16 @@
         <span>Account Management</span>
       </a>
 
+      <a
+        [routerLinkActive]="'active'"
+        routerLink="logs"
+        class="nav-item-link"
+        (click)="closeSidebar()"
+      >
+        <i class="bi bi-journal-text"></i>
+        <span>Activity Logs</span>
+      </a>
+
       <p class="nav-section-label nav-section-label--account">Account</p>
 
       <button class="nav-item-link nav-logout" (click)="logout()" type="button">

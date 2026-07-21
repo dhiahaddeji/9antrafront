@@ -1,0 +1,134 @@
+<main class="logs-main">
+  <div class="d-lg-none d-md-block"><br /><br /><br /></div>
+
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="pagetitle mb-0">
+      <h1><i class="bi bi-journal-text me-2"></i>Activity Logs</h1>
+      <nav><ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+        <li class="breadcrumb-item active">Logs</li>
+      </ol></nav>
+    </div>
+    <button type="button" class="logs-refresh-btn" (click)="loadLogs(); loadStats()" title="Refresh">
+      <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+    </button>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="logs-stats-row mb-4">
+    <div class="logs-stat logs-stat-total">
+      <div class="logs-stat-value">{{ totalElements }}</div>
+      <div class="logs-stat-label">Total Events</div>
+    </div>
+    <div class="logs-stat logs-stat-login">
+      <div class="logs-stat-value">{{ statCount('LOGIN') }}</div>
+      <div class="logs-stat-label"><i class="bi bi-box-arrow-in-right me-1"></i>Logins</div>
+    </div>
+    <div class="logs-stat logs-stat-create">
+      <div class="logs-stat-value">{{ statCount('CREATE') }}</div>
+      <div class="logs-stat-label"><i class="bi bi-plus-circle me-1"></i>Creates</div>
+    </div>
+    <div class="logs-stat logs-stat-update">
+      <div class="logs-stat-value">{{ statCount('UPDATE') }}</div>
+      <div class="logs-stat-label"><i class="bi bi-pencil me-1"></i>Updates</div>
+    </div>
+    <div class="logs-stat logs-stat-delete">
+      <div class="logs-stat-value">{{ statCount('DELETE') }}</div>
+      <div class="logs-stat-label"><i class="bi bi-trash3 me-1"></i>Deletes</div>
+    </div>
+    <div class="logs-stat logs-stat-error">
+      <div class="logs-stat-value">{{ statCount('ERROR') }}</div>
+      <div class="logs-stat-label"><i class="bi bi-exclamation-triangle me-1"></i>Errors</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="logs-filters mb-3">
+    <select [(ngModel)]="filterAction" class="logs-filter-input">
+      <option value="">All actions</option>
+      <option *ngFor="let a of ACTIONS" [value]="a">{{ a }}</option>
+    </select>
+    <input type="text" [(ngModel)]="filterUsername" placeholder="Search user…" class="logs-filter-input">
+    <input type="date" [(ngModel)]="filterFrom" class="logs-filter-input" title="From date">
+    <input type="date" [(ngModel)]="filterTo"   class="logs-filter-input" title="To date">
+    <button type="button" class="logs-btn-primary" (click)="applyFilters()">
+      <i class="bi bi-search me-1"></i>Filter
+    </button>
+    <button type="button" class="logs-btn-secondary" (click)="clearFilters()">
+      <i class="bi bi-x-circle me-1"></i>Clear
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="logs-table-wrap">
+    <div *ngIf="loading" class="logs-loading">
+      <div class="logs-spinner"></div> Loading logs…
+    </div>
+
+    <table *ngIf="!loading" class="logs-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Time</th>
+          <th>Action</th>
+          <th>Entity</th>
+          <th>Description</th>
+          <th>User</th>
+          <th>IP Address</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of logs; let i = index" [class.logs-row-error]="log.action === 'ERROR'">
+          <td class="logs-td-id">{{ log.id }}</td>
+          <td class="logs-td-time">{{ log.timestamp | date:'dd/MM/yy HH:mm:ss' }}</td>
+          <td>
+            <span class="logs-badge" [ngClass]="actionClass(log.action)">{{ log.action }}</span>
+          </td>
+          <td class="logs-td-entity">
+            <span *ngIf="log.entityType">{{ log.entityType }}</span>
+            <span *ngIf="log.entityId" class="logs-entity-id">#{{ log.entityId }}</span>
+          </td>
+          <td class="logs-td-desc">{{ log.description }}</td>
+          <td class="logs-td-user">
+            <i class="bi bi-person me-1"></i>{{ log.username || '—' }}
+          </td>
+          <td class="logs-td-ip">{{ log.ipAddress || '—' }}</td>
+          <td>
+            <span *ngIf="log.statusCode" class="logs-status"
+                  [class.logs-status-ok]="log.statusCode < 400"
+                  [class.logs-status-err]="log.statusCode >= 400">
+              {{ log.statusCode }}
+            </span>
+            <span *ngIf="!log.statusCode">—</span>
+          </td>
+        </tr>
+        <tr *ngIf="logs.length === 0">
+          <td colspan="8" class="logs-empty">
+            <i class="bi bi-journal-x me-2"></i>No logs found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="logs-pagination" *ngIf="totalPages > 1">
+    <button type="button" class="logs-page-btn" (click)="goToPage(0)"
+            [disabled]="currentPage === 0">«</button>
+    <button type="button" class="logs-page-btn" (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 0">‹</button>
+    <button type="button" class="logs-page-btn"
+            *ngFor="let p of pages()"
+            [class.active]="p === currentPage"
+            (click)="goToPage(p)">{{ p + 1 }}</button>
+    <button type="button" class="logs-page-btn" (click)="goToPage(currentPage + 1)"
+            [disabled]="currentPage === totalPages - 1">›</button>
+    <button type="button" class="logs-page-btn" (click)="goToPage(totalPages - 1)"
+            [disabled]="currentPage === totalPages - 1">»</button>
+    <span class="logs-page-info">
+      Page {{ currentPage + 1 }} / {{ totalPages }} &nbsp;·&nbsp; {{ totalElements }} events
+    </span>
+  </div>
+</main>

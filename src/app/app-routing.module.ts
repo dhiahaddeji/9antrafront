@@ -682,6 +682,7 @@ const routes: Routes = [
       { path: 'requests', loadChildren: () => import('./views/admin/admin-requests/admin-requests.module').then(m => m.AdminRequestsModule) },
       { path: 'messages', loadChildren: () => import('./views/admin/admin-messages/admin-messages.module').then(m => m.AdminMessagesModule) },
       { path: 'account-management', loadChildren: () => import('./views/admin/admin-create-account/admin-create-account.module').then(m => m.AdminCreateAccountModule) },
+      { path: 'logs', loadChildren: () => import('./views/admin/admin-logs/admin-logs.module').then(m => m.AdminLogsModule) },
     ],
   },
   { path: 'admin-trainingUpdate', loadChildren: () => import('./views/admin/admin-trainingUpdate/admin-training-update.module').then(m => m.AdminTrainingUpdateModule) },
