@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { environement } from 'src/environement/environement.prod';
 
 interface LogEntry {
@@ -45,7 +47,14 @@ export class AdminLogsComponent implements OnInit {
 
   readonly ACTIONS = ['LOGIN', 'CREATE', 'UPDATE', 'DELETE'];
 
-  constructor(private http: HttpClient) {}
+  private filterTrigger = new Subject<void>();
+
+  constructor(private http: HttpClient) {
+    this.filterTrigger.pipe(debounceTime(400)).subscribe(() => {
+      this.currentPage = 0;
+      this.loadLogs();
+    });
+  }
 
   ngOnInit() {
     this.loadStats();
@@ -86,8 +95,7 @@ export class AdminLogsComponent implements OnInit {
   }
 
   applyFilters() {
-    this.currentPage = 0;
-    this.loadLogs();
+    this.filterTrigger.next();
   }
 
   clearFilters() {

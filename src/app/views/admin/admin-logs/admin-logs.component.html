@@ -41,16 +41,13 @@
 
   <!-- Filters -->
   <div class="logs-filters mb-3">
-    <select [(ngModel)]="filterAction" class="logs-filter-input" title="Filter by action">
+    <select [(ngModel)]="filterAction" (ngModelChange)="applyFilters()" class="logs-filter-input" title="Filter by action">
       <option value="">All actions</option>
       <option *ngFor="let a of ACTIONS" [value]="a">{{ a }}</option>
     </select>
-    <input type="text" [(ngModel)]="filterUsername" placeholder="Search user…" class="logs-filter-input">
-    <input type="date" [(ngModel)]="filterFrom" class="logs-filter-input" title="From date">
-    <input type="date" [(ngModel)]="filterTo"   class="logs-filter-input" title="To date">
-    <button type="button" class="logs-btn-primary" (click)="applyFilters()">
-      <i class="bi bi-search me-1"></i>Filter
-    </button>
+    <input type="text" [(ngModel)]="filterUsername" (input)="applyFilters()" placeholder="Search user…" class="logs-filter-input">
+    <input type="date" [(ngModel)]="filterFrom" (change)="applyFilters()" class="logs-filter-input" title="From date">
+    <input type="date" [(ngModel)]="filterTo"   (change)="applyFilters()" class="logs-filter-input" title="To date">
     <button type="button" class="logs-btn-secondary" (click)="clearFilters()">
       <i class="bi bi-x-circle me-1"></i>Clear
     </button>
