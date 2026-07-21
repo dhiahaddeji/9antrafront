@@ -37,15 +37,11 @@
       <div class="logs-stat-value">{{ statCount('DELETE') }}</div>
       <div class="logs-stat-label"><i class="bi bi-trash3 me-1"></i>Deletes</div>
     </div>
-    <div class="logs-stat logs-stat-error">
-      <div class="logs-stat-value">{{ statCount('ERROR') }}</div>
-      <div class="logs-stat-label"><i class="bi bi-exclamation-triangle me-1"></i>Errors</div>
-    </div>
   </div>
 
   <!-- Filters -->
   <div class="logs-filters mb-3">
-    <select [(ngModel)]="filterAction" class="logs-filter-input">
+    <select [(ngModel)]="filterAction" class="logs-filter-input" title="Filter by action">
       <option value="">All actions</option>
       <option *ngFor="let a of ACTIONS" [value]="a">{{ a }}</option>
     </select>

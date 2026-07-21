@@ -43,7 +43,7 @@ export class AdminLogsComponent implements OnInit {
   // stats
   stats: { [key: string]: number } = {};
 
-  readonly ACTIONS = ['LOGIN', 'CREATE', 'UPDATE', 'DELETE', 'ERROR', 'ACTION'];
+  readonly ACTIONS = ['LOGIN', 'CREATE', 'UPDATE', 'DELETE'];
 
   constructor(private http: HttpClient) {}
 
