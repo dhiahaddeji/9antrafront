@@ -75,8 +75,6 @@
           <th>Entity</th>
           <th>Description</th>
           <th>User</th>
-          <th>IP Address</th>
-          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -94,18 +92,9 @@
           <td class="logs-td-user">
             <i class="bi bi-person me-1"></i>{{ log.username || '—' }}
           </td>
-          <td class="logs-td-ip">{{ log.ipAddress || '—' }}</td>
-          <td>
-            <span *ngIf="log.statusCode" class="logs-status"
-                  [class.logs-status-ok]="log.statusCode < 400"
-                  [class.logs-status-err]="log.statusCode >= 400">
-              {{ log.statusCode }}
-            </span>
-            <span *ngIf="!log.statusCode">—</span>
-          </td>
         </tr>
         <tr *ngIf="logs.length === 0">
-          <td colspan="8" class="logs-empty">
+          <td colspan="6" class="logs-empty">
             <i class="bi bi-journal-x me-2"></i>No logs found.
           </td>
         </tr>
