@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environement/environement.prod';
+import { environement } from 'src/environement/environement.prod';
 
 interface LogEntry {
   id: number;
@@ -67,7 +67,7 @@ export class AdminLogsComponent implements OnInit {
 
     const qs = new URLSearchParams(params).toString();
     this.http.get<Page<LogEntry>>(
-      `${environment.BASE_URL}/logs?${qs}`, this.headers()
+      `${environement.BASE_URL}/logs?${qs}`, this.headers()
     ).subscribe({
       next: res => {
         this.logs          = res.content;
@@ -81,7 +81,7 @@ export class AdminLogsComponent implements OnInit {
 
   loadStats() {
     this.http.get<{ [k: string]: number }>(
-      `${environment.BASE_URL}/logs/stats`, this.headers()
+      `${environement.BASE_URL}/logs/stats`, this.headers()
     ).subscribe(res => this.stats = res);
   }
 
