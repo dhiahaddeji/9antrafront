@@ -1,0 +1,52 @@
+<div class="vc-page">
+  <div class="vc-card">
+    <div class="vc-logo">
+      <img src="assets/img/logo1.png" alt="The-Bridge" />
+    </div>
+
+    <div *ngIf="loading" class="vc-loading">
+      <div class="vc-spinner"></div>
+      <p>Verifying certificate…</p>
+    </div>
+
+    <ng-container *ngIf="!loading">
+
+      <!-- VALID -->
+      <div *ngIf="valid" class="vc-result vc-valid">
+        <div class="vc-icon">✅</div>
+        <h2>Certificate Verified</h2>
+        <p class="vc-subtitle">This certificate is authentic and was issued by The-Bridge.</p>
+        <div class="vc-details">
+          <div class="vc-row">
+            <span class="vc-label">Student</span>
+            <span class="vc-value">{{ info.studentName }}</span>
+          </div>
+          <div class="vc-row">
+            <span class="vc-label">Formation</span>
+            <span class="vc-value">{{ info.formation }}</span>
+          </div>
+          <div class="vc-row">
+            <span class="vc-label">Period</span>
+            <span class="vc-value">{{ info.period }} — {{ info.month }}</span>
+          </div>
+          <div class="vc-row">
+            <span class="vc-label">Issued on</span>
+            <span class="vc-value">{{ info.issuedAt | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVALID -->
+      <div *ngIf="!valid" class="vc-result vc-invalid">
+        <div class="vc-icon">❌</div>
+        <h2>Invalid Certificate</h2>
+        <p class="vc-subtitle">This certificate could not be verified. It may be falsified or the code is incorrect.</p>
+      </div>
+
+    </ng-container>
+
+    <div class="vc-footer">
+      <a href="https://9antrafrontend-production.up.railway.app">The-Bridge Platform</a>
+    </div>
+  </div>
+</div>

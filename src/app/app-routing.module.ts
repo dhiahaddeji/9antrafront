@@ -12,6 +12,11 @@ import { CoachGuard } from './guards/coach.guard';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
+  // ── Public: certificate verification (no auth) ───────────────────────
+  {
+    path: 'verify/:code',
+    loadChildren: () => import('./views/public/verify-certif/verify-certif.module').then(m => m.VerifyCertifModule)
+  },
   //////////////////////  '' ////////////////////////
   {
     path: '',

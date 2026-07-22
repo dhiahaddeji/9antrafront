@@ -1,0 +1,43 @@
+.vc-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8edf5 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; font-family: "Open Sans", sans-serif;
+}
+.vc-card {
+  background: #fff; border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.12);
+  padding: 40px 48px; max-width: 480px; width: 100%;
+  text-align: center;
+}
+.vc-logo img { height: 40px; margin-bottom: 28px; }
+
+.vc-loading { padding: 20px 0; color: #6c757d; }
+.vc-spinner {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 4px solid #e9ecef; border-top-color: #AF3065;
+  animation: spin .7s linear infinite; margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.vc-icon { font-size: 3rem; margin-bottom: 12px; }
+.vc-result h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+.vc-subtitle { color: #6c757d; font-size: .9rem; margin-bottom: 24px; }
+
+.vc-valid h2 { color: #15803d; }
+.vc-invalid h2 { color: #b91c1c; }
+
+.vc-details {
+  background: #f8f9fa; border-radius: 12px;
+  padding: 16px 20px; text-align: left; margin-bottom: 24px;
+}
+.vc-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 8px 0; border-bottom: 1px solid #e9ecef;
+}
+.vc-row:last-child { border-bottom: none; }
+.vc-label { font-size: .78rem; color: #6c757d; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.vc-value { font-size: .9rem; font-weight: 700; color: #1a3353; }
+
+.vc-footer { margin-top: 8px; font-size: .8rem; color: #adb5bd; }
+.vc-footer a { color: #AF3065; text-decoration: none; font-weight: 600; }
