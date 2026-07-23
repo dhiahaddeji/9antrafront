@@ -61,6 +61,7 @@ export class CoachCalendarComponent implements OnInit {
       description: [''],
       startDate: ['', Validators.required],
       finishDate: ['', Validators.required],
+      meetLink: [''],
     });
 
     // Set the event source as a function so FullCalendar manages fetching.
@@ -174,6 +175,7 @@ export class CoachCalendarComponent implements OnInit {
     session.description = val.description;
     session.startDate = new Date(val.startDate);
     session.finishDate = new Date(val.finishDate);
+    session.meetLink = val.meetLink?.trim() || undefined;
     this.isLoading = true;
     this.sessionService.ajoutSession(session, this.selectedGroupIds).subscribe({
       next: () => {
@@ -216,7 +218,7 @@ export class CoachCalendarComponent implements OnInit {
   }
 
   openAddModal(): void {
-    this.sessionForm.reset();
+    this.sessionForm.reset({ sessionName: '', description: '', startDate: '', finishDate: '', meetLink: '' });
     this.selectedGroupIds = [];
     this.showAddModal = true;
   }

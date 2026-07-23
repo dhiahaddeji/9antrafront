@@ -355,3 +355,33 @@ textarea.field-input { resize: vertical; min-height: 60px; }
   will-change: rotate;
 }
 @keyframes spin { to { rotate: 1turn; } }
+
+/* ── Google Meet field ───────────────────────────────────────────────── */
+.meet-icon { color: #00897b; margin-right: 4px; }
+.field-optional { font-weight: 400; color: #94a3b8; }
+.meet-link-row { display: flex; gap: 8px; align-items: center; }
+.meet-link-input { flex: 1; }
+.btn-gmeet-new {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 7px 12px; border-radius: 8px; white-space: nowrap;
+  background: #e8f5e9; color: #2e7d32; font-size: 0.8rem; font-weight: 600;
+  text-decoration: none; border: 1.5px solid #c8e6c9; transition: background 0.15s;
+  flex-shrink: 0;
+}
+.btn-gmeet-new:hover { background: #c8e6c9; color: #1b5e20; }
+.field-hint { font-size: 0.72rem; color: #94a3b8; margin-top: 3px; display: block; }
+.field-hint a { color: #00897b; }
+
+/* ── Meet detail in session popup ────────────────────────────────────── */
+.meet-detail-icon { background: #e8f5e9; color: #2e7d32; }
+.meet-link-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+  background: #e8f5e9; color: #2e7d32; text-decoration: none;
+  border: 1px solid #c8e6c9; transition: background 0.15s;
+}
+.meet-link-pill:hover { background: #c8e6c9; }
+.btn-gmeet-join {
+  background: linear-gradient(135deg, #00897b, #26a69a) !important;
+  text-decoration: none;
+}

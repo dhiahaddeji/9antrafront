@@ -79,6 +79,21 @@
         </div>
 
         <div class="field-group">
+          <label class="field-label">
+            <i class="bi bi-camera-video-fill meet-icon"></i>
+            Google Meet Link <span class="field-optional">(optional)</span>
+          </label>
+          <div class="meet-link-row">
+            <input type="url" class="field-input meet-link-input" formControlName="meetLink"
+              placeholder="https://meet.google.com/xxx-xxxx-xxx">
+            <a href="https://meet.new" target="_blank" rel="noopener" class="btn-gmeet-new" title="Create a new Google Meet">
+              <i class="bi bi-plus-lg"></i> New Meet
+            </a>
+          </div>
+          <span class="field-hint">Create a meeting on <a href="https://meet.google.com" target="_blank" rel="noopener">meet.google.com</a> and paste the link here</span>
+        </div>
+
+        <div class="field-group">
           <label class="field-label">Assign to Groups</label>
           <div class="groups-grid" *ngIf="coachGroups.length > 0; else noGroups">
             <div class="group-chip" *ngFor="let g of coachGroups"
@@ -149,11 +164,25 @@
           </div>
         </div>
       </div>
+      <div class="detail-row" *ngIf="selectedEvent.meetLink">
+        <div class="detail-icon meet-detail-icon"><i class="bi bi-camera-video-fill"></i></div>
+        <div>
+          <div class="detail-label">Google Meet</div>
+          <a [href]="selectedEvent.meetLink" target="_blank" rel="noopener" class="meet-link-pill">
+            <i class="bi bi-box-arrow-up-right"></i> Join Meeting
+          </a>
+        </div>
+      </div>
     </div>
     <!-- Footer -->
     <div class="mc-footer">
       <button type="button" class="btn-cancel" (click)="showDetailModal = false">Close</button>
-      <button type="button" *ngIf="!isExpired(selectedEvent)"
+      <a *ngIf="!isExpired(selectedEvent) && selectedEvent.meetLink"
+        [href]="selectedEvent.meetLink" target="_blank" rel="noopener"
+        class="btn-save btn-gmeet-join">
+        <i class="bi bi-camera-video-fill"></i> Join Google Meet
+      </a>
+      <button type="button" *ngIf="!isExpired(selectedEvent) && !selectedEvent.meetLink"
         class="btn-save"
         [routerLink]="['/coach/calendar/meeting/', selectedEvent.id]"
         (click)="showDetailModal = false">

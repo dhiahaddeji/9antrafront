@@ -13,6 +13,7 @@ export class Session {
   userPresence!: { [key: number]: boolean }; // Represents the map of userId to presence status
 
   GeneratedLink?: string;
+  meetLink?: string;
 }
 function mapToObject(map: Map<number, boolean>): { [key: number]: boolean } {
   const obj: { [key: number]: boolean } = {};
