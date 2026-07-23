@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/MesServices/Session/session.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
@@ -10,7 +10,7 @@ import { environement } from 'src/environement/environement.dev';
   templateUrl: './meet.component.html',
   styleUrls: ['./meet.component.css']
 })
-export class MeetComponent implements OnInit {
+export class MeetComponent implements OnInit, OnDestroy {
   session: any = null;
   loading = true;
   error = '';
@@ -20,6 +20,10 @@ export class MeetComponent implements OnInit {
   editingLink = false;
   newMeetLink = '';
   savingLink = false;
+
+  // Jitsi in-page embed
+  jitsiActive = false;
+  private jitsiApi: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +41,10 @@ export class MeetComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.disposeJitsi();
+  }
+
   get isCoach(): boolean {
     const roles: string[] = this.userAuth.getRoles1() || [];
     return roles.some(r => r === 'FORMATEUR' || r === 'ADMINISTRATEUR');
@@ -50,7 +58,46 @@ export class MeetComponent implements OnInit {
 
   joinJitsi(): void {
     const room = this.session?.GeneratedLink || this.idSession;
-    window.open(`https://meet.jit.si/${room}`, '_blank', 'noopener');
+    this.jitsiActive = true;
+    setTimeout(() => this.initJitsi(room), 80);
+  }
+
+  private initJitsi(room: string): void {
+    const container = document.getElementById('jitsi-embed');
+    if (!container) return;
+
+    const launch = () => {
+      this.jitsiApi = new (window as any).JitsiMeetExternalAPI('meet.jit.si', {
+        roomName: room,
+        parentNode: container,
+        width: '100%',
+        height: '100%',
+        configOverwrite: { startWithAudioMuted: true },
+        interfaceConfigOverwrite: { SHOW_JITSI_WATERMARK: false }
+      });
+      this.jitsiApi.addEventListener('readyToClose', () => this.leaveJitsi());
+    };
+
+    if ((window as any).JitsiMeetExternalAPI) {
+      launch();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://meet.jit.si/external_api.js';
+      script.onload = () => launch();
+      document.head.appendChild(script);
+    }
+  }
+
+  leaveJitsi(): void {
+    this.disposeJitsi();
+    this.jitsiActive = false;
+  }
+
+  private disposeJitsi(): void {
+    if (this.jitsiApi) {
+      try { this.jitsiApi.dispose(); } catch (_) {}
+      this.jitsiApi = null;
+    }
   }
 
   startEditLink(): void {
@@ -62,9 +109,7 @@ export class MeetComponent implements OnInit {
 
   saveMeetLink(): void {
     const link = this.newMeetLink.trim();
-    if (!link || !link.startsWith('https://meet.google.com/')) {
-      return;
-    }
+    if (!link || !link.startsWith('https://meet.google.com/')) return;
     this.savingLink = true;
     const token = localStorage.getItem('jwtToken') || '';
     const headers = new HttpHeaders({ Authorization: 'Bearer ' + token });

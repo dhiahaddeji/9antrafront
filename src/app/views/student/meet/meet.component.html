@@ -1,4 +1,98 @@
-<div class="container pt-5 pl-5"
-  style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-  <div id="jitsi-iframe" style="margin-bottom: 1rem; margin-left: 200px;"></div>
+<!-- ── Jitsi in-page embed ──────────────────────────────────────────── -->
+<div class="jitsi-frame" *ngIf="jitsiActive">
+  <div class="jitsi-bar">
+    <span class="jitsi-bar-title">
+      <i class="bi bi-broadcast-pin"></i> {{ session?.sessionName }}
+    </span>
+    <button type="button" class="btn-leave" (click)="leaveJitsi()">
+      <i class="bi bi-telephone-x-fill"></i> Leave
+    </button>
+  </div>
+  <div id="jitsi-embed" class="jitsi-embed"></div>
+</div>
+
+<!-- ── Lobby ────────────────────────────────────────────────────────── -->
+<div class="lobby-wrap" *ngIf="!jitsiActive">
+
+  <div class="lobby-loading" *ngIf="loading">
+    <div class="spinner-ring"></div>
+    <p>Loading session…</p>
+  </div>
+
+  <div class="lobby-error" *ngIf="!loading && error">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <p>{{ error }}</p>
+    <button type="button" class="btn-back" (click)="goBack()">Back to Calendar</button>
+  </div>
+
+  <div class="lobby-card" *ngIf="!loading && session">
+
+    <div class="lobby-header">
+      <button type="button" class="btn-back-icon" (click)="goBack()" title="Back to calendar">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <div class="lobby-badge">
+        <i class="bi bi-camera-video-fill"></i> Meeting Room
+      </div>
+    </div>
+
+    <h1 class="lobby-title">{{ session.sessionName }}</h1>
+    <p class="lobby-desc" *ngIf="session.description">{{ session.description }}</p>
+
+    <div class="lobby-meta">
+      <div class="meta-item">
+        <i class="bi bi-calendar3"></i>
+        <span>{{ formatDate(session.startDate) }}</span>
+      </div>
+      <div class="meta-item" *ngIf="session.finishDate">
+        <i class="bi bi-clock"></i>
+        <span>Ends {{ formatDate(session.finishDate) }}</span>
+      </div>
+    </div>
+
+    <p class="choose-label">Choose your video platform:</p>
+
+    <div class="platform-grid">
+
+      <!-- Google Meet -->
+      <div class="platform-card" [class.platform-disabled]="!session.meetLink">
+        <div class="platform-logo gmeet-logo">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+            <path d="M44 24c0-2.2-.2-4.3-.6-6.3H24v11.9h11.3c-.5 2.6-2 4.8-4.2 6.3v5.2h6.8C41.6 37.1 44 30.9 44 24z" fill="#4285F4"/>
+            <path d="M24 44c5.7 0 10.5-1.9 14-5.1l-6.8-5.2c-1.9 1.3-4.3 2-7.2 2-5.5 0-10.2-3.7-11.9-8.8H5.1v5.4C8.6 39.8 15.8 44 24 44z" fill="#34A853"/>
+            <path d="M12.1 26.9c-.4-1.3-.7-2.6-.7-4s.2-2.7.7-4V13.5H5.1C3.8 16.1 3 19 3 22s.8 5.9 2.1 8.4l7-5.5z" fill="#FBBC05"/>
+            <path d="M24 9.5c3.1 0 5.9 1.1 8.1 3.2l6.1-6.1C34.5 3.1 29.6 1 24 1 15.8 1 8.6 5.2 5.1 11.6l7 5.4C13.8 13.2 18.5 9.5 24 9.5z" fill="#EA4335"/>
+          </svg>
+        </div>
+        <div class="platform-name">Google Meet</div>
+        <div class="platform-desc" *ngIf="session.meetLink">Opens in new tab</div>
+        <div class="platform-desc muted" *ngIf="!session.meetLink">Not available yet</div>
+        <div class="embed-note" *ngIf="session.meetLink">
+          <i class="bi bi-info-circle"></i> Google blocks embedding — opens in browser tab
+        </div>
+        <button type="button" class="btn-platform btn-gmeet"
+          *ngIf="session.meetLink" (click)="joinMeet()">
+          <i class="bi bi-box-arrow-up-right"></i> Join Meet
+        </button>
+        <span class="no-link-note" *ngIf="!session.meetLink">Ask your coach to add a link</span>
+      </div>
+
+      <!-- Jitsi -->
+      <div class="platform-card platform-featured">
+        <div class="platform-logo jitsi-logo">
+          <i class="bi bi-broadcast jitsi-broadcast-icon"></i>
+        </div>
+        <div class="platform-name">Jitsi Meet</div>
+        <div class="platform-desc">Embedded — no account needed</div>
+        <div class="embed-note featured">
+          <i class="bi bi-check-circle-fill"></i> Runs right here inside the platform
+        </div>
+        <button type="button" class="btn-platform btn-jitsi" (click)="joinJitsi()">
+          <i class="bi bi-play-fill"></i> Join Jitsi
+        </button>
+      </div>
+
+    </div>
+
+  </div>
 </div>

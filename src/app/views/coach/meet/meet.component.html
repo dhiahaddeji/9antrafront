@@ -1,4 +1,18 @@
-<div class="lobby-wrap">
+<!-- ── Jitsi in-page embed ──────────────────────────────────────────── -->
+<div class="jitsi-frame" *ngIf="jitsiActive">
+  <div class="jitsi-bar">
+    <span class="jitsi-bar-title">
+      <i class="bi bi-broadcast-pin"></i> {{ session?.sessionName }}
+    </span>
+    <button type="button" class="btn-leave" (click)="leaveJitsi()">
+      <i class="bi bi-telephone-x-fill"></i> Leave
+    </button>
+  </div>
+  <div id="jitsi-embed" class="jitsi-embed"></div>
+</div>
+
+<!-- ── Lobby ────────────────────────────────────────────────────────── -->
+<div class="lobby-wrap" *ngIf="!jitsiActive">
 
   <div class="lobby-loading" *ngIf="loading">
     <div class="spinner-ring"></div>
@@ -36,7 +50,6 @@
       </div>
     </div>
 
-    <!-- ── Join options ───────────────────────────────────────────────── -->
     <p class="choose-label">Choose your video platform:</p>
 
     <div class="platform-grid">
@@ -52,37 +65,39 @@
           </svg>
         </div>
         <div class="platform-name">Google Meet</div>
-        <div class="platform-desc" *ngIf="session.meetLink">Ready to join</div>
+        <div class="platform-desc" *ngIf="session.meetLink">Opens in new tab</div>
         <div class="platform-desc muted" *ngIf="!session.meetLink">No link set yet</div>
+        <div class="embed-note" *ngIf="session.meetLink">
+          <i class="bi bi-info-circle"></i> Google blocks embedding — opens in browser tab
+        </div>
         <button type="button" class="btn-platform btn-gmeet"
           *ngIf="session.meetLink" (click)="joinMeet()">
-          Join Meet
+          <i class="bi bi-box-arrow-up-right"></i> Join Meet
         </button>
         <button type="button" class="btn-platform btn-set-link"
           *ngIf="!session.meetLink && isCoach" (click)="startEditLink()">
           <i class="bi bi-plus-lg"></i> Set link
         </button>
-        <a href="https://meet.new" target="_blank" rel="noopener"
-          class="btn-platform btn-create-meet-sm" *ngIf="!session.meetLink && !isCoach">
-          Create Meet
-        </a>
       </div>
 
       <!-- Jitsi -->
-      <div class="platform-card">
+      <div class="platform-card platform-featured">
         <div class="platform-logo jitsi-logo">
           <i class="bi bi-broadcast jitsi-broadcast-icon"></i>
         </div>
         <div class="platform-name">Jitsi Meet</div>
-        <div class="platform-desc">No account needed</div>
+        <div class="platform-desc">Embedded — no account needed</div>
+        <div class="embed-note featured">
+          <i class="bi bi-check-circle-fill"></i> Runs right here inside the platform
+        </div>
         <button type="button" class="btn-platform btn-jitsi" (click)="joinJitsi()">
-          Join Jitsi
+          <i class="bi bi-play-fill"></i> Join Jitsi
         </button>
       </div>
 
     </div>
 
-    <!-- ── Coach: set/update Meet link ───────────────────────────────── -->
+    <!-- Coach: set/update Meet link -->
     <div class="edit-link-form" *ngIf="editingLink">
       <label class="edit-link-label">
         <i class="bi bi-link-45deg"></i> Google Meet URL
@@ -105,7 +120,6 @@
       </div>
     </div>
 
-    <!-- Coach change link shortcut (when link already set) -->
     <button type="button" class="btn-change-link" *ngIf="isCoach && session.meetLink && !editingLink"
       (click)="startEditLink()">
       <i class="bi bi-pencil"></i> Change Google Meet link
