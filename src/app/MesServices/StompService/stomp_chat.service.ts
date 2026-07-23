@@ -30,6 +30,7 @@ export class StompChatService {
 
     this.connecting = true;
     this.stompClient.connect({}, (): any => {
+      this.connecting = false;
       this.subscribeToTopic(topic, callback);
 
       this.topicQueue.forEach((item: any) => {

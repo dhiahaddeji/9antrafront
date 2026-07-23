@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChatService } from 'src/app/MesServices/Chat/chat.service';
 import { GroupService } from 'src/app/MesServices/Groups/group.service';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './student-chat.component.html',
   styleUrls: ['./student-chat.component.css'],
 })
-export class StudentChatComponent implements OnDestroy {
+export class StudentChatComponent implements OnInit, OnDestroy {
   chat: message = { subject: '', post: '' };
   chatMessages: any[] = [];
   groupId: any = null;
@@ -20,6 +20,7 @@ export class StudentChatComponent implements OnDestroy {
   userId: any;
   private shouldScroll = false;
   private stompSub: any;
+  private pollInterval: any;
 
   @ViewChild('scrollRef') scrollRef!: ElementRef;
 
@@ -31,18 +32,55 @@ export class StudentChatComponent implements OnDestroy {
     private groupService: GroupService
   ) {}
 
-  getChatByGroupId() {
-    if (this.groupId != null) {
-      this.chatService.getChatByGroupId(this.groupId).subscribe({
-        next: (res: any) => { this.chatMessages = res; this.shouldScroll = true; },
-        error: (err) => console.log(err)
-      });
+  ngOnInit() {
+    this.userId = this.userAuthService.getId();
+    this.groupId = this.route.snapshot.params['id'];
+    this.getGroupbyId(this.groupId);
+    this.getChatByGroupId();
+
+    // Live updates via WebSocket (fires instantly when possible)
+    this.stompSub = this.stompService.subscribe('/topic/chat', () => {
+      this.getChatByGroupId();
+    });
+
+    // Polling fallback every 3s — works even when WebSocket drops
+    this.pollInterval = setInterval(() => this.getChatByGroupId(), 3000);
+  }
+
+  ngAfterViewInit() { this.shouldScroll = true; }
+
+  ngAfterViewChecked() {
+    if (this.shouldScroll) {
+      try {
+        this.scrollRef.nativeElement.scrollTop = this.scrollRef.nativeElement.scrollHeight;
+      } catch (_) {}
+      this.shouldScroll = false;
     }
+  }
+
+  ngOnDestroy() {
+    if (this.stompSub?.unsubscribe) this.stompSub.unsubscribe();
+    clearInterval(this.pollInterval);
+  }
+
+  getChatByGroupId() {
+    if (this.groupId == null) return;
+    this.chatService.getChatByGroupId(this.groupId).subscribe({
+      next: (res: any) => {
+        // Only update if something actually changed (avoids unnecessary re-renders)
+        if (JSON.stringify(res) !== JSON.stringify(this.chatMessages)) {
+          this.chatMessages = res;
+          this.shouldScroll = true;
+        }
+      },
+      error: (err) => console.log(err)
+    });
   }
 
   send() {
     const text = this.chat.post.trim();
     if (!text) return;
+    // Optimistic update: show message immediately
     this.chatMessages.push({
       id: null, message: text, status: 0,
       created_at: new Date().toISOString(),
@@ -51,6 +89,7 @@ export class StudentChatComponent implements OnDestroy {
     this.chat.post = '';
     this.shouldScroll = true;
     this.chatService.send({ subject: '', post: text }, this.groupId, this.userId).subscribe({
+      next: () => this.getChatByGroupId(),
       error: () => this.getChatByGroupId()
     });
   }
@@ -67,6 +106,7 @@ export class StudentChatComponent implements OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.chatService.deleteMessage(id).subscribe({
+          next: () => this.getChatByGroupId(),
           error: (err) => console.log(err)
         });
       }
@@ -78,31 +118,6 @@ export class StudentChatComponent implements OnDestroy {
       next: (res: any) => { this.group = res; },
       error: (err) => console.log(err)
     });
-  }
-
-  ngOnInit() {
-    this.userId = this.userAuthService.getId();
-    this.groupId = this.route.snapshot.params['id'];
-    this.getGroupbyId(this.groupId);
-    this.getChatByGroupId();
-    this.stompSub = this.stompService.subscribe('/topic/chat', (): any => {
-      this.getChatByGroupId();
-    });
-  }
-
-  ngAfterViewInit() { this.shouldScroll = true; }
-
-  ngAfterViewChecked() {
-    if (this.shouldScroll) {
-      try {
-        this.scrollRef.nativeElement.scrollTop = this.scrollRef.nativeElement.scrollHeight;
-      } catch (err) {}
-      this.shouldScroll = false;
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.stompSub?.unsubscribe) this.stompSub.unsubscribe();
   }
 
   trackByMessageId(_: number, msg: any) { return msg.id; }
