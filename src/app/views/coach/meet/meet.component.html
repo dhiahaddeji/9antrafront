@@ -1,36 +1,30 @@
 <div class="lobby-wrap">
 
-  <!-- Loading -->
   <div class="lobby-loading" *ngIf="loading">
     <div class="spinner-ring"></div>
     <p>Loading session…</p>
   </div>
 
-  <!-- Error -->
   <div class="lobby-error" *ngIf="!loading && error">
     <i class="bi bi-exclamation-triangle-fill"></i>
     <p>{{ error }}</p>
     <button type="button" class="btn-back" (click)="goBack()">Back to Calendar</button>
   </div>
 
-  <!-- Lobby card -->
   <div class="lobby-card" *ngIf="!loading && session">
 
-    <!-- Header -->
     <div class="lobby-header">
       <button type="button" class="btn-back-icon" (click)="goBack()" title="Back to calendar">
         <i class="bi bi-arrow-left"></i>
       </button>
       <div class="lobby-badge">
-        <i class="bi bi-camera-video-fill"></i> Google Meet
+        <i class="bi bi-camera-video-fill"></i> Meeting Room
       </div>
     </div>
 
-    <!-- Session title -->
     <h1 class="lobby-title">{{ session.sessionName }}</h1>
     <p class="lobby-desc" *ngIf="session.description">{{ session.description }}</p>
 
-    <!-- Meta -->
     <div class="lobby-meta">
       <div class="meta-item">
         <i class="bi bi-calendar3"></i>
@@ -42,46 +36,64 @@
       </div>
     </div>
 
-    <!-- Meet link present → Join button -->
-    <ng-container *ngIf="session.meetLink && !editingLink">
-      <div class="meet-url-box">
-        <i class="bi bi-link-45deg"></i>
-        <span class="meet-url-text">{{ session.meetLink }}</span>
-      </div>
-      <button type="button" class="btn-join" (click)="joinMeet()">
-        <svg class="gmeet-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 8.5l-4 3V8a1 1 0 00-1-1H4a1 1 0 00-1 1v8a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 3V8.5z" fill="currentColor"/>
-        </svg>
-        Join Google Meet
-      </button>
-      <button type="button" class="btn-edit-link" *ngIf="isCoach" (click)="startEditLink()">
-        <i class="bi bi-pencil"></i> Change link
-      </button>
-    </ng-container>
+    <!-- ── Join options ───────────────────────────────────────────────── -->
+    <p class="choose-label">Choose your video platform:</p>
 
-    <!-- No meet link set yet -->
-    <ng-container *ngIf="!session.meetLink && !editingLink">
-      <div class="no-link-box">
-        <i class="bi bi-camera-video-off"></i>
-        <p>No Google Meet link has been set for this session.</p>
-        <a href="https://meet.new" target="_blank" rel="noopener" class="btn-create-meet">
-          <i class="bi bi-plus-lg"></i> Create Google Meet
+    <div class="platform-grid">
+
+      <!-- Google Meet -->
+      <div class="platform-card" [class.platform-disabled]="!session.meetLink">
+        <div class="platform-logo gmeet-logo">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+            <path d="M44 24c0-2.2-.2-4.3-.6-6.3H24v11.9h11.3c-.5 2.6-2 4.8-4.2 6.3v5.2h6.8C41.6 37.1 44 30.9 44 24z" fill="#4285F4"/>
+            <path d="M24 44c5.7 0 10.5-1.9 14-5.1l-6.8-5.2c-1.9 1.3-4.3 2-7.2 2-5.5 0-10.2-3.7-11.9-8.8H5.1v5.4C8.6 39.8 15.8 44 24 44z" fill="#34A853"/>
+            <path d="M12.1 26.9c-.4-1.3-.7-2.6-.7-4s.2-2.7.7-4V13.5H5.1C3.8 16.1 3 19 3 22s.8 5.9 2.1 8.4l7-5.5z" fill="#FBBC05"/>
+            <path d="M24 9.5c3.1 0 5.9 1.1 8.1 3.2l6.1-6.1C34.5 3.1 29.6 1 24 1 15.8 1 8.6 5.2 5.1 11.6l7 5.4C13.8 13.2 18.5 9.5 24 9.5z" fill="#EA4335"/>
+          </svg>
+        </div>
+        <div class="platform-name">Google Meet</div>
+        <div class="platform-desc" *ngIf="session.meetLink">Ready to join</div>
+        <div class="platform-desc muted" *ngIf="!session.meetLink">No link set yet</div>
+        <button type="button" class="btn-platform btn-gmeet"
+          *ngIf="session.meetLink" (click)="joinMeet()">
+          Join Meet
+        </button>
+        <button type="button" class="btn-platform btn-set-link"
+          *ngIf="!session.meetLink && isCoach" (click)="startEditLink()">
+          <i class="bi bi-plus-lg"></i> Set link
+        </button>
+        <a href="https://meet.new" target="_blank" rel="noopener"
+          class="btn-platform btn-create-meet-sm" *ngIf="!session.meetLink && !isCoach">
+          Create Meet
         </a>
-        <button type="button" class="btn-edit-link" *ngIf="isCoach" (click)="startEditLink()">
-          <i class="bi bi-link-45deg"></i> Paste a link
+      </div>
+
+      <!-- Jitsi -->
+      <div class="platform-card">
+        <div class="platform-logo jitsi-logo">
+          <i class="bi bi-broadcast jitsi-broadcast-icon"></i>
+        </div>
+        <div class="platform-name">Jitsi Meet</div>
+        <div class="platform-desc">No account needed</div>
+        <button type="button" class="btn-platform btn-jitsi" (click)="joinJitsi()">
+          Join Jitsi
         </button>
       </div>
-    </ng-container>
 
-    <!-- Edit link form (coach) -->
+    </div>
+
+    <!-- ── Coach: set/update Meet link ───────────────────────────────── -->
     <div class="edit-link-form" *ngIf="editingLink">
-      <label class="edit-link-label">Google Meet URL</label>
-      <input
-        type="url"
-        class="edit-link-input"
-        [(ngModel)]="newMeetLink"
-        placeholder="https://meet.google.com/xxx-xxxx-xxx"
-        autocomplete="off">
+      <label class="edit-link-label">
+        <i class="bi bi-link-45deg"></i> Google Meet URL
+      </label>
+      <div class="edit-link-row">
+        <input type="url" class="edit-link-input" [(ngModel)]="newMeetLink"
+          placeholder="https://meet.google.com/xxx-xxxx-xxx" autocomplete="off">
+        <a href="https://meet.new" target="_blank" rel="noopener" class="btn-new-meet-sm">
+          New Meet
+        </a>
+      </div>
       <div class="edit-link-hint">Must start with https://meet.google.com/</div>
       <div class="edit-link-actions">
         <button type="button" class="btn-cancel-edit" (click)="cancelEditLink()">Cancel</button>
@@ -92,6 +104,12 @@
         </button>
       </div>
     </div>
+
+    <!-- Coach change link shortcut (when link already set) -->
+    <button type="button" class="btn-change-link" *ngIf="isCoach && session.meetLink && !editingLink"
+      (click)="startEditLink()">
+      <i class="bi bi-pencil"></i> Change Google Meet link
+    </button>
 
   </div>
 </div>

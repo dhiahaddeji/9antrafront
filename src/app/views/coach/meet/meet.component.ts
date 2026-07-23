@@ -48,6 +48,11 @@ export class MeetComponent implements OnInit {
     }
   }
 
+  joinJitsi(): void {
+    const room = this.session?.GeneratedLink || this.idSession;
+    window.open(`https://meet.jit.si/${room}`, '_blank', 'noopener');
+  }
+
   startEditLink(): void {
     this.newMeetLink = this.session?.meetLink || '';
     this.editingLink = true;
