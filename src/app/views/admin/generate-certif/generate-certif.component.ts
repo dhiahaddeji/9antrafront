@@ -143,9 +143,10 @@ export class GenerateCertifComponent implements OnInit {
       value_date = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
     }
     const studentNames = this.selectedStudents.map(s => `${s.id}:${s.firstName} ${s.lastName}`).join('\n');
+    const token = localStorage.getItem('jwtToken') || '';
     axios.post(`${this.backendBase}/api/certif/Generer`, {
       liste: studentNames, periode: v.periode, nom_formation: this.selectedFormation.nomFormation, month: v.month, date: value_date
-    }).then(() => {
+    }, { headers: { Authorization: 'Bearer ' + token } }).then(() => {
       this.showThankYouPopup = true;
       setTimeout(() => this.showThankYouPopup = false, 3000);
       if (this.allCerts.length > 0) this.loadCerts();
