@@ -141,6 +141,27 @@
   animation: spin 0.8s linear infinite; margin: 0 auto 12px;
 }
 @keyframes spin { to { rotate: 1turn; } }
+
+/* ── Google Meet redirect screen ──────────────────────────────────────── */
+.gmeet-badge { background: #e8f0fe; color: #1a73e8; }
+.gmeet-redirect-box {
+  background: #f0f7ff;
+  border: 1.5px solid #c8d8f8;
+  border-radius: 14px;
+  padding: 28px 20px;
+  text-align: center;
+  margin: 20px 0;
+}
+.gmeet-icon-wrap { margin-bottom: 14px; }
+.gmeet-redirect-msg { font-size: 1rem; font-weight: 600; color: #1e293b; margin: 0 0 4px; }
+.gmeet-redirect-sub { font-size: 0.82rem; color: #64748b; margin: 0 0 16px; }
+.btn-back-full {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; padding: 10px; border: none; border-radius: 10px;
+  background: #f1f5f9; color: #475569; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: background 0.15s;
+}
+.btn-back-full:hover { background: #e2e8f0; }
 @media (max-width: 480px) {
   .lobby-card { padding: 24px 18px 28px; }
   .platform-grid { grid-template-columns: 1fr; }

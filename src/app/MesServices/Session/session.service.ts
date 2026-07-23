@@ -55,6 +55,10 @@ export class SessionService {
     return this.http.get<Session[]>(url);
   }*/
 
+  getSessionById(id: number): Observable<Session> {
+    return this.http.get<Session>(`${environement.BASE_URL}/sessions/getSessionById/${id}`);
+  }
+
   getbybyGeneratedLink(generatedLink: string): Observable<Session> {
     const url = `${environement.BASE_URL}/sessions/byGeneratedLink/${generatedLink}`;
     return this.http.get<Session>(url);

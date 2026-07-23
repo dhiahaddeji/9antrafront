@@ -356,6 +356,21 @@ textarea.field-input { resize: vertical; min-height: 60px; }
 }
 @keyframes spin { to { rotate: 1turn; } }
 
+/* ── Platform toggle ────────────────────────────────────────────────── */
+.platform-toggle {
+  display: flex; gap: 8px; margin-bottom: 8px;
+}
+.platform-toggle-btn {
+  flex: 1; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 10px;
+  background: #f8fafc; color: #64748b; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.platform-toggle-btn.active {
+  border-color: #af3065; background: #fdf0f5; color: #af3065;
+}
+.platform-hint { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+.meet-link-section { margin-top: 8px; }
+
 /* ── Google Meet field ───────────────────────────────────────────────── */
 .meet-icon { color: #00897b; margin-right: 4px; }
 .field-optional { font-weight: 400; color: #94a3b8; }

@@ -404,6 +404,8 @@ h1,h2,h3,h4,h5,h6 { font-family: "Nunito", sans-serif; }
   transition: background 0.2s;
 }
 .btn-join:hover { background: #8d1f4f; color: #fff; }
+.btn-gmeet-join { background: linear-gradient(135deg, #1a73e8, #4285f4) !important; }
+.btn-gmeet-join:hover { background: linear-gradient(135deg, #155cc7, #1a73e8) !important; }
 .btn-expired {
   background: #f5f5f5;
   color: #bbb;

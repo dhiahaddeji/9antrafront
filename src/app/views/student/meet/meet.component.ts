@@ -11,9 +11,10 @@ export class MeetComponent implements OnInit, OnDestroy {
   session: any = null;
   loading = true;
   error = '';
-  idSession: string = '';
+  idSession = 0;
 
-  jitsiActive = false;
+  // 'lobby' | 'jitsi' | 'gmeet'
+  mode: 'lobby' | 'jitsi' | 'gmeet' = 'lobby';
   private jitsiApi: any = null;
 
   constructor(
@@ -23,9 +24,18 @@ export class MeetComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.idSession = this.route.snapshot.paramMap.get('id') || '';
-    this.sessionService.getbybyGeneratedLink(this.idSession).subscribe({
-      next: (res: any) => { this.session = res; this.loading = false; },
+    this.idSession = Number(this.route.snapshot.paramMap.get('id'));
+    this.sessionService.getSessionById(this.idSession).subscribe({
+      next: (res: any) => {
+        this.session = res;
+        this.loading = false;
+        // Auto-launch based on what the coach configured
+        if (res.meetLink) {
+          this.launchGoogleMeet();
+        } else {
+          this.launchJitsi();
+        }
+      },
       error: () => { this.error = 'Session not found.'; this.loading = false; }
     });
   }
@@ -34,21 +44,26 @@ export class MeetComponent implements OnInit, OnDestroy {
     this.disposeJitsi();
   }
 
-  joinMeet(): void {
-    if (this.session?.meetLink) {
-      window.open(this.session.meetLink, '_blank', 'noopener');
-    }
+  // ── Google Meet ───────────────────────────────────────────────────────
+  launchGoogleMeet(): void {
+    this.mode = 'gmeet';
+    window.open(this.session.meetLink, '_blank', 'noopener');
   }
 
-  joinJitsi(): void {
-    const room = this.session?.GeneratedLink || this.idSession;
-    this.jitsiActive = true;
-    setTimeout(() => this.initJitsi(room), 80);
+  openMeetManually(): void {
+    window.open(this.session.meetLink, '_blank', 'noopener');
   }
 
-  private initJitsi(room: string): void {
+  // ── Jitsi ─────────────────────────────────────────────────────────────
+  launchJitsi(): void {
+    this.mode = 'jitsi';
+    setTimeout(() => this.initJitsi(), 80);
+  }
+
+  private initJitsi(): void {
     const container = document.getElementById('jitsi-embed');
     if (!container) return;
+    const room = this.session?.GeneratedLink || String(this.idSession);
 
     const launch = () => {
       this.jitsiApi = new (window as any).JitsiMeetExternalAPI('meet.jit.si', {
@@ -74,7 +89,7 @@ export class MeetComponent implements OnInit, OnDestroy {
 
   leaveJitsi(): void {
     this.disposeJitsi();
-    this.jitsiActive = false;
+    this.mode = 'lobby';
   }
 
   private disposeJitsi(): void {

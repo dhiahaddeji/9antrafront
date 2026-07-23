@@ -184,11 +184,16 @@
             <span *ngIf="selectedSession._expired" class="join-btn btn-expired">
               Session Expired
             </span>
-            <a
-              *ngIf="!selectedSession._expired"
+            <!-- Google Meet: open directly in new tab -->
+            <a *ngIf="!selectedSession._expired && selectedSession.meetLink"
+              [href]="selectedSession.meetLink" target="_blank" rel="noopener"
+              class="join-btn btn-join btn-gmeet-join">
+              <i class="bi bi-camera-video-fill me-2"></i>Join Google Meet
+            </a>
+            <!-- Jitsi: go to embedded meeting page -->
+            <a *ngIf="!selectedSession._expired && !selectedSession.meetLink"
               [routerLink]="['/student/calendar/meeting/', selectedSession.id]"
-              class="join-btn btn-join"
-            >
+              class="join-btn btn-join">
               <i class="bi bi-camera-video-fill me-2"></i>Join Class
             </a>
           </div>

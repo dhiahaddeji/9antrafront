@@ -48,6 +48,9 @@ export class CoachCalendarComponent implements OnInit {
   showAddModal = false;
   showDetailModal = false;
 
+  // 'jitsi' | 'googlemeet'
+  selectedPlatform: 'jitsi' | 'googlemeet' = 'jitsi';
+
   constructor(
     private sessionService: SessionService,
     private userAuthService: UserAuthService,
@@ -135,6 +138,7 @@ export class CoachCalendarComponent implements OnInit {
     this.sessionForm.reset();
     this.sessionForm.patchValue({ startDate: start, finishDate: end });
     this.selectedGroupIds = [];
+    this.selectedPlatform = 'jitsi';
     this.showAddModal = true;
   }
 
@@ -175,7 +179,9 @@ export class CoachCalendarComponent implements OnInit {
     session.description = val.description;
     session.startDate = new Date(val.startDate);
     session.finishDate = new Date(val.finishDate);
-    session.meetLink = val.meetLink?.trim() || undefined;
+    session.meetLink = (this.selectedPlatform === 'googlemeet' && val.meetLink?.trim())
+      ? val.meetLink.trim()
+      : undefined;
     this.isLoading = true;
     this.sessionService.ajoutSession(session, this.selectedGroupIds).subscribe({
       next: () => {
@@ -220,6 +226,7 @@ export class CoachCalendarComponent implements OnInit {
   openAddModal(): void {
     this.sessionForm.reset({ sessionName: '', description: '', startDate: '', finishDate: '', meetLink: '' });
     this.selectedGroupIds = [];
+    this.selectedPlatform = 'jitsi';
     this.showAddModal = true;
   }
 }
