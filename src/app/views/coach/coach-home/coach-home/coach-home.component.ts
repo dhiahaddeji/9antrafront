@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { EventService } from 'src/app/MesServices/Event/event.service';
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
 import { SessionService } from 'src/app/MesServices/Session/session.service';
@@ -33,11 +34,11 @@ export class CoachHomeComponent implements OnInit {
 
   ngOnInit() {
     forkJoin({
-      profile:    this.userService.getUserById(this.userId),
-      completed:  this.formationService.getCountFormationsCompletedCoach(this.userId),
-      inProgress: this.formationService.getCountFormationsInProgressCoach(this.userId),
-      events:     this.eventService.getCountEventsByUserId(this.userId),
-      sessions:   this.sessionService.getSessionByFormationCoachId(this.userId),
+      profile:    this.userService.getUserById(this.userId).pipe(catchError(() => of(null))),
+      completed:  this.formationService.getCountFormationsCompletedCoach(this.userId).pipe(catchError(() => of(0))),
+      inProgress: this.formationService.getCountFormationsInProgressCoach(this.userId).pipe(catchError(() => of(0))),
+      events:     this.eventService.getCountEventsByUserId(this.userId).pipe(catchError(() => of(0))),
+      sessions:   this.sessionService.getSessionByFormationCoachId(this.userId).pipe(catchError(() => of([]))),
     }).subscribe({
       next: (data: any) => {
         this.coachProfile      = data.profile;

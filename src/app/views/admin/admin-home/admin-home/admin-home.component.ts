@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 
 interface Stats {
@@ -22,17 +23,16 @@ export class AdminHomeComponent implements OnInit {
   percentageCoaches = 0;
   stats: Stats[] = [];
   loading = true;
-  error = '';
 
   constructor(private us: UserService) {}
 
   ngOnInit() {
     forkJoin({
-      students:          this.us.getNumberOfStudents(),
-      activatedStudents: this.us.getNUmberOfActivatedStudents(),
-      coaches:           this.us.getNumberOfCoaches(),
-      activatedCoaches:  this.us.getNUmberOfActivatedCoaches(),
-      topCourses:        this.us.getTopCourses(),
+      students:          this.us.getNumberOfStudents().pipe(catchError(() => of(0))),
+      activatedStudents: this.us.getNUmberOfActivatedStudents().pipe(catchError(() => of(0))),
+      coaches:           this.us.getNumberOfCoaches().pipe(catchError(() => of(0))),
+      activatedCoaches:  this.us.getNUmberOfActivatedCoaches().pipe(catchError(() => of(0))),
+      topCourses:        this.us.getTopCourses().pipe(catchError(() => of([]))),
     }).subscribe({
       next: (data) => {
         this.nbrOfStudents     = data.students;
@@ -54,7 +54,6 @@ export class AdminHomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Dashboard load error:', err);
-        this.error = 'Could not load dashboard data.';
         this.loading = false;
       }
     });

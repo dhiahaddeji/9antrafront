@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { EventService } from 'src/app/MesServices/Event/event.service';
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
 import { SessionService } from 'src/app/MesServices/Session/session.service';
@@ -33,10 +34,10 @@ export class StudentHomeComponent implements OnInit {
 
   ngOnInit() {
     forkJoin({
-      inProgress: this.formationService.getCountFormationsInProgressByUserId(this.userId),
-      completed:  this.formationService.getCountFormationsCompletedByUserId(this.userId),
-      events:     this.eventService.getCountEventsByUserId(this.userId),
-      sessions:   this.sessionService.getSessionByFormationId(this.userId),
+      inProgress: this.formationService.getCountFormationsInProgressByUserId(this.userId).pipe(catchError(() => of(0))),
+      completed:  this.formationService.getCountFormationsCompletedByUserId(this.userId).pipe(catchError(() => of(0))),
+      events:     this.eventService.getCountEventsByUserId(this.userId).pipe(catchError(() => of(0))),
+      sessions:   this.sessionService.getSessionByFormationId(this.userId).pipe(catchError(() => of([]))),
     }).subscribe({
       next: (data: any) => {
         this.formationsInProgressCount = data.inProgress ?? 0;
