@@ -43,8 +43,8 @@ export class StudentChatComponent implements OnInit, OnDestroy {
       this.getChatByGroupId();
     });
 
-    // Polling fallback every 3s — works even when WebSocket drops
-    this.pollInterval = setInterval(() => this.getChatByGroupId(), 3000);
+    // Polling fallback every 10s — safety net when WebSocket drops
+    this.pollInterval = setInterval(() => this.getChatByGroupId(), 10000);
   }
 
   ngAfterViewInit() { this.shouldScroll = true; }
@@ -67,9 +67,11 @@ export class StudentChatComponent implements OnInit, OnDestroy {
     if (this.groupId == null) return;
     this.chatService.getChatByGroupId(this.groupId).subscribe({
       next: (res: any) => {
-        // Only update if something actually changed (avoids unnecessary re-renders)
-        if (JSON.stringify(res) !== JSON.stringify(this.chatMessages)) {
-          this.chatMessages = res;
+        const incoming: any[] = res ?? [];
+        const hasNew = incoming.length !== this.chatMessages.length
+          || (incoming.length > 0 && incoming[incoming.length - 1]?.id !== this.chatMessages[this.chatMessages.length - 1]?.id);
+        if (hasNew) {
+          this.chatMessages = incoming;
           this.shouldScroll = true;
         }
       },

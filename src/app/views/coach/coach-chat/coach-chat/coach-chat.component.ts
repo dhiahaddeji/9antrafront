@@ -43,8 +43,8 @@ export class CoachChatComponent implements OnInit, OnDestroy {
       this.getChatByGroupId();
     });
 
-    // Polling fallback every 3s
-    this.pollInterval = setInterval(() => this.getChatByGroupId(), 3000);
+    // Polling fallback every 10s
+    this.pollInterval = setInterval(() => this.getChatByGroupId(), 10000);
   }
 
   ngAfterViewInit() { this.shouldScroll = true; }
@@ -67,8 +67,11 @@ export class CoachChatComponent implements OnInit, OnDestroy {
     if (this.groupId == null) return;
     this.chatService.getChatByGroupId(this.groupId).subscribe({
       next: (res: any) => {
-        if (JSON.stringify(res) !== JSON.stringify(this.chatMessages)) {
-          this.chatMessages = res;
+        const incoming: any[] = res ?? [];
+        const hasNew = incoming.length !== this.chatMessages.length
+          || (incoming.length > 0 && incoming[incoming.length - 1]?.id !== this.chatMessages[this.chatMessages.length - 1]?.id);
+        if (hasNew) {
+          this.chatMessages = incoming;
           this.shouldScroll = true;
         }
       },
@@ -110,6 +113,8 @@ export class CoachChatComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  trackByMessageId(_: number, msg: any) { return msg.id; }
 
   getGroupbyId(id: any) {
     this.groupService.getGroupsById(id).subscribe({

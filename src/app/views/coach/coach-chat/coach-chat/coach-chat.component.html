@@ -16,7 +16,7 @@
         </div>
 
         <div class="position-relative" style="height: 80vh;overflow-y: scroll" #scrollRef>
-          <div class="chat-messages p-4" *ngFor="let message of chatMessages">
+          <div class="chat-messages p-4" *ngFor="let message of chatMessages; trackBy: trackByMessageId">
 
             <div class="chat-message-right pb-4" id="parent" *ngIf="message.userEnvoi['id'] == userId">
 
