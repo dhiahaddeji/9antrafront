@@ -68,26 +68,22 @@
           <div class="card-body p-2 p-md-3">
             <div class="row g-2 align-items-center">
               <div class="col-12 col-sm-3 col-md-2 text-center">
-                <img src="assets/Documents/{{session['formation']['user']['image']}}" 
+                <img [src]="session._coachImg ? 'assets/Documents/' + session._coachImg : 'assets/img/profile-img.jpg'"
                      onerror="this.src='assets/img/profile-img.jpg'"
                      alt="Coach Profile" class="rounded-circle img-fluid" style="max-width: 80px;" loading="lazy">
               </div>
               <div class="col-12 col-sm-9 col-md-4">
                 <div class="text-center text-md-start">
                   <p class="mb-1" style="color:#FAB555;">With Our Coach</p>
-                  <p class="mb-0" style="color: black; font-weight: bold;">
-                    {{session['formation']['user']['firstName']}} {{session['formation']['user']['lastName']}}
-                  </p>
+                  <p class="mb-0" style="color: black; font-weight: bold;">{{ session._coachName }}</p>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3 text-center">
                 <p class="mb-1">
-                  <span style="color:#AF3065;">{{session._monthName}}</span>
-                  <span class="fs-2">{{session['startDate'].substring(8,10)}}th</span>
+                  <span style="color:#AF3065;">{{ session._monthName }}</span>
+                  <span class="fs-2">{{ session._day }}th</span>
                 </p>
-                <p class="fw-light small mb-0">
-                  {{session['startDate'].substring(11,16)}} to {{session['finishDate'].substring(11,16)}}
-                </p>
+                <p class="fw-light small mb-0">{{ session._timeFrom }} to {{ session._timeTo }}</p>
               </div>
               <div class="col-12 col-sm-6 col-md-3 text-center">
                 <button class="session-btn p-2 p-md-3 fw-bold w-100 w-md-auto" routerLink="/student/calendar">
@@ -108,19 +104,6 @@
       </div>
     </div>
 
-    <!-- Last Session Video Section -->
-    <div class="mb-5">
-      <h5 class="fw-bold mt-5 mb-3 ms-2">Last Session Recording</h5>
-      <div class="row">
-        <div class="col-12">
-          <div class="bg-white shadow p-3" style="border-radius:10px;">
-            <video id="videoPlayer" controls class="w-100" style="max-height: 500px;">
-              <source src="assets/img/movierise.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </main>

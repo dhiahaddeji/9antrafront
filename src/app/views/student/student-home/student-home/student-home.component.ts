@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { EventService } from 'src/app/MesServices/Event/event.service';
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
-import { ProjectService } from 'src/app/MesServices/Projects/projects.service';
 import { SessionService } from 'src/app/MesServices/Session/session.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 
@@ -14,14 +14,15 @@ const MONTHS = ['January','February','March','April','May','June',
   styleUrls: ['./student-home.component.css']
 })
 export class StudentHomeComponent implements OnInit {
-  formationsInProgressCount: any;
-  formationsCompletedCount: any = 0;
-  eventsCount: any;
-  userId: any;
+  formationsInProgressCount: number = 0;
+  formationsCompletedCount:  number = 0;
+  eventsCount: number = 0;
   sessions: any[] = [];
+  loading = true;
+
+  private userId: any;
 
   constructor(
-    private projectService: ProjectService,
     private formationService: FormationsService,
     private authService: UserAuthService,
     private eventService: EventService,
@@ -31,51 +32,59 @@ export class StudentHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCountFormationsInProgressByUserId();
-    this.getCountFormationsCompletedByUserId();
-    this.getCountEventsByUserId();
-    this.getSessionByFormationId();
-  }
+    forkJoin({
+      inProgress: this.formationService.getCountFormationsInProgressByUserId(this.userId),
+      completed:  this.formationService.getCountFormationsCompletedByUserId(this.userId),
+      events:     this.eventService.getCountEventsByUserId(this.userId),
+      sessions:   this.sessionService.getSessionByFormationId(this.userId),
+    }).subscribe({
+      next: (data: any) => {
+        this.formationsInProgressCount = data.inProgress ?? 0;
+        this.formationsCompletedCount  = data.completed  ?? 0;
+        this.eventsCount               = data.events     ?? 0;
 
-  getCountFormationsInProgressByUserId() {
-    this.formationService.getCountFormationsInProgressByUserId(this.userId).subscribe({
-      next: (res: any) => { this.formationsInProgressCount = res; },
-      error: (err) => console.log(err)
-    });
-  }
-
-  getCountFormationsCompletedByUserId() {
-    this.formationService.getCountFormationsCompletedByUserId(this.userId).subscribe({
-      next: (res: any) => { this.formationsCompletedCount = res; },
-      error: (err) => console.log(err)
-    });
-  }
-
-  getCountEventsByUserId() {
-    this.eventService.getCountEventsByUserId(this.userId).subscribe({
-      next: (res: any) => { this.eventsCount = res; },
-      error: (err) => console.log(err)
-    });
-  }
-
-  getSessionByFormationId() {
-    this.sessionService.getSessionByFormationId(this.userId).subscribe({
-      next: (res: any) => {
-        if (res && res.length > 0) {
-          // precompute month name once per session so template never calls a method
-          this.sessions = (res as any[]).map(s => ({
+        const raw: any[] = data.sessions ?? [];
+        this.sessions = raw.map(s => {
+          const start = this.parseDate(s.startDate);
+          const end   = this.parseDate(s.finishDate);
+          return {
             ...s,
-            _monthName: MONTHS[parseInt(s.startDate?.substring(5, 7), 10) - 1] ?? ''
-          }));
-        } else {
-          this.sessions = [];
-        }
+            _start:     start,
+            _end:       end,
+            _monthName: start ? MONTHS[start.getMonth()] : '',
+            _day:       start ? String(start.getDate()).padStart(2, '0') : '',
+            _timeFrom:  start ? this.fmt(start) : '',
+            _timeTo:    end   ? this.fmt(end)   : '',
+            _coachImg:  s.formation?.user?.image ?? null,
+            _coachName: s.formation?.user
+              ? `${s.formation.user.firstName ?? ''} ${s.formation.user.lastName ?? ''}`.trim()
+              : 'Coach',
+          };
+        });
+
+        this.loading = false;
       },
       error: (err) => {
-        console.warn('Sessions API error (non-critical):', err);
-        this.sessions = []; // Set empty array to prevent crash
+        console.warn('Student dashboard error (non-critical):', err);
+        this.sessions = [];
+        this.loading  = false;
       }
     });
+  }
+
+  /** Handles both ISO strings and Java LocalDateTime arrays [y, m, d, h, min] */
+  private parseDate(raw: any): Date | null {
+    if (!raw) return null;
+    if (raw instanceof Date) return raw;
+    if (Array.isArray(raw)) {
+      return new Date(raw[0], raw[1] - 1, raw[2], raw[3] ?? 0, raw[4] ?? 0);
+    }
+    const d = new Date(raw);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  private fmt(d: Date): string {
+    return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
   }
 
   trackBySessionId(_: number, s: any) { return s.id; }

@@ -63,7 +63,7 @@
     <!-- Upcoming Sessions Section -->
     <div class="mb-4">
       <h5 class="fw-bold mt-4 mb-3 ms-2">Upcoming Sessions</h5>
-      <ng-container *ngFor="let session of sessions">
+      <ng-container *ngFor="let session of sessions; trackBy: trackById">
         <div class="card shadow-sm mb-3">
           <div class="card-body p-2 p-md-3">
             <div class="row g-2 align-items-center">
@@ -82,11 +82,11 @@
               </div>
               <div class="col-12 col-sm-6 col-md-3 text-center">
                 <p class="mb-1">
-                  <span style="color:#FAB555;">{{getSessionMonth(session.startDate)}}</span>
-                  <span class="fs-2">{{getSessionDay(session.startDate)}}th</span>
+                  <span style="color:#FAB555;">{{getSessionMonth(session._startDate)}}</span>
+                  <span class="fs-2">{{getSessionDay(session._startDate)}}th</span>
                 </p>
                 <p class="fw-light small mb-0">
-                  {{getSessionTime(session.startDate)}} to {{getSessionTime(session.finishDate)}}
+                  {{getSessionTime(session._startDate)}} to {{getSessionTime(session._endDate)}}
                 </p>
               </div>
               <div class="col-12 col-sm-6 col-md-3 text-center">

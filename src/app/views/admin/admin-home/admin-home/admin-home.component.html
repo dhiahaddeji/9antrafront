@@ -1,67 +1,89 @@
+<main id="main">
+  <div style="margin-bottom: 50px;" class="d-block d-lg-none"></div>
 
-<main id="main"  >
-    <div style="margin-bottom: 50px; " class="d-block d-lg-none"> </div>
+  <div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
 
-    <div class="pagetitle">
-        <h1>Feedback</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
-          </ol>
-        </nav>
+  <!-- Error -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Loading skeleton -->
+  <div *ngIf="loading" class="row">
+    <div class="col-xl-3 col-md-6" *ngFor="let i of [1,2,3,4]">
+      <div class="card">
+        <div class="card-body mt-3">
+          <div class="placeholder-glow"><span class="placeholder col-8"></span></div>
+        </div>
+        <div class="card-footer bg-white">
+          <div class="placeholder-glow"><span class="placeholder col-5"></span></div>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card">
-                <div class="card-body mt-3 fw-bold">Students registration</div>
-                <div class="card-footer  bg-white d-flex align-items-center justify-content-between">
-                    <a class="small ms-2 stretched-link" routerLink="studentlist">{{ nbrOfStudents}} people(s)</a>
-                 
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card">
-                <div class="card-body mt-3 fw-bold">Activated accounts</div>
-                <div class="card-footer bg-white d-flex align-items-center justify-content-between">
-                    <a class="small ms-2 stretched-link" routerLink="studentlist">{{activatedStudents}} people(s)</a>
-                    <div class="small me-2">{{ percentageStudents }}%</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card">
-                <div class="card-body mt-3 fw-bold">Total coach</div>
-                <div class="card-footer bg-white d-flex align-items-center justify-content-between">
-                    <a class="small ms-2 stretched-link" routerLink="coachlist">{{nbrOfCoaches}} people(s)</a>
-                  
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card">
-                <div class="card-body mt-3 fw-bold">Validated coach</div>
-                <div class="card-footer bg-white d-flex align-items-center justify-content-between">
-                    <a class="small ms-2 stretched-link" routerLink="coachlist">{{activatedCoaches}} people(s)</a>
-                    <div class="small me-2">{{ percentageCoaches }}%</div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row" >
-  
-        <div class="col">
-            <div class="card mt-2">
-                <div class="fw-bold ms-4 mt-3"> Top Training Courses</div>
+  </div>
 
-                <div id="divChart" class="mx-5">
-                    <canvas id="myChart"></canvas>
-                  </div>
-            </div>
+  <!-- Stats cards -->
+  <div class="row" *ngIf="!loading">
+    <div class="col-xl-3 col-md-6">
+      <div class="card">
+        <div class="card-body mt-3 fw-bold">Students registered</div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+          <a class="small ms-2 stretched-link" routerLink="studentlist">{{ nbrOfStudents }} people(s)</a>
         </div>
+      </div>
     </div>
-  
+    <div class="col-xl-3 col-md-6">
+      <div class="card">
+        <div class="card-body mt-3 fw-bold">Activated students</div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+          <a class="small ms-2 stretched-link" routerLink="studentlist">{{ activatedStudents }} people(s)</a>
+          <div class="small me-2 fw-bold text-success">{{ percentageStudents }}%</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card">
+        <div class="card-body mt-3 fw-bold">Total coaches</div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+          <a class="small ms-2 stretched-link" routerLink="coachlist">{{ nbrOfCoaches }} people(s)</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card">
+        <div class="card-body mt-3 fw-bold">Validated coaches</div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+          <a class="small ms-2 stretched-link" routerLink="coachlist">{{ activatedCoaches }} people(s)</a>
+          <div class="small me-2 fw-bold text-success">{{ percentageCoaches }}%</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-   
-  </main>
+  <!-- Chart -->
+  <div class="row" *ngIf="!loading && stats.length > 0">
+    <div class="col">
+      <div class="card mt-2">
+        <div class="fw-bold ms-4 mt-3">Top Training Courses</div>
+        <div id="divChart" class="mx-5">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!loading && stats.length === 0">
+    <div class="col">
+      <div class="card mt-2 text-center py-5 text-muted">
+        No course data available yet.
+      </div>
+    </div>
+  </div>
+
+</main>
