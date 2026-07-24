@@ -59,9 +59,11 @@
                 "scripts": true,
                 "styles": {
                   "minify": true,
-                  "inlineCritical": false
+                  "inlineCritical": true
                 },
-                "fonts": false
+                "fonts": {
+                  "inline": true
+                }
               },
               "buildOptimizer": true,
               "aot": true,

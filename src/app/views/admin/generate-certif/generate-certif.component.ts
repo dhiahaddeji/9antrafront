@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import axios from 'axios';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import { environement } from 'src/environement/environement.dev';
@@ -144,15 +143,22 @@ export class GenerateCertifComponent implements OnInit {
     }
     const studentNames = this.selectedStudents.map(s => `${s.id}:${s.firstName} ${s.lastName}`).join('\n');
     const token = localStorage.getItem('jwtToken') || '';
-    axios.post(`${this.backendBase}/api/certif/Generer`, {
-      liste: studentNames, periode: v.periode, nom_formation: this.selectedFormation.nomFormation, month: v.month, date: value_date
-    }, { headers: { Authorization: 'Bearer ' + token } }).then(() => {
-      this.showThankYouPopup = true;
-      setTimeout(() => this.showThankYouPopup = false, 3000);
-      if (this.allCerts.length > 0) this.loadCerts();
-    }).catch(err => {
-      this.errorMessage = err.response?.data?.message || 'Error generating certificate. Please try again.';
-    }).finally(() => { this.isLoading = false; });
+    const headers = new HttpHeaders({ Authorization: 'Bearer ' + token });
+    this.http.post(`${this.backendBase}/api/certif/Generer`,
+      { liste: studentNames, periode: v.periode, nom_formation: this.selectedFormation.nomFormation, month: v.month, date: value_date },
+      { headers }
+    ).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.showThankYouPopup = true;
+        setTimeout(() => this.showThankYouPopup = false, 3000);
+        if (this.allCerts.length > 0) this.loadCerts();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err.error?.message || 'Error generating certificate. Please try again.';
+      }
+    });
   }
 
   // ── Manage ────────────────────────────────────────────────────────────────
