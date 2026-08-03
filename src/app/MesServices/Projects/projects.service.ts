@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProjectService {
-  private BASE_URL = ' https://9antrabackend-production.up.railway.app/api/Projects/';
+  private BASE_URL = ' https://9antraback-production.up.railway.app/api/Projects/';
 
   constructor(private http: HttpClient) { }
 

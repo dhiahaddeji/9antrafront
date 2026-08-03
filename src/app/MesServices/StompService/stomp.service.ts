@@ -13,7 +13,7 @@ export class StompService {
 
   private initClient(): void {
     if (!this.socket) {
-      this.socket = new SockJS('https://9antrabackend-production.up.railway.app/sba-websocket-notification');
+      this.socket = new SockJS('https://9antraback-production.up.railway.app/sba-websocket-notification');
       this.stompClient = Stomp.over(this.socket);
     }
   }

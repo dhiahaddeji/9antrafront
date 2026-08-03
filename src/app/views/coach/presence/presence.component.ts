@@ -63,7 +63,7 @@ export class PresenceComponent implements OnInit {
 
   // markUserPresence( groupId: number, userId: number, isPresent: boolean): void {
   
-  //  const url = `https://9antrabackend-production.up.railway.app/api/sessions/${this.sessions}/groups/${groupId}/users/${userId}/markPresence`;
+  //  const url = `https://9antraback-production.up.railway.app/api/sessions/${this.sessions}/groups/${groupId}/users/${userId}/markPresence`;
   //   const params = { isPresent: isPresent.toString() };
   //   this.groups.forEach(group => {
   //     if (group.id === groupId) {
@@ -84,7 +84,7 @@ export class PresenceComponent implements OnInit {
   //   );
   // }
   markUserPresence( groupId: number, userId: number, isPresent: boolean): void {
-    const url = `https://9antrabackend-production.up.railway.app/api/sessions/${this.sessions}/groups/${groupId}/users/${userId}/presence`;
+    const url = `https://9antraback-production.up.railway.app/api/sessions/${this.sessions}/groups/${groupId}/users/${userId}/presence`;
 
     // Create the request body with the necessary data
       const params = { isPresent: isPresent.toString() };

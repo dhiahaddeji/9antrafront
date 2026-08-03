@@ -134,7 +134,7 @@ export class AdminProfileComponent implements OnInit {
     });
   }
   getCurrentUserDetails(): void {
-    this.http.get<any>('https://9antrabackend-production.up.railway.app/api/user/me').subscribe(
+    this.http.get<any>('https://9antraback-production.up.railway.app/api/user/me').subscribe(
       (response) => {
         this.currentUser = response;
         console.log('Current user:', this.currentUser);

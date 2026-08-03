@@ -121,7 +121,7 @@ export class CoachProfileComponent implements OnInit {
 
     }
     getCurrentCoachDetails(): void {
-      this.http.get<any>('https://9antrabackend-production.up.railway.app/api/formateur/me').subscribe(
+      this.http.get<any>('https://9antraback-production.up.railway.app/api/formateur/me').subscribe(
         response => {
           this.currentUser = response;
           console.log('Current user:', this.currentUser);

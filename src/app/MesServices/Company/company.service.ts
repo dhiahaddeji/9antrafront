@@ -7,7 +7,7 @@ import { Company } from 'src/app/Models/Company';
   providedIn: 'root'
 })
 export class CompanyService {
-  private BASE_URL = ' https://9antrabackend-production.up.railway.app/api/Company/';
+  private BASE_URL = ' https://9antraback-production.up.railway.app/api/Company/';
 
   constructor(private http: HttpClient) { }
   getAll(): Observable<any> {
