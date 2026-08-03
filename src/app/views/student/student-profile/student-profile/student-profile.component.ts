@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { GroupService } from 'src/app/MesServices/Groups/group.service';
+import { RankingService } from 'src/app/MesServices/Ranking/ranking.service';
 import { UserService } from 'src/app/MesServices/UserService/user-service.service';
 import Swal from 'sweetalert2';
 
@@ -18,6 +20,10 @@ export class StudentProfileComponent implements OnInit {
   previewUrl: string | null = null;
   photoSelected = false;
 
+  xp: any = null;
+  badges: any[] = [];
+  xpProgress = 0;
+
   UpdaImage!: FormGroup;
   isLoading = false;
   uploadInProgress = false;
@@ -27,7 +33,8 @@ export class StudentProfileComponent implements OnInit {
     private sr: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private groupService: GroupService
+    private groupService: GroupService,
+    public rankingService: RankingService
   ) {
     this.UpdaImage = this.formBuilder.group({ Photo: '' });
   }
@@ -36,6 +43,19 @@ export class StudentProfileComponent implements OnInit {
     const id = localStorage.getItem('id');
     this.getUserByid(id);
     this.getGroups(id);
+    this.loadRanking(parseInt(id || '0', 10));
+  }
+
+  loadRanking(userId: number) {
+    if (!userId) return;
+    forkJoin({
+      xp: this.rankingService.getUserXP(userId),
+      badges: this.rankingService.getUserBadges(userId)
+    }).subscribe(({ xp, badges }) => {
+      this.xp = xp;
+      this.badges = badges || [];
+      if (xp) this.xpProgress = this.rankingService.getProgress(xp.totalXp, xp.rank);
+    });
   }
 
   getUserByid(id: any) {

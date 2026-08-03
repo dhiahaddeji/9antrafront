@@ -1,5 +1,5 @@
 <main>
-  <div style="margin-bottom: 50px;" class="d-block d-lg-none"></div>
+  <div class="mobile-spacer d-block d-lg-none"></div>
   <div class="container-fluid px-3 px-md-4 pt-4">
     <div class="pagetitle ms-2 mb-4">
       <h1 class="fs-2 fs-md-1">Dashboard</h1>
@@ -9,6 +9,22 @@
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
+    </div>
+
+    <!-- XP Rank Widget -->
+    <div *ngIf="xp" class="xp-widget mb-4"
+         [style]="'--rank-color:' + rankingService.getRankColor(xp.rank) + ';--bar-width:' + xpProgress + '%'">
+      <div class="xp-widget-inner">
+        <span class="xp-widget-icon">{{ rankingService.getRankIcon(xp.rank) }}</span>
+        <div class="xp-widget-info">
+          <div class="xp-widget-rank">{{ xp.rank }}</div>
+          <div class="xp-widget-bar-wrap">
+            <div class="xp-widget-bar-fill"></div>
+          </div>
+          <div class="xp-widget-label">{{ xp.totalXp }} XP &nbsp;·&nbsp; {{ xpProgress }}% to next rank</div>
+        </div>
+        <a routerLink="/student/leaderboard" class="xp-widget-lb">Leaderboard →</a>
+      </div>
     </div>
 
     <!-- Statistics Section -->
@@ -29,7 +45,7 @@
           <!-- Training Stats -->
           <div class="row g-3 mt-1">
             <div class="col-12 col-sm-6">
-              <div class="card shadow-sm hover h-100" style="cursor: pointer;">
+              <div class="card shadow-sm hover h-100 clickable">
                 <div class="card-body">
                   <h4 class="card-text"><span class="fs-1">{{ formationsCompletedCount }}</span></h4>
                   <p class="mb-0">Trainings Completed</p>
@@ -37,7 +53,7 @@
               </div>
             </div>
             <div class="col-12 col-sm-6">
-              <div class="card shadow-sm hover h-100" style="cursor: pointer;">
+              <div class="card shadow-sm hover h-100 clickable">
                 <div class="card-body">
                   <h4 class="card-text"><span class="fs-1">{{formationsInProgressCount}}</span></h4>
                   <p class="mb-0">Trainings in Progress</p>
@@ -49,7 +65,7 @@
 
         <!-- Events Card -->
         <div class="col-12 col-lg-4">
-          <div class="card shadow-sm d-flex align-items-center justify-content-center hover h-100" style="cursor: pointer; min-height: 250px;">
+          <div class="card shadow-sm d-flex align-items-center justify-content-center hover h-100 clickable events-card">
             <div class="card-body text-center">
               <p class="fs-1 mb-2">{{eventsCount}}</p>
               <p class="fs-5 mb-3">Events Upcoming Soon</p>
@@ -70,23 +86,23 @@
               <div class="col-12 col-sm-3 col-md-2 text-center">
                 <img [src]="session._coachImg ? 'assets/Documents/' + session._coachImg : 'assets/img/profile-img.jpg'"
                      onerror="this.src='assets/img/profile-img.jpg'"
-                     alt="Coach Profile" class="rounded-circle img-fluid" style="max-width: 80px;" loading="lazy">
+                     alt="Coach Profile" class="rounded-circle img-fluid coach-avatar" loading="lazy">
               </div>
               <div class="col-12 col-sm-9 col-md-4">
                 <div class="text-center text-md-start">
-                  <p class="mb-1" style="color:#FAB555;">With Our Coach</p>
-                  <p class="mb-0" style="color: black; font-weight: bold;">{{ session._coachName }}</p>
+                  <p class="mb-1 coach-label">With Our Coach</p>
+                  <p class="mb-0 coach-name">{{ session._coachName }}</p>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3 text-center">
                 <p class="mb-1">
-                  <span style="color:#AF3065;">{{ session._monthName }}</span>
+                  <span class="session-month">{{ session._monthName }}</span>
                   <span class="fs-2">{{ session._day }}th</span>
                 </p>
                 <p class="fw-light small mb-0">{{ session._timeFrom }} to {{ session._timeTo }}</p>
               </div>
               <div class="col-12 col-sm-6 col-md-3 text-center">
-                <button class="session-btn p-2 p-md-3 fw-bold w-100 w-md-auto" routerLink="/student/calendar">
+                <button type="button" class="session-btn p-2 p-md-3 fw-bold w-100 w-md-auto" routerLink="/student/calendar">
                   Upcoming session
                 </button>
               </div>
@@ -98,7 +114,7 @@
       <!-- No Sessions Message -->
       <div *ngIf="sessions?.length == 0" class="text-center mt-4">
         <div class="nodata">
-          <img src="../../../../../assets/img/nodata.webp" alt="No Data" class="img-fluid" style="max-width: 200px; width: 100%;" loading="lazy">
+          <img src="../../../../../assets/img/nodata.webp" alt="No Data" class="img-fluid nodata-img" loading="lazy">
           <p class="mt-3">There are no sessions available.</p>
         </div>
       </div>

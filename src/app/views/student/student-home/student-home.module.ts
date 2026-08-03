@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { StudentHomeRoutingModule } from './student-home-routing.module';
 import { StudentHomeComponent } from './student-home/student-home.component';
@@ -11,6 +12,7 @@ import { StudentHomeComponent } from './student-home/student-home.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     StudentHomeRoutingModule
   ]
 })

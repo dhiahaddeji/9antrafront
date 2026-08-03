@@ -258,6 +258,10 @@ const routes: Routes = [
         import('./views/student/student-quiz-play/student-quiz-play.module').then(
         m => m.StudentQuizPlayModule)
       },
+      { path: 'leaderboard', loadChildren: () =>
+        import('./views/student/student-leaderboard/student-leaderboard.module').then(
+        m => m.StudentLeaderboardModule)
+      },
       {
         path: 'getcertificats',
         loadChildren: () =>

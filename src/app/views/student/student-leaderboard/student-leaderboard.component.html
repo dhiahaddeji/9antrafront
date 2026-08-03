@@ -1,0 +1,95 @@
+<main id="main" class="main">
+  <div class="d-lg-none d-md-block" style="height:70px;"></div>
+
+  <div class="pagetitle">
+    <h1>Leaderboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/student">Home</a></li>
+        <li class="breadcrumb-item active">Leaderboard</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-pink" role="status"></div>
+  </div>
+
+  <div *ngIf="!loading">
+    <!-- Top 3 Podium -->
+    <div *ngIf="leaderboard.length >= 3" class="podium-row mb-5">
+      <!-- 2nd -->
+      <div class="podium-card podium-2">
+        <div class="podium-avatar-wrap">
+          <img [src]="leaderboard[1].image ? 'assets/Documents/' + leaderboard[1].image : 'assets/img/profile-img.jpg'"
+               onerror="this.src='assets/img/profile-img.jpg'" alt="2nd" class="podium-avatar">
+          <span class="podium-medal">🥈</span>
+        </div>
+        <div class="podium-name">{{ leaderboard[1].fullName }}</div>
+        <div class="podium-xp">{{ leaderboard[1].totalXp }} XP</div>
+        <div class="podium-block podium-block-2">2</div>
+      </div>
+      <!-- 1st -->
+      <div class="podium-card podium-1">
+        <div class="podium-crown">👑</div>
+        <div class="podium-avatar-wrap">
+          <img [src]="leaderboard[0].image ? 'assets/Documents/' + leaderboard[0].image : 'assets/img/profile-img.jpg'"
+               onerror="this.src='assets/img/profile-img.jpg'" alt="1st" class="podium-avatar podium-avatar-1">
+          <span class="podium-medal">🥇</span>
+        </div>
+        <div class="podium-name">{{ leaderboard[0].fullName }}</div>
+        <div class="podium-xp">{{ leaderboard[0].totalXp }} XP</div>
+        <div class="podium-block podium-block-1">1</div>
+      </div>
+      <!-- 3rd -->
+      <div class="podium-card podium-3">
+        <div class="podium-avatar-wrap">
+          <img [src]="leaderboard[2].image ? 'assets/Documents/' + leaderboard[2].image : 'assets/img/profile-img.jpg'"
+               onerror="this.src='assets/img/profile-img.jpg'" alt="3rd" class="podium-avatar">
+          <span class="podium-medal">🥉</span>
+        </div>
+        <div class="podium-name">{{ leaderboard[2].fullName }}</div>
+        <div class="podium-xp">{{ leaderboard[2].totalXp }} XP</div>
+        <div class="podium-block podium-block-3">3</div>
+      </div>
+    </div>
+
+    <!-- Full Rankings Table -->
+    <div class="lb-card">
+      <div class="lb-row lb-header">
+        <span class="lb-rank-col">Rank</span>
+        <span class="lb-player-col">Student</span>
+        <span class="lb-badge-col">Level</span>
+        <span class="lb-xp-col">XP</span>
+      </div>
+
+      <div *ngFor="let entry of leaderboard; let i = index; trackBy: trackById"
+           class="lb-row"
+           [class.lb-me]="entry.userId === currentUserId">
+        <span class="lb-rank-col">
+          <span *ngIf="i === 0">🥇</span>
+          <span *ngIf="i === 1">🥈</span>
+          <span *ngIf="i === 2">🥉</span>
+          <span *ngIf="i > 2" class="lb-pos">{{ i + 1 }}</span>
+        </span>
+        <span class="lb-player-col">
+          <img [src]="entry.image ? 'assets/Documents/' + entry.image : 'assets/img/profile-img.jpg'"
+               onerror="this.src='assets/img/profile-img.jpg'"
+               alt="{{ entry.fullName }}" class="lb-avatar">
+          <span class="lb-name">{{ entry.fullName }}</span>
+          <span *ngIf="entry.userId === currentUserId" class="lb-you">You</span>
+        </span>
+        <span class="lb-badge-col">
+          <span class="lb-rank-badge" [style]="'--rc:' + rankingService.getRankColor(entry.rank)">
+            {{ rankingService.getRankIcon(entry.rank) }} {{ entry.rank }}
+          </span>
+        </span>
+        <span class="lb-xp-col lb-xp-val">{{ entry.totalXp }}</span>
+      </div>
+
+      <div *ngIf="leaderboard.length === 0" class="lb-empty">
+        No rankings yet. Complete activities to earn XP!
+      </div>
+    </div>
+  </div>
+</main>

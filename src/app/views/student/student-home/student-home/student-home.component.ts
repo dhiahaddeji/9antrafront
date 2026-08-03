@@ -3,6 +3,7 @@ import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EventService } from 'src/app/MesServices/Event/event.service';
 import { FormationsService } from 'src/app/MesServices/Formations/formations.service';
+import { RankingService } from 'src/app/MesServices/Ranking/ranking.service';
 import { SessionService } from 'src/app/MesServices/Session/session.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 
@@ -21,18 +22,30 @@ export class StudentHomeComponent implements OnInit {
   sessions: any[] = [];
   loading = true;
 
+  xp: any = null;
+  xpProgress = 0;
+
   private userId: any;
 
   constructor(
     private formationService: FormationsService,
     private authService: UserAuthService,
     private eventService: EventService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    public rankingService: RankingService
   ) {
     this.userId = this.authService.getId();
   }
 
   ngOnInit() {
+    const numUserId = parseInt(this.userId, 10);
+    if (numUserId > 0) {
+      this.rankingService.getUserXP(numUserId).subscribe(xp => {
+        this.xp = xp;
+        if (xp) this.xpProgress = this.rankingService.getProgress(xp.totalXp, xp.rank);
+      });
+    }
+
     forkJoin({
       inProgress: this.formationService.getCountFormationsInProgressByUserId(this.userId).pipe(catchError(() => of(0))),
       completed:  this.formationService.getCountFormationsCompletedByUserId(this.userId).pipe(catchError(() => of(0))),

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from 'src/app/MesServices/Quiz/quiz.service';
+import { RankingService } from 'src/app/MesServices/Ranking/ranking.service';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
@@ -27,7 +28,8 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
     private quizService: QuizService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private rankingService: RankingService
   ) {}
 
   getQuestionsByQuizId(id: any) {
@@ -269,10 +271,21 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
     }
 
     localStorage.setItem(storageKey, JSON.stringify(results));
-    console.warn(`Quiz results saved to ${storageKey}:`, results);
-    
+
     // Notify that quiz results have been updated
     this.quizService.notifyQuizResultsUpdated();
+
+    // Persist to backend and award XP
+    const numUserId = parseInt(userId || '0', 10);
+    if (numUserId > 0) {
+      this.rankingService.recordQuizResult({
+        userId: numUserId,
+        quizId: this.quizId,
+        score: this.getPoints(),
+        correct: this.getCorrect(),
+        total: this.questionList.length
+      }).subscribe();
+    }
   }
 
   getCurrentQuestion() { return this.quizService.getQuizItemsCurrentQuestion(); }
