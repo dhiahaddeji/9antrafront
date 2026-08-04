@@ -276,7 +276,7 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
     this.quizService.notifyQuizResultsUpdated();
 
     // Persist to backend and award XP
-    const numUserId = parseInt(userId || '0', 10);
+    const numUserId = userId || 0;
     if (numUserId > 0) {
       this.rankingService.recordQuizResult({
         userId: numUserId,
