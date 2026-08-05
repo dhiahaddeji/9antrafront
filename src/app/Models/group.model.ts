@@ -17,6 +17,12 @@ export class Groups {
   etudiants?: {
     id: number;
     username: string;
+    firstName?: string;
+    lastName?: string;
+    numeroTel?: string;
+    image?: string;
+    enabled?: number;
+    typeFormation?: string;
   }[];
   lastMessage?: any;
   unreadCount?: number;
