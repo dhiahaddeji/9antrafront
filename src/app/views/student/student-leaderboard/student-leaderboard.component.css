@@ -97,12 +97,15 @@ h1,h2,h3,h4,h5,h6 { font-family: "Nunito", sans-serif; }
   letter-spacing: 0.6px;
   color: #aaa;
   padding: 10px 20px;
+  border-bottom: 2px solid #f0f0f0;
 }
+.lb-header .lb-rank-col { font-size: 11px; }
+.lb-header .lb-xp-col { font-size: 11px; }
 .lb-me { background: #fdf5f8 !important; border-left: 3px solid #AF3065; }
 
-.lb-rank-col  { width: 48px; flex-shrink: 0; font-size: 20px; }
+.lb-rank-col  { width: 70px; flex-shrink: 0; font-size: 20px; text-align: center; }
 .lb-player-col { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
-.lb-badge-col  { width: 140px; flex-shrink: 0; }
+.lb-badge-col  { width: 150px; flex-shrink: 0; text-align: center; }
 .lb-xp-col    { width: 80px; flex-shrink: 0; text-align: right; }
 
 .lb-pos { font-size: 14px; font-weight: 700; color: #888; }
