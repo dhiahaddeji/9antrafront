@@ -7,7 +7,7 @@ import { ProjectOwner } from 'src/app/Models/ProjectOwner';
   providedIn: 'root'
 })
 export class ProjectOwnerService {
-  private BASE_URL = ' https://9antraback-production.up.railway.app/api/ProjectOwner/';
+  private BASE_URL = ' https://9antraback-production-84f1.up.railway.app/api/ProjectOwner/';
 
   constructor(private http: HttpClient) { }
   create(formData: FormData): Observable<ProjectOwner> {

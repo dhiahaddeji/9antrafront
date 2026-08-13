@@ -12,23 +12,23 @@ export class ChatService {
 
 
   getChatByGroupId(id:any){
-    return this.http.get(`https://9antraback-production.up.railway.app/api/chat/getMessagesByGroupId?id=${id}`)
+    return this.http.get(`https://9antraback-production-84f1.up.railway.app/api/chat/getMessagesByGroupId?id=${id}`)
   }
 
   getMessagesForAll(){
-    return this.http.get(`https://9antraback-production.up.railway.app/api/chat/getMessagesForAll`)
+    return this.http.get(`https://9antraback-production-84f1.up.railway.app/api/chat/getMessagesForAll`)
   }
 
   send(chat: message,group_id:any,user_id:any){
-    return this.http.post(`https://9antraback-production.up.railway.app/api/chat/createChat?group_id=${group_id}&user_id=${user_id}`,chat)
+    return this.http.post(`https://9antraback-production-84f1.up.railway.app/api/chat/createChat?group_id=${group_id}&user_id=${user_id}`,chat)
   }
 
   sendAll(chat: message,user_id:any){
-    return this.http.post(`https://9antraback-production.up.railway.app/api/chat/createChatAll?user_id=${user_id}`,chat)
+    return this.http.post(`https://9antraback-production-84f1.up.railway.app/api/chat/createChatAll?user_id=${user_id}`,chat)
   }
 
   deleteMessage(id:any){
-    return this.http.delete(`https://9antraback-production.up.railway.app/api/chat/deleteMessage?id=${id}`)
+    return this.http.delete(`https://9antraback-production-84f1.up.railway.app/api/chat/deleteMessage?id=${id}`)
   }
 
 
