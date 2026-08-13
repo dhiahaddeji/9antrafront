@@ -15,11 +15,6 @@
 
     <!-- Calendar Card -->
     <div class="calendar-card">
-      <div class="calendar-toolbar">
-        <button type="button" class="btn-add-session" (click)="openAddModal()">
-          <i class="bi bi-plus-lg"></i> Add Session
-        </button>
-      </div>
       <full-calendar #calendarEl [options]="calendarOptions"></full-calendar>
     </div>
 
@@ -28,118 +23,8 @@
 
 <!-- ── Backdrop ────────────────────────────────────────────────────────── -->
 <div class="modal-backdrop-custom"
-  *ngIf="showAddModal || showDetailModal"
-  (click)="showAddModal = false; showDetailModal = false">
-</div>
-
-<!-- ── Add Session Modal ──────────────────────────────────────────────── -->
-<div class="modal-custom" *ngIf="showAddModal">
-  <div class="modal-card modal-lg-card">
-    <!-- Header -->
-    <div class="mc-header">
-      <span class="mc-title"><i class="bi bi-calendar-plus me-2"></i>New Session</span>
-      <button type="button" class="mc-close" (click)="showAddModal = false">&#x2715;</button>
-    </div>
-    <!-- Body -->
-    <div class="mc-body">
-      <form [formGroup]="sessionForm">
-        <div class="field-group">
-          <label class="field-label">Session Name <span class="req">*</span></label>
-          <input type="text" class="field-input" formControlName="sessionName"
-            placeholder="e.g. React Fundamentals – Week 3">
-          <span class="field-error"
-            *ngIf="sessionForm.get('sessionName')?.invalid && sessionForm.get('sessionName')?.touched">
-            Required
-          </span>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Description</label>
-          <textarea class="field-input" rows="2" formControlName="description"
-            placeholder="What will you cover?"></textarea>
-        </div>
-
-        <div class="field-row">
-          <div class="field-group">
-            <label class="field-label">Start <span class="req">*</span></label>
-            <input type="datetime-local" class="field-input" formControlName="startDate" title="Start date and time">
-            <span class="field-error"
-              *ngIf="sessionForm.get('startDate')?.invalid && sessionForm.get('startDate')?.touched">
-              Required
-            </span>
-          </div>
-          <div class="field-group">
-            <label class="field-label">End <span class="req">*</span></label>
-            <input type="datetime-local" class="field-input" formControlName="finishDate" title="End date and time">
-            <span class="field-error"
-              *ngIf="sessionForm.get('finishDate')?.invalid && sessionForm.get('finishDate')?.touched">
-              Required
-            </span>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">
-            <i class="bi bi-camera-video-fill meet-icon"></i>
-            Video Platform
-          </label>
-          <div class="platform-toggle">
-            <button type="button"
-              class="platform-toggle-btn"
-              [class.active]="selectedPlatform === 'jitsi'"
-              (click)="selectedPlatform = 'jitsi'">
-              <i class="bi bi-broadcast"></i> Jitsi (default)
-            </button>
-            <button type="button"
-              class="platform-toggle-btn"
-              [class.active]="selectedPlatform === 'googlemeet'"
-              (click)="selectedPlatform = 'googlemeet'">
-              <i class="bi bi-camera-video-fill"></i> Google Meet
-            </button>
-          </div>
-          <div class="platform-hint" *ngIf="selectedPlatform === 'jitsi'">
-            Students will join an embedded Jitsi room — no account needed.
-          </div>
-          <div *ngIf="selectedPlatform === 'googlemeet'" class="meet-link-section">
-            <div class="meet-link-row">
-              <input type="url" class="field-input meet-link-input" formControlName="meetLink"
-                placeholder="https://meet.google.com/xxx-xxxx-xxx">
-              <a href="https://meet.new" target="_blank" rel="noopener" class="btn-gmeet-new" title="Create a new Google Meet">
-                <i class="bi bi-plus-lg"></i> New Meet
-              </a>
-            </div>
-            <span class="field-hint">Create a meeting on meet.google.com, paste the link above. Students will be taken directly to Google Meet.</span>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Assign to Groups</label>
-          <div class="groups-grid" *ngIf="coachGroups.length > 0; else noGroups">
-            <div class="group-chip" *ngFor="let g of coachGroups"
-              [class.selected]="isGroupSelected(g.id!)"
-              (click)="toggleGroup(g.id!)">
-              <i class="bi bi-people-fill"></i> {{ g.groupName }}
-              <i class="bi bi-check-circle-fill check-icon"></i>
-            </div>
-          </div>
-          <ng-template #noGroups>
-            <div class="alert alert-info small mb-0">
-              <p>No groups created yet. <a routerLink="/coach/groups" class="alert-link">Create a group first</a> to assign sessions.</p>
-            </div>
-          </ng-template>
-        </div>
-      </form>
-    </div>
-    <!-- Footer -->
-    <div class="mc-footer">
-      <button type="button" class="btn-cancel" (click)="showAddModal = false">Cancel</button>
-      <button type="button" class="btn-save" (click)="submitSession()" [disabled]="isLoading">
-        <span *ngIf="isLoading" class="spinner"></span>
-        <i *ngIf="!isLoading" class="bi bi-check-lg"></i>
-        {{ isLoading ? 'Saving…' : 'Save Session' }}
-      </button>
-    </div>
-  </div>
+  *ngIf="showDetailModal"
+  (click)="showDetailModal = false">
 </div>
 
 <!-- ── Session Detail Modal ──────────────────────────────────────────── -->

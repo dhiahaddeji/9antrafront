@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventInput } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg, EventInput } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { GroupService } from 'src/app/MesServices/Groups/group.service';
-import { Session } from 'src/app/Models/Session';
 import { SessionService } from 'src/app/MesServices/Session/session.service';
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 import { Groups } from 'src/app/Models/group.model';
@@ -29,46 +27,27 @@ export class CoachCalendarComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay',
     },
     editable: false,
-    selectable: true,
-    selectMirror: true,
+    selectable: false,
     dayMaxEvents: true,
-    select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventTimeFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
     height: 'auto',
   };
 
-  coachGroups: Groups[] = [];
-  selectedGroupIds: number[] = [];
-  sessionForm!: FormGroup;
   selectedEvent: any = null;
   selectedEventGroups: Groups[] = [];
-  isLoading = false;
 
-  showAddModal = false;
   showDetailModal = false;
-
-  // 'jitsi' | 'googlemeet'
-  selectedPlatform: 'jitsi' | 'googlemeet' = 'jitsi';
 
   constructor(
     private sessionService: SessionService,
     private userAuthService: UserAuthService,
-    private groupService: GroupService,
-    private fb: FormBuilder
+    private groupService: GroupService
   ) {}
 
   ngOnInit(): void {
-    this.sessionForm = this.fb.group({
-      sessionName: ['', Validators.required],
-      description: [''],
-      startDate: ['', Validators.required],
-      finishDate: ['', Validators.required],
-      meetLink: [''],
-    });
-
     // Set the event source as a function so FullCalendar manages fetching.
-    // refetchEvents() will re-call this function after any add/delete.
+    // refetchEvents() will re-call this function after any delete.
     const coachId = this.userAuthService.getId();
     this.calendarOptions = {
       ...this.calendarOptions,
@@ -83,16 +62,6 @@ export class CoachCalendarComponent implements OnInit {
         });
       },
     };
-
-    this.loadGroups();
-  }
-
-  loadGroups(): void {
-    const coachId = this.userAuthService.getId();
-    this.groupService.getGroupsByFormateurId(coachId).subscribe({
-      next: (groups) => { this.coachGroups = groups; },
-      error: (err) => console.error('Error loading groups:', err),
-    });
   }
 
   /** Tell FullCalendar to re-call the event source function */
@@ -127,21 +96,6 @@ export class CoachCalendarComponent implements OnInit {
     return isNaN(d.getTime()) ? null : d;
   }
 
-  handleDateSelect(selectInfo: DateSelectArg): void {
-    const start = selectInfo.startStr.length === 10
-      ? selectInfo.startStr + 'T09:00'
-      : selectInfo.startStr.slice(0, 16);
-    const end = selectInfo.startStr.length === 10
-      ? selectInfo.startStr + 'T10:00'
-      : selectInfo.endStr.slice(0, 16);
-
-    this.sessionForm.reset();
-    this.sessionForm.patchValue({ startDate: start, finishDate: end });
-    this.selectedGroupIds = [];
-    this.selectedPlatform = 'jitsi';
-    this.showAddModal = true;
-  }
-
   handleEventClick(clickInfo: EventClickArg): void {
     const session = clickInfo.event.extendedProps['session'];
     this.selectedEvent = { ...session, eventId: clickInfo.event.id };
@@ -152,50 +106,6 @@ export class CoachCalendarComponent implements OnInit {
       });
     }
     this.showDetailModal = true;
-  }
-
-  toggleGroup(groupId: number): void {
-    const idx = this.selectedGroupIds.indexOf(groupId);
-    if (idx === -1) this.selectedGroupIds.push(groupId);
-    else this.selectedGroupIds.splice(idx, 1);
-  }
-
-  isGroupSelected(groupId: number): boolean {
-    return this.selectedGroupIds.includes(groupId);
-  }
-
-  submitSession(): void {
-    if (this.sessionForm.invalid) {
-      this.sessionForm.markAllAsTouched();
-      return;
-    }
-    if (this.selectedGroupIds.length === 0) {
-      Swal.fire({ icon: 'warning', title: 'No group selected', text: 'Please assign the session to at least one group.' });
-      return;
-    }
-    const val = this.sessionForm.value;
-    const session = new Session();
-    session.sessionName = val.sessionName;
-    session.description = val.description;
-    session.startDate = new Date(val.startDate);
-    session.finishDate = new Date(val.finishDate);
-    session.meetLink = (this.selectedPlatform === 'googlemeet' && val.meetLink?.trim())
-      ? val.meetLink.trim()
-      : undefined;
-    this.isLoading = true;
-    this.sessionService.ajoutSession(session, this.selectedGroupIds).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.showAddModal = false;
-        this.refetch();
-        Swal.fire({ icon: 'success', title: 'Session added!', timer: 1500, showConfirmButton: false });
-      },
-      error: (err) => {
-        this.isLoading = false;
-        console.error(err);
-        Swal.fire({ icon: 'error', title: 'Error', text: 'Could not save session.' });
-      },
-    });
   }
 
   deleteSession(): void {
@@ -221,12 +131,5 @@ export class CoachCalendarComponent implements OnInit {
 
   isExpired(session: any): boolean {
     return new Date(session?.finishDate) < new Date();
-  }
-
-  openAddModal(): void {
-    this.sessionForm.reset({ sessionName: '', description: '', startDate: '', finishDate: '', meetLink: '' });
-    this.selectedGroupIds = [];
-    this.selectedPlatform = 'jitsi';
-    this.showAddModal = true;
   }
 }
