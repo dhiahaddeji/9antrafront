@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AdminCalendarRoutingModule } from './admin-calendar-routing.module';
 import { AdminCalendarComponent } from './admin-calendar.component';
-import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,8 +11,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    AdminCalendarRoutingModule,
-    FormsModule
+    AdminCalendarRoutingModule
   ]
 })
 export class AdminCalendarModule { }

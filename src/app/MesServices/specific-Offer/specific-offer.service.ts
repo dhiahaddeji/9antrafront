@@ -7,7 +7,7 @@ import { SpecificOffer } from 'src/app/Models/SpecificOffer';
   providedIn: 'root'
 })
 export class SpecificOfferService {
-  private BASE_URL = 'https://9antraback-production.up.railway.app/api/SpecificOffer/';
+  private BASE_URL = 'https://9antraback-production-84f1.up.railway.app/api/SpecificOffer/';
 
   constructor(private http: HttpClient) { }
   addOffer(projectData: FormData) {

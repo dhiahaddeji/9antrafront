@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { StudentCalendarRoutingModule } from './student-calendar-routing.module';
 import { StudentCalendarComponent } from './student-calendar/student-calendar.component';
 import { MeetComponent } from '../meet/meet.component';
-import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,8 +14,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    StudentCalendarRoutingModule,
-    FormsModule
+    StudentCalendarRoutingModule
   ]
 })
 export class StudentCalendarModule { }

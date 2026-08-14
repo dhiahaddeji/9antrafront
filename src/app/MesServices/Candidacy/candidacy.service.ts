@@ -7,7 +7,7 @@ import { Candidacy } from 'src/app/Models/Candidacy';
   providedIn: 'root'
 })
 export class CandidacyService {
-  private BASE_URL = 'https://9antraback-production.up.railway.app/api/Candidacy/';
+  private BASE_URL = 'https://9antraback-production-84f1.up.railway.app/api/Candidacy/';
 
   constructor(private http: HttpClient) { }
   createCandidacy(formData: FormData): Observable<any> {

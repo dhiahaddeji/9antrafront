@@ -8,8 +8,8 @@ import { ProjectClient } from 'src/app/Models/ProjectClient';
   providedIn: 'root',
 })
 export class AdminProjectsService {
-  private BASE_URL = ' https://9antraback-production.up.railway.app/api/AdminProjects/';
-  private BASE_URL2 = 'https://9antraback-production.up.railway.app/api/ProjectClient/';
+  private BASE_URL = ' https://9antraback-production-84f1.up.railway.app/api/AdminProjects/';
+  private BASE_URL2 = 'https://9antraback-production-84f1.up.railway.app/api/ProjectClient/';
   constructor(private http: HttpClient) {}
 
   addProject(projectData: FormData) {

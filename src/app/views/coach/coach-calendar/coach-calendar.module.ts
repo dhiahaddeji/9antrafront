@@ -5,8 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CoachCalendarRoutingModule } from './coach-calendar-routing.module';
 import { CoachCalendarComponent } from './coach-calendar/coach-calendar.component';
 import { MeetComponent } from '../meet/meet.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,9 +17,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CommonModule,
     RouterModule,
     CoachCalendarRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    FullCalendarModule
+    FormsModule
   ]
 })
 export class CoachCalendarModule { }

@@ -15,7 +15,16 @@ export class CoachQuizFormComponent implements OnInit{
   id:any
   answers:any
   showAddQuestionModal: boolean = false;
+  showAIGenerationModal: boolean = false;
   questionType: string = 'multiple'; // 'multiple' or 'trueFalse'
+  isGenerating: boolean = false;
+  
+  // AI Generation Form Fields
+  aiTopic: string = '';
+  aiCourseContent: string = '';
+  aiNumberOfQuestions: number = 5;
+  aiDifficulty: string = 'mixed';
+  aiQuestionType: string = 'mixed';
   
   constructor( private route : ActivatedRoute,private router: Router,private formBuilder:FormBuilder,private quizService:QuizService,private formationService:FormationsService){
     this.quizForm=this.formBuilder.group({
@@ -175,5 +184,79 @@ export class CoachQuizFormComponent implements OnInit{
   ngOnInit() {
     this.id=this.route.snapshot.paramMap.get('id');
     this.getQuestionsByQuizId(this.id);
+  }
+
+  openAIGenerationModal() {
+    this.showAIGenerationModal = true;
+  }
+
+  closeAIGenerationModal() {
+    this.resetAIForm();
+    this.showAIGenerationModal = false;
+  }
+
+  resetAIForm() {
+    this.aiTopic = '';
+    this.aiCourseContent = '';
+    this.aiNumberOfQuestions = 5;
+    this.aiDifficulty = 'mixed';
+    this.aiQuestionType = 'mixed';
+  }
+
+  generateQuestionsByAI() {
+    if (!this.aiTopic.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Topic',
+        text: 'Please enter a topic for the quiz',
+      });
+      return;
+    }
+
+    if (this.aiNumberOfQuestions < 1 || this.aiNumberOfQuestions > 20) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Number',
+        text: 'Number of questions should be between 1 and 20',
+      });
+      return;
+    }
+
+    this.isGenerating = true;
+
+    const request = {
+      quizId: this.id,
+      topic: this.aiTopic,
+      courseContent: this.aiCourseContent,
+      numberOfQuestions: this.aiNumberOfQuestions,
+      difficulty: this.aiDifficulty,
+      questionType: this.aiQuestionType
+    };
+
+    this.quizService.generateQuestionsByAI(request).subscribe(
+      (res: any) => {
+        this.isGenerating = false;
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          html: `<b>${res.count}</b> questions have been generated and added to your quiz!<br><small>Total questions: ${this.answers ? this.answers.length + res.count : res.count}</small>`,
+        });
+        this.resetAIForm();
+        this.showAIGenerationModal = false;
+        this.getQuestionsByQuizId(this.id);
+      },
+      (error) => {
+        this.isGenerating = false;
+        let errorMessage = 'Failed to generate questions. Please try again.';
+        if (error.error && error.error.message) {
+          errorMessage = error.error.message;
+        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: errorMessage,
+        });
+      }
+    );
   }
 }

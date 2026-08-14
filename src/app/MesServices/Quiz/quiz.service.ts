@@ -7,7 +7,7 @@ import { UserAuthService } from '../user-auth.service';
   providedIn: 'root'
 })
 export class QuizService {
-  private BASE_URL = ' https://9antraback-production.up.railway.app/api/quiz';
+  private BASE_URL = ' https://9antraback-production-84f1.up.railway.app/api/quiz';
   private quizResultsUpdated = new Subject<void>(); // Subject to notify quiz results update
 
   constructor(private http: HttpClient, private userAuthService: UserAuthService) { }
@@ -114,5 +114,9 @@ export class QuizService {
 
   setQuizItemsIsCompleted(isCompleted:any){
     localStorage.setItem('isCompleted', JSON.stringify(isCompleted));
+  }
+
+  generateQuestionsByAI(request: any): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/answer/generateByAI`, request);
   }
 }

@@ -9,7 +9,7 @@ export class StompForumService {
   private connecting: boolean = false;
   private topicQueue: { topic: string; callback: any }[] = [];
 
-  socket = new SockJS('https://9antraback-production.up.railway.app/sba-websocket-forum');
+  socket = new SockJS('https://9antraback-production-84f1.up.railway.app/sba-websocket-forum');
   stompClient = Stomp.over(this.socket);
 
   subscribe(topic: string, callback: any): void {

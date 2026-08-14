@@ -8,8 +8,8 @@ import { Offers } from 'src/app/Models/Offers';
   providedIn: 'root'
 })
 export class OffersService {
-  private BASE_URL = 'https://9antraback-production.up.railway.app/api/Offers/';
-  private BASE_URL2 = 'https://9antraback-production.up.railway.app/api/OfferClient/';
+  private BASE_URL = 'https://9antraback-production-84f1.up.railway.app/api/Offers/';
+  private BASE_URL2 = 'https://9antraback-production-84f1.up.railway.app/api/OfferClient/';
 
   constructor(private http: HttpClient) { }
   addOffer(projectData: FormData) {

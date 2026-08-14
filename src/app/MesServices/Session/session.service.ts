@@ -71,7 +71,7 @@ export class SessionService {
     return this.http.get<Groups[]>(url);
   }
   getUserPresenceStatus(sessionId: number): Observable<{ [key: number]: boolean }> {
-    const url = `https://9antraback-production.up.railway.app/api/sessions/${sessionId}/userPresenceStatus`;
+    const url = `https://9antraback-production-84f1.up.railway.app/api/sessions/${sessionId}/userPresenceStatus`;
     return this.http.get<{ [key: number]: boolean }>(url);
   }
 
