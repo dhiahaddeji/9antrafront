@@ -2,7 +2,6 @@
   <div class="mobile-spacer d-block d-lg-none"></div>
   <div class="page-wrap">
 
-    <!-- Page Header -->
     <div class="page-header">
       <h5 class="page-title">My Calendar</h5>
       <nav aria-label="breadcrumb">
@@ -13,88 +12,9 @@
       </nav>
     </div>
 
-    <!-- Calendar Card -->
-    <div class="calendar-card">
-      <full-calendar #calendarEl [options]="calendarOptions"></full-calendar>
+    <div class="calendar-embed-card">
+      <iframe [src]="embedUrl" style="border:0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
     </div>
 
   </div>
 </main>
-
-<!-- ── Backdrop ────────────────────────────────────────────────────────── -->
-<div class="modal-backdrop-custom"
-  *ngIf="showDetailModal"
-  (click)="showDetailModal = false">
-</div>
-
-<!-- ── Session Detail Modal ──────────────────────────────────────────── -->
-<div class="modal-custom" *ngIf="showDetailModal && selectedEvent">
-  <div class="modal-card modal-sm-card">
-    <!-- Coloured header -->
-    <div class="mc-header detail-header" [class.expired-header]="isExpired(selectedEvent)">
-      <div>
-        <span class="status-badge" [class.badge-expired]="isExpired(selectedEvent)">
-          {{ isExpired(selectedEvent) ? 'Expired' : 'Upcoming' }}
-        </span>
-        <div class="mc-title mt-2">{{ selectedEvent.sessionName }}</div>
-        <div class="detail-sub" *ngIf="selectedEvent.description">{{ selectedEvent.description }}</div>
-      </div>
-      <button type="button" class="mc-close mc-close-white" (click)="showDetailModal = false">&#x2715;</button>
-    </div>
-    <!-- Body -->
-    <div class="mc-body">
-      <div class="detail-row">
-        <div class="detail-icon"><i class="bi bi-calendar3"></i></div>
-        <div>
-          <div class="detail-label">Date</div>
-          <div class="detail-value">{{ selectedEvent.startDate | date:'EEE, d MMMM yyyy' }}</div>
-        </div>
-      </div>
-      <div class="detail-row">
-        <div class="detail-icon"><i class="bi bi-clock"></i></div>
-        <div>
-          <div class="detail-label">Time</div>
-          <div class="detail-value">
-            {{ selectedEvent.startDate | date:'HH:mm' }} – {{ selectedEvent.finishDate | date:'HH:mm' }}
-          </div>
-        </div>
-      </div>
-      <div class="detail-row" *ngIf="selectedEventGroups.length > 0">
-        <div class="detail-icon"><i class="bi bi-people"></i></div>
-        <div>
-          <div class="detail-label">Groups</div>
-          <div class="groups-pills">
-            <span class="group-pill" *ngFor="let g of selectedEventGroups">{{ g.groupName }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="detail-row" *ngIf="selectedEvent.meetLink">
-        <div class="detail-icon meet-detail-icon"><i class="bi bi-camera-video-fill"></i></div>
-        <div>
-          <div class="detail-label">Google Meet</div>
-          <a [href]="selectedEvent.meetLink" target="_blank" rel="noopener" class="meet-link-pill">
-            <i class="bi bi-box-arrow-up-right"></i> Join Meeting
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- Footer -->
-    <div class="mc-footer">
-      <button type="button" class="btn-cancel" (click)="showDetailModal = false">Close</button>
-      <a *ngIf="!isExpired(selectedEvent) && selectedEvent.meetLink"
-        [href]="selectedEvent.meetLink" target="_blank" rel="noopener"
-        class="btn-save btn-gmeet-join">
-        <i class="bi bi-camera-video-fill"></i> Join Google Meet
-      </a>
-      <button type="button" *ngIf="!isExpired(selectedEvent) && !selectedEvent.meetLink"
-        class="btn-save"
-        [routerLink]="['/coach/calendar/meeting/', selectedEvent.id]"
-        (click)="showDetailModal = false">
-        <i class="bi bi-camera-video"></i> Join
-      </button>
-      <button type="button" class="btn-danger" title="Delete session" (click)="deleteSession()">
-        <i class="bi bi-trash" aria-hidden="true"></i>
-      </button>
-    </div>
-  </div>
-</div>
