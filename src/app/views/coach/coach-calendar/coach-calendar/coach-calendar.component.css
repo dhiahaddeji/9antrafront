@@ -370,6 +370,7 @@ textarea.field-input { resize: vertical; min-height: 60px; }
 }
 .platform-hint { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
 .meet-link-section { margin-top: 8px; }
+.meet-auto-badge { background:#e8f5e9; color:#2e7d32; border-radius:8px; padding:10px 14px; font-size:0.85rem; font-weight:500; }
 
 /* ── Google Meet field ───────────────────────────────────────────────── */
 .meet-icon { color: #00897b; margin-right: 4px; }

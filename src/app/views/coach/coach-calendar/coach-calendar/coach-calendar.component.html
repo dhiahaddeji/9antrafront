@@ -101,14 +101,10 @@
             Students will join an embedded Jitsi room — no account needed.
           </div>
           <div *ngIf="selectedPlatform === 'googlemeet'" class="meet-link-section">
-            <div class="meet-link-row">
-              <input type="url" class="field-input meet-link-input" formControlName="meetLink"
-                placeholder="https://meet.google.com/xxx-xxxx-xxx">
-              <a href="https://meet.new" target="_blank" rel="noopener" class="btn-gmeet-new" title="Create a new Google Meet">
-                <i class="bi bi-plus-lg"></i> New Meet
-              </a>
+            <div class="meet-auto-badge">
+              <i class="bi bi-check-circle-fill me-1"></i>
+              A Google Meet link will be automatically generated when the session is created.
             </div>
-            <span class="field-hint">Create a meeting on meet.google.com, paste the link above. Students will be taken directly to Google Meet.</span>
           </div>
         </div>
 
