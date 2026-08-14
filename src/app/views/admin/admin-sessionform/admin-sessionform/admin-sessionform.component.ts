@@ -27,6 +27,7 @@ export class AdminSessionformComponent implements OnInit {
   sessionDuration = 2;
   sessionName = '';
   sessionDescription = '';
+  sessionMeetLink = '';
   selectedGroups: Groups[] = [];
   formations: any[] = [];
   selectedTraining!: number;
@@ -219,6 +220,7 @@ export class AdminSessionformComponent implements OnInit {
       groups: this.selectedGroups,
       userPresence: {},
       formation,
+      meetLink: this.sessionMeetLink?.trim() || undefined,
     };
 
     const groupIds = this.selectedGroups.map(g => Number(g.id));
@@ -276,6 +278,7 @@ export class AdminSessionformComponent implements OnInit {
   private resetForm() {
     this.sessionName = '';
     this.sessionDescription = '';
+    this.sessionMeetLink = '';
     this.sessionTime = '';
     this.sessionDuration = 2;
     this.selectedGroups = [];

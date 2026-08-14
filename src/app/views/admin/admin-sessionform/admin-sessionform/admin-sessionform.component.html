@@ -124,6 +124,17 @@
           </div>
         </div>
 
+        <div class="ses-field">
+          <label>Meet Link</label>
+          <div class="d-flex gap-2">
+            <input type="url" class="form-control" [(ngModel)]="sessionMeetLink" placeholder="https://meet.google.com/xxx-xxxx-xxx">
+            <a href="https://meet.new" target="_blank" rel="noopener" class="btn-ses-cancel text-nowrap" title="Create a new Google Meet">
+              <i class="bi bi-plus-lg"></i> New Meet
+            </a>
+          </div>
+          <small class="text-muted">Optional — create a link at meet.new and paste it here. It'll be attached to the calendar invite.</small>
+        </div>
+
         <div class="ses-actions">
           <button class="btn-ses-cancel" (click)="closeAll()">Cancel</button>
           <button class="btn-ses-next" (click)="goToStep2()">
