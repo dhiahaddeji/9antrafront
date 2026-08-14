@@ -98,6 +98,8 @@ main {
 .session-card-body { padding: 10px 12px; }
 .session-meta { font-size: 0.83rem; color: #555; margin-bottom: 4px; }
 .session-meta i { color: #1a3353; }
+.meet-link-btn { display:inline-flex; align-items:center; background:#af3065; color:#fff; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:600; text-decoration:none; margin-top:4px; }
+.meet-link-btn:hover { background:#8f2050; color:#fff; }
 
 /* ── Calendar ── */
 .calendar {
