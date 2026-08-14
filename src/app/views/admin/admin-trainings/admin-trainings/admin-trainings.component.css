@@ -77,7 +77,7 @@
     font-family: "Open Sans", sans-serif;
     background: #f5f7f9;
     color: #444444;
-    min-height: 100vh;
+    height: 100vh;
   }
 
     /* Breadcrumbs */
@@ -229,80 +229,90 @@
     }
 
     .filter{
-      background-color: #ffffff;
-      color: #444444;
-      border-radius: 5px;
+      position: relative;
+      z-index: 1000;
     }
 
-/* ── Training card ── */
-.tr-card {
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid #e9ecef;
-  box-shadow: 0 2px 12px rgba(0,0,0,.06);
-  overflow: visible;
-  transition: box-shadow .2s, transform .2s;
-}
-.tr-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .filter .icon {
+      cursor: pointer !important;
+      padding: 0.5rem 0.75rem;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto !important;
+      border: none;
+      background-color: transparent;
+      color: #444444;
+      min-width: 32px;
+      min-height: 32px;
+    }
 
-.tr-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px 10px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.tr-card-title { font-weight: 700; font-size: 1rem; color: #1a3353; }
+    .filter .icon:focus {
+      outline: none;
+      box-shadow: none;
+      background-color: rgba(175, 48, 101, 0.1);
+      border-radius: 4px;
+    }
 
-.tr-card-body { padding: 14px 20px 18px; display: flex; flex-direction: column; gap: 10px; }
-.tr-card-date  { font-size: .84rem; color: #6c757d; }
-.tr-card-category { font-size: .88rem; }
+    .filter .icon:hover {
+      color: #AF3065;
+      background-color: rgba(175, 48, 101, 0.1);
+      border-radius: 4px;
+    }
 
-.tr-empty-icon { font-size: 48px; }
+    .filter .dropdown-menu {
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 0.5rem;
+      padding: 0.5rem 0;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      background-color: #ffffff;
+      list-style: none;
+    }
 
-/* ── 3-dot menu ── */
-.tr-menu-btn {
-  background: transparent;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #6c757d;
-  font-size: 18px;
-  line-height: 1;
-  transition: background .15s;
-}
-.tr-menu-btn:hover { background: #f0f0f0; color: #1a3353; }
+    .filter .dropdown-item {
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0.75rem 1rem;
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background-color: transparent;
+      color: inherit;
+      font-size: 0.95rem;
+    }
 
-.tr-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: 9999;
-  background: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  min-width: 140px;
-  padding: 6px 0;
-  list-style: none;
-  margin: 0;
-}
-.tr-dropdown.show { display: block; }
-.tr-dropdown-item {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 9px 16px;
-  background: transparent;
-  border: none;
-  font-size: .88rem;
-  font-weight: 500;
-  color: #212529;
-  cursor: pointer;
-  transition: background .15s;
-}
-.tr-dropdown-item:hover { background: #f8f9fa; }
-.tr-dropdown-item.text-danger { color: #dc3545 !important; }
-.tr-dropdown-item.text-danger:hover { background: #fff5f5; }
+    .filter .dropdown-item:hover {
+      background-color: #f0f0f0;
+      color: #AF3065;
+    }
+
+    .filter .dropdown-item:focus {
+      outline: none;
+      background-color: #f0f0f0;
+    }
+
+    .filter .dropdown-item.text-danger {
+      color: #dc3545;
+    }
+
+    .filter .dropdown-item.text-danger:hover {
+      background-color: #f8d7da;
+      color: #c82333;
+    }
+
+    .card {
+      overflow: visible !important;
+    }
+
+    .nav-profile {
+      position: relative;
+    }
