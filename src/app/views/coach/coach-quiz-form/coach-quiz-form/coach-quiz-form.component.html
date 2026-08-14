@@ -15,6 +15,13 @@
     <div class="col-12 col-md-6 d-flex align-items-center justify-content-end mt-2 mt-md-0">
       <button
         type="button"
+        class="btn register p-2 border pe-3 me-2"
+        (click)="openAIGenerationModal()"
+      >
+        <i class="bi bi-sparkles me-2"></i><span class="d-none d-sm-inline">Generate with AI</span>
+      </button>
+      <button
+        type="button"
         class="btn register p-2 border pe-3"
         (click)="showAddQuestionModal = true"
       >
@@ -194,6 +201,109 @@
           (click)="addQuestionsAnswers()"
         >
           Add Question
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Generation Modal -->
+  <div *ngIf="showAIGenerationModal" class="custom-modal-overlay" (click)="closeAIGenerationModal()">
+    <div class="custom-modal" (click)="$event.stopPropagation()">
+      <div class="custom-modal-header">
+        <h5><i class="bi bi-sparkles me-2"></i>Generate Questions with AI</h5>
+        <button type="button" class="btn-close" (click)="closeAIGenerationModal()" [disabled]="isGenerating"></button>
+      </div>
+      <div class="custom-modal-body">
+        
+        <!-- Topic Input -->
+        <div class="form-group mb-3">
+          <label for="aiTopic">Topic *</label>
+          <input
+            type="text"
+            [(ngModel)]="aiTopic"
+            class="form-control"
+            id="aiTopic"
+            placeholder="e.g., Photosynthesis, JavaScript Basics, World History"
+          />
+          <small class="text-muted">What subject should the questions be about?</small>
+        </div>
+
+        <!-- Course Content (Optional) -->
+        <div class="form-group mb-3">
+          <label for="aiCourseContent">Course Content (Optional)</label>
+          <textarea
+            [(ngModel)]="aiCourseContent"
+            class="form-control"
+            id="aiCourseContent"
+            rows="3"
+            placeholder="Paste relevant course material or lecture notes (helps AI generate more accurate questions)"
+          ></textarea>
+          <small class="text-muted">Providing course material helps generate more targeted questions</small>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group mb-3">
+          <label for="aiNumberOfQuestions">Number of Questions</label>
+          <input
+            type="number"
+            [(ngModel)]="aiNumberOfQuestions"
+            min="1"
+            max="20"
+            class="form-control"
+            id="aiNumberOfQuestions"
+          />
+          <small class="text-muted">Between 1 and 20 questions</small>
+        </div>
+
+        <!-- Difficulty Level -->
+        <div class="form-group mb-3">
+          <label for="aiDifficulty">Difficulty Level</label>
+          <select [(ngModel)]="aiDifficulty" class="form-control" id="aiDifficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+            <option value="mixed">Mixed (Random)</option>
+          </select>
+        </div>
+
+        <!-- Question Type -->
+        <div class="form-group mb-3">
+          <label for="aiQuestionType">Question Type</label>
+          <select [(ngModel)]="aiQuestionType" class="form-control" id="aiQuestionType">
+            <option value="multiple">Multiple Choice (4 options)</option>
+            <option value="trueFalse">True/False</option>
+            <option value="mixed">Mixed Types</option>
+          </select>
+        </div>
+
+        <!-- Info Alert -->
+        <div class="alert alert-info" role="alert">
+          <i class="bi bi-info-circle me-2"></i>
+          <strong>How it works:</strong> AI will generate quiz questions based on your topic and save them directly to this quiz.
+        </div>
+
+      </div>
+      <div class="custom-modal-footer">
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="closeAIGenerationModal()"
+          [disabled]="isGenerating"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn register"
+          (click)="generateQuestionsByAI()"
+          [disabled]="isGenerating"
+        >
+          <span *ngIf="!isGenerating">
+            <i class="bi bi-sparkles me-2"></i> Generate Questions
+          </span>
+          <span *ngIf="isGenerating">
+            <i class="spinner-border spinner-border-sm me-2"></i> Generating...
+          </span>
         </button>
       </div>
     </div>
