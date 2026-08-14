@@ -1,6 +1,6 @@
 export const environement = {
-  BASE_URL: 'https://9antraback-production.up.railway.app/api',
-  websocketUrl: 'https://9antraback-production.up.railway.app/ws',
+  BASE_URL: 'https://9antraback-production-84f1.up.railway.app/api',
+  websocketUrl: 'https://9antraback-production-84f1.up.railway.app/ws',
   production: false,
   firebase: {
     apiKey: "YOUR_FIREBASE_API_KEY",
