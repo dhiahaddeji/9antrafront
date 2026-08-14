@@ -115,4 +115,8 @@ export class QuizService {
   setQuizItemsIsCompleted(isCompleted:any){
     localStorage.setItem('isCompleted', JSON.stringify(isCompleted));
   }
+
+  generateQuestionsByAI(request: any): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/answer/generateByAI`, request);
+  }
 }
