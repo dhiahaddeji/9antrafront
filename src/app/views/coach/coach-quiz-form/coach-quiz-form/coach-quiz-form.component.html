@@ -1,312 +1,264 @@
 <main>
   <div style="margin-bottom: 50px;" class="d-block d-lg-none"></div>
-  <div class="row justify-content-between px-3 px-md-4" style="padding: 20px 0;">
-    <div class="col-12 col-md-6">
-      <div class="pagetitle">
-        <h1>Quiz</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Quiz Form</li>
-          </ol>
-        </nav>
-      </div>
+
+  <!-- Page Header -->
+  <div class="qf-header">
+    <div class="qf-header-left">
+      <h1 class="qf-title">Quiz Builder</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a routerLink="/coach">Home</a></li>
+          <li class="breadcrumb-item active">Quiz Questions</li>
+        </ol>
+      </nav>
     </div>
-    <div class="col-12 col-md-6 d-flex align-items-center justify-content-end mt-2 mt-md-0">
-      <button
-        type="button"
-        class="btn register p-2 border pe-3 me-2"
-        (click)="openAIGenerationModal()"
-      >
-        <i class="bi bi-sparkles me-2"></i><span class="d-none d-sm-inline">Generate with AI</span>
+    <div class="qf-header-actions">
+      <button type="button" class="btn-ai" (click)="openAIGenerationModal()">
+        <i class="bi bi-stars"></i>
+        <span>Generate with AI</span>
       </button>
-      <button
-        type="button"
-        class="btn register p-2 border pe-3"
-        (click)="showAddQuestionModal = true"
-      >
-        <i class="bi bi-plus fa-2xl me-3"></i><span class="d-none d-sm-inline">Add Question</span>
+      <button type="button" class="btn-add" (click)="showAddQuestionModal = true">
+        <i class="bi bi-plus-lg"></i>
+        <span>Add Question</span>
       </button>
     </div>
   </div>
-  <div class="container-fluid px-3 px-md-4">
-    <div class="table-responsive">
-      <table class="table align-middle mb-0 bg-white">
-        <thead class="bg-light">
-          <tr>
-            <th class="col-question">Question</th>
-            <th class="col-answer d-none d-md-table-cell">Correct Answer</th>
-            <th class="col-answer d-none d-lg-table-cell">Wrong Answer 1</th>
-            <th class="col-answer d-none d-lg-table-cell">Wrong Answer 2</th>
-            <th class="col-action">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let a of answers">
-            <td class="col-question">
-              <p class="fw-normal mb-1 question-text">{{a.question}}</p>
-            </td>
-            <td class="col-answer d-none d-md-table-cell">
-              <p class="fw-normal mb-1">{{a.correct_answer}}</p>
-            </td>
-            <td class="col-answer d-none d-lg-table-cell">
-              <p class="fw-normal mb-1">{{a.wrong_answer1}}</p>
-            </td>
-            <td class="col-answer d-none d-lg-table-cell">
-              <p class="fw-normal mb-1">{{a.wrong_answer2}}</p>
-            </td>
-            <td class="col-action">
-              <button class="btn btn-danger btn-circle" (click)="deleteById(a.id)">
-                <span class="bi bi-trash-fill"></span>
-              </button>
-            </td>
-          </tr>
-          <tr *ngIf="answers?.length==0">
-            <td [attr.colspan]="5" class="text-center py-3">No questions found</td>
-          </tr>
-        </tbody>
-      </table>
+
+  <!-- Stats Bar -->
+  <div class="qf-stats-bar">
+    <div class="qf-stat">
+      <span class="qf-stat-number">{{ answers?.length || 0 }}</span>
+      <span class="qf-stat-label">Total Questions</span>
+    </div>
+    <div class="qf-stat">
+      <span class="qf-stat-number">{{ getCount('multiple') }}</span>
+      <span class="qf-stat-label">Multiple Choice</span>
+    </div>
+    <div class="qf-stat">
+      <span class="qf-stat-number">{{ getCount('trueFalse') }}</span>
+      <span class="qf-stat-label">True / False</span>
     </div>
   </div>
 
-  <!-- Custom Add Question Modal -->
-  <div *ngIf="showAddQuestionModal" class="custom-modal-overlay" (click)="closeAddQuestionModal()">
-    <div class="custom-modal" (click)="$event.stopPropagation()">
-      <div class="custom-modal-header">
-        <h5>Add Question</h5>
-        <button type="button" class="btn-close" (click)="closeAddQuestionModal()"></button>
+  <!-- Questions Grid -->
+  <div class="qf-grid">
+
+    <!-- Empty State -->
+    <div *ngIf="!answers?.length" class="qf-empty">
+      <i class="bi bi-collection qf-empty-icon"></i>
+      <h3>No questions yet</h3>
+      <p>Add questions manually or let AI generate them for you.</p>
+      <div class="qf-empty-actions">
+        <button type="button" class="btn-ai" (click)="openAIGenerationModal()">
+          <i class="bi bi-stars"></i> Generate with AI
+        </button>
+        <button type="button" class="btn-add" (click)="showAddQuestionModal = true">
+          <i class="bi bi-plus-lg"></i> Add Question
+        </button>
       </div>
-      <div class="custom-modal-body">
-        <form [formGroup]="quizForm" (ngSubmit)="addQuestionsAnswers()">
-          
-          <!-- Question Type Selector -->
-          <div class="form-group mb-4">
-            <label>Question Type</label>
-            <div class="btn-group d-flex gap-2" style="width: 100%;">
-              <button 
-                type="button" 
-                class="btn flex-fill"
-                [class.active]="questionType === 'multiple'"
-                [style.background]="questionType === 'multiple' ? '#af3065' : '#f5f5f5'"
-                [style.color]="questionType === 'multiple' ? 'white' : '#333'"
-                (click)="changeQuestionType('multiple')"
-              >
-                <i class="bi bi-list-check me-2"></i> Multiple Choice (4)
-              </button>
-              <button 
-                type="button" 
-                class="btn flex-fill"
-                [class.active]="questionType === 'trueFalse'"
-                [style.background]="questionType === 'trueFalse' ? '#af3065' : '#f5f5f5'"
-                [style.color]="questionType === 'trueFalse' ? 'white' : '#333'"
-                (click)="changeQuestionType('trueFalse')"
-              >
-                <i class="bi bi-question-circle me-2"></i> True/False
-              </button>
-            </div>
+    </div>
+
+    <!-- Question Cards -->
+    <div *ngFor="let a of answers; let i = index" class="q-card">
+      <div class="q-card-top">
+        <span class="q-num">#{{ i + 1 }}</span>
+        <span class="q-badge" [class.badge-mcq]="a.type !== 'trueFalse'" [class.badge-tf]="a.type === 'trueFalse'">
+          {{ a.type === 'trueFalse' ? 'True / False' : 'Multiple Choice' }}
+        </span>
+        <button type="button" class="q-delete" (click)="deleteById(a.id)" title="Delete question" aria-label="Delete question">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+
+      <p class="q-question">{{ a.question }}</p>
+
+      <div class="q-answers">
+        <div class="q-answer correct">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>{{ a.correct_answer }}</span>
+        </div>
+        <ng-container *ngIf="a.type !== 'trueFalse'">
+          <div class="q-answer wrong">
+            <i class="bi bi-x-circle-fill"></i>
+            <span>{{ a.wrong_answer1 }}</span>
           </div>
-
-          <!-- Question -->
-          <div class="form-group mb-3">
-            <label for="question">Question</label>
-            <input
-              type="text"
-              [formControl]="QuestionForm"
-              class="form-control"
-              id="question"
-              placeholder="Enter question..."
-            />
-            <mat-error *ngIf="QuestionForm.invalid">{{getQuestionFormError()}}</mat-error>
+          <div class="q-answer wrong">
+            <i class="bi bi-x-circle-fill"></i>
+            <span>{{ a.wrong_answer2 }}</span>
           </div>
-          
-          <!-- Multiple Choice Fields -->
-          <ng-container *ngIf="questionType === 'multiple'">
-            <!-- Correct Answer -->
-            <div class="form-group mb-3">
-              <label for="correctAnswer">Correct Answer</label>
-              <input
-                type="text"
-                [formControl]="CorrectAnswerForm"
-                class="form-control"
-                id="correctAnswer"
-                placeholder="Enter correct answer..."
-              />
-              <mat-error *ngIf="CorrectAnswerForm.invalid">{{getCorrectAnswerFormError()}}</mat-error>
-            </div>
-            
-            <!-- Wrong Answer 1 -->
-            <div class="form-group mb-3">
-              <label for="wrongAnswer1">Wrong Answer 1</label>
-              <input
-                type="text"
-                [formControl]="WrongAnswerForm1"
-                class="form-control"
-                id="wrongAnswer1"
-                placeholder="Enter wrong answer..."
-              />
-              <mat-error *ngIf="WrongAnswerForm1.invalid">{{getWrongAnswerForm1Error()}}</mat-error>
-            </div>
-            
-            <!-- Wrong Answer 2 -->
-            <div class="form-group mb-3">
-              <label for="wrongAnswer2">Wrong Answer 2</label>
-              <input
-                type="text"
-                [formControl]="WrongAnswerForm2"
-                class="form-control"
-                id="wrongAnswer2"
-                placeholder="Enter wrong answer..."
-              />
-              <mat-error *ngIf="WrongAnswerForm2.invalid">{{getWrongAnswerForm2Error()}}</mat-error>
-            </div>
-          </ng-container>
-
-          <!-- True/False Fields -->
-          <ng-container *ngIf="questionType === 'trueFalse'">
-            <div class="form-group mb-3">
-              <label for="trueFalseAnswer">Correct Answer</label>
-              <select
-                [formControl]="CorrectAnswerForm"
-                class="form-control"
-                id="trueFalseAnswer"
-              >
-                <option value="" disabled selected>Select answer...</option>
-                <option value="True">True</option>
-                <option value="False">False</option>
-              </select>
-              <mat-error *ngIf="CorrectAnswerForm.invalid">{{getCorrectAnswerFormError()}}</mat-error>
-              <small class="text-muted d-block mt-2">
-                <i class="bi bi-info-circle me-1"></i> Wrong answers will be automatically set
-              </small>
-            </div>
-            <!-- Hide the other wrong answer fields for True/False -->
-            <div class="d-none">
-              <input [formControl]="WrongAnswerForm1" />
-              <input [formControl]="WrongAnswerForm2" />
-            </div>
-          </ng-container>
-        </form>
-      </div>
-      <div class="custom-modal-footer">
-        <button
-          type="button"
-          class="btn btn-light"
-          (click)="closeAddQuestionModal()"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          class="btn register"
-          (click)="addQuestionsAnswers()"
-        >
-          Add Question
-        </button>
+        </ng-container>
+        <ng-container *ngIf="a.type === 'trueFalse'">
+          <div class="q-answer wrong">
+            <i class="bi bi-x-circle-fill"></i>
+            <span>{{ a.correct_answer === 'True' ? 'False' : 'True' }}</span>
+          </div>
+        </ng-container>
       </div>
     </div>
+
   </div>
-
-  <!-- AI Generation Modal -->
-  <div *ngIf="showAIGenerationModal" class="custom-modal-overlay" (click)="closeAIGenerationModal()">
-    <div class="custom-modal" (click)="$event.stopPropagation()">
-      <div class="custom-modal-header">
-        <h5><i class="bi bi-sparkles me-2"></i>Generate Questions with AI</h5>
-        <button type="button" class="btn-close" (click)="closeAIGenerationModal()" [disabled]="isGenerating"></button>
-      </div>
-      <div class="custom-modal-body">
-        
-        <!-- Topic Input -->
-        <div class="form-group mb-3">
-          <label for="aiTopic">Topic *</label>
-          <input
-            type="text"
-            [(ngModel)]="aiTopic"
-            class="form-control"
-            id="aiTopic"
-            placeholder="e.g., Photosynthesis, JavaScript Basics, World History"
-          />
-          <small class="text-muted">What subject should the questions be about?</small>
-        </div>
-
-        <!-- Course Content (Optional) -->
-        <div class="form-group mb-3">
-          <label for="aiCourseContent">Course Content (Optional)</label>
-          <textarea
-            [(ngModel)]="aiCourseContent"
-            class="form-control"
-            id="aiCourseContent"
-            rows="3"
-            placeholder="Paste relevant course material or lecture notes (helps AI generate more accurate questions)"
-          ></textarea>
-          <small class="text-muted">Providing course material helps generate more targeted questions</small>
-        </div>
-
-        <!-- Number of Questions -->
-        <div class="form-group mb-3">
-          <label for="aiNumberOfQuestions">Number of Questions</label>
-          <input
-            type="number"
-            [(ngModel)]="aiNumberOfQuestions"
-            min="1"
-            max="20"
-            class="form-control"
-            id="aiNumberOfQuestions"
-          />
-          <small class="text-muted">Between 1 and 20 questions</small>
-        </div>
-
-        <!-- Difficulty Level -->
-        <div class="form-group mb-3">
-          <label for="aiDifficulty">Difficulty Level</label>
-          <select [(ngModel)]="aiDifficulty" class="form-control" id="aiDifficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-            <option value="mixed">Mixed (Random)</option>
-          </select>
-        </div>
-
-        <!-- Question Type -->
-        <div class="form-group mb-3">
-          <label for="aiQuestionType">Question Type</label>
-          <select [(ngModel)]="aiQuestionType" class="form-control" id="aiQuestionType">
-            <option value="multiple">Multiple Choice (4 options)</option>
-            <option value="trueFalse">True/False</option>
-            <option value="mixed">Mixed Types</option>
-          </select>
-        </div>
-
-        <!-- Info Alert -->
-        <div class="alert alert-info" role="alert">
-          <i class="bi bi-info-circle me-2"></i>
-          <strong>How it works:</strong> AI will generate quiz questions based on your topic and save them directly to this quiz.
-        </div>
-
-      </div>
-      <div class="custom-modal-footer">
-        <button
-          type="button"
-          class="btn btn-light"
-          (click)="closeAIGenerationModal()"
-          [disabled]="isGenerating"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          class="btn register"
-          (click)="generateQuestionsByAI()"
-          [disabled]="isGenerating"
-        >
-          <span *ngIf="!isGenerating">
-            <i class="bi bi-sparkles me-2"></i> Generate Questions
-          </span>
-          <span *ngIf="isGenerating">
-            <i class="spinner-border spinner-border-sm me-2"></i> Generating...
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
-
 </main>
+
+<!-- ── Add Question Modal ─────────────────────────────────────── -->
+<div *ngIf="showAddQuestionModal" class="modal-overlay" (click)="closeAddQuestionModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <div class="modal-head">
+      <h5><i class="bi bi-pencil-square me-2"></i>Add Question</h5>
+      <button type="button" class="modal-close" (click)="closeAddQuestionModal()" title="Close dialog" aria-label="Close dialog">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="modal-body-inner">
+      <!-- Type Selector -->
+      <div class="type-selector">
+        <button
+          type="button"
+          class="type-btn"
+          [class.active]="questionType === 'multiple'"
+          (click)="changeQuestionType('multiple')"
+        >
+          <i class="bi bi-list-check"></i> Multiple Choice
+        </button>
+        <button
+          type="button"
+          class="type-btn"
+          [class.active]="questionType === 'trueFalse'"
+          (click)="changeQuestionType('trueFalse')"
+        >
+          <i class="bi bi-toggle-on"></i> True / False
+        </button>
+      </div>
+
+      <form [formGroup]="quizForm" (ngSubmit)="addQuestionsAnswers()">
+        <div class="field-group">
+          <label for="aq-question">Question</label>
+          <input id="aq-question" type="text" [formControl]="QuestionForm" class="field-input" placeholder="Enter your question..." />
+          <span class="field-error" *ngIf="QuestionForm.touched && QuestionForm.invalid">{{ getQuestionFormError() }}</span>
+        </div>
+
+        <!-- Multiple Choice -->
+        <ng-container *ngIf="questionType === 'multiple'">
+          <div class="field-group">
+            <label class="label-correct" for="aq-correct"><i class="bi bi-check-circle-fill"></i> Correct Answer</label>
+            <input id="aq-correct" type="text" [formControl]="CorrectAnswerForm" class="field-input field-correct" placeholder="Enter correct answer..." />
+            <span class="field-error" *ngIf="CorrectAnswerForm.touched && CorrectAnswerForm.invalid">{{ getCorrectAnswerFormError() }}</span>
+          </div>
+          <div class="field-group">
+            <label class="label-wrong" for="aq-wrong1"><i class="bi bi-x-circle-fill"></i> Wrong Answer 1</label>
+            <input id="aq-wrong1" type="text" [formControl]="WrongAnswerForm1" class="field-input field-wrong" placeholder="Enter wrong answer..." />
+            <span class="field-error" *ngIf="WrongAnswerForm1.touched && WrongAnswerForm1.invalid">{{ getWrongAnswerForm1Error() }}</span>
+          </div>
+          <div class="field-group">
+            <label class="label-wrong" for="aq-wrong2"><i class="bi bi-x-circle-fill"></i> Wrong Answer 2</label>
+            <input id="aq-wrong2" type="text" [formControl]="WrongAnswerForm2" class="field-input field-wrong" placeholder="Enter wrong answer..." />
+            <span class="field-error" *ngIf="WrongAnswerForm2.touched && WrongAnswerForm2.invalid">{{ getWrongAnswerForm2Error() }}</span>
+          </div>
+        </ng-container>
+
+        <!-- True / False -->
+        <ng-container *ngIf="questionType === 'trueFalse'">
+          <div class="field-group">
+            <label class="label-correct">
+              <i class="bi bi-check-circle-fill"></i> Correct Answer
+            </label>
+            <div class="tf-options">
+              <button
+                type="button"
+                class="tf-btn"
+                [class.selected-true]="CorrectAnswerForm.value === 'True'"
+                (click)="CorrectAnswerForm.setValue('True')"
+              >True</button>
+              <button
+                type="button"
+                class="tf-btn"
+                [class.selected-false]="CorrectAnswerForm.value === 'False'"
+                (click)="CorrectAnswerForm.setValue('False')"
+              >False</button>
+            </div>
+            <span class="field-error" *ngIf="CorrectAnswerForm.touched && CorrectAnswerForm.invalid">{{ getCorrectAnswerFormError() }}</span>
+          </div>
+          <div class="d-none" aria-hidden="true">
+            <input [formControl]="WrongAnswerForm1" aria-label="Hidden wrong answer 1" title="Hidden wrong answer 1" placeholder="hidden" />
+            <input [formControl]="WrongAnswerForm2" aria-label="Hidden wrong answer 2" title="Hidden wrong answer 2" placeholder="hidden" />
+          </div>
+        </ng-container>
+      </form>
+    </div>
+
+    <div class="modal-foot">
+      <button type="button" class="btn-cancel" (click)="closeAddQuestionModal()">Cancel</button>
+      <button type="button" class="btn-confirm" (click)="addQuestionsAnswers()">
+        <i class="bi bi-plus-lg me-1"></i> Add Question
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── AI Generation Modal ────────────────────────────────────── -->
+<div *ngIf="showAIGenerationModal" class="modal-overlay" (click)="closeAIGenerationModal()">
+  <div class="modal-box modal-box-lg" (click)="$event.stopPropagation()">
+    <div class="modal-head modal-head-ai">
+      <h5><i class="bi bi-stars me-2"></i>AI Question Generator</h5>
+      <button type="button" class="modal-close" (click)="closeAIGenerationModal()" [disabled]="isGenerating" title="Close dialog" aria-label="Close dialog">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="modal-body-inner">
+      <div class="ai-intro">
+        <i class="bi bi-cpu"></i>
+        <p>Describe your topic and let Gemini AI create professional quiz questions instantly.</p>
+      </div>
+
+      <div class="ai-fields">
+        <div class="field-group">
+          <label for="ai-topic">Topic <span class="required">*</span></label>
+          <input id="ai-topic" type="text" [(ngModel)]="aiTopic" class="field-input" placeholder="e.g. JavaScript Promises, Photosynthesis, French Revolution..." />
+        </div>
+
+        <div class="field-group">
+          <label for="ai-content">Course Content <span class="optional">(optional)</span></label>
+          <textarea id="ai-content" [(ngModel)]="aiCourseContent" class="field-input" rows="3" placeholder="Paste lecture notes or key concepts — helps AI generate more accurate questions"></textarea>
+        </div>
+
+        <div class="ai-options-row">
+          <div class="field-group">
+            <label for="ai-count">Number of Questions</label>
+            <input id="ai-count" type="number" [(ngModel)]="aiNumberOfQuestions" min="1" max="20" class="field-input" />
+          </div>
+          <div class="field-group">
+            <label for="ai-diff">Difficulty</label>
+            <select id="ai-diff" [(ngModel)]="aiDifficulty" class="field-input" title="Select difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="ai-qtype">Question Type</label>
+            <select id="ai-qtype" [(ngModel)]="aiQuestionType" class="field-input" title="Select question type">
+              <option value="multiple">Multiple Choice</option>
+              <option value="trueFalse">True / False</option>
+              <option value="mixed">Mixed</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isGenerating" class="ai-loading">
+        <div class="ai-spinner"></div>
+        <p>Generating questions with Gemini AI…</p>
+      </div>
+    </div>
+
+    <div class="modal-foot">
+      <button type="button" class="btn-cancel" (click)="closeAIGenerationModal()" [disabled]="isGenerating">Cancel</button>
+      <button type="button" class="btn-confirm btn-ai-confirm" (click)="generateQuestionsByAI()" [disabled]="isGenerating">
+        <i class="bi bi-stars me-1"></i>
+        {{ isGenerating ? 'Generating…' : 'Generate Questions' }}
+      </button>
+    </div>
+  </div>
+</div>
