@@ -16,7 +16,8 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
 
   quizId: any;
   questionList: any[] = [];
-  counter = 10;
+  counter = 30;
+  readonly MAX_SECONDS = 30;
   options: any[] = [];
   list: any[] = [];
   isAnswered: boolean = false;
@@ -140,27 +141,21 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
   }
 
   startCounter() {
-    this.stopCounter();
-    console.warn('Starting timer - counter set to', this.counter);
     this.interval$ = interval(1000).subscribe(() => {
       if (this.counter > 0) {
         this.counter--;
-        console.warn('Timer tick:', this.counter);
-        this.cdr.markForCheck(); // Force change detection
-        
+        this.cdr.detectChanges();
+
         if (this.counter === 0) {
-          console.warn('Timer reached 0, moving to next question');
           const q = this.getCurrentQuestion();
           this.isAnswered = true;
-          
-          // Deduct points for timeout
           this.quizService.setQuizItemsInCorrectAnswer(this.quizService.getQuizItemsInCorrectAnswer() + 1);
           const pts = this.quizService.getQuizItemsPoints();
           if (pts >= 10) this.quizService.setQuizItemsPoints(pts - 10);
 
           if (q + 1 === this.questionList.length) {
             this.quizService.setQuizItemsIsCompleted(true);
-            this.saveQuizResult(); // Save result when quiz is completed
+            this.saveQuizResult();
             this.stopCounter();
             this.updateProgress();
           } else {
@@ -171,24 +166,20 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.autoStopTimer = setTimeout(() => this.stopCounter(), 100000);
   }
 
   stopCounter() {
-    console.warn('Stopping timer');
     if (this.interval$ && !this.interval$.closed) this.interval$.unsubscribe();
-    if (this.autoStopTimer) { 
-      clearTimeout(this.autoStopTimer); 
-      this.autoStopTimer = null; 
+    if (this.autoStopTimer) {
+      clearTimeout(this.autoStopTimer);
+      this.autoStopTimer = null;
     }
-    this.counter = 0;
   }
 
   resetCounter() {
-    console.warn('Resetting counter');
     this.stopCounter();
-    this.counter = 10;
-    this.cdr.markForCheck(); // Force update before starting
+    this.counter = this.MAX_SECONDS;
+    this.cdr.detectChanges();
     this.startCounter();
   }
 
@@ -209,8 +200,8 @@ export class StudentQuizPlayComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.quizId = id ? parseInt(id) : 0; // Convert to number, default to 0
-    this.counter = 10; // Initialize counter to 10
+    this.quizId = id ? parseInt(id) : 0;
+    this.counter = this.MAX_SECONDS;
     
     // CRITICAL: Clear previous quiz session data BEFORE loading new quiz
     this.quizService.removeQuizItemsStorage();

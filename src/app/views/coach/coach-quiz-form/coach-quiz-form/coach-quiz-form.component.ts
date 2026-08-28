@@ -181,6 +181,12 @@ export class CoachQuizFormComponent implements OnInit{
       }
     });
   }
+  getCount(type: string): number {
+    if (!this.answers) return 0;
+    if (type === 'multiple') return this.answers.filter((a: any) => a.type !== 'trueFalse').length;
+    return this.answers.filter((a: any) => a.type === 'trueFalse').length;
+  }
+
   ngOnInit() {
     this.id=this.route.snapshot.paramMap.get('id');
     this.getQuestionsByQuizId(this.id);

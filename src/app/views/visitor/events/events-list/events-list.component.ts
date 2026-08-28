@@ -3,6 +3,7 @@ import { EventService } from 'src/app/MesServices/Event/event.service';
 import { Event } from '../../../../Models/Event'
 import { UserAuthService } from 'src/app/MesServices/user-auth.service';
 import { NavbarLoaderCommunicationService } from 'src/app/MesServices/NavbarLoaderComs/navbar-loader-communication.service';
+import { environement } from 'src/environement/environement.dev';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -59,7 +60,7 @@ export class EventsListComponent implements OnInit{
   }
 
   getImage(imageName: string) {
-    return "assets/Events/" + imageName
+    return `${environement.BASE_URL}/uploads/Events/${imageName}`
   }
 
 

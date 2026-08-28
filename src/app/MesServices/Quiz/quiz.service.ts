@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserAuthService } from '../user-auth.service';
+import { environement } from 'src/environement/environement.dev';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
-  private BASE_URL = ' https://9antraback-production-84f1.up.railway.app/api/quiz';
+  private BASE_URL = `${environement.BASE_URL}/quiz`;
   private quizResultsUpdated = new Subject<void>(); // Subject to notify quiz results update
 
   constructor(private http: HttpClient, private userAuthService: UserAuthService) { }

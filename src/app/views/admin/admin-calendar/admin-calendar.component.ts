@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
-const CALENDAR_ID = '383ff923cf38fcb8b1e547ff3954f22de77a5ac2222f475594ac3ce7dc1e7a09@group.calendar.google.com';
+const CALENDAR_ID = 'contact@9antra.tn';
 
 @Component({
   selector: 'app-admin-calendar',

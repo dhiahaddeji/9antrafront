@@ -23,8 +23,8 @@ export class EventService {
     return this.http.put(`${environement.BASE_URL}/e-learning/event`,form)
   }
 
-  updateEventNoImage(form: FormData) {
-    return this.http.put(`${environement.BASE_URL}/e-learning/event/updateWithOutImage`, form)
+  updateEventNoImage(event: any) {
+    return this.http.put(`${environement.BASE_URL}/e-learning/event/updateWithOutImage`, event)
   }
 
   deleteEvent(id: number) {
